@@ -2790,11 +2790,11 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#about" class="nav-link">About Us</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><a href="pricelist.html" class="btn-header" style="background-color: transparent; border: 1px solid var(--color-lime); color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Pricelist</a></li>
+                <li><a href="booking.html" class="btn-header" style="background-color: transparent; border: 1px solid var(--color-lime); color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Pricelist</a></li>
                 <li><a href="booking.html" class="btn-header">Book Now</a></li>
             </ul>
             <div class="mobile-nav-actions">
-                <a href="pricelist.html" class="btn-header-mob" style="border: 1px solid var(--color-lime); background: transparent; color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Pricelist</a>
+                <a href="booking.html" class="btn-header-mob" style="border: 1px solid var(--color-lime); background: transparent; color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Pricelist</a>
                 <a href="booking.html" class="btn-header-mob"><i class="fa-solid fa-calendar-check"></i> Book</a>
                 <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i class="fa-solid fa-bars"></i>
@@ -2817,7 +2817,7 @@
         <div class="drawer-links">
             <a href="#about" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> About Us</a>
             <a href="#contact" class="drawer-link"><i class="fa-solid fa-location-dot"></i> Lokasi & Contact</a>
-            <a href="pricelist.html" class="drawer-link" style="color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Official Pricelist</a>
+            <a href="booking.html" class="drawer-link" style="color: var(--color-lime);"><i class="fa-solid fa-tags"></i> Official Pricelist</a>
             <a href="booking.html" class="drawer-book-btn"><i class="fa-solid fa-calendar-check"></i> Book Online Now</a>
         </div>
         <div class="drawer-footer">
@@ -2838,7 +2838,7 @@
             </p>
             <div class="hero-buttons slide-reveal slide-up active" style="transition-delay: 240ms;">
                 <a href="booking.html" class="btn-primary-tactical"><i class="fa-solid fa-calendar-check"></i> Book Session</a>
-                <a href="pricelist.html" class="btn-secondary-tactical"><i class="fa-solid fa-tags"></i> Official Pricelist</a>
+                <a href="booking.html" class="btn-secondary-tactical"><i class="fa-solid fa-tags"></i> Official Pricelist</a>
             </div>
         </div>
     </section>
@@ -3019,7 +3019,7 @@
     <!-- Dedicated Pricelist Gateway (Cuma Tombol untuk Pindah ke Halaman Pricelist) -->
     <section class="pricelist-btn-section" style="padding: 70px 20px; background: radial-gradient(circle at 50% 50%, rgba(78, 91, 49, 0.2) 0%, rgba(18, 18, 18, 0.98) 80%), var(--color-dark-surface); text-align: center; border-top: 1px solid var(--color-olive);">
         <div class="slide-reveal slide-scale" style="max-width: 700px; margin: 0 auto;">
-            <a href="pricelist.html" class="btn-primary-tactical" style="font-size: 22px; padding: 18px 48px; display: inline-flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; border-radius: 6px; box-shadow: 0 6px 24px rgba(159, 230, 0, 0.35);">
+            <a href="booking.html" class="btn-primary-tactical" style="font-size: 22px; padding: 18px 48px; display: inline-flex; align-items: center; justify-content: center; gap: 14px; text-decoration: none; border-radius: 6px; box-shadow: 0 6px 24px rgba(159, 230, 0, 0.35);">
                 <i class="fa-solid fa-tags"></i> LIHAT OFFICIAL ARENA PRICELIST <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
@@ -3215,7 +3215,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const catParam = urlParams.get('cat');
             if (catParam) {
-                window.location.replace('pricelist.html?cat=' + encodeURIComponent(catParam));
+                window.location.replace('booking.html?cat=' + encodeURIComponent(catParam));
             }
         });
 

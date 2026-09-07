@@ -1720,6 +1720,36 @@
             }
             .pkg-price-val { font-size: 22px !important; }
 
+
+            /* Checklist stepper on mobile */
+            .checklist-stepper-wrap { padding: 8px 10px !important; top: 52px !important; }
+            .check-step-circle { width: 28px !important; height: 28px !important; font-size: 14px !important; }
+            .check-step-title { font-size: 13px !important; }
+            .check-step-num { font-size: 8px !important; }
+            .check-step-status { font-size: 9.5px !important; max-width: 70px !important; }
+            .check-flow-line { margin: 0 4px !important; }
+
+            /* Arena selection grid on mobile */
+            .arena-select-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 6px !important;
+            }
+            .arena-select-btn { min-height: 75px !important; padding: 8px 6px !important; }
+            .arena-btn-icon { font-size: 14px !important; }
+            .arena-check-indicator { width: 16px !important; height: 16px !important; font-size: 8px !important; }
+            .arena-btn-name { font-size: 13px !important; }
+            .arena-btn-tag { font-size: 9px !important; }
+
+            /* FOTO ARENA BESAR on mobile */
+            .arena-big-showcase {
+                height: 210px !important;
+                margin-bottom: 16px !important;
+            }
+            .arena-big-overlay { padding: 12px 14px !important; }
+            .arena-real-badge, .arena-spec-badge { font-size: 9px !important; padding: 2px 6px !important; }
+            .arena-big-title { font-size: 22px !important; }
+            .arena-big-desc { font-size: 11px !important; line-height: 1.35 !important; }
+
             /* Package Cards — Dibikin 2 Kolom Berdampingan / 2 Baris ke bawah */
             .package-grid {
                 display: grid !important;
@@ -2030,6 +2060,347 @@
             }
         }
 
+
+        /* --- 4-Step Interactive Checklist Bar --- */
+        .checklist-stepper-wrap {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border-bottom: 1px solid rgba(78, 91, 49, 0.45);
+            padding: 14px 20px;
+            position: sticky;
+            top: 61px;
+            z-index: 950;
+            backdrop-filter: blur(10px);
+        }
+
+        .checklist-stepper-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .check-step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .check-step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            background-color: rgba(30, 35, 25, 0.9);
+            border: 2px solid var(--color-olive);
+            color: var(--color-moss);
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .check-step-item.active .check-step-circle {
+            border-color: var(--color-lime);
+            color: var(--color-lime);
+            box-shadow: 0 0 14px rgba(159, 230, 0, 0.35);
+            background: rgba(48, 55, 38, 0.95);
+        }
+
+        .check-step-item.checked .check-step-circle {
+            background: var(--color-lime);
+            border-color: var(--color-lime);
+            color: #121212;
+            box-shadow: 0 0 12px rgba(159, 230, 0, 0.4);
+        }
+
+        .check-step-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .check-step-num {
+            font-size: 9.5px;
+            font-weight: 800;
+            color: var(--color-moss);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .check-step-item.active .check-step-num,
+        .check-step-item.checked .check-step-num {
+            color: var(--color-lime);
+        }
+
+        .check-step-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 17px;
+            color: var(--color-sage);
+            letter-spacing: 0.5px;
+            line-height: 1;
+            margin: 1px 0;
+            white-space: nowrap;
+        }
+
+        .check-step-item.active .check-step-title {
+            color: #ffffff;
+        }
+
+        .check-step-item.checked .check-step-title {
+            color: var(--color-lime);
+        }
+
+        .check-step-status {
+            font-size: 11px;
+            color: var(--color-moss);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+        }
+
+        .check-step-item.checked .check-step-status {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .check-flow-line {
+            flex: 1;
+            height: 2px;
+            background-color: rgba(78, 91, 49, 0.35);
+            margin: 0 10px;
+            transition: background-color 0.25s ease;
+        }
+
+        .check-flow-line.done {
+            background-color: var(--color-lime);
+        }
+
+        /* Status chip next to panel header */
+        .step-done-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-lime);
+            background: rgba(183, 255, 0, 0.15);
+            border: 1px solid var(--color-lime);
+            padding: 3px 10px;
+            border-radius: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            animation: tagPulse 0.3s ease;
+        }
+
+        @keyframes tagPulse {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .step-badge.checked {
+            background: var(--color-lime) !important;
+            color: #121212 !important;
+            border-color: var(--color-lime) !important;
+        }
+
+        /* --- Arena Selection Grid (5 Pilihan Arena di Langkah 1) --- */
+        .arena-select-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .arena-select-btn {
+            background: linear-gradient(135deg, rgba(30, 34, 25, 0.95) 0%, rgba(20, 22, 18, 0.98) 100%);
+            border: 1px solid rgba(78, 91, 49, 0.5);
+            border-radius: 8px;
+            padding: 12px 10px;
+            cursor: pointer;
+            text-align: left;
+            position: relative;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 96px;
+        }
+
+        .arena-select-btn:hover {
+            border-color: rgba(183, 255, 0, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        }
+
+        .arena-select-btn.active {
+            border-color: var(--color-lime);
+            background: linear-gradient(135deg, rgba(48, 55, 38, 0.95) 0%, rgba(26, 30, 22, 0.98) 100%);
+            box-shadow: 0 0 16px rgba(183, 255, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .arena-btn-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .arena-btn-icon {
+            font-size: 18px;
+            color: var(--color-moss);
+            transition: color 0.2s ease;
+        }
+
+        .arena-select-btn.active .arena-btn-icon {
+            color: var(--color-lime);
+        }
+
+        .arena-check-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(138, 154, 91, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .arena-select-btn.active .arena-check-indicator {
+            border-color: var(--color-lime);
+            background-color: var(--color-lime);
+            color: #121212;
+        }
+
+        .arena-btn-name {
+            font-family: 'Teko', sans-serif;
+            font-size: 16px;
+            color: var(--color-sage);
+            line-height: 1.1;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .arena-select-btn.active .arena-btn-name {
+            color: #ffffff;
+        }
+
+        .arena-btn-tag {
+            font-size: 10.5px;
+            color: var(--color-moss);
+            line-height: 1.25;
+        }
+
+        .arena-select-btn.active .arena-btn-tag {
+            color: var(--color-lime);
+        }
+
+        /* --- FOTO ARENA BESAR & CINEMATIC (Perubahan Sesuai Request User) --- */
+        .arena-big-showcase {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(183, 255, 0, 0.4);
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+            background-color: #121212;
+        }
+
+        .arena-big-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .arena-big-showcase:hover .arena-big-img {
+            transform: scale(1.03);
+        }
+
+        .arena-big-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.45) 50%, rgba(18, 18, 18, 0.2) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px 24px;
+        }
+
+        .arena-big-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .arena-real-badge {
+            background: rgba(18, 18, 18, 0.85);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .arena-spec-badge {
+            background: rgba(78, 91, 49, 0.65);
+            border: 1px solid var(--color-moss);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .arena-big-title {
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(24px, 3.5vw, 36px);
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 4px;
+            line-height: 1.1;
+        }
+
+        .arena-big-title span {
+            color: var(--color-lime);
+        }
+
+        .arena-big-desc {
+            font-size: 14px;
+            color: var(--color-sage);
+            max-width: 720px;
+            margin: 0;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
         /* --- Accessibility: Reduced Motion (Emil Design Engineering) --- */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -2065,43 +2436,61 @@
                 DREAMFIELD <span>TACTICAL</span>
             </a>
             <div class="nav-actions">
-                <a href="pricelist.html" class="btn-header-back" aria-label="Kembali ke Pricelist">
-                    <i class="fa-solid fa-tags"></i>
-                    <span class="back-text-desk">Katalog Pricelist</span>
-                    <span class="back-text-mob">Pricelist</span>
-                </a>
                 <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda" style="border-color: var(--color-olive);">
                     <i class="fa-solid fa-house"></i>
                     <span class="back-text-desk">Beranda</span>
+                    <span class="back-text-mob">Beranda</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- 3-Step Flow Progress Bar -->
-    <div class="flow-stepper-wrap">
-        <div class="flow-stepper-container">
-            <a href="pricelist.html" class="flow-step-item done" title="Kembali ke Eksplor Arena">
-                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
-                <div class="step-info">
-                    <span class="step-num-label">Langkah 1 (Selesai)</span>
-                    <span class="step-text">Eksplor Arena</span>
-                </div>
-            </a>
-            <div class="flow-line done"></div>
-            <div class="flow-step-item active">
-                <div class="step-circle">2</div>
-                <div class="step-info">
-                    <span class="step-num-label">Langkah 2 (Aktif)</span>
-                    <span class="step-text">Pilih Paket</span>
+    <!-- 4-Step Interactive Checklist Bar -->
+    <div class="checklist-stepper-wrap" id="checklistStepper">
+        <div class="checklist-stepper-container">
+            <!-- Step 1: Arena -->
+            <div class="check-step-item checked" id="check-step-arena" onclick="scrollToStep('step-arena')">
+                <div class="check-step-circle" id="circle-step-arena"><i class="fa-solid fa-check"></i></div>
+                <div class="check-step-info">
+                    <span class="check-step-num">Langkah 1</span>
+                    <span class="check-step-title">Pilih Arena</span>
+                    <span class="check-step-status" id="status-arena">War Game CQB</span>
                 </div>
             </div>
-            <div class="flow-line done"></div>
-            <div class="flow-step-item active">
-                <div class="step-circle">3</div>
-                <div class="step-info">
-                    <span class="step-num-label">Langkah 3</span>
-                    <span class="step-text">Booking Jadwal</span>
+
+            <div class="check-flow-line done" id="conn-1"></div>
+
+            <!-- Step 2: Paket -->
+            <div class="check-step-item active" id="check-step-pkg" onclick="scrollToStep('step-pkg')">
+                <div class="check-step-circle" id="circle-step-pkg">2</div>
+                <div class="check-step-info">
+                    <span class="check-step-num">Langkah 2</span>
+                    <span class="check-step-title">Pilih Paket</span>
+                    <span class="check-step-status" id="status-pkg">Pilih Paket...</span>
+                </div>
+            </div>
+
+            <div class="check-flow-line" id="conn-2"></div>
+
+            <!-- Step 3: Jadwal -->
+            <div class="check-step-item" id="check-step-schedule" onclick="scrollToStep('step-schedule')">
+                <div class="check-step-circle" id="circle-step-schedule">3</div>
+                <div class="check-step-info">
+                    <span class="check-step-num">Langkah 3</span>
+                    <span class="check-step-title">Atur Jadwal</span>
+                    <span class="check-step-status" id="status-schedule">Belum Diatur</span>
+                </div>
+            </div>
+
+            <div class="check-flow-line" id="conn-3"></div>
+
+            <!-- Step 4: Siap Booking -->
+            <div class="check-step-item" id="check-step-ready" onclick="scrollToStep('step-ready')">
+                <div class="check-step-circle" id="circle-step-ready"><i class="fa-solid fa-bolt"></i></div>
+                <div class="check-step-info">
+                    <span class="check-step-num">Langkah 4</span>
+                    <span class="check-step-title">Siap Booking</span>
+                    <span class="check-step-status" id="status-ready">Isi Pemesan</span>
                 </div>
             </div>
         </div>
@@ -2118,56 +2507,98 @@
 
     <!-- Main Booking Layout -->
     <main class="booking-layout">
-        <!-- LEFT COLUMN: Step 1 & Step 2 -->
+        <!-- LEFT COLUMN: Step 1, Step 2, Step 3 -->
         <div class="left-col">
-            <!-- Pre-selected Package Notification Banner from Pricelist -->
-            <div class="pkg-source-banner" id="pkgSourceBanner" style="display: none;">
-                <div class="source-banner-left">
-                    <div class="source-banner-icon"><i class="fa-solid fa-circle-check"></i></div>
-                    <div>
-                        <span class="source-banner-tag"><i class="fa-solid fa-tags"></i> Paket Terpilih dari Pricelist</span>
-                        <h4 class="source-banner-title" id="sourceBannerPkgName">Paket Terpilih</h4>
-                        <p class="source-banner-desc">Paket telah aktif secara otomatis. Lengkapi jadwal & identitas pemain di bawah.</p>
+
+            <!-- TAHAP 1: PILIH ARENA PERTEMPURAN -->
+            <div class="panel-card slide-reveal slide-left" id="step-arena">
+                <div class="panel-header">
+                    <div class="step-badge checked" id="badge-step-1"><i class="fa-solid fa-check"></i></div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h2 class="panel-title">1. PILIH ARENA PERTEMPURAN</h2>
+                        <p class="panel-subtitle">Klik arena di bawah untuk membuka paket & foto arena. Arena yang diklik otomatis ter-ceklist.</p>
+                    </div>
+                    <span class="step-done-tag" id="tag-step-1"><i class="fa-solid fa-circle-check"></i> Arena Terpilih</span>
+                </div>
+
+                <!-- 5 Pilihan Arena Interaktif -->
+                <div class="arena-select-grid" id="arenaSelectGrid">
+                    <!-- Button 1: War Game -->
+                    <div class="arena-select-btn active" data-cat="wargame" onclick="selectArena('wargame')">
+                        <div class="arena-btn-top">
+                            <i class="fa-solid fa-shield-halved arena-btn-icon"></i>
+                            <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div>
+                            <div class="arena-btn-name">WAR GAME CQB</div>
+                            <div class="arena-btn-tag">1.200m² Bertingkat</div>
+                        </div>
+                    </div>
+
+                    <!-- Button 2: Shooting Target -->
+                    <div class="arena-select-btn" data-cat="target" onclick="selectArena('target')">
+                        <div class="arena-btn-top">
+                            <i class="fa-solid fa-bullseye arena-btn-icon"></i>
+                            <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div>
+                            <div class="arena-btn-name">TARGET RANGE</div>
+                            <div class="arena-btn-tag">Lane 10-25M Plat Baja</div>
+                        </div>
+                    </div>
+
+                    <!-- Button 3: Coaching -->
+                    <div class="arena-select-btn" data-cat="coaching" onclick="selectArena('coaching')">
+                        <div class="arena-btn-top">
+                            <i class="fa-solid fa-user-ninja arena-btn-icon"></i>
+                            <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div>
+                            <div class="arena-btn-name">COACHING CQB</div>
+                            <div class="arena-btn-tag">Private Masterclass</div>
+                        </div>
+                    </div>
+
+                    <!-- Button 4: Unit Drill -->
+                    <div class="arena-select-btn" data-cat="unit" onclick="selectArena('unit')">
+                        <div class="arena-btn-top">
+                            <i class="fa-solid fa-layer-group arena-btn-icon"></i>
+                            <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div>
+                            <div class="arena-btn-name">UNIT DRILL</div>
+                            <div class="arena-btn-tag">Platform GBB & AEG</div>
+                        </div>
+                    </div>
+
+                    <!-- Button 5: Gear Rental -->
+                    <div class="arena-select-btn" data-cat="gear" onclick="selectArena('gear')">
+                        <div class="arena-btn-top">
+                            <i class="fa-solid fa-vest arena-btn-icon"></i>
+                            <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
+                        </div>
+                        <div>
+                            <div class="arena-btn-name">GEAR RENTAL</div>
+                            <div class="arena-btn-tag">Full Body Armor</div>
+                        </div>
                     </div>
                 </div>
-                <a href="pricelist.html" class="btn-change-pkg-link"><i class="fa-solid fa-arrow-rotate-left"></i> Ganti Paket di Pricelist</a>
+
+                <!-- FOTO ARENA BESAR & CINEMATIC (Sesuai Arahan User) -->
+                <div class="arena-big-showcase" id="arenaBigShowcase">
+                    <!-- Injected by JavaScript renderArenaBigShowcase -->
+                </div>
             </div>
 
-            <!-- STEP 1: PILIH PAKET -->
-            <div class="panel-card slide-reveal slide-left">
+            <!-- TAHAP 2: PILIH PAKET & OPSI HARGA -->
+            <div class="panel-card slide-reveal slide-left" id="step-pkg" style="transition-delay: 80ms;">
                 <div class="panel-header">
-                    <div class="step-badge">1</div>
+                    <div class="step-badge" id="badge-step-2">2</div>
                     <div style="flex: 1; min-width: 0;">
-                        <h2 class="panel-title">PILIH KATEGORI & PAKET</h2>
-                        <p class="panel-subtitle">Klik tab kategori atau pilih opsi paket di bawah. Tekan panah untuk melihat fasilitas lengkap.</p>
+                        <h2 class="panel-title">2. PILIH PAKET & OPSI HARGA</h2>
+                        <p class="panel-subtitle">Pilih opsi harga di bawah (format 2 baris ke bawah). Tekan panah untuk melihat fasilitas lengkap.</p>
                     </div>
-                    <a href="pricelist.html" class="btn-back-to-arena" title="Kembali ke Tahap Eksplor Arena">
-                        <i class="fa-solid fa-compass"></i> Ganti Arena
-                    </a>
-                </div>
-
-                <!-- Category Tabs -->
-                <div class="category-tabs" id="category-tabs">
-                    <button type="button" class="tab-btn active" data-cat="wargame" onclick="switchCategory('wargame')">
-                        <i class="fa-solid fa-shield-halved"></i> War Game
-                    </button>
-                    <button type="button" class="tab-btn" data-cat="target" onclick="switchCategory('target')">
-                        <i class="fa-solid fa-bullseye"></i> Shooting Target
-                    </button>
-                    <button type="button" class="tab-btn" data-cat="coaching" onclick="switchCategory('coaching')">
-                        <i class="fa-solid fa-user-ninja"></i> Coaching
-                    </button>
-                    <button type="button" class="tab-btn" data-cat="unit" onclick="switchCategory('unit')">
-                        <i class="fa-solid fa-layer-group"></i> Unit Coaching
-                    </button>
-                    <button type="button" class="tab-btn" data-cat="gear" onclick="switchCategory('gear')">
-                        <i class="fa-solid fa-vest"></i> Gear
-                    </button>
-                </div>
-
-                <!-- Arena Preview Banner (Dynamic according to active category) -->
-                <div class="arena-preview-banner" id="arenaPreviewBanner">
-                    <!-- Injected by JavaScript -->
+                    <span class="step-done-tag" id="tag-step-2" style="display: none;"><i class="fa-solid fa-circle-check"></i> Paket Terpilih</span>
                 </div>
 
                 <!-- Package Cards Container (Dynamic Render via JS) -->
@@ -2176,21 +2607,22 @@
                 </div>
             </div>
 
-            <!-- STEP 2: JADWAL & PERSONEL -->
-            <div class="panel-card slide-reveal slide-left" style="transition-delay: 100ms;">
+            <!-- TAHAP 3: JADWAL & JUMLAH PEMAIN -->
+            <div class="panel-card slide-reveal slide-left" id="step-schedule" style="transition-delay: 120ms;">
                 <div class="panel-header">
-                    <div class="step-badge">2</div>
-                    <div>
-                        <h2 class="panel-title">JADWAL & JUMLAH PEMAIN</h2>
+                    <div class="step-badge" id="badge-step-3">3</div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h2 class="panel-title">3. JADWAL & JUMLAH PEMAIN</h2>
                         <p class="panel-subtitle">Tentukan tanggal main dan jam kedatangan yang diinginkan</p>
                     </div>
+                    <span class="step-done-tag" id="tag-step-3" style="display: none;"><i class="fa-solid fa-circle-check"></i> Jadwal Terpilih</span>
                 </div>
 
                 <div class="schedule-grid">
                     <!-- Tanggal -->
                     <div class="form-group">
                         <label><i class="fa-solid fa-calendar-days"></i> Tanggal Main</label>
-                        <input type="date" class="form-control" id="book-date" onchange="updateLiveSummary()" required>
+                        <input type="date" class="form-control" id="book-date" onchange="onDateChanged(this.value)" required>
                     </div>
 
                     <!-- Jumlah Orang -->
@@ -2243,14 +2675,14 @@
 
         <!-- RIGHT COLUMN: STEP 3 (Data Diri & WhatsApp Instant Submit) -->
         <div class="right-col sticky-summary">
-            <div class="summary-card slide-reveal slide-right" style="transition-delay: 150ms;">
+            <div class="summary-card slide-reveal slide-right" id="step-ready" style="transition-delay: 150ms;">
                 <div class="panel-header" style="margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(138, 154, 91, 0.25);">
-                    <div class="step-badge">3</div>
+                    <div class="step-badge" id="badge-step-4">4</div>
                     <div style="flex: 1; min-width: 0;">
-                        <h2 class="panel-title" style="margin: 0; font-size: 20px;">DATA DIRI & RINGKASAN</h2>
+                        <h2 class="panel-title" style="margin: 0; font-size: 20px;">4. DATA DIRI & SIAP BOOKING</h2>
                         <p class="panel-subtitle" style="margin: 2px 0 0; font-size: 12px;">Lengkapi kontak WhatsApp untuk konfirmasi instan</p>
                     </div>
-                    <span class="badge-live" style="flex-shrink: 0;">READY</span>
+                    <span class="badge-live" id="badge-ready-live" style="flex-shrink: 0;">SIAP BOOKING</span>
                 </div>
 
                 <!-- Paket Terpilih Display -->
@@ -2675,11 +3107,12 @@
         let selectedTime = "10:00 WIB";
         let isTimeFlexible = false;
 
-        // Arena Preview Data for Real Arena Photos
+        // Arena Preview Data for Real Arena Photos & Specs
         const arenaPreviews = {
             wargame: {
                 badge: 'REAL CQB ARENA',
                 badgeIcon: 'fa-solid fa-shield-halved',
+                spec: '1.200m² Bertingkat • Full AC • Obstacle Taktis',
                 title: 'Medan Pertempuran CQB Urban Labyrinth',
                 desc: 'Arena indoor Dreamfield dengan partisi taktis hitam, pilar pelindung, choke point strategis, dan tata cahaya dinamis.',
                 img: 'assets/img/arena-wargame.jpg',
@@ -2689,6 +3122,7 @@
             target: {
                 badge: 'AUTHENTIC TARGET RANGE',
                 badgeIcon: 'fa-solid fa-bullseye',
+                spec: 'Lane 10-25M • Plat Baja Reaktif • Paper Target',
                 title: 'Precision Indoor Shooting Target Range',
                 desc: 'Jalur tembak indoor berlisensi resmi Dreamfield Tactical dengan paper target multi-jarak dan steel plate reactive.',
                 img: 'assets/img/arena-shooting-target.jpg',
@@ -2698,6 +3132,7 @@
             coaching: {
                 badge: 'MASTERCLASS CQB',
                 badgeIcon: 'fa-solid fa-user-ninja',
+                spec: 'Room Clearing • Tactical Stance • Sertifikat',
                 title: 'Tactical Coaching & Room Clearing',
                 desc: 'Fasilitas edukasi taktis CQB indoor dengan layout simulasi ruangan, pintu breach, dan area manuver instruktur.',
                 img: 'assets/img/arena-coaching.jpg',
@@ -2707,6 +3142,7 @@
             unit: {
                 badge: 'UNIT HANDLING & DRILL',
                 badgeIcon: 'fa-solid fa-layer-group',
+                spec: 'GBB & AEG Handling • Chrono Test • Trigger Reset',
                 title: 'Weapon Manipulation & Chrono Lane',
                 desc: 'Area pendalaman operasional unit GBB dan AEG berstandar kompetisi dengan perlengkapan chrono tester digital.',
                 img: 'assets/img/arena-unit-drill.jpg',
@@ -2716,6 +3152,7 @@
             gear: {
                 badge: 'TACTICAL GEAR ARMORY',
                 badgeIcon: 'fa-solid fa-vest',
+                spec: 'Steril Sanitized • Body Armor • Goggle Anti-Fog',
                 title: 'Certified Safety Gear Armory',
                 desc: 'Ruang penyimpanan perlengkapan proteksi standar tempur yang selalu disanitasi steril dan siap pakai.',
                 img: 'assets/img/gear-rental-armory.jpg',
@@ -2739,54 +3176,121 @@
                 else if (lowerCat.includes('gear')) currentCategory = 'gear';
             }
 
-            // Render Tab, Arena Preview & Paket
-            renderTabs();
-            renderArenaPreview(currentCategory);
+            // Atur minimum tanggal hari ini agar tidak memilih tanggal lampau
+            const dateInput = document.getElementById('book-date');
+            if (dateInput) {
+                const todayStr = new Date().toISOString().split('T')[0];
+                dateInput.min = todayStr;
+            }
+
+            // Inisialisasi Step 1: Arena & Foto Besar (tanpa auto scroll)
+            selectArena(currentCategory, false);
+
+            // Inisialisasi Step 2: Render Paket & Default Selection
             renderPackages(pkgParam);
+            
             updateLiveSummary();
             initScrollAnimations();
             initMobileStickyObserver();
         });
 
-        function renderArenaPreview(catKey) {
-            const previewEl = document.getElementById('arenaPreviewBanner');
-            if (!previewEl) return;
+        // 1. RENDER FOTO ARENA BESAR & CINEMATIC (Sesuai Arahan User)
+        function renderArenaBigShowcase(catKey) {
+            const showcaseEl = document.getElementById('arenaBigShowcase');
+            if (!showcaseEl) return;
             const data = arenaPreviews[catKey] || arenaPreviews.wargame;
-            previewEl.innerHTML = `
-                <div class="arena-preview-thumb-wrap">
-                    <img src="${data.img}" alt="${data.alt}" class="arena-preview-thumb" loading="lazy">
-                    <span class="arena-preview-tag">${data.tag}</span>
-                </div>
-                <div class="arena-preview-content">
-                    <div class="arena-preview-badge-row">
-                        <span class="arena-preview-badge"><i class="${data.badgeIcon}"></i> ${data.badge}</span>
+            showcaseEl.innerHTML = `
+                <img src="${data.img}" alt="${data.alt}" class="arena-big-img" loading="eager">
+                <div class="arena-big-overlay">
+                    <div class="arena-big-badge-row">
+                        <span class="arena-real-badge"><i class="fa-solid fa-circle-check"></i> REAL ARENA DREAMFIELD</span>
+                        <span class="arena-spec-badge"><i class="${data.badgeIcon}"></i> ${data.badge}</span>
+                        ${data.spec ? `<span class="arena-spec-badge" style="background: rgba(0,0,0,0.65); border-color: rgba(183, 255, 0, 0.4);"><i class="fa-solid fa-location-dot" style="color: var(--color-lime);"></i> ${data.spec}</span>` : ''}
                     </div>
-                    <h3 class="arena-preview-title">${data.title}</h3>
-                    <p class="arena-preview-desc">${data.desc}</p>
+                    <h3 class="arena-big-title">${data.title}</h3>
+                    <p class="arena-big-desc">${data.desc}</p>
                 </div>
             `;
         }
 
-        // Ganti Kategori Tab
-        function switchCategory(catKey) {
+        // 2. PILIH ARENA (Langkah 1 Selesai -> Ceklist Langsung Aktif)
+        function selectArena(catKey, autoScroll = true) {
             currentCategory = catKey;
-            renderTabs();
-            renderArenaPreview(catKey);
-            renderPackages();
-            if (packageCatalog[catKey] && packageCatalog[catKey].items.length > 0) {
-                selectPackage(packageCatalog[catKey].items[0]);
-            }
-        }
 
-        // Render Status Tombol Tab
-        function renderTabs() {
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if (btn.getAttribute('data-cat') === currentCategory) {
+            // Highlight button terpilih
+            document.querySelectorAll('.arena-select-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === catKey) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
                 }
             });
+
+            // Tampilkan foto besar arena sesuai pilihan
+            renderArenaBigShowcase(catKey);
+
+            // Nama arena yang ramah dibaca
+            const arenaNames = {
+                wargame: 'War Game CQB',
+                target: 'Target Range',
+                coaching: 'Coaching CQB',
+                unit: 'Unit Drill',
+                gear: 'Gear Rental'
+            };
+            const arenaLabel = arenaNames[catKey] || catKey.toUpperCase();
+
+            // Checklist Step 1: Update status & ceklist hijau
+            const checkArena = document.getElementById('check-step-arena');
+            if (checkArena) checkArena.classList.add('checked');
+            const circleArena = document.getElementById('circle-step-arena');
+            if (circleArena) circleArena.innerHTML = '<i class="fa-solid fa-check"></i>';
+            const statusArena = document.getElementById('status-arena');
+            if (statusArena) statusArena.textContent = arenaLabel;
+
+            const badge1 = document.getElementById('badge-step-1');
+            if (badge1) {
+                badge1.classList.add('checked');
+                badge1.innerHTML = '<i class="fa-solid fa-check"></i>';
+            }
+            const tag1 = document.getElementById('tag-step-1');
+            if (tag1) {
+                tag1.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${arenaLabel}`;
+            }
+            const conn1 = document.getElementById('conn-1');
+            if (conn1) conn1.classList.add('done');
+
+            // Render paket kategori baru
+            renderPackages();
+
+            // Smooth scroll otomatis ke Step 2 jika dipilih manual oleh user
+            if (autoScroll) {
+                setTimeout(() => {
+                    const stepPkg = document.getElementById('step-pkg');
+                    if (stepPkg) {
+                        stepPkg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 180);
+            }
+        }
+
+        // Alias untuk kompatibilitas
+        const switchCategory = selectArena;
+
+        // Navigasi Cepat Stepper Atas
+        function scrollToStep(stepId) {
+            if (stepId === 'step-ready') {
+                const el = document.getElementById('step-ready') || document.querySelector('.summary-card');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const nameInput = document.getElementById('book-name');
+                    if (nameInput) setTimeout(() => nameInput.focus(), 350);
+                }
+                return;
+            }
+            const el = document.getElementById(stepId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         // Render Kartu-Kartu Paket untuk Kategori Aktif (2 Kolom ke Bawah, Harga Utuh, Panah Expand Membesar)
@@ -2862,17 +3366,11 @@
             });
 
             if (foundMatch) {
-                selectPackage(foundMatch);
-                const banner = document.getElementById('pkgSourceBanner');
-                const bannerName = document.getElementById('sourceBannerPkgName');
-                if (banner && bannerName) {
-                    banner.style.display = 'flex';
-                    bannerName.textContent = foundMatch.name + ' — ' + foundMatch.price;
-                }
+                selectPackage(foundMatch, false);
             } else if (currentSelectedPackage && catData.items.some(i => i.id === currentSelectedPackage.id)) {
                 highlightSelectedCard(currentSelectedPackage.id);
             } else {
-                selectPackage(catData.items[0]);
+                selectPackage(catData.items[0], false);
             }
         }
 
@@ -2915,11 +3413,6 @@
                 event.stopPropagation();
             }
             selectPackageById(id);
-            // Smooth scroll ke langkah 2 (jadwal)
-            const scheduleSection = document.querySelector('.schedule-grid');
-            if (scheduleSection) {
-                scheduleSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
         }
 
         function selectPackageById(id) {
@@ -2927,14 +3420,55 @@
             if (!catData) return;
             const item = catData.items.find(i => i.id === id);
             if (item) {
-                selectPackage(item);
+                selectPackage(item, true);
             }
         }
 
-        function selectPackage(item) {
+        // 3. PILIH PAKET (Langkah 2 Selesai -> Ceklist Langsung Aktif & Scroll ke Langkah 3)
+        function selectPackage(item, userInitiated = false) {
             currentSelectedPackage = item;
             highlightSelectedCard(item.id);
             updateLiveSummary();
+
+            // Checklist Step 2: Update status & ceklist hijau
+            const checkPkg = document.getElementById('check-step-pkg');
+            if (checkPkg) {
+                checkPkg.classList.remove('active');
+                checkPkg.classList.add('checked');
+            }
+            const circlePkg = document.getElementById('circle-step-pkg');
+            if (circlePkg) circlePkg.innerHTML = '<i class="fa-solid fa-check"></i>';
+            const statusPkg = document.getElementById('status-pkg');
+            if (statusPkg) statusPkg.textContent = `${item.name} (${item.price})`;
+
+            const badge2 = document.getElementById('badge-step-2');
+            if (badge2) {
+                badge2.classList.add('checked');
+                badge2.innerHTML = '<i class="fa-solid fa-check"></i>';
+            }
+            const tag2 = document.getElementById('tag-step-2');
+            if (tag2) {
+                tag2.style.display = 'inline-flex';
+                tag2.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${item.name}`;
+            }
+            const conn2 = document.getElementById('conn-2');
+            if (conn2) conn2.classList.add('done');
+
+            // Aktifkan Step 3 jika belum diceklist
+            const checkSched = document.getElementById('check-step-schedule');
+            if (checkSched && !checkSched.classList.contains('checked')) {
+                checkSched.classList.add('active');
+            }
+
+            // Smooth scroll otomatis ke Step 3 (Jadwal) jika dipilih manual oleh user
+            if (userInitiated) {
+                setTimeout(() => {
+                    const stepSched = document.getElementById('step-schedule');
+                    if (stepSched) {
+                        stepSched.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 180);
+            }
         }
 
         function highlightSelectedCard(id) {
@@ -2954,6 +3488,62 @@
                 if (textSpan) textSpan.innerHTML = '<i class="fa-solid fa-circle-check"></i> Paket Terpilih';
                 if (checkIcon) checkIcon.style.display = 'inline-block';
             }
+        }
+
+        // 4. ATUR JADWAL (Langkah 3 Selesai -> Ceklist Langsung Aktif & Siap Booking)
+        function onDateChanged(val) {
+            if (!val) return;
+            const dateObj = new Date(val);
+            const formatted = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            // Checklist Step 3: Update status & ceklist hijau
+            const checkSched = document.getElementById('check-step-schedule');
+            if (checkSched) {
+                checkSched.classList.remove('active');
+                checkSched.classList.add('checked');
+            }
+            const circleSched = document.getElementById('circle-step-schedule');
+            if (circleSched) circleSched.innerHTML = '<i class="fa-solid fa-check"></i>';
+            const statusSched = document.getElementById('status-schedule');
+            if (statusSched) statusSched.textContent = `${formatted} (${selectedTime})`;
+
+            const badge3 = document.getElementById('badge-step-3');
+            if (badge3) {
+                badge3.classList.add('checked');
+                badge3.innerHTML = '<i class="fa-solid fa-check"></i>';
+            }
+            const tag3 = document.getElementById('tag-step-3');
+            if (tag3) {
+                tag3.style.display = 'inline-flex';
+                tag3.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${formatted}`;
+            }
+            const conn3 = document.getElementById('conn-3');
+            if (conn3) conn3.classList.add('done');
+
+            // Langkah 4 Siap Booking
+            const checkReady = document.getElementById('check-step-ready');
+            if (checkReady) {
+                checkReady.classList.add('checked');
+                const circleReady = document.getElementById('circle-step-ready');
+                if (circleReady) circleReady.innerHTML = '<i class="fa-solid fa-check"></i>';
+            }
+            const statusReady = document.getElementById('status-ready');
+            if (statusReady) statusReady.textContent = 'Siap Kirim WA';
+
+            const badgeReady = document.getElementById('badge-ready-live');
+            if (badgeReady) {
+                badgeReady.textContent = 'SIAP BOOKING ✅';
+                badgeReady.style.background = 'var(--color-lime)';
+                badgeReady.style.color = '#121212';
+                badgeReady.style.borderColor = 'var(--color-lime)';
+            }
+
+            updateLiveSummary();
+
+            // Smooth scroll otomatis ke Step 4 setelah tanggal ditentukan
+            setTimeout(() => {
+                scrollToStep('step-ready');
+            }, 250);
         }
 
         // Pilihan Slot Waktu Cepat (Preset)
@@ -2978,7 +3568,13 @@
                 descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
             }
 
-            updateLiveSummary();
+            // Update status di Step 3 jika tanggal sudah dipilih
+            const dateVal = document.getElementById('book-date').value;
+            if (dateVal) {
+                onDateChanged(dateVal);
+            } else {
+                updateLiveSummary();
+            }
         }
 
         // Pilihan Mode Jam Bebas / Fleksibel
@@ -2993,13 +3589,17 @@
                 descEl.innerHTML = `<i class="fa-solid fa-arrows-split-up-and-left" style="color: var(--color-lime);"></i> Mode Jam Bebas Aktif: Anda dapat bebas mendiskusikan jam main yang pas langsung dengan CS Admin di WhatsApp.`;
             }
 
-            updateLiveSummary();
+            const dateVal = document.getElementById('book-date').value;
+            if (dateVal) {
+                onDateChanged(dateVal);
+            } else {
+                updateLiveSummary();
+            }
         }
 
         // Input Jam Spesifik Kustom (On Change)
         function onCustomTimeChanged(val) {
             if (!val) return;
-            // Lepas highlight dari preset pills
             document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
 
             selectedTime = `${val} WIB`;
@@ -3010,7 +3610,12 @@
                 descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam pilihan sendiri: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
             }
 
-            updateLiveSummary();
+            const dateVal = document.getElementById('book-date').value;
+            if (dateVal) {
+                onDateChanged(dateVal);
+            } else {
+                updateLiveSummary();
+            }
         }
 
         // Counter Jumlah Personel (+ / -)
@@ -3070,7 +3675,7 @@
             const phone = document.getElementById('book-phone').value.trim();
             const date = document.getElementById('book-date').value;
 
-            // Jika tanggal belum dipilih, arahkan ke input tanggal di Step 2
+            // Jika tanggal belum dipilih, arahkan ke input tanggal di Step 3
             if (!date) {
                 const dateEl = document.getElementById('book-date');
                 if (dateEl) {
@@ -3081,7 +3686,7 @@
                 return;
             }
 
-            // Jika nama belum diisi, arahkan ke input nama di Step 3
+            // Jika nama belum diisi, arahkan ke input nama di Step 4
             if (!name) {
                 const nameEl = document.getElementById('book-name');
                 if (nameEl) {
@@ -3092,7 +3697,7 @@
                 return;
             }
 
-            // Jika nomor HP belum diisi, arahkan ke input nomor di Step 3
+            // Jika nomor HP belum diisi, arahkan ke input nomor di Step 4
             if (!phone) {
                 const phoneEl = document.getElementById('book-phone');
                 if (phoneEl) {
@@ -3235,7 +3840,6 @@ Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untu
                     window.location.href = waUrl;
                 } else {
                     const win = window.open(waUrl, '_blank');
-                    // Fallback jika popup terblokir browser
                     if (!win || win.closed || typeof win.closed === 'undefined') {
                         window.location.href = waUrl;
                     }
@@ -3286,7 +3890,7 @@ Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untu
             }
         }
 
-        // Auto-hide mobile sticky bar when Step 3 is in view to prevent covering form inputs
+        // Auto-hide mobile sticky bar when Step 4 is in view to prevent covering form inputs
         function initMobileStickyObserver() {
             const summaryCard = document.querySelector('.summary-card');
             const stickyBar = document.getElementById('mobileStickySummary');

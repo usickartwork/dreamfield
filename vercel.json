@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/pricelist",
-      "destination": "/pricelist.html"
+      "destination": "/booking.html"
     },
     {
       "source": "/booking",
