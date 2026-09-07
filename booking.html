@@ -1151,16 +1151,33 @@
 
         /* --- Responsive: Tablet & Mobile (≤992px) --- */
         @media (max-width: 992px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
             .booking-layout {
                 grid-template-columns: 1fr;
-                padding: 16px 14px 100px;
+                padding: 16px 14px 120px;
                 gap: 14px;
                 margin: 0 auto;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
             }
-            .panel-card {
+            .left-col, .right-col {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .panel-card, .summary-card {
                 padding: 16px 14px;
                 margin-bottom: 14px;
                 border-radius: 8px;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
             }
             .panel-header {
                 margin-bottom: 12px;
@@ -1169,6 +1186,18 @@
             }
             .panel-title { font-size: 20px; }
             .sticky-summary { position: static; }
+
+            /* CRITICAL: Neutralize horizontal translate transforms that cut off forms on mobile */
+            .slide-reveal,
+            .slide-reveal.slide-up,
+            .slide-reveal.slide-left,
+            .slide-reveal.slide-right,
+            .slide-reveal.slide-scale {
+                transform: none !important;
+                opacity: 1 !important;
+                transition: opacity 250ms ease !important;
+            }
+
             /* Mobile sticky bottom bar */
             .mobile-sticky-summary {
                 display: flex;
@@ -1184,6 +1213,7 @@
                 justify-content: space-between;
                 align-items: center;
                 box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
+                transition: transform 250ms var(--ease-out), opacity 250ms var(--ease-out);
             }
             .mob-sum-left {
                 display: flex;
@@ -1248,7 +1278,7 @@
             .page-desc { font-size: 13px; line-height: 1.45; opacity: 0.85; }
 
             /* Layout */
-            .booking-layout { padding: 14px 12px 100px; gap: 12px; }
+            .booking-layout { padding: 14px 12px 120px; gap: 12px; }
             .panel-card { padding: 14px 12px; margin-bottom: 12px; }
 
             /* Step header */
@@ -1290,75 +1320,210 @@
             .pkg-desc { font-size: 12px; margin: 4px 0 10px; }
             .pkg-select-indicator { font-size: 12px; padding-top: 8px; }
 
-            /* Schedule & Form */
-            .schedule-grid { grid-template-columns: 1fr; gap: 0; }
-            .form-group { margin-bottom: 12px; }
-            .form-group.full { grid-column: span 1; }
-            .form-group label { font-size: 12px; gap: 5px; }
-            .form-control { padding: 9px 11px; font-size: 13px; min-height: 40px; border-radius: 5px; }
+            /* CRITICAL FORM INPUT FIX:
+               16px font-size prevents iOS Safari from auto-zooming and cropping the viewport */
+            .form-control,
+            input[type="text"],
+            input[type="tel"],
+            input[type="date"],
+            input[type="time"] {
+                font-size: 16px !important;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+                min-height: 44px !important;
+                padding: 10px 12px !important;
+                border-radius: 6px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                background-color: var(--color-charcoal) !important;
+                color: var(--color-sage) !important;
+            }
 
-            /* Player counter — full width */
-            .counter-wrap { width: 100%; justify-content: center; }
-            .counter-btn { width: 44px; height: 42px; font-size: 18px; }
-            .counter-input { font-size: 18px; }
+            input[type="date"] {
+                display: block !important;
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                color-scheme: dark !important;
+            }
+
+            /* Schedule & Form */
+            .schedule-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .form-group {
+                margin-bottom: 12px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .form-group.full { grid-column: span 1 !important; }
+            .form-group label {
+                font-size: 12.5px !important;
+                gap: 5px !important;
+                margin-bottom: 5px !important;
+            }
+
+            /* Player counter — clean, bounded, zero overflow */
+            .counter-wrap {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                max-width: 180px !important;
+                height: 44px !important;
+                border-radius: 6px !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            .counter-btn {
+                width: 48px !important;
+                height: 100% !important;
+                font-size: 16px !important;
+                flex-shrink: 0 !important;
+            }
+            .counter-input {
+                font-size: 18px !important;
+                font-family: 'Teko', sans-serif !important;
+                flex: 1 !important;
+                min-width: 0 !important;
+                width: auto !important;
+                text-align: center !important;
+            }
 
             /* Time header label + badge wrap */
-            .time-header-flex { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
-            .time-badge-open { font-size: 11px; }
-
-            /* Time pills — 2 per row, text doesn't clip */
-            .time-slots {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-                margin-top: 4px;
+            .time-header-flex {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 6px !important;
+                margin-bottom: 10px !important;
+                width: 100% !important;
             }
-            .time-pill { padding: 9px 6px; font-size: 12px; border-radius: 5px; }
-            .time-pill.flexible-pill { grid-column: span 2; padding: 9px 10px; font-size: 12.5px; }
+            .time-badge-open { font-size: 11px !important; }
 
-            /* Custom time input */
-            .custom-time-box { padding: 10px 12px; gap: 8px; }
-            .custom-time-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .custom-time-label { font-size: 12px; }
-            .time-input-wrap { width: 100%; }
-            .time-input-field { width: 100%; font-size: 14px; }
-            .time-note { font-size: 11.5px; line-height: 1.45; }
+            /* Time pills — 2 per row, text never clips */
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
+                margin-top: 4px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .time-pill {
+                padding: 10px 6px !important;
+                font-size: 13px !important;
+                min-height: 42px !important;
+                border-radius: 6px !important;
+                box-sizing: border-box !important;
+            }
+            .time-pill.flexible-pill {
+                grid-column: span 2 !important;
+                padding: 11px 10px !important;
+                font-size: 13px !important;
+            }
 
-            /* Summary Card (desktop right col — shown below on mobile) */
-            .summary-card { padding: 16px 14px; }
-            .summary-header { margin-bottom: 12px; padding-bottom: 10px; }
-            .summary-title { font-size: 20px; }
-            .badge-live { font-size: 10px; padding: 2px 8px; }
-            .chosen-box { padding: 12px 12px; margin-bottom: 14px; border-radius: 5px; }
-            .chosen-cat { font-size: 10px; letter-spacing: 1px; }
-            .chosen-name { font-size: 17px; margin: 2px 0 3px; }
-            .chosen-price { font-size: 22px; }
-            .summary-list { font-size: 13px; gap: 8px; margin-bottom: 16px; }
-            .summary-row { padding-bottom: 7px; }
-            .summary-label { font-size: 12px; gap: 5px; }
-            .summary-val { font-size: 13px; }
+            /* Custom time input box — zero overflow */
+            .custom-time-box {
+                padding: 10px 12px !important;
+                gap: 8px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            .custom-time-row {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 8px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .custom-time-label {
+                font-size: 12.5px !important;
+                width: 100% !important;
+            }
+            .time-input-wrap {
+                display: flex !important;
+                align-items: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 2px 10px !important;
+                min-height: 44px !important;
+                border-radius: 6px !important;
+            }
+            .time-input-field {
+                flex: 1 !important;
+                width: auto !important;
+                min-width: 0 !important;
+                font-size: 16px !important;
+            }
+            .time-input-unit {
+                font-size: 13px !important;
+                font-weight: 700 !important;
+                flex-shrink: 0 !important;
+                padding-left: 6px !important;
+            }
+            .time-note {
+                font-size: 11.5px !important;
+                line-height: 1.45 !important;
+                word-break: break-word !important;
+            }
 
-            /* WhatsApp submit button */
-            .btn-whatsapp-book { padding: 14px 16px; font-size: 18px; border-radius: 5px; gap: 8px; }
-            .btn-whatsapp-book i { font-size: 20px; }
-            .guarantee-note { font-size: 11.5px; }
+            /* Step 3: Summary & Data Diri Card */
+            .summary-card {
+                padding: 16px 14px !important;
+                border-radius: 8px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            .chosen-box {
+                padding: 10px 12px !important;
+                margin-bottom: 12px !important;
+                border-radius: 6px !important;
+                box-sizing: border-box !important;
+            }
+            .chosen-cat { font-size: 10px !important; }
+            .chosen-name { font-size: 16.5px !important; margin: 2px 0 !important; }
+            .chosen-price { font-size: 22px !important; }
+
+            .summary-list {
+                margin: 10px 0 14px !important;
+                gap: 7px !important;
+            }
+            .summary-row {
+                padding-bottom: 6px !important;
+                font-size: 13px !important;
+            }
+
+            .btn-whatsapp-book {
+                padding: 13px 16px !important;
+                font-size: 18px !important;
+                min-height: 48px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                border-radius: 6px !important;
+            }
 
             /* Mobile sticky bar */
-            .mobile-sticky-summary { padding: 8px 12px; }
-            .mob-sum-pkg { font-size: 11.5px; }
-            .mob-sum-price { font-size: 19px; }
-            .mob-sum-btn { padding: 8px 13px; font-size: 15px; }
+            .mobile-sticky-summary { padding: 8px 12px !important; }
+            .mob-sum-pkg { font-size: 11.5px !important; }
+            .mob-sum-price { font-size: 19px !important; }
+            .mob-sum-btn { padding: 8px 13px !important; font-size: 15px !important; }
 
             /* Modal */
-            .booking-modal-card { padding: 18px 14px; max-width: 94vw; border-radius: 8px; }
-            .modal-badge-success { width: 48px; height: 48px; font-size: 22px; }
-            .modal-title { font-size: 22px; }
-            .modal-desc { font-size: 12.5px; }
-            .modal-summary-box { padding: 10px 11px; margin-bottom: 14px; }
-            .modal-summary-item { font-size: 12.5px; }
-            .modal-btn-wa { padding: 12px 16px; font-size: 18px; }
+            .booking-modal-card { padding: 18px 14px !important; max-width: 94vw !important; border-radius: 8px !important; }
+            .modal-badge-success { width: 48px !important; height: 48px !important; font-size: 22px !important; }
+            .modal-title { font-size: 22px !important; }
+            .modal-desc { font-size: 12.5px !important; }
+            .modal-summary-box { padding: 10px 11px !important; margin-bottom: 14px !important; }
+            .modal-summary-item { font-size: 12.5px !important; }
+            .modal-btn-wa { padding: 12px 16px !important; font-size: 18px !important; }
 
             /* Footer */
-            .footer-content { flex-direction: column; text-align: center; gap: 12px; }
+            .footer-content { flex-direction: column !important; text-align: center !important; gap: 12px !important; }
         }
 
         /* --- Extra Small Phones (≤390px) --- */
@@ -1367,14 +1532,14 @@
             .logo { font-size: 16px; }
             .page-title { font-size: 24px; }
             .page-banner { padding: 14px 12px 12px; }
-            .booking-layout { padding: 12px 10px 100px; }
-            .panel-card { padding: 12px 10px; }
+            .booking-layout { padding: 12px 10px 120px; }
+            .panel-card, .summary-card { padding: 12px 10px; }
             .panel-title { font-size: 16px; }
             .tab-btn { padding: 6px 10px; font-size: 12px; }
             .pkg-card { padding: 10px 10px; }
             .pkg-name { font-size: 14px; }
             .pkg-price { font-size: 18px; }
-            .time-pill { padding: 8px 4px; font-size: 11.5px; }
+            .time-pill { padding: 8px 4px; font-size: 12px; }
             .time-pill.flexible-pill { font-size: 12px; }
             .mob-sum-btn { padding: 7px 11px; font-size: 14px; }
         }
@@ -1594,9 +1759,13 @@
         <!-- RIGHT COLUMN: STEP 3 (Data Diri & WhatsApp Instant Submit) -->
         <div class="right-col sticky-summary">
             <div class="summary-card slide-reveal slide-right" style="transition-delay: 150ms;">
-                <div class="summary-header">
-                    <h3 class="summary-title"><i class="fa-solid fa-clipboard-check" style="color: var(--color-lime);"></i> RINGKASAN</h3>
-                    <span class="badge-live">READY TO BOOK</span>
+                <div class="panel-header" style="margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(138, 154, 91, 0.25);">
+                    <div class="step-badge">3</div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h2 class="panel-title" style="margin: 0; font-size: 20px;">DATA DIRI & RINGKASAN</h2>
+                        <p class="panel-subtitle" style="margin: 2px 0 0; font-size: 12px;">Lengkapi kontak WhatsApp untuk konfirmasi instan</p>
+                    </div>
+                    <span class="badge-live" style="flex-shrink: 0;">READY</span>
                 </div>
 
                 <!-- Paket Terpilih Display -->
@@ -1831,6 +2000,7 @@
             renderPackages(pkgParam);
             updateLiveSummary();
             initScrollAnimations();
+            initMobileStickyObserver();
         });
 
         // Arena Preview Data for Real Arena Photos
@@ -2132,21 +2302,35 @@
             const phone = document.getElementById('book-phone').value.trim();
             const date = document.getElementById('book-date').value;
 
-            // Jika data diri belum lengkap, scroll halus ke form agar user melengkapi
-            if (!name || !phone || !date) {
-                const summaryEl = document.querySelector('.summary-card');
-                if (summaryEl) {
-                    summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                if (!name) {
-                    highlightError('book-name', 'feedback-name');
-                    setTimeout(() => document.getElementById('book-name').focus(), 300);
-                } else if (!phone) {
-                    highlightError('book-phone', 'feedback-phone');
-                    setTimeout(() => document.getElementById('book-phone').focus(), 300);
-                } else if (!date) {
+            // Jika tanggal belum dipilih, arahkan ke input tanggal di Step 2
+            if (!date) {
+                const dateEl = document.getElementById('book-date');
+                if (dateEl) {
+                    dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     highlightError('book-date');
-                    setTimeout(() => document.getElementById('book-date').focus(), 300);
+                    setTimeout(() => dateEl.focus(), 350);
+                }
+                return;
+            }
+
+            // Jika nama belum diisi, arahkan ke input nama di Step 3
+            if (!name) {
+                const nameEl = document.getElementById('book-name');
+                if (nameEl) {
+                    nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightError('book-name', 'feedback-name');
+                    setTimeout(() => nameEl.focus(), 350);
+                }
+                return;
+            }
+
+            // Jika nomor HP belum diisi, arahkan ke input nomor di Step 3
+            if (!phone) {
+                const phoneEl = document.getElementById('book-phone');
+                if (phoneEl) {
+                    phoneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightError('book-phone', 'feedback-phone');
+                    setTimeout(() => phoneEl.focus(), 350);
                 }
                 return;
             }
@@ -2331,6 +2515,30 @@ Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untu
                 elements.forEach(el => scrollObserver.observe(el));
             } else {
                 elements.forEach(el => el.classList.add('active'));
+            }
+        }
+
+        // Auto-hide mobile sticky bar when Step 3 is in view to prevent covering form inputs
+        function initMobileStickyObserver() {
+            const summaryCard = document.querySelector('.summary-card');
+            const stickyBar = document.getElementById('mobileStickySummary');
+            if (!summaryCard || !stickyBar) return;
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            stickyBar.style.transform = 'translateY(110%)';
+                            stickyBar.style.opacity = '0';
+                            stickyBar.style.pointerEvents = 'none';
+                        } else {
+                            stickyBar.style.transform = 'translateY(0)';
+                            stickyBar.style.opacity = '1';
+                            stickyBar.style.pointerEvents = 'auto';
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(summaryCard);
             }
         }
     </script>
