@@ -3367,13 +3367,13 @@
 
     <!-- JavaScript Interaktif & Animasi -->
     <script>
-        // Force browser to always return to top on page refresh/reload
+        // Force browser to always return to top on page refresh/reload if no hash
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        window.scrollTo(0, 0);
-        window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
-        window.addEventListener('load', () => { setTimeout(() => window.scrollTo(0, 0), 0); });
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
 
         // Navbar Effect On Scroll
         window.addEventListener('scroll', function() {

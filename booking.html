@@ -1981,13 +1981,13 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
-        // Force browser to always return to top on page refresh/reload
+        // Force browser to always return to top on page refresh/reload if no hash
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        window.scrollTo(0, 0);
-        window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
-        window.addEventListener('load', () => { setTimeout(() => window.scrollTo(0, 0), 0); });
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
 
         // Database Semua Paket Sesuai Pricelist
         const packageCatalog = {
@@ -2046,52 +2046,6 @@
         let selectedTime = "10:00 WIB";
         let isTimeFlexible = false;
 
-        // Inisialisasi Halaman
-        window.addEventListener('DOMContentLoaded', () => {
-            // Set tanggal minimal hari ini
-            const dateInput = document.getElementById('book-date');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.min = today;
-            dateInput.value = today;
-
-            // Realtime clear input errors
-            ['book-name', 'book-phone', 'book-date'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', () => {
-                        el.classList.remove('has-error');
-                        const fb = document.getElementById('feedback-' + id.replace('book-', ''));
-                        if (fb) fb.classList.remove('show');
-                    });
-                    el.addEventListener('change', () => {
-                        el.classList.remove('has-error');
-                    });
-                }
-            });
-
-            // Baca Parameter URL (?cat=...&pkg=...)
-            const urlParams = new URLSearchParams(window.location.search);
-            const catParam = urlParams.get('cat') || urlParams.get('category');
-            const pkgParam = urlParams.get('pkg') || urlParams.get('package');
-
-            if (catParam) {
-                const lowerCat = catParam.toLowerCase();
-                if (lowerCat.includes('target') || lowerCat.includes('shoot')) currentCategory = 'target';
-                else if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
-                else if (lowerCat.includes('unit')) currentCategory = 'unit';
-                else if (lowerCat.includes('coach')) currentCategory = 'coaching';
-                else if (lowerCat.includes('gear')) currentCategory = 'gear';
-            }
-
-            // Render Tab, Arena Preview & Paket
-            renderTabs();
-            renderArenaPreview(currentCategory);
-            renderPackages(pkgParam);
-            updateLiveSummary();
-            initScrollAnimations();
-            initMobileStickyObserver();
-        });
-
         // Arena Preview Data for Real Arena Photos
         const arenaPreviews = {
             wargame: {
@@ -2140,6 +2094,52 @@
                 tag: 'Pro Shop'
             }
         };
+
+        // Inisialisasi Halaman
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set tanggal minimal hari ini
+            const dateInput = document.getElementById('book-date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            dateInput.value = today;
+
+            // Realtime clear input errors
+            ['book-name', 'book-phone', 'book-date'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        el.classList.remove('has-error');
+                        const fb = document.getElementById('feedback-' + id.replace('book-', ''));
+                        if (fb) fb.classList.remove('show');
+                    });
+                    el.addEventListener('change', () => {
+                        el.classList.remove('has-error');
+                    });
+                }
+            });
+
+            // Baca Parameter URL (?cat=...&pkg=...)
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat') || urlParams.get('category');
+            const pkgParam = urlParams.get('pkg') || urlParams.get('package');
+
+            if (catParam) {
+                const lowerCat = catParam.toLowerCase();
+                if (lowerCat.includes('target') || lowerCat.includes('shoot')) currentCategory = 'target';
+                else if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
+                else if (lowerCat.includes('unit')) currentCategory = 'unit';
+                else if (lowerCat.includes('coach')) currentCategory = 'coaching';
+                else if (lowerCat.includes('gear')) currentCategory = 'gear';
+            }
+
+            // Render Tab, Arena Preview & Paket
+            renderTabs();
+            renderArenaPreview(currentCategory);
+            renderPackages(pkgParam);
+            updateLiveSummary();
+            initScrollAnimations();
+            initMobileStickyObserver();
+        });
 
         function renderArenaPreview(catKey) {
             const previewEl = document.getElementById('arenaPreviewBanner');
