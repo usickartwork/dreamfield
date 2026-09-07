@@ -166,7 +166,134 @@
             display: none;
         }
 
-        /* --- Page Header Banner --- */
+        
+        /* --- 3-Step Flow Progress Bar --- */
+        .flow-stepper-wrap {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border-bottom: 1px solid rgba(78, 91, 49, 0.4);
+            padding: 14px 20px;
+        }
+
+        .flow-stepper-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .flow-step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Teko', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .flow-step-item.done .step-circle {
+            background-color: rgba(78, 91, 49, 0.6);
+            border: 2px solid var(--color-moss);
+            color: var(--color-lime);
+        }
+
+        .flow-step-item.active .step-circle {
+            background: linear-gradient(135deg, rgba(78, 91, 49, 0.8) 0%, rgba(34, 37, 30, 0.95) 100%);
+            border: 2px solid var(--color-lime);
+            color: var(--color-lime);
+            box-shadow: 0 0 15px rgba(159, 230, 0, 0.35);
+        }
+
+        .step-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-num-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--color-moss);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .flow-step-item.active .step-num-label {
+            color: var(--color-lime);
+        }
+
+        .step-text {
+            font-family: 'Teko', sans-serif;
+            font-size: 17px;
+            color: var(--color-sage);
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .flow-step-item.active .step-text {
+            color: var(--color-lime);
+        }
+
+        .flow-line {
+            flex: 1;
+            height: 2px;
+            background-color: rgba(78, 91, 49, 0.35);
+            margin: 0 12px;
+            position: relative;
+        }
+
+        .flow-line.done {
+            background-color: var(--color-olive);
+        }
+
+        .pricelist-source-banner {
+            display: none;
+            background: rgba(78, 91, 49, 0.25);
+            border: 1px solid var(--color-olive);
+            border-left: 3px solid var(--color-lime);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--color-sage);
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pricelist-source-banner.show {
+            display: flex;
+        }
+
+        .pricelist-source-banner a {
+            color: var(--color-lime);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pricelist-source-banner a:hover {
+            text-decoration: underline;
+        }
+
+/* --- Page Header Banner --- */
         .page-banner {
             background: linear-gradient(180deg, rgba(18, 18, 18, 0.68) 0%, rgba(26, 26, 26, 0.88) 100%),
                         url('assets/img/arena-wargame.jpg') center/cover no-repeat;
@@ -1710,14 +1837,55 @@
                 DREAMFIELD <span>TACTICAL</span>
             </a>
             <div class="nav-actions">
-                <a href="index.html#pricelist" class="btn-header-back" aria-label="Kembali ke Beranda">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span class="back-text-desk">Kembali ke Beranda</span>
-                    <span class="back-text-mob">Kembali</span>
+                <a href="pricelist.html" class="btn-header-back" aria-label="Katalog Pricelist">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span class="back-text-desk">Katalog Pricelist</span>
+                    <span class="back-text-mob">Pricelist</span>
+                </a>
+                <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="back-text-desk">Beranda</span>
+                    <span class="back-text-mob">Home</span>
                 </a>
             </div>
         </div>
     </header>
+
+    <!-- 3-Step Flow Progress Indicator -->
+    <div class="flow-stepper-wrap">
+        <div class="flow-stepper-container">
+            <!-- Step 1: Eksplor Arena -->
+            <a href="index.html" class="flow-step-item done" title="Kembali ke Eksplor Arena">
+                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 1</span>
+                    <span class="step-text">Eksplor Arena</span>
+                </div>
+            </a>
+
+            <div class="flow-line done"></div>
+
+            <!-- Step 2: Pilih Paket -->
+            <a href="pricelist.html" class="flow-step-item done" title="Kembali ke Katalog Pricelist">
+                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 2</span>
+                    <span class="step-text">Pilih Paket</span>
+                </div>
+            </a>
+
+            <div class="flow-line done"></div>
+
+            <!-- Step 3: Booking & Jadwal (Active) -->
+            <div class="flow-step-item active">
+                <div class="step-circle">3</div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 3 (Aktif)</span>
+                    <span class="step-text">Booking Jadwal</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Page Banner -->
     <section class="page-banner">
@@ -1732,6 +1900,12 @@
     <main class="booking-layout">
         <!-- LEFT COLUMN: Step 1 & Step 2 -->
         <div class="left-col">
+            <!-- Source Notice when redirected from Pricelist -->
+            <div class="pricelist-source-banner" id="pricelist-source-banner">
+                <span><i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Paket terpilih dari Katalog Pricelist: <strong id="selected-source-name"></strong></span>
+                <a href="pricelist.html"><i class="fa-solid fa-arrow-left"></i> Ganti di Katalog Pricelist</a>
+            </div>
+
             <!-- STEP 1: PILIH PAKET -->
             <div class="panel-card slide-reveal slide-left">
                 <div class="panel-header">
@@ -2088,6 +2262,16 @@
             renderArenaPreview(currentCategory);
             renderPackages(pkgParam);
             updateLiveSummary();
+
+            // Tampilkan info paket dari pricelist jika ada
+            if (pkgParam || catParam) {
+                const banner = document.getElementById('pricelist-source-banner');
+                const nameSpan = document.getElementById('selected-source-name');
+                if (banner && nameSpan && currentSelectedPackage) {
+                    nameSpan.textContent = currentSelectedPackage.name + ' (' + currentSelectedPackage.price + ')';
+                    banner.classList.add('show');
+                }
+            }
             initScrollAnimations();
             initMobileStickyObserver();
         });

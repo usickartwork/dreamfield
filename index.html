@@ -826,7 +826,271 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- Pricelist Section (Multi-Section / Category Tabs) --- */
+        
+        /* --- Tactical Pricelist Teaser Showcase (Landing Page) --- */
+        .teaser-pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 36px 0 32px;
+        }
+
+        .teaser-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        .teaser-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-lime);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+        }
+
+        .teaser-card-img-wrap {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .teaser-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 350ms var(--ease-out);
+        }
+
+        .teaser-card:hover .teaser-card-img {
+            transform: scale(1.05);
+        }
+
+        .teaser-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(18, 18, 18, 0.88);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .teaser-badge.hot {
+            border-color: var(--color-lime);
+            color: var(--color-lime);
+        }
+
+        .teaser-rate-pill {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(18, 18, 18, 0.9);
+            border: 1px solid var(--color-lime);
+            color: var(--color-sage);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 3px;
+            backdrop-filter: blur(4px);
+        }
+
+        .teaser-rate-pill span {
+            color: var(--color-lime);
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .teaser-card-body {
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .teaser-cat-name {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-lime);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .teaser-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 24px;
+            line-height: 1.1;
+            color: var(--color-sage);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .teaser-desc {
+            font-size: 13px;
+            color: var(--color-moss);
+            line-height: 1.45;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        .teaser-points {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 16px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(138, 154, 91, 0.2);
+        }
+
+        .teaser-points li {
+            font-size: 12px;
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .teaser-points li i {
+            color: var(--color-lime);
+            font-size: 10px;
+        }
+
+        .btn-teaser-action {
+            background-color: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 160ms var(--ease-out);
+        }
+
+        .teaser-card:hover .btn-teaser-action {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+        }
+
+        /* Banner CTA in Teaser Section */
+        .pricelist-teaser-cta {
+            background: linear-gradient(135deg, rgba(34, 37, 30, 0.98) 0%, rgba(20, 22, 18, 0.98) 100%);
+            border: 1px solid var(--color-olive);
+            border-left: 4px solid var(--color-lime);
+            border-radius: 8px;
+            padding: 30px 28px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+        }
+
+        .teaser-cta-content {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .teaser-cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(78, 91, 49, 0.4);
+            border: 1px solid var(--color-olive);
+            color: var(--color-lime);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .teaser-cta-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 34px;
+            line-height: 1.1;
+            color: var(--color-sage);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .teaser-cta-desc {
+            font-size: 15px;
+            color: var(--color-moss);
+            line-height: 1.55;
+            margin-bottom: 22px;
+        }
+
+        .teaser-cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-main {
+            font-size: 20px;
+            padding: 12px 24px;
+        }
+
+        .btn-cta-sub {
+            font-size: 20px;
+            padding: 12px 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .teaser-pillars-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .teaser-pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .pricelist-teaser-cta {
+                padding: 22px 16px;
+            }
+            .teaser-cta-title {
+                font-size: 26px;
+            }
+            .teaser-cta-desc {
+                font-size: 13.5px;
+            }
+            .teaser-cta-actions {
+                flex-direction: column;
+            }
+            .btn-cta-main, .btn-cta-sub {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+/* --- Pricelist Section (Multi-Section / Category Tabs) --- */
         .pricing {
             background-color: var(--color-dark-surface);
             padding: 90px 20px;
@@ -2437,7 +2701,7 @@
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#about" class="nav-link">About Us</a></li>
-                <li><a href="#pricelist" class="nav-link">Pricelist</a></li>
+                <li><a href="pricelist.html" class="nav-link">Pricelist</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
                 <li><a href="booking.html" class="btn-header">Book Now</a></li>
             </ul>
@@ -2463,7 +2727,7 @@
         </div>
         <div class="drawer-links">
             <a href="#about" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> About Us</a>
-            <a href="#pricelist" class="drawer-link"><i class="fa-solid fa-tags"></i> Pricelist & Paket</a>
+            <a href="pricelist.html" class="drawer-link"><i class="fa-solid fa-tags"></i> Pricelist & Paket</a>
             <a href="#contact" class="drawer-link"><i class="fa-solid fa-location-dot"></i> Lokasi & Contact</a>
             <a href="booking.html" class="drawer-book-btn"><i class="fa-solid fa-calendar-check"></i> Book Online Now</a>
         </div>
@@ -2485,7 +2749,7 @@
             </p>
             <div class="hero-buttons slide-reveal slide-up active" style="transition-delay: 240ms;">
                 <a href="booking.html" class="btn-primary-tactical"><i class="fa-solid fa-calendar-check"></i> Book Session</a>
-                <a href="#pricelist" class="btn-secondary-tactical"><i class="fa-solid fa-tags"></i> View Pricelist</a>
+                <a href="pricelist.html" class="btn-secondary-tactical"><i class="fa-solid fa-tags"></i> View Pricelist</a>
             </div>
         </div>
     </section>
@@ -2663,636 +2927,118 @@
         </div>
     </section>
 
-    <!-- Pricelist Section -->
+    <!-- Pricelist Teaser Showcase Section -->
     <section id="pricelist" class="pricing">
         <div class="section-header slide-reveal slide-up">
             <span class="section-subtitle">Tactical Packages & Rates</span>
             <h2 class="section-title">Official Arena <span>Pricelist</span></h2>
-            <p class="section-lead-text">Klik kategori pertempuran di bawah untuk melihat detail harga & fasilitas. Pilih paket yang sesuai kebutuhan Anda.</p>
-        </div>
-
-        <!-- Tactical Category Navigation Tabs -->
-        <div class="pricing-tabs-nav slide-reveal slide-up">
-            <button class="price-tab-btn active" onclick="switchPriceSection('target')" id="btn-tab-target" aria-label="Shooting Target">
-                <div class="tab-btn-icon"><i class="fa-solid fa-bullseye"></i></div>
-                <div class="tab-btn-info">
-                    <span class="tab-btn-title">SHOOTING TARGET</span>
-                    <span class="tab-btn-badge">3 Unit Sasaran</span>
-                </div>
-            </button>
-            <button class="price-tab-btn" onclick="switchPriceSection('wargame')" id="btn-tab-wargame" aria-label="War Game">
-                <div class="tab-btn-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <div class="tab-btn-info">
-                    <span class="tab-btn-title">WAR GAME</span>
-                    <span class="tab-btn-badge hot">Populer · 4 Paket</span>
-                </div>
-            </button>
-            <button class="price-tab-btn" onclick="switchPriceSection('coaching')" id="btn-tab-coaching" aria-label="Coaching">
-                <div class="tab-btn-icon"><i class="fa-solid fa-user-ninja"></i></div>
-                <div class="tab-btn-info">
-                    <span class="tab-btn-title">COACHING</span>
-                    <span class="tab-btn-badge">2 Paket Taktis</span>
-                </div>
-            </button>
-            <button class="price-tab-btn" onclick="switchPriceSection('unit')" id="btn-tab-unit" aria-label="Unit Coaching">
-                <div class="tab-btn-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <div class="tab-btn-info">
-                    <span class="tab-btn-title">UNIT COACHING</span>
-                    <span class="tab-btn-badge">2 Paket Drill</span>
-                </div>
-            </button>
-            <button class="price-tab-btn" onclick="switchPriceSection('gear')" id="btn-tab-gear" aria-label="Gear Rental">
-                <div class="tab-btn-icon"><i class="fa-solid fa-vest"></i></div>
-                <div class="tab-btn-info">
-                    <span class="tab-btn-title">GEAR RENTAL</span>
-                    <span class="tab-btn-badge">1 Paket Lengkap</span>
-                </div>
-            </button>
+            <p class="section-lead-text">Seluruh tarif arena, sewa unit AEG/GBB, coaching, dan perlengkapan dirancang transparan dengan spesifikasi lengkap.</p>
         </div>
 
         <div class="pricing-container">
-            <!-- SECTION 1: SHOOTING TARGET (Active Default) -->
-            <div id="sec-target" class="price-section-view active">
-                <div class="sec-banner-card slide-reveal slide-scale">
-                    <div class="sec-banner-left">
-                        <div class="sec-banner-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <div>
-                            <h3 class="sec-banner-title">SHOOTING TARGET <span>RANGE</span></h3>
-                            <p class="sec-banner-desc">Latihan tembak sasaran presisi jarak 10 - 25 meter. Uji konsentrasi, akurasi tembakan, dan teknik bidik Anda.</p>
-                        </div>
+            <!-- 4 Pillar Category Showcase Cards -->
+            <div class="teaser-pillars-grid">
+                <!-- Pillar 1: War Game CQB -->
+                <div class="teaser-card slide-reveal slide-up">
+                    <div class="teaser-card-img-wrap">
+                        <img src="assets/img/arena-wargame.jpg" alt="CQB Arena Dreamfield" class="teaser-card-img" loading="lazy">
+                        <span class="teaser-badge hot"><i class="fa-solid fa-fire"></i> Populer</span>
+                        <div class="teaser-rate-pill">Mulai <span>35K</span> / Jam</div>
                     </div>
-                    <div class="sec-banner-badges">
-                        <span class="sec-tag-chip"><i class="fa-solid fa-crosshairs"></i> Target Paper & Steel Plate</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-user-shield"></i> Range Safety Officer</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-check"></i> Pemula & Mahir</span>
+                    <div class="teaser-card-body">
+                        <div class="teaser-cat-name"><i class="fa-solid fa-shield-halved"></i> SKIRMISH & BATTLE</div>
+                        <h3 class="teaser-title">WAR GAME CQB ARENA</h3>
+                        <p class="teaser-desc">Simulasi perang kota di arena taktis berstandar militer. Tersedia opsi bawa unit sendiri atau rental lengkap AEG/GBB/WGG.</p>
+                        <ul class="teaser-points">
+                            <li><i class="fa-solid fa-circle-check"></i> 8 Pilihan Paket (1-2 Jam)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Termasuk Wasit & SOP Chrono</li>
+                        </ul>
+                        <a href="pricelist.html#sec-wargame" class="btn-teaser-action">
+                            Lihat Paket War Game <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Arena Showcase: Real Photo of Shooting Target Range -->
-                <div class="arena-showcase-card slide-reveal slide-scale">
-                    <div class="arena-showcase-img-wrap">
-                        <img src="assets/img/arena-shooting-target.jpg" alt="Foto Asli Arena Shooting Target Range Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
-                        <div class="arena-showcase-badge">
-                            <i class="fa-solid fa-camera"></i> Foto Asli Arena Shooting Target
-                        </div>
-                        <div class="arena-showcase-hud">
-                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Target Paper & Steel Plates</span>
-                            <span class="hud-pill"><i class="fa-solid fa-shield-halved"></i> Jarak Tembak 10-25M</span>
-                        </div>
+                <!-- Pillar 2: Shooting Target -->
+                <div class="teaser-card slide-reveal slide-up" style="transition-delay: 80ms;">
+                    <div class="teaser-card-img-wrap">
+                        <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Dreamfield" class="teaser-card-img" loading="lazy">
+                        <span class="teaser-badge"><i class="fa-solid fa-bullseye"></i> Presisi</span>
+                        <div class="teaser-rate-pill">Mulai <span>50K</span> / Sesi</div>
                     </div>
-                    <div class="arena-showcase-details">
-                        <h3 class="showcase-title">Area Tembak Sasaran Presisi & Pengujian Akurasi</h3>
-                        <div class="showcase-tag"><i class="fa-solid fa-bullseye"></i> FASILITAS TARGET RANGE RESMI</div>
-                        <p class="showcase-desc">
-                            Lihat langsung lane tembak Dreamfield Tactical: jalur tembak individual bersekat, target kertas presisi serta plat baja (*steel poppers*), lengkap dengan pencahayaan optimal dan pendampingan Range Safety Officer (RSO).
-                        </p>
-                        <div class="showcase-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Lane tembak berpartisi individual aman & nyaman</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Target paper jarak 10-25m & plat baja reaktif berdenting</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Cocok untuk pemula, keluarga, & latihan tembak reaksi</span></div>
-                        </div>
+                    <div class="teaser-card-body">
+                        <div class="teaser-cat-name"><i class="fa-solid fa-crosshairs"></i> PRECISION RANGE</div>
+                        <h3 class="teaser-title">SHOOTING TARGET RANGE</h3>
+                        <p class="teaser-desc">Lane individual aman berjarak 10-25M untuk menguji konsentrasi & bidikan dengan target kertas dan plat baja berdenting.</p>
+                        <ul class="teaser-points">
+                            <li><i class="fa-solid fa-circle-check"></i> Pilihan Rifle, Handgun & Sniper</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Didampingi Range Safety Officer</li>
+                        </ul>
+                        <a href="pricelist.html#sec-target" class="btn-teaser-action">
+                            Lihat Paket Target <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="cards-grid-3">
-                    <!-- Target: AEG / Rifle -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                            <div>
-                                <div class="card-header-sub">Automatic Rifle Platform</div>
-                                <h4 class="card-header-title">AEG / RIFLE</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">75K</span>
-                            <span class="price-unit">/ Sesi Latihan</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Otomatis Elektrik (M4 / HK416 platform)</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include 6mm High-Grade BB Pellets & Magazine</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Tembak Sasaran Presisi</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Didampingi Range Safety Officer bersertifikasi</span></li>
+                <!-- Pillar 3: Tactical Coaching -->
+                <div class="teaser-card slide-reveal slide-up" style="transition-delay: 160ms;">
+                    <div class="teaser-card-img-wrap">
+                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Tactical Coaching Dreamfield" class="teaser-card-img" loading="lazy">
+                        <span class="teaser-badge"><i class="fa-solid fa-award"></i> Mentoring</span>
+                        <div class="teaser-rate-pill">Mulai <span>35K</span> / Sesi</div>
+                    </div>
+                    <div class="teaser-card-body">
+                        <div class="teaser-cat-name"><i class="fa-solid fa-user-ninja"></i> PRO TRAINING</div>
+                        <h3 class="teaser-title">TACTICAL COACHING</h3>
+                        <p class="teaser-desc">Bimbingan privat 1-on-1 bersama instruktur militer berpengalaman: teknik pie-slicing, room clearing, dan trigger control.</p>
+                        <ul class="teaser-points">
+                            <li><i class="fa-solid fa-circle-check"></i> Sesi Privat 90 Menit</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Pemula hingga Persiapan Turnamen</li>
                         </ul>
-                        <a href="booking.html?cat=target&pkg=st-aeg" class="btn-primary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking AEG Rifle (75K)
+                        <a href="pricelist.html#sec-coaching" class="btn-teaser-action">
+                            Lihat Paket Coaching <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
+                </div>
 
-                    <!-- Target: GBB / Handgun -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
-                            <div>
-                                <div class="card-header-sub">Gas Blowback Pistol</div>
-                                <h4 class="card-header-title">GBB / HANDGUN</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">50K</span>
-                            <span class="price-unit">/ Sesi Latihan</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Pistol Gas Blowback dengan hentakan recoil nyata</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include Magazine & Pengisian Green Gas penuh</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Sasaran Jarak 10-15 meter</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Panduan cara memegang senjata & safety trigger</span></li>
-                        </ul>
-                        <a href="booking.html?cat=target&pkg=st-gbb" class="btn-secondary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking GBB Handgun (50K)
-                        </a>
+                <!-- Pillar 4: Unit Coaching & Drill -->
+                <div class="teaser-card slide-reveal slide-up" style="transition-delay: 240ms;">
+                    <div class="teaser-card-img-wrap">
+                        <img src="assets/img/unit-coaching-drill.jpg" alt="Unit Drill Dreamfield" class="teaser-card-img" loading="lazy">
+                        <span class="teaser-badge"><i class="fa-solid fa-layer-group"></i> Spesialisasi</span>
+                        <div class="teaser-rate-pill">Mulai <span>100K</span> / 2 Mag</div>
                     </div>
-
-                    <!-- Target: Sniper Spring -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-bullseye"></i></div>
-                            <div>
-                                <div class="card-header-sub">Bolt-Action Long Range</div>
-                                <h4 class="card-header-title">SNIPER SPRING</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">50K</span>
-                            <span class="price-unit">/ Sesi Latihan</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Sniper Spring Bolt-Action Akurasi Tinggi</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Dilengkapi Optical Scope pembesar jarak jauh</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Bullseye presisi jarak 20-25 meter</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan kestabilan napas & zeroing crosshair</span></li>
+                    <div class="teaser-card-body">
+                        <div class="teaser-cat-name"><i class="fa-solid fa-gun"></i> WEAPON DRILL</div>
+                        <h3 class="teaser-title">UNIT DRILL: GBB & AEG</h3>
+                        <p class="teaser-desc">Drill manipulasi unit, speed reload kilat, penanganan kemacetan senjata, serta pengujian grouping tembakan berulang.</p>
+                        <ul class="teaser-points">
+                            <li><i class="fa-solid fa-circle-check"></i> Modul GBB Gas & AEG Elektrik</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Target Paper Reaktif Presisi</li>
                         </ul>
-                        <a href="booking.html?cat=target&pkg=st-sniper" class="btn-secondary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking Sniper Spring (50K)
+                        <a href="pricelist.html#sec-unit" class="btn-teaser-action">
+                            Lihat Paket Unit Drill <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 2: WAR GAME (Skirmish / Battle Arena) -->
-            <div id="sec-wargame" class="price-section-view">
-                <div class="sec-banner-card reveal">
-                    <div class="sec-banner-left">
-                        <div class="sec-banner-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div>
-                            <h3 class="sec-banner-title">WAR GAME <span>CQB ARENA</span></h3>
-                            <p class="sec-banner-desc">Pertempuran taktis tim di arena berstandar militer. Lengkap dengan rintangan bunker, barikade, dan skenario game seru.</p>
-                        </div>
-                    </div>
-                    <div class="sec-banner-badges">
-                        <span class="sec-tag-chip"><i class="fa-solid fa-flag"></i> TDM & Bomb Defusal</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-scale-balanced"></i> Wasit / Marshal Resmi</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-gauge-high"></i> Safety Chrono Tested</span>
-                    </div>
-                </div>
-
-                <!-- Arena Showcase: Real Photo of War Game CQB Arena -->
-                <div class="arena-showcase-card slide-reveal slide-scale">
-                    <div class="arena-showcase-img-wrap">
-                        <img src="assets/img/arena-wargame.jpg" alt="Foto Asli Arena CQB War Game Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
-                        <div class="arena-showcase-badge">
-                            <i class="fa-solid fa-camera"></i> Foto Asli Arena War Game CQB
-                        </div>
-                        <div class="arena-showcase-hud">
-                            <span class="hud-pill"><i class="fa-solid fa-shield-halved"></i> Labirin Barikade Taktis</span>
-                            <span class="hud-pill"><i class="fa-solid fa-users"></i> Kapasitas 2 - 20 Pemain</span>
-                        </div>
-                    </div>
-                    <div class="arena-showcase-details">
-                        <h3 class="showcase-title">Medan Skirmish & Labirin Pertempuran Taktis</h3>
-                        <div class="showcase-tag"><i class="fa-solid fa-shield-halved"></i> FASILITAS CQB BATTLE ARENA RESMI</div>
-                        <p class="showcase-desc">
-                            Lihat langsung layout arena pertempuran CQB Dreamfield Tactical: barikade taktikal modular multi-sudut, rute flanking penyergapan, pilar terlindung, dan ruangan ber-AC untuk pertandingan tim yang seru dan menantang.
-                        </p>
-                        <div class="showcase-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Barikade CQB modular & rute penyergapan taktis</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Arena indoor full AC sejuk, bebas cuaca panas/hujan</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Didampingi Marshal wasit resmi & skenario game seru</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid-4">
-                    <!-- WG: Lapangan Only -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                            <div>
-                                <div class="card-header-sub">Bring Your Own Gear</div>
-                                <h4 class="card-header-title">LAPANGAN</h4>
-                            </div>
-                        </div>
-                        <div class="dual-rate-container">
-                            <div class="dual-rate-box">
-                                <div class="dual-rate-time">1 JAM</div>
-                                <div class="dual-rate-val">35K</div>
-                            </div>
-                            <div class="dual-rate-box highlight">
-                                <div class="dual-rate-time">2 JAM</div>
-                                <div class="dual-rate-val">50K</div>
-                            </div>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses penuh arena pertempuran CQB</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Wasit / Game Marshal pengatur alur taktik</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Chrono test keamanan sebelum bertanding</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Cocok untuk pemain dengan unit & gear sendiri</span></li>
-                        </ul>
-                        <div class="dual-action-btns">
-                            <a href="booking.html?cat=wargame&pkg=wg-lapangan-1h" class="btn-tactical-action btn-action-outline">
-                                Book 1 Jam (35K)
-                            </a>
-                            <a href="booking.html?cat=wargame&pkg=wg-lapangan-2h" class="btn-tactical-action btn-action-solid">
-                                Book 2 Jam (50K)
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- WG: Lapangan + WGG -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-bolt"></i></div>
-                            <div>
-                                <div class="card-header-sub">Water Gel Blaster</div>
-                                <h4 class="card-header-title">LAPANGAN + WGG</h4>
-                            </div>
-                        </div>
-                        <div class="dual-rate-container">
-                            <div class="dual-rate-box">
-                                <div class="dual-rate-time">1 JAM</div>
-                                <div class="dual-rate-val">100K</div>
-                            </div>
-                            <div class="dual-rate-box highlight">
-                                <div class="dual-rate-time">2 JAM</div>
-                                <div class="dual-rate-val">150K</div>
-                            </div>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket masuk arena CQB + Unit Senjata WGG</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru Water Gel ramah lingkungan & aman</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Eye Goggle pelindung mata</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Sangat ramah pemula, remaja & kumpul teman</span></li>
-                        </ul>
-                        <div class="dual-action-btns">
-                            <a href="booking.html?cat=wargame&pkg=wg-wgg-1h" class="btn-tactical-action btn-action-outline">
-                                Book 1 Jam (100K)
-                            </a>
-                            <a href="booking.html?cat=wargame&pkg=wg-wgg-2h" class="btn-tactical-action btn-action-solid">
-                                Book 2 Jam (150K)
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- WG: Lapangan + AEG (Popular) -->
-                    <div class="tac-price-card popular reveal">
-                        <span class="popular-badge">PALING DIMINATI</span>
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
-                            <div>
-                                <div class="card-header-sub">Full Tactical Airsoft</div>
-                                <h4 class="card-header-title">LAPANGAN + AEG</h4>
-                            </div>
-                        </div>
-                        <div class="dual-rate-container">
-                            <div class="dual-rate-box">
-                                <div class="dual-rate-time">1 JAM</div>
-                                <div class="dual-rate-val">150K</div>
-                            </div>
-                            <div class="dual-rate-box highlight">
-                                <div class="dual-rate-time">2 JAM</div>
-                                <div class="dual-rate-val">225K</div>
-                            </div>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket arena + Rental Senapan Otomatis AEG</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru 6mm BB Pellets + High-Cap Magazine</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Protection Mask & Safety Briefing</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pengalaman perang taktis paling autentik & seru</span></li>
-                        </ul>
-                        <div class="dual-action-btns">
-                            <a href="booking.html?cat=wargame&pkg=wg-aeg-1h" class="btn-tactical-action btn-action-outline">
-                                Book 1 Jam (150K)
-                            </a>
-                            <a href="booking.html?cat=wargame&pkg=wg-aeg-2h" class="btn-tactical-action btn-action-solid">
-                                Book 2 Jam (225K)
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- WG: Lapangan + GBB -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-fire"></i></div>
-                            <div>
-                                <div class="card-header-sub">Heavy Recoil Experience</div>
-                                <h4 class="card-header-title">LAPANGAN + GBB</h4>
-                            </div>
-                        </div>
-                        <div class="dual-rate-container">
-                            <div class="dual-rate-box">
-                                <div class="dual-rate-time">1 JAM</div>
-                                <div class="dual-rate-val">125K</div>
-                            </div>
-                            <div class="dual-rate-box highlight">
-                                <div class="dual-rate-time">2 JAM</div>
-                                <div class="dual-rate-val">200K</div>
-                            </div>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket arena + Unit Gas Blowback Recoil</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Suara & hentakan recoil senjata yang nyata</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include Green Gas & BB Pellets siap pakai</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Mask & Pelindung Taktis Lengkap</span></li>
-                        </ul>
-                        <div class="dual-action-btns">
-                            <a href="booking.html?cat=wargame&pkg=wg-gbb-1h" class="btn-tactical-action btn-action-outline">
-                                Book 1 Jam (125K)
-                            </a>
-                            <a href="booking.html?cat=wargame&pkg=wg-gbb-2h" class="btn-tactical-action btn-action-solid">
-                                Book 2 Jam (200K)
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 3: COACHING -->
-            <div id="sec-coaching" class="price-section-view">
-                <div class="sec-banner-card reveal">
-                    <div class="sec-banner-left">
-                        <div class="sec-banner-icon"><i class="fa-solid fa-user-ninja"></i></div>
-                        <div>
-                            <h3 class="sec-banner-title">TACTICAL <span>COACHING</span></h3>
-                            <p class="sec-banner-desc">Tingkatkan skill menembak dan manuver tempur Anda dengan bimbingan langsung instruktur berpengalaman.</p>
-                        </div>
-                    </div>
-                    <div class="sec-banner-badges">
-                        <span class="sec-tag-chip"><i class="fa-solid fa-medal"></i> Instruktur Profesional</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-clock"></i> Sesi 1,5 Jam Efektif</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-chart-line"></i> Evaluasi Akurasi</span>
-                    </div>
-                </div>
-
-                <!-- Arena Showcase: Real Photo of Tactical Coaching & Aiming Drill -->
-                <div class="arena-showcase-card slide-reveal slide-scale">
-                    <div class="arena-showcase-img-wrap">
-                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Foto Asli Sesi Latihan Coaching & Drill Akurasi Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
-                        <div class="arena-showcase-badge">
-                            <i class="fa-solid fa-camera"></i> Foto Asli Sesi Tactical Coaching
-                        </div>
-                        <div class="arena-showcase-hud">
-                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Trigger Control Drill</span>
-                            <span class="hud-pill"><i class="fa-solid fa-user-check"></i> 1-on-1 Head Coach</span>
-                        </div>
-                    </div>
-                    <div class="arena-showcase-details">
-                        <h3 class="showcase-title">Bimbingan Intensif & Penguasaan Akurasi Tembak</h3>
-                        <div class="showcase-tag"><i class="fa-solid fa-user-ninja"></i> PROGRAM COACHING RESMI</div>
-                        <p class="showcase-desc">
-                            Lihat langsung keseriusan sesi pembinaan di Dreamfield Tactical: bimbingan intensif stance tubuh, penempatan grip senapan, sight alignment, kontrol pernapasan, serta evaluasi grouping tembakan secara sistematis.
-                        </p>
-                        <div class="showcase-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Mentorship privat 1-on-1 bersama Head Coach bersertifikasi</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan CQB room clearing, corner peeking & dynamic shooting</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Evaluasi akurasi, koreksi flinching & konsultasi kalibrasi unit</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid-2">
-                    <!-- Coaching: Private -->
-                    <div class="tac-price-card popular reveal">
-                        <span class="popular-badge">1-ON-1 INTENSIF</span>
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-user-shield"></i></div>
-                            <div>
-                                <div class="card-header-sub">Personal Mentorship</div>
-                                <h4 class="card-header-title">PRIVATE COACHING</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">150K</span>
-                            <span class="price-unit">/ 1,5 Jam</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan taktis privat 1-on-1 bersama Head Coach</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Materi: Grip, Shooting Stance, Weapon Manipulation</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan CQB Room Clearing & Corner Peeking Drill</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Analisis evaluasi akurasi & konsultasi upgrade unit</span></li>
-                        </ul>
-                        <a href="booking.html?cat=coaching&pkg=ch-private" class="btn-primary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking Private Coaching (150K)
+            <!-- Big Interactive Pricelist CTA Banner -->
+            <div class="pricelist-teaser-cta slide-reveal slide-scale">
+                <div class="teaser-cta-content">
+                    <span class="teaser-cta-badge"><i class="fa-solid fa-book-open"></i> Halaman Resmi Pricelist</span>
+                    <h3 class="teaser-cta-title">Buka Katalog Lengkap & Spesifikasi Seluruh Paket</h3>
+                    <p class="teaser-cta-desc">
+                        Ingin tahu rincian peluru BB yang didapat, durasi sewa, perlengkapan pelindung, dan ketentuan arena? Kunjungi halaman official pricelist kami dengan fitur lihat detail interaktif!
+                    </p>
+                    <div class="teaser-cta-actions">
+                        <a href="pricelist.html" class="btn-primary-tactical btn-cta-main">
+                            <i class="fa-solid fa-layer-group"></i> BUKA OFFICIAL PRICELIST LENGKAP <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="booking.html" class="btn-secondary-tactical btn-cta-sub">
+                            <i class="fa-solid fa-calendar-check"></i> Langsung ke Form Booking
                         </a>
                     </div>
-
-                    <!-- Coaching: HTM -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-ticket"></i></div>
-                            <div>
-                                <div class="card-header-sub">Class & Workshop Session</div>
-                                <h4 class="card-header-title">HTM COACHING</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">35K</span>
-                            <span class="price-unit">/ 1,5 Jam</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket masuk sesi kelas pelatihan taktis bersama</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Materi dasar keselamatan, aturan CQB & etika airsoft</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses ke arena drill kelompok bersama peserta lain</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Sesi tanya-jawab teknis seputar operasional unit</span></li>
-                        </ul>
-                        <a href="booking.html?cat=coaching&pkg=ch-htm" class="btn-secondary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking HTM Coaching (35K)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 4: UNIT COACHING -->
-            <div id="sec-unit" class="price-section-view">
-                <div class="sec-banner-card reveal">
-                    <div class="sec-banner-left">
-                        <div class="sec-banner-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div>
-                            <h3 class="sec-banner-title">UNIT COACHING <span>& DRILLS</span></h3>
-                            <p class="sec-banner-desc">Drill intensif penguasaan unit khusus per-magazine. Fokus pada kecepatan reload, grouping presisi, dan pengendalian recoil.</p>
-                        </div>
-                    </div>
-                    <div class="sec-banner-badges">
-                        <span class="sec-tag-chip"><i class="fa-solid fa-rotate"></i> Quick Mag Reload</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-burst"></i> Recoil Management</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-stopwatch"></i> Speed Drills</span>
-                    </div>
-                </div>
-
-                <!-- Arena Showcase: Real Photo of Unit Coaching & Tactical Rifle Drill -->
-                <div class="arena-showcase-card slide-reveal slide-scale">
-                    <div class="arena-showcase-img-wrap">
-                        <img src="assets/img/unit-coaching-drill.jpg" alt="Foto Asli Sesi Unit Coaching & Tactical Rifle Drill Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
-                        <div class="arena-showcase-badge">
-                            <i class="fa-solid fa-camera"></i> Foto Asli Sesi Unit Coaching
-                        </div>
-                        <div class="arena-showcase-hud">
-                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Advanced Rifle Drill</span>
-                            <span class="hud-pill"><i class="fa-solid fa-layer-group"></i> Weapon Manipulation</span>
-                        </div>
-                    </div>
-                    <div class="arena-showcase-details">
-                        <h3 class="showcase-title">Penguasaan Senjata & Drill Taktis Tingkat Lanjut</h3>
-                        <div class="showcase-tag"><i class="fa-solid fa-layer-group"></i> DRILL UNIT SPESIFIK RESMI</div>
-                        <p class="showcase-desc">
-                            Lihat langsung standar latihan unit di Dreamfield Tactical: drill penguasaan senapan otomatis, teknik penanganan hentakan recoil, transisi magazine kilat, serta postur menembak taktis yang presisi bersama instruktur.
-                        </p>
-                        <div class="showcase-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan kontrol recoil GBB & burst rhythm senapan AEG</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Drill emergency reload cepat & magazine change efisien</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Penanganan malfunction (jam clearing) & transisi sudut bidikan</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid-2">
-                    <!-- Unit: GBB -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
-                            <div>
-                                <div class="card-header-sub">Gas Blowback Mastery</div>
-                                <h4 class="card-header-title">GBB COACHING</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">100K</span>
-                            <span class="price-unit">/ 2 Mag</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill intensif 2 Magazine Gas Blowback penuh</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan kontrol recoil hentakan & double-tap shot</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill kecepatan emergency reload & magazine change</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Praktik penanganan malfunction / jam clearing</span></li>
-                        </ul>
-                        <a href="booking.html?cat=unit&pkg=uc-gbb" class="btn-primary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking GBB Drill (100K)
-                        </a>
-                    </div>
-
-                    <!-- Unit: AEG -->
-                    <div class="tac-price-card reveal">
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-bolt"></i></div>
-                            <div>
-                                <div class="card-header-sub">Automatic Electric Gun</div>
-                                <h4 class="card-header-title">AEG COACHING</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">125K</span>
-                            <span class="price-unit">/ 1 Mag</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill terarah 1 High-Cap Magazine Senapan AEG</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan grouping ketat, burst control & ritme trigger</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Dynamic shooting: menembak sambil bergerak cepat</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Target acquisition speed drill & transisi bidikan</span></li>
-                        </ul>
-                        <a href="booking.html?cat=unit&pkg=uc-aeg" class="btn-secondary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Booking AEG Drill (125K)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 5: GEAR RENTAL -->
-            <div id="sec-gear" class="price-section-view">
-                <div class="sec-banner-card reveal">
-                    <div class="sec-banner-left">
-                        <div class="sec-banner-icon"><i class="fa-solid fa-vest"></i></div>
-                        <div>
-                            <h3 class="sec-banner-title">TACTICAL <span>GEAR RENTAL</span></h3>
-                            <p class="sec-banner-desc">Perlengkapan proteksi standar militer untuk keamanan maksimal selama bertempur di arena Dreamfield.</p>
-                        </div>
-                    </div>
-                    <div class="sec-banner-badges">
-                        <span class="sec-tag-chip"><i class="fa-solid fa-shield-halved"></i> Standar Taktis Internasional</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-spray-can-sparkles"></i> Higienis & Disanitasi</span>
-                        <span class="sec-tag-chip"><i class="fa-solid fa-users"></i> Ukuran Lengkap</span>
-                    </div>
-                </div>
-
-                <!-- Arena Showcase: Real Photo of Pro Shop Armory & Tactical Gear Display -->
-                <div class="arena-showcase-card slide-reveal slide-scale">
-                    <div class="arena-showcase-img-wrap">
-                        <img src="assets/img/gear-rental-armory.jpg" alt="Foto Asli Pro Shop, Display Armory & Rental Gear Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
-                        <div class="arena-showcase-badge">
-                            <i class="fa-solid fa-camera"></i> Foto Asli Display Armory & Pro Shop
-                        </div>
-                        <div class="arena-showcase-hud">
-                            <span class="hud-pill"><i class="fa-solid fa-vest"></i> Tactical Gear & Vest</span>
-                            <span class="hud-pill"><i class="fa-solid fa-gun"></i> Armory Display</span>
-                        </div>
-                    </div>
-                    <div class="arena-showcase-details">
-                        <h3 class="showcase-title">Fasilitas Pro Shop, Display Armory & Rental Gear</h3>
-                        <div class="showcase-tag"><i class="fa-solid fa-vest"></i> DISPLAY ARMORY RESMI</div>
-                        <p class="showcase-desc">
-                            Lihat langsung display pro shop & armory resmi Dreamfield Tactical: deretan etalase unit airsoft berstandar turnamen, rak gantung senapan taktis, helm ops balistik, rompi plate carrier, dan aksesoris tempur yang siap disewa.
-                        </p>
-                        <div class="showcase-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Etalase pro shop resmi & display unit airsoft terlengkap</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Rental vest taktis Molle, helm ops & goggle anti-fog terawat</span></div>
-                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Seluruh gear disanitasi steril & higienis setiap selesai pemakaian</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid-1">
-                    <!-- Gear Set -->
-                    <div class="tac-price-card popular reveal">
-                        <span class="popular-badge">FULL PROTECTION PACK</span>
-                        <div class="card-header-block">
-                            <div class="card-header-icon"><i class="fa-solid fa-shield"></i></div>
-                            <div>
-                                <div class="card-header-sub">Standard Tactical Safety</div>
-                                <h4 class="card-header-title">RENTAL GEAR SET</h4>
-                            </div>
-                        </div>
-                        <div class="tac-price-display">
-                            <span class="price-val">30K</span>
-                            <span class="price-unit">/ Set Lengkap</span>
-                        </div>
-                        <ul class="card-features-list">
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Vest / Plate Carrier berstandar militer</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Protection Mask & Anti-Fog Tactical Goggle</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Heavy Duty Tactical Gloves anti-selip & pelindung buku jari</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pelindung Siku & Lutut (Elbow & Knee Protective Pads)</span></li>
-                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Seluruh perlengkapan dicuci & disanitasi steril setiap pemakaian</span></li>
-                        </ul>
-                        <a href="booking.html?cat=gear&pkg=gr-set" class="btn-primary-tactical btn-card-action">
-                            <i class="fa-solid fa-calendar-check"></i> Sewa Gear Set Sekarang (30K)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Quick Action & Booking Card -->
-            <div class="pricelist-bottom-cta slide-reveal slide-scale">
-                <div class="bottom-cta-left">
-                    <div class="bottom-cta-icon"><i class="fa-solid fa-bolt"></i></div>
-                    <div class="bottom-cta-text">
-                        <h4>Mau Reservasi Jadwal Main Langsung Tanpa Ribet?</h4>
-                        <p>Pilih kategori, tanggal & sesi jam main Anda di halaman booking, lalu konfirmasi instan via WhatsApp.</p>
-                    </div>
-                </div>
-                <div class="bottom-cta-actions">
-                    <a href="booking.html" class="btn-primary-tactical">
-                        <i class="fa-solid fa-calendar-check"></i> Buka Form Booking Cepat
-                    </a>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Dreamfield%20Tactical%2C%20saya%20mau%20tanya%20seputar%20booking%20jadwal" target="_blank" class="btn-secondary-tactical">
-                        <i class="fa-brands fa-whatsapp"></i> Chat Admin WhatsApp
-                    </a>
                 </div>
             </div>
         </div>
