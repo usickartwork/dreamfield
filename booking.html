@@ -113,13 +113,16 @@
         }
 
         .logo {
+            font-family: 'Teko', sans-serif;
             font-size: 28px;
             font-weight: 700;
             color: var(--color-sage);
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 0;
+            letter-spacing: 1.2px;
+            line-height: 1;
             transition: transform 160ms var(--ease-out);
         }
 
@@ -128,10 +131,11 @@
         }
 
         .logo span {
-            color: inherit;
-            font-family: inherit;
-            font-weight: inherit;
-            letter-spacing: inherit;
+            color: var(--color-lime);
+            font-family: 'Teko', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            margin-left: 5px;
         }
 
         .nav-actions {
@@ -1640,8 +1644,8 @@
         @media (max-width: 600px) {
             /* Navbar */
             .nav-container { padding: 8px 12px !important; }
-            .logo { font-size: clamp(15px, 4vw, 19px) !important; flex-shrink: 1 !important; min-width: 0 !important; white-space: nowrap !important; }
-            .logo span { display: inline !important; color: inherit !important; font-family: inherit !important; }
+            .logo { font-size: clamp(16px, 4.2vw, 20px) !important; flex-shrink: 1 !important; min-width: 0 !important; white-space: nowrap !important; gap: 0 !important; }
+            .logo span { display: inline !important; color: var(--color-lime) !important; font-family: 'Teko', sans-serif !important; font-weight: 700 !important; margin-left: 4px !important; }
             .nav-actions { flex-shrink: 0 !important; }
             .btn-header-back { padding: 5px 10px !important; font-size: 12.5px !important; white-space: nowrap !important; }
             .back-text-desk { display: none !important; }
@@ -2518,7 +2522,7 @@
     <!-- Header Navbar & Sticky 4-Step Checklist (Selalu Menempel di Atas saat Scroll) -->
     <header id="mainStickyHeader">
         <div class="nav-container">
-            <a href="index.html" class="logo">DREAMFIELD <span>TACTICAL</span></a>
+            <a href="index.html" class="logo">DREAMFIELD<span>TACTICAL</span></a>
             <div class="nav-actions">
                 <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda" style="border-color: var(--color-moss);">
                     <i class="fa-solid fa-house"></i>
@@ -2862,7 +2866,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="logo">DREAMFIELD <span>TACTICAL</span></div>
+            <div class="logo">DREAMFIELD<span>TACTICAL</span></div>
             <div class="social-links">
                 <a href="https://www.instagram.com/dreamfieldtacticalsurabaya?stkn=MWI1NnJ3dWYxN3Rvdw==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram Dreamfield Tactical"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp CS Admin"><i class="fa-brands fa-whatsapp"></i></a>

@@ -191,13 +191,16 @@
         }
 
         .logo {
+            font-family: 'Teko', sans-serif;
             font-size: 32px;
             font-weight: 700;
             color: var(--color-sage);
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 0;
+            letter-spacing: 1.2px;
+            line-height: 1;
             transition: transform 160ms var(--ease-out);
         }
 
@@ -205,20 +208,12 @@
             transform: scale(0.97);
         }
 
-        .logo i {
-            color: var(--color-lime);
-            transition: transform 250ms var(--ease-out);
-        }
-
-        .logo:hover i {
-            transform: rotate(90deg);
-        }
-
         .logo span {
-            color: inherit;
-            font-family: inherit;
-            font-weight: inherit;
-            letter-spacing: inherit;
+            color: var(--color-lime);
+            font-family: 'Teko', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            margin-left: 5px;
         }
 
         .nav-menu {
@@ -2237,11 +2232,15 @@
         .drawer-logo {
             font-family: 'Teko', sans-serif;
             font-size: 26px;
+            font-weight: 700;
             color: var(--color-sage);
-            letter-spacing: 1px;
-            display: flex;
+            letter-spacing: 1.2px;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+        }
+        .drawer-logo span {
+            color: var(--color-lime);
+            margin-left: 5px;
         }
 
         .drawer-close-btn {
@@ -2374,15 +2373,18 @@
                 padding: 10px 14px;
             }
             .logo {
-                font-size: clamp(16px, 4.2vw, 20px);
+                font-size: clamp(17px, 4.5vw, 22px);
                 flex-shrink: 1;
                 min-width: 0;
                 white-space: nowrap;
+                gap: 0;
             }
             .logo span {
                 display: inline;
-                color: inherit;
-                font-family: inherit;
+                color: var(--color-lime);
+                font-family: 'Teko', sans-serif;
+                font-weight: 700;
+                margin-left: 4px;
             }
             .mobile-nav-actions {
                 display: flex;
@@ -3124,9 +3126,10 @@
         }
 
         .hud-logo-title span {
-            color: inherit;
-            font-family: inherit;
-            font-weight: inherit;
+            color: var(--color-lime);
+            font-family: 'Teko', sans-serif;
+            font-weight: 700;
+            margin-left: 8px;
         }
 
         /* Progress Track & Metric */
@@ -3299,7 +3302,7 @@
     <!-- Header Navbar -->
     <header id="header">
         <div class="nav-container">
-            <a href="#" class="logo">DREAMFIELD <span>TACTICAL</span></a>
+            <a href="#" class="logo">DREAMFIELD<span>TACTICAL</span></a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#about" class="nav-link">About Us</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -3318,7 +3321,7 @@
     <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
     <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
         <div class="drawer-header">
-            <div class="drawer-logo">DREAMFIELD <span>TACTICAL</span></div>
+            <div class="drawer-logo">DREAMFIELD<span>TACTICAL</span></div>
             <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -3584,7 +3587,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="logo">DREAMFIELD <span>TACTICAL</span></div>
+            <div class="logo">DREAMFIELD<span>TACTICAL</span></div>
             <div class="social-links">
                 <a href="https://www.instagram.com/dreamfieldtacticalsurabaya?stkn=MWI1NnJ3dWYxN3Rvdw==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram Dreamfield Tactical"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp CS Admin"><i class="fa-brands fa-whatsapp"></i></a>
