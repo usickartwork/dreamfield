@@ -40,7 +40,7 @@
             background-color: var(--color-charcoal);
             color: var(--color-sage);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: clip;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -1508,7 +1508,7 @@
         /* --- Responsive: Tablet & Mobile (≤992px) --- */
         @media (max-width: 992px) {
             html, body {
-                overflow-x: hidden !important;
+                overflow-x: clip !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 position: relative !important;
@@ -1524,7 +1524,7 @@
                 max-width: 100% !important;
                 min-width: 0 !important;
                 box-sizing: border-box !important;
-                overflow-x: hidden !important;
+                overflow-x: clip !important;
             }
             .left-col, .right-col {
                 display: flex !important;
@@ -2063,13 +2063,13 @@
 
         /* --- 4-Step Interactive Checklist Bar --- */
         .checklist-stepper-wrap {
-            background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-            border-bottom: 1px solid rgba(78, 91, 49, 0.45);
-            padding: 14px 20px;
-            position: sticky;
-            top: 61px;
+            background: linear-gradient(180deg, rgba(22, 26, 18, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%);
+            border-top: 1px solid rgba(78, 91, 49, 0.35);
+            border-bottom: 1px solid rgba(183, 255, 0, 0.3);
+            padding: 10px 20px;
+            position: relative;
             z-index: 950;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
         }
 
         .checklist-stepper-container {
@@ -2419,6 +2419,12 @@
                 transition: opacity 200ms ease !important;
             }
         }
+    
+        /* Smooth scroll clearance for sticky header & stepper */
+        #step-arena, #step-pkg, #step-schedule, #step-ready, .panel-card, .summary-card {
+            scroll-margin-top: 130px;
+        }
+
     </style>
     <noscript>
         <style>
@@ -2428,8 +2434,8 @@
 </head>
 <body>
 
-    <!-- Header Navbar -->
-    <header>
+    <!-- Header Navbar & Sticky 4-Step Checklist (Selalu Menempel di Atas saat Scroll) -->
+    <header id="mainStickyHeader">
         <div class="nav-container">
             <a href="index.html" class="logo">
                 <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
@@ -2443,58 +2449,58 @@
                 </a>
             </div>
         </div>
-    </header>
 
-    <!-- 4-Step Interactive Checklist Bar -->
-    <div class="checklist-stepper-wrap" id="checklistStepper">
-        <div class="checklist-stepper-container">
-            <!-- Step 1: Arena -->
-            <div class="check-step-item checked" id="check-step-arena" onclick="scrollToStep('step-arena')">
-                <div class="check-step-circle" id="circle-step-arena"><i class="fa-solid fa-check"></i></div>
-                <div class="check-step-info">
-                    <span class="check-step-num">Langkah 1</span>
-                    <span class="check-step-title">Pilih Arena</span>
-                    <span class="check-step-status" id="status-arena">War Game CQB</span>
+        <!-- 4-Step Interactive Checklist Bar (Menempel Bersama Navbar) -->
+        <div class="checklist-stepper-wrap" id="checklistStepper">
+            <div class="checklist-stepper-container">
+                <!-- Step 1: Arena -->
+                <div class="check-step-item checked" id="check-step-arena" onclick="scrollToStep('step-arena')">
+                    <div class="check-step-circle" id="circle-step-arena"><i class="fa-solid fa-check"></i></div>
+                    <div class="check-step-info">
+                        <span class="check-step-num">Langkah 1</span>
+                        <span class="check-step-title">Pilih Arena</span>
+                        <span class="check-step-status" id="status-arena">War Game CQB</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="check-flow-line done" id="conn-1"></div>
+                <div class="check-flow-line done" id="conn-1"></div>
 
-            <!-- Step 2: Paket -->
-            <div class="check-step-item active" id="check-step-pkg" onclick="scrollToStep('step-pkg')">
-                <div class="check-step-circle" id="circle-step-pkg">2</div>
-                <div class="check-step-info">
-                    <span class="check-step-num">Langkah 2</span>
-                    <span class="check-step-title">Pilih Paket</span>
-                    <span class="check-step-status" id="status-pkg">Pilih Paket...</span>
+                <!-- Step 2: Paket -->
+                <div class="check-step-item active" id="check-step-pkg" onclick="scrollToStep('step-pkg')">
+                    <div class="check-step-circle" id="circle-step-pkg">2</div>
+                    <div class="check-step-info">
+                        <span class="check-step-num">Langkah 2</span>
+                        <span class="check-step-title">Pilih Paket</span>
+                        <span class="check-step-status" id="status-pkg">Pilih Paket...</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="check-flow-line" id="conn-2"></div>
+                <div class="check-flow-line" id="conn-2"></div>
 
-            <!-- Step 3: Jadwal -->
-            <div class="check-step-item" id="check-step-schedule" onclick="scrollToStep('step-schedule')">
-                <div class="check-step-circle" id="circle-step-schedule">3</div>
-                <div class="check-step-info">
-                    <span class="check-step-num">Langkah 3</span>
-                    <span class="check-step-title">Atur Jadwal</span>
-                    <span class="check-step-status" id="status-schedule">Belum Diatur</span>
+                <!-- Step 3: Jadwal -->
+                <div class="check-step-item" id="check-step-schedule" onclick="scrollToStep('step-schedule')">
+                    <div class="check-step-circle" id="circle-step-schedule">3</div>
+                    <div class="check-step-info">
+                        <span class="check-step-num">Langkah 3</span>
+                        <span class="check-step-title">Atur Jadwal</span>
+                        <span class="check-step-status" id="status-schedule">Belum Diatur</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="check-flow-line" id="conn-3"></div>
+                <div class="check-flow-line" id="conn-3"></div>
 
-            <!-- Step 4: Siap Booking -->
-            <div class="check-step-item" id="check-step-ready" onclick="scrollToStep('step-ready')">
-                <div class="check-step-circle" id="circle-step-ready"><i class="fa-solid fa-bolt"></i></div>
-                <div class="check-step-info">
-                    <span class="check-step-num">Langkah 4</span>
-                    <span class="check-step-title">Siap Booking</span>
-                    <span class="check-step-status" id="status-ready">Isi Pemesan</span>
+                <!-- Step 4: Siap Booking -->
+                <div class="check-step-item" id="check-step-ready" onclick="scrollToStep('step-ready')">
+                    <div class="check-step-circle" id="circle-step-ready"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="check-step-info">
+                        <span class="check-step-num">Langkah 4</span>
+                        <span class="check-step-title">Siap Booking</span>
+                        <span class="check-step-status" id="status-ready">Isi Pemesan</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
     <!-- Page Banner -->
     <section class="page-banner">
@@ -3135,7 +3141,7 @@
                 spec: 'Room Clearing • Tactical Stance • Sertifikat',
                 title: 'Tactical Coaching & Room Clearing',
                 desc: 'Fasilitas edukasi taktis CQB indoor dengan layout simulasi ruangan, pintu breach, dan area manuver instruktur.',
-                img: 'assets/img/arena-coaching.jpg',
+                img: 'assets/img/shooter-aiming-drill.jpg',
                 alt: 'Tactical Coaching Dreamfield',
                 tag: 'Drill Master'
             },
@@ -3145,7 +3151,7 @@
                 spec: 'GBB & AEG Handling • Chrono Test • Trigger Reset',
                 title: 'Weapon Manipulation & Chrono Lane',
                 desc: 'Area pendalaman operasional unit GBB dan AEG berstandar kompetisi dengan perlengkapan chrono tester digital.',
-                img: 'assets/img/arena-unit-drill.jpg',
+                img: 'assets/img/unit-coaching-drill.jpg',
                 alt: 'Unit Coaching Dreamfield',
                 tag: 'Unit Platform'
             },
@@ -3183,8 +3189,8 @@
                 dateInput.min = todayStr;
             }
 
-            // Inisialisasi Step 1: Arena & Foto Besar (tanpa auto scroll)
-            selectArena(currentCategory, false);
+            // Inisialisasi Step 1: Arena & Foto Besar
+            selectArena(currentCategory);
 
             // Inisialisasi Step 2: Render Paket & Default Selection
             renderPackages(pkgParam);
@@ -3200,7 +3206,7 @@
             if (!showcaseEl) return;
             const data = arenaPreviews[catKey] || arenaPreviews.wargame;
             showcaseEl.innerHTML = `
-                <img src="${data.img}" alt="${data.alt}" class="arena-big-img" loading="eager">
+                <img src="${data.img}" alt="${data.alt}" class="arena-big-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/arena-wargame.jpg';">
                 <div class="arena-big-overlay">
                     <div class="arena-big-badge-row">
                         <span class="arena-real-badge"><i class="fa-solid fa-circle-check"></i> REAL ARENA DREAMFIELD</span>
@@ -3213,8 +3219,8 @@
             `;
         }
 
-        // 2. PILIH ARENA (Langkah 1 Selesai -> Ceklist Langsung Aktif)
-        function selectArena(catKey, autoScroll = true) {
+        // 2. PILIH ARENA (Langkah 1 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
+        function selectArena(catKey) {
             currentCategory = catKey;
 
             // Highlight button terpilih
@@ -3259,24 +3265,14 @@
             const conn1 = document.getElementById('conn-1');
             if (conn1) conn1.classList.add('done');
 
-            // Render paket kategori baru
+            // Render paket kategori baru (tetap di posisi pengguna, TIDAK ADA AUTO SCROLL)
             renderPackages();
-
-            // Smooth scroll otomatis ke Step 2 jika dipilih manual oleh user
-            if (autoScroll) {
-                setTimeout(() => {
-                    const stepPkg = document.getElementById('step-pkg');
-                    if (stepPkg) {
-                        stepPkg.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 180);
-            }
         }
 
         // Alias untuk kompatibilitas
         const switchCategory = selectArena;
 
-        // Navigasi Cepat Stepper Atas
+        // Navigasi Manual Stepper Atas (Hanya saat pengguna sengaja mengklik langkah di stepper)
         function scrollToStep(stepId) {
             if (stepId === 'step-ready') {
                 const el = document.getElementById('step-ready') || document.querySelector('.summary-card');
@@ -3366,15 +3362,15 @@
             });
 
             if (foundMatch) {
-                selectPackage(foundMatch, false);
+                selectPackage(foundMatch);
             } else if (currentSelectedPackage && catData.items.some(i => i.id === currentSelectedPackage.id)) {
                 highlightSelectedCard(currentSelectedPackage.id);
             } else {
-                selectPackage(catData.items[0], false);
+                selectPackage(catData.items[0]);
             }
         }
 
-        // Toggle Expand Card Drawer (Tampilan Membesar saat Panah Diklik)
+        // Toggle Expand Card Drawer (Tampilan Membesar saat Panah Diklik, TANPA AUTO SCROLL)
         function togglePkgDetail(event, id) {
             if (event) {
                 event.stopPropagation();
@@ -3402,9 +3398,6 @@
                 const txt = card.querySelector('.btn-toggle-pkg-details .detail-btn-text');
                 if (txt) txt.textContent = 'Tutup Detail';
                 selectPackageById(id);
-                setTimeout(() => {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 120);
             }
         }
 
@@ -3420,12 +3413,12 @@
             if (!catData) return;
             const item = catData.items.find(i => i.id === id);
             if (item) {
-                selectPackage(item, true);
+                selectPackage(item);
             }
         }
 
-        // 3. PILIH PAKET (Langkah 2 Selesai -> Ceklist Langsung Aktif & Scroll ke Langkah 3)
-        function selectPackage(item, userInitiated = false) {
+        // 3. PILIH PAKET (Langkah 2 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
+        function selectPackage(item) {
             currentSelectedPackage = item;
             highlightSelectedCard(item.id);
             updateLiveSummary();
@@ -3460,15 +3453,7 @@
                 checkSched.classList.add('active');
             }
 
-            // Smooth scroll otomatis ke Step 3 (Jadwal) jika dipilih manual oleh user
-            if (userInitiated) {
-                setTimeout(() => {
-                    const stepSched = document.getElementById('step-schedule');
-                    if (stepSched) {
-                        stepSched.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 180);
-            }
+            // TIDAK ADA AUTO SCROLL: Pengguna tetap memegang kendali layar
         }
 
         function highlightSelectedCard(id) {
@@ -3490,7 +3475,7 @@
             }
         }
 
-        // 4. ATUR JADWAL (Langkah 3 Selesai -> Ceklist Langsung Aktif & Siap Booking)
+        // 4. ATUR JADWAL (Langkah 3 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
         function onDateChanged(val) {
             if (!val) return;
             const dateObj = new Date(val);
@@ -3540,10 +3525,7 @@
 
             updateLiveSummary();
 
-            // Smooth scroll otomatis ke Step 4 setelah tanggal ditentukan
-            setTimeout(() => {
-                scrollToStep('step-ready');
-            }, 250);
+            // TIDAK ADA AUTO SCROLL: Pengguna tetap memegang kendali layar
         }
 
         // Pilihan Slot Waktu Cepat (Preset)
