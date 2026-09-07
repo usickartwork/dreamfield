@@ -336,49 +336,37 @@
             margin: 0 auto;
         }
 
-        /* --- Arena Accordion Stack (Sebaris-sebaris ke Bawah) --- */
-        .arena-accordion-list {
+        /* --- Arena Bar List (Tahap 1: Eksplor Arena Sebaris-sebaris) --- */
+        .arena-bar-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
-        .arena-accordion-item {
-            background-color: rgba(26, 26, 26, 0.95);
-            border: 1px solid rgba(78, 91, 49, 0.45);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
-        }
-
-        .arena-accordion-item:hover {
-            border-color: rgba(183, 255, 0, 0.5);
-        }
-
-        .arena-accordion-item.is-open {
-            border-color: var(--color-lime);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(183, 255, 0, 0.12);
-        }
-
-        .arena-bar-header {
+        .arena-bar-link {
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 20px;
+            padding: 15px 20px;
             background: linear-gradient(90deg, rgba(35, 38, 30, 0.95) 0%, rgba(24, 26, 21, 0.98) 100%);
+            border: 1px solid rgba(78, 91, 49, 0.45);
+            border-radius: 10px;
             cursor: pointer;
             user-select: none;
-            transition: background 0.2s ease;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .arena-bar-header:hover {
-            background: linear-gradient(90deg, rgba(46, 52, 38, 0.95) 0%, rgba(30, 33, 26, 0.98) 100%);
+        .arena-bar-link:hover {
+            border-color: var(--color-lime);
+            background: linear-gradient(90deg, rgba(48, 55, 38, 0.98) 0%, rgba(30, 34, 25, 0.98) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(183, 255, 0, 0.15);
         }
 
-        .arena-accordion-item.is-open .arena-bar-header {
-            background: linear-gradient(90deg, rgba(78, 91, 49, 0.35) 0%, rgba(26, 29, 23, 0.95) 100%);
-            border-bottom: 1px solid rgba(78, 91, 49, 0.45);
+        .arena-bar-link.featured {
+            border-left: 4px solid var(--color-lime);
         }
 
         .arena-bar-left {
@@ -414,6 +402,13 @@
             min-width: 0;
         }
 
+        .arena-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .arena-bar-step-badge {
             font-size: 11px;
             font-weight: 700;
@@ -423,6 +418,20 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+        }
+
+        .arena-tag-populer {
+            font-size: 10px;
+            font-weight: 800;
+            background: rgba(183, 255, 0, 0.15);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            padding: 1px 7px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.5px;
         }
 
         .arena-bar-title {
@@ -465,617 +474,48 @@
             transition: all 0.2s ease;
         }
 
-        .arena-bar-header:hover .arena-bar-pill {
+        .arena-bar-link:hover .arena-bar-pill {
+            background-color: var(--color-lime);
+            color: #121212;
             border-color: var(--color-lime);
-            color: #ffffff;
         }
 
         .arena-bar-arrow {
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
             font-size: 12px;
             color: var(--color-lime);
         }
 
-        .arena-accordion-item.is-open .arena-bar-pill {
-            background-color: var(--color-lime);
+        .arena-bar-link:hover .arena-bar-arrow {
             color: #121212;
-            border-color: var(--color-lime);
+            transform: translateX(4px);
         }
 
-        .arena-accordion-item.is-open .arena-bar-arrow {
-            transform: rotate(180deg);
-            color: #121212;
-        }
-
-        .arena-accordion-body {
-            display: none;
-        }
-
-        .arena-accordion-item.is-open .arena-accordion-body {
-            display: block;
-            animation: arenaAccordionFade 0.25s ease-out;
-        }
-
-        @keyframes arenaAccordionFade {
-            from {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .pricelist-section-inner {
-            padding: 24px 20px 28px;
-        }
-
-        /* --- Section Styling --- */
-        .pricelist-section {
-            margin-bottom: 50px;
-            scroll-margin-top: 130px;
-        }
-
-        .sec-header-banner {
+        /* --- Bottom Assistance Banner --- */
+        .bottom-cta-wrap {
             background: linear-gradient(135deg, rgba(34, 37, 30, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
             border: 1px solid var(--color-olive);
-            border-left: 4px solid var(--color-lime);
             border-radius: 8px;
-            padding: 16px 22px;
-            margin-bottom: 20px;
+            padding: 24px 28px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        }
-
-        .sec-header-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .sec-header-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            background-color: rgba(78, 91, 49, 0.35);
-            border: 1px solid var(--color-olive);
-            color: var(--color-lime);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .sec-header-title {
-            font-family: 'Teko', sans-serif;
-            font-size: 28px;
-            line-height: 1;
-            color: var(--color-sage);
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        .sec-header-title span {
-            color: var(--color-lime);
-        }
-
-        .sec-header-desc {
-            font-size: 13px;
-            color: var(--color-moss);
-            margin: 0;
-        }
-
-        .sec-header-badges {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .sec-chip {
-            background-color: rgba(78, 91, 49, 0.35);
-            border: 1px solid var(--color-olive);
-            color: var(--color-sage);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .sec-chip i {
-            color: var(--color-lime);
-        }
-
-        /* --- Arena Showcase Card --- */
-        .arena-showcase {
-            background: linear-gradient(145deg, rgba(30, 33, 26, 0.95) 0%, rgba(18, 20, 16, 0.98) 100%);
-            border: 1px solid var(--color-olive);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 22px;
-            display: grid;
-            grid-template-columns: 1.15fr 1fr;
             gap: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-        }
-
-        .arena-img-wrap {
-            position: relative;
-            min-height: 220px;
-            max-height: 280px;
-            overflow: hidden;
-            background: #111;
-        }
-
-        .arena-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .arena-showcase:hover .arena-img {
-            transform: scale(1.03);
-        }
-
-        .arena-badge-photo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(18, 18, 18, 0.88);
-            border: 1px solid var(--color-lime);
-            color: var(--color-lime);
-            font-size: 10.5px;
-            font-weight: 800;
-            padding: 3px 9px;
-            border-radius: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .arena-hud-info {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            display: flex;
-            gap: 8px;
             flex-wrap: wrap;
-        }
-
-        .hud-tag {
-            background: rgba(18, 18, 18, 0.82);
-            border: 1px solid rgba(138, 154, 91, 0.45);
-            color: var(--color-sage);
-            font-size: 11px;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 3px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .hud-tag i {
-            color: var(--color-lime);
-        }
-
-        .arena-details {
-            padding: 18px 18px 18px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .arena-cat-tag {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--color-lime);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .arena-name {
-            font-family: 'Teko', sans-serif;
-            font-size: 26px;
-            line-height: 1.1;
-            color: var(--color-sage);
-            margin-bottom: 6px;
-        }
-
-        .arena-desc {
-            font-size: 13px;
-            color: var(--color-moss);
-            line-height: 1.45;
-            margin-bottom: 12px;
-        }
-
-        .arena-specs-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .spec-item {
-            font-size: 12px;
-            color: var(--color-sage);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .spec-item i {
-            color: var(--color-lime);
-            font-size: 11px;
-        }
-
-        /* --- 2-COLUMN / 2-ROW GRID (Opsi Terlihat Semua Tanpa Terpotong) --- */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        /* THE INTERACTIVE EXPANDABLE PRICE CARD */
-        .tac-card {
-            background-color: var(--color-card-bg);
-            border: 1px solid var(--color-olive);
-            border-radius: 8px;
-            padding: 18px 16px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-            transition: transform 0.22s var(--ease-out), border-color 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out);
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-
-        .tac-card:hover {
-            border-color: var(--color-moss);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-        }
-
-        /* EXPANDED STATE (Saat Opsi Dipilih & Membesar) */
-        .tac-card.expanded {
-            border: 2px solid var(--color-lime) !important;
-            background: linear-gradient(145deg, rgba(38, 43, 33, 0.98) 0%, rgba(24, 27, 21, 0.98) 100%) !important;
-            transform: scale(1.025);
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 20px rgba(159, 230, 0, 0.25) !important;
-            z-index: 10;
-        }
-
-        .card-hot-badge {
-            position: absolute;
-            top: -1px;
-            right: 14px;
-            background-color: var(--color-lime);
-            color: var(--color-charcoal);
-            padding: 2px 10px;
-            font-size: 10.5px;
-            font-weight: 800;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .card-top-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(138, 154, 91, 0.2);
-        }
-
-        .card-icon {
-            width: 38px;
-            height: 38px;
-            background-color: rgba(78, 91, 49, 0.35);
-            border: 1px solid var(--color-olive);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-            color: var(--color-lime);
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-        }
-
-        .tac-card.expanded .card-icon {
-            background-color: rgba(159, 230, 0, 0.2);
-            border-color: var(--color-lime);
-        }
-
-        .card-title-group {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .card-platform-tag {
-            font-size: 10.5px;
-            color: var(--color-moss);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-weight: 700;
-            margin-bottom: 1px;
-        }
-
-        .card-pkg-name {
-            font-family: 'Teko', sans-serif;
-            font-size: 24px;
-            line-height: 1.05;
-            color: var(--color-sage);
-            letter-spacing: 0.5px;
-            word-break: break-word;
-        }
-
-        .tac-card.expanded .card-pkg-name {
-            color: var(--color-lime);
-        }
-
-        /* ALWAYS VISIBLE PRICE BOX (TIDAK KEPOTONG) */
-        .card-price-display {
-            background: rgba(26, 26, 26, 0.85);
-            border: 1px solid rgba(78, 91, 49, 0.4);
-            border-radius: 6px;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .price-left {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-        }
-
-        .price-currency {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--color-moss);
-        }
-
-        .price-amount {
-            font-family: 'Teko', sans-serif;
-            font-size: 34px;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--color-lime);
-            letter-spacing: 0.5px;
-        }
-
-        .price-duration {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--color-sage);
-            opacity: 0.9;
-        }
-
-        .price-status-badge {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--color-sage);
-            background-color: rgba(78, 91, 49, 0.4);
-            padding: 3px 8px;
-            border-radius: 3px;
-            border: 1px solid rgba(138, 154, 91, 0.3);
-        }
-
-        .card-short-summary {
-            font-size: 12.5px;
-            color: var(--color-moss);
-            line-height: 1.4;
-            margin-bottom: 10px;
-            min-height: 36px;
-        }
-
-        /* TOGGLE ARROW BUTTON (Lihat Selengkapnya) */
-        .btn-toggle-details {
-            width: 100%;
-            background-color: rgba(26, 26, 26, 0.9);
-            border: 1px solid var(--color-olive);
-            border-radius: 5px;
-            padding: 9px 12px;
-            color: var(--color-sage);
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s ease;
-            margin-bottom: 8px;
-        }
-
-        .btn-toggle-details:hover {
-            border-color: var(--color-lime);
-            color: var(--color-lime);
-            background-color: rgba(78, 91, 49, 0.25);
-        }
-
-        .tac-card.expanded .btn-toggle-details {
-            background-color: rgba(78, 91, 49, 0.4);
-            border-color: var(--color-lime);
-            color: var(--color-lime);
-        }
-
-        .toggle-arrow-icon {
-            font-size: 12px;
-            transition: transform 0.25s ease;
-        }
-
-        .tac-card.expanded .toggle-arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        /* EXPANDABLE CONTENT DRAWER */
-        .card-expanded-drawer {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.35s var(--ease-out), opacity 0.25s ease, margin-top 0.25s ease;
-            margin-top: 0;
-        }
-
-        .tac-card.expanded .card-expanded-drawer {
-            max-height: 600px;
-            opacity: 1;
-            margin-top: 6px;
-            border-top: 1px dashed rgba(138, 154, 91, 0.3);
-            padding-top: 12px;
-        }
-
-        .drawer-subtitle {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--color-lime);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .drawer-features-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 14px;
-        }
-
-        .drawer-feature-item {
-            font-size: 12px;
-            color: var(--color-sage);
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.4;
-        }
-
-        .drawer-feature-item i {
-            color: var(--color-lime);
-            font-size: 10.5px;
-            margin-top: 3px;
-            flex-shrink: 0;
-        }
-
-        .drawer-notes {
-            background: rgba(18, 18, 18, 0.7);
-            border-left: 3px solid var(--color-moss);
-            padding: 7px 9px;
-            border-radius: 0 4px 4px 0;
-            font-size: 11px;
-            color: var(--color-moss);
-            line-height: 1.35;
-            margin-bottom: 14px;
-        }
-
-        /* PROMINENT BOOKING CTA IN CARD */
-        .btn-select-book {
-            width: 100%;
-            background-color: var(--color-lime);
-            color: var(--color-charcoal);
-            border: none;
-            border-radius: 5px;
-            padding: 11px 14px;
-            font-family: 'Teko', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.16s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-select-book:hover {
-            background-color: #b7ff00;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(159, 230, 0, 0.4);
-        }
-
-        /* Quick Pick Button (when collapsed) */
-        .btn-quick-pick {
-            width: 100%;
-            background-color: transparent;
-            border: 1px solid var(--color-olive);
-            color: var(--color-sage);
-            border-radius: 5px;
-            padding: 8px 12px;
-            font-family: 'Teko', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.16s ease;
-        }
-
-        .btn-quick-pick:hover {
-            border-color: var(--color-lime);
-            color: var(--color-lime);
-            background-color: rgba(78, 91, 49, 0.25);
-        }
-
-        /* --- Bottom Assistance & Custom Booking Banner --- */
-        .bottom-cta-wrap {
-            margin-top: 36px;
-            background: linear-gradient(135deg, rgba(34, 37, 30, 0.98) 0%, rgba(20, 22, 18, 0.98) 100%);
-            border: 1px solid var(--color-olive);
-            border-radius: 8px;
-            padding: 24px 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            flex-wrap: wrap;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .bottom-cta-info {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .bottom-cta-icon {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background-color: rgba(78, 91, 49, 0.4);
-            border: 2px solid var(--color-lime);
+            background: rgba(78, 91, 49, 0.4);
+            border: 1px solid var(--color-olive);
             color: var(--color-lime);
             display: flex;
             align-items: center;
@@ -1085,78 +525,69 @@
         }
 
         .bottom-cta-text h3 {
-            font-family: 'Teko', sans-serif;
-            font-size: 26px;
-            line-height: 1;
+            font-size: 22px;
             color: var(--color-sage);
-            margin-bottom: 3px;
-        }
-
-        .bottom-cta-text h3 span {
-            color: var(--color-lime);
+            margin-bottom: 2px;
         }
 
         .bottom-cta-text p {
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--color-moss);
             margin: 0;
         }
 
         .bottom-cta-actions {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
         }
 
         .btn-cta-wa {
-            background-color: #25D366;
-            color: #ffffff;
-            font-family: 'Teko', sans-serif;
-            font-size: 19px;
+            background: #25D366;
+            color: #121212;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
             font-weight: 700;
-            letter-spacing: 0.8px;
-            padding: 9px 18px;
-            border-radius: 5px;
+            font-size: 14px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: transform 0.16s ease, box-shadow 0.16s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-cta-wa:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         .btn-cta-direct-book {
-            background-color: var(--color-lime);
-            color: var(--color-charcoal);
-            font-family: 'Teko', sans-serif;
-            font-size: 19px;
+            background: transparent;
+            color: var(--color-sage);
+            border: 1px solid var(--color-olive);
+            padding: 10px 18px;
+            border-radius: 6px;
             font-weight: 700;
-            letter-spacing: 0.8px;
-            padding: 9px 18px;
-            border-radius: 5px;
+            font-size: 14px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: transform 0.16s ease, box-shadow 0.16s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-cta-direct-book:hover {
-            transform: translateY(-2px);
-            background-color: #b7ff00;
-            box-shadow: 0 6px 20px rgba(159, 230, 0, 0.35);
+            border-color: var(--color-lime);
+            color: var(--color-lime);
         }
 
         /* --- Footer --- */
         footer {
-            background-color: var(--color-dark-surface);
-            border-top: 1px solid var(--color-olive);
-            padding: 26px 20px;
-            text-align: center;
+            background-color: rgba(18, 18, 18, 0.98);
+            border-top: 1px solid rgba(78, 91, 49, 0.4);
+            padding: 24px 20px;
+            margin-top: auto;
         }
 
         .footer-content {
@@ -1166,13 +597,16 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
         }
 
         .footer-logo {
             font-family: 'Teko', sans-serif;
-            font-size: 21px;
+            font-size: 22px;
             color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .footer-logo span {
@@ -1180,19 +614,19 @@
         }
 
         .footer-copy {
-            font-size: 12.5px;
+            font-size: 13px;
             color: var(--color-moss);
         }
 
         .footer-links {
             display: flex;
-            gap: 14px;
+            gap: 16px;
         }
 
         .footer-links a {
             color: var(--color-moss);
             text-decoration: none;
-            font-size: 12.5px;
+            font-size: 14px;
             transition: color 0.16s ease;
         }
 
@@ -1200,7 +634,7 @@
             color: var(--color-lime);
         }
 
-        /* --- Responsive Viewports (2 Kolom / 2 Baris ke bawah) --- */
+        /* --- Responsive Viewports --- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .flow-stepper-wrap { padding: 12px 14px; }
@@ -1214,108 +648,27 @@
             .hero-title { font-size: 26px; margin-bottom: 4px; }
             .hero-desc { font-size: 12.5px; }
 
-            .catalog-container { padding: 16px 10px 60px; }
+            .catalog-container { padding: 16px 10px 50px; }
             .catalog-intro-header { margin-bottom: 16px; }
             .catalog-step-tag { font-size: 10.5px; padding: 3px 10px; margin-bottom: 6px; }
             .catalog-main-title { font-size: 22px; }
             .catalog-main-desc { font-size: 12px; }
 
-            .arena-accordion-list { gap: 10px; margin-bottom: 30px; }
-            .arena-bar-header { padding: 10px 12px; }
+            .arena-bar-list { gap: 10px; margin-bottom: 24px; }
+            .arena-bar-link { padding: 11px 12px; }
             .arena-bar-left { gap: 10px; }
             .arena-num-badge { font-size: 20px; min-width: 22px; }
-            .arena-bar-thumb { width: 50px; height: 38px; border-radius: 4px; }
-            .arena-bar-step-badge { font-size: 9.5px; }
+            .arena-bar-thumb { width: 52px; height: 40px; border-radius: 4px; }
+            .arena-bar-step-badge { font-size: 9px; }
+            .arena-tag-populer { font-size: 8.5px; padding: 1px 5px; }
             .arena-bar-title { font-size: 16px; }
-            .arena-bar-subtitle { font-size: 11px; }
+            .arena-bar-subtitle { font-size: 10.5px; }
             .arena-bar-pill { padding: 5px 9px; font-size: 11px; gap: 4px; }
-            .pricelist-section-inner { padding: 14px 8px 18px; }
-
-            .arena-showcase { grid-template-columns: 1fr; }
-            .arena-details { padding: 14px; }
-            .arena-img-wrap { min-height: 180px; max-height: 200px; }
-
-            /* Packages grid on mobile: 2 columns / 2 rows */
-            .packages-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 8px !important;
-            }
-
-            .tac-card {
-                padding: 12px 10px;
-            }
-
-            .card-top-row {
-                gap: 7px;
-                margin-bottom: 7px;
-                padding-bottom: 7px;
-            }
-
-            .card-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-            }
-
-            .card-pkg-name {
-                font-size: 17px;
-                line-height: 1.1;
-            }
-
-            .card-platform-tag {
-                font-size: 9px;
-            }
-
-            .card-price-display {
-                padding: 6px 8px;
-                margin-bottom: 7px;
-            }
-
-            .price-amount {
-                font-size: 26px;
-            }
-
-            .price-currency {
-                font-size: 11px;
-            }
-
-            .price-duration {
-                font-size: 11px;
-            }
-
-            .card-short-summary {
-                font-size: 11px;
-                line-height: 1.35;
-                min-height: auto;
-                margin-bottom: 7px;
-            }
-
-            .btn-toggle-details {
-                padding: 7px 8px;
-                font-size: 11px;
-                margin-bottom: 6px;
-            }
-
-            .btn-quick-pick {
-                padding: 6px 8px;
-                font-size: 15px;
-            }
-
-            .btn-select-book {
-                padding: 9px 10px;
-                font-size: 16px;
-            }
-
-            /* When a card is expanded on mobile, expand to full width (2 columns) */
-            .tac-card.expanded {
-                grid-column: 1 / -1 !important;
-                transform: none !important;
-            }
 
             .bottom-cta-wrap {
                 flex-direction: column;
                 text-align: center;
-                padding: 18px 14px;
+                padding: 16px 14px;
             }
             .bottom-cta-info {
                 flex-direction: column;
@@ -1331,6 +684,7 @@
             .footer-content {
                 flex-direction: column;
                 gap: 8px;
+                text-align: center;
             }
         }
     </style>
@@ -1360,22 +714,22 @@
     <!-- 3-Step Flow Progress Indicator -->
     <div class="flow-stepper-wrap">
         <div class="flow-stepper-container">
-            <!-- Step 1: Eksplor Arena -->
-            <a href="index.html" class="flow-step-item done" title="Kembali ke Eksplor Arena">
-                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+            <!-- Step 1: Eksplor Arena (Current Active) -->
+            <div class="flow-step-item active">
+                <div class="step-circle">1</div>
                 <div class="step-info">
-                    <span class="step-num-label">Langkah 1</span>
+                    <span class="step-num-label">Langkah 1 (Aktif)</span>
                     <span class="step-text">Eksplor Arena</span>
                 </div>
-            </a>
+            </div>
 
-            <div class="flow-line done"></div>
+            <div class="flow-line"></div>
 
-            <!-- Step 2: Pilih Paket (Current Active) -->
-            <div class="flow-step-item active">
+            <!-- Step 2: Pilih Paket -->
+            <div class="flow-step-item pending">
                 <div class="step-circle">2</div>
                 <div class="step-info">
-                    <span class="step-num-label">Langkah 2 (Aktif)</span>
+                    <span class="step-num-label">Langkah 2</span>
                     <span class="step-text">Pilih Paket</span>
                 </div>
             </div>
@@ -1383,26 +737,26 @@
             <div class="flow-line"></div>
 
             <!-- Step 3: Booking & Jadwal -->
-            <a href="booking.html" class="flow-step-item pending" title="Lanjut ke Form Booking">
+            <div class="flow-step-item pending">
                 <div class="step-circle">3</div>
                 <div class="step-info">
                     <span class="step-num-label">Langkah 3</span>
                     <span class="step-text">Booking Jadwal</span>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 
     <!-- Page Hero Banner -->
     <section class="pricelist-hero">
-        <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Official Arena Rates & Specifications</span>
-        <h1 class="hero-title">OFFICIAL ARENA <span>PRICELIST</span></h1>
+        <span class="hero-badge"><i class="fa-solid fa-compass"></i> TAHAP 1: EKSPLOR ARENA PERTEMPURAN</span>
+        <h1 class="hero-title">PILIH ARENA <span>PERTEMPURAN</span></h1>
         <p class="hero-desc">
-            Semua opsi tarif tertera transparan tanpa biaya tersembunyi. Klik tombol panah <strong>"Lihat Detail"</strong> pada opsi yang Anda inginkan untuk melihat fasilitas lengkap & langsung lanjut ke form reservasi.
+            Pilih salah satu arena di bawah ini untuk melihat daftar paket dan opsi harga lengkap di halaman berikutnya.
         </p>
         <div class="hero-guide-pill">
             <i class="fa-solid fa-circle-info"></i>
-            <span>Tips: Pilih paket favorit Anda, lalu klik <strong>"Pilih Paket & Lanjut Booking"</strong> untuk mengisi jadwal.</span>
+            <span>Tips: Klik arena yang Anda inginkan untuk langsung menuju ke pemilihan paket & form booking.</span>
         </div>
     </section>
 
@@ -1410,1013 +764,94 @@
     <main class="catalog-container">
 
         <div class="catalog-intro-header">
-            <span class="catalog-step-tag"><i class="fa-solid fa-compass"></i> TAHAP EKSPLOR ARENA (5 ARENA)</span>
-            <h2 class="catalog-main-title">PILIH ARENA <span>PERTEMPURAN</span></h2>
-            <p class="catalog-main-desc">Pilih salah satu arena di bawah untuk membuka daftar paket dan opsi harga lengkap.</p>
+            <span class="catalog-step-tag"><i class="fa-solid fa-crosshairs"></i> 5 PILIHAN ARENA PERTEMPURAN</span>
+            <h2 class="catalog-main-title">EKSPLOR <span>ARENA IMPIAN ANDA</span></h2>
+            <p class="catalog-main-desc">Tentukan medan tempur Anda, lalu klik untuk melihat detail paket & opsi harga.</p>
         </div>
 
-        <div class="arena-accordion-list">
+        <div class="arena-bar-list">
             <!-- ARENA 1: SHOOTING TARGET -->
-            <div class="arena-accordion-item" id="item-target">
-                <div class="arena-bar-header" onclick="toggleArenaSection('target')" role="button" tabindex="0" aria-expanded="false">
-                    <div class="arena-bar-left">
-                        <span class="arena-num-badge">01</span>
-                        <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Range" class="arena-bar-thumb" loading="lazy">
-                        <div class="arena-bar-info">
-                            <span class="arena-bar-step-badge"><i class="fa-solid fa-bullseye"></i> Arena 1 · Lane 10-25M</span>
-                            <h3 class="arena-bar-title">SHOOTING TARGET RANGE</h3>
-                            <p class="arena-bar-subtitle">Target silhouette presisi & plat baja reaktif (3 Pilihan Paket)</p>
-                        </div>
-                    </div>
-                    <div class="arena-bar-right">
-                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+            <a href="booking.html?cat=target" class="arena-bar-link" id="arena-target" title="Pilih Shooting Target Range">
+                <div class="arena-bar-left">
+                    <span class="arena-num-badge">01</span>
+                    <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Range" class="arena-bar-thumb" loading="lazy">
+                    <div class="arena-bar-info">
+                        <span class="arena-bar-step-badge"><i class="fa-solid fa-bullseye"></i> Arena 1 · Lane 10-25M</span>
+                        <h3 class="arena-bar-title">SHOOTING TARGET RANGE</h3>
+                        <p class="arena-bar-subtitle">Target silhouette presisi & plat baja reaktif · 3 Pilihan Paket Mulai Rp 50.000</p>
                     </div>
                 </div>
-                <div class="arena-accordion-body" id="body-target">
-                    <div class="pricelist-section-inner">
-
-            <div class="sec-header-banner">
-                <div class="sec-header-left">
-                    <div class="sec-header-icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <div>
-                        <h2 class="sec-header-title">SHOOTING TARGET <span>RANGE</span></h2>
-                        <p class="sec-header-desc">Latihan tembak presisi sasaran kertas & plat baja reaktif jarak 10 - 25 meter.</p>
-                    </div>
+                <div class="arena-bar-right">
+                    <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-arrow-right arena-bar-arrow"></i></span>
                 </div>
-                <div class="sec-header-badges">
-                    <span class="sec-chip"><i class="fa-solid fa-crosshairs"></i> Paper & Steel Poppers</span>
-                    <span class="sec-chip"><i class="fa-solid fa-user-shield"></i> Range Safety Officer</span>
-                </div>
-            </div>
-
-            <!-- Arena Showcase -->
-            <div class="arena-showcase">
-                <div class="arena-img-wrap">
-                    <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Range Dreamfield" class="arena-img" loading="lazy">
-                    <div class="arena-badge-photo"><i class="fa-solid fa-camera"></i> Foto Asli Target Range</div>
-                    <div class="arena-hud-info">
-                        <span class="hud-tag"><i class="fa-solid fa-ruler"></i> Jarak 10-25M</span>
-                        <span class="hud-tag"><i class="fa-solid fa-shield"></i> Individual Safety Lane</span>
-                    </div>
-                </div>
-                <div class="arena-details">
-                    <span class="arena-cat-tag"><i class="fa-solid fa-bullseye"></i> PRECISION TARGET FACILITY</span>
-                    <h3 class="arena-name">Jalur Tembak Presisi Indoor Bersekat</h3>
-                    <p class="arena-desc">
-                        Lane individual dengan pelindung samping anti-pantulan, pencahayaan fokus sasaran, serta instruktur bersertifikasi untuk memastikan keamanan dan kenyamanan menembak.
-                    </p>
-                    <div class="arena-specs-list">
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Cocok untuk pemula tanpa pengalaman menembak</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru BB 6mm kualitas kompetisi presisi tinggi</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar target resmi untuk evaluasi akurasi tembakan</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Packages Grid (Shooting Target - 2 Kolom) -->
-            <div class="packages-grid">
-                
-                <!-- Package 1: AEG Rifle -->
-                <div class="tac-card" id="card-st-aeg">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Automatic Rifle Platform</div>
-                            <h4 class="card-pkg-name">AEG / RIFLE</h4>
-                        </div>
-                    </div>
-
-                    <!-- Clear Visible Price Box -->
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">75.000</span>
-                            <span class="price-duration">/ Sesi</span>
-                        </div>
-                        <span class="price-status-badge"><i class="fa-solid fa-check"></i> All-In</span>
-                    </div>
-
-                    <p class="card-short-summary">
-                        Latihan tembak sasaran senapan otomatis elektrik (M4 / HK416 platform) dengan mag kapasitas tinggi.
-                    </p>
-
-                    <!-- Toggle Button with Arrow -->
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-st-aeg')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-
-                    <!-- Expandable Drawer -->
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Otomatis Elektrik (M4 / HK416 platform siap pakai)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include 6mm High-Grade BB Pellets & Magazine penuh</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Tembak Sasaran Presisi</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pendampingan Range Safety Officer (RSO)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Goggle / Tactical Eye Protection berstandar benturan</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Sesi berdurasi fleksibel sesuai kuota magazine, aman untuk usia 12 tahun ke atas dengan pendamping.
-                        </div>
-                        <a href="booking.html?cat=target&pkg=st-aeg" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-
-                    <!-- Quick Pick Action (When Collapsed) -->
-                    <a href="booking.html?cat=target&pkg=st-aeg" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Paket Ini
-                    </a>
-                </div>
-
-                <!-- Package 2: GBB Handgun -->
-                <div class="tac-card" id="card-st-gbb">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-gun"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Gas Blowback Pistol</div>
-                            <h4 class="card-pkg-name">GBB / HANDGUN</h4>
-                        </div>
-                    </div>
-
-                    <!-- Clear Visible Price Box -->
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">50.000</span>
-                            <span class="price-duration">/ Sesi</span>
-                        </div>
-                        <span class="price-status-badge"><i class="fa-solid fa-check"></i> All-In</span>
-                    </div>
-
-                    <p class="card-short-summary">
-                        Latihan tembak pistol gas blowback dengan hentakan recoil nyata dan sensasi penembakan otentik.
-                    </p>
-
-                    <!-- Toggle Button with Arrow -->
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-st-gbb')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-
-                    <!-- Expandable Drawer -->
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Pistol Gas Blowback (Glock / Hi-Capa platform)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Magazine & Pengisian Green Gas penuh</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Sasaran Jarak 10-15 meter</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Panduan grip, stance, dan safety trigger dasar</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Eye Protection</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Sangat digemari untuk melatih refleks, trigger pull presisi, dan handling handgun.
-                        </div>
-                        <a href="booking.html?cat=target&pkg=st-gbb" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-
-                    <a href="booking.html?cat=target&pkg=st-gbb" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Paket Ini
-                    </a>
-                </div>
-
-                <!-- Package 3: Sniper Spring -->
-                <div class="tac-card" id="card-st-sniper">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Bolt-Action Long Range</div>
-                            <h4 class="card-pkg-name">SNIPER SPRING</h4>
-                        </div>
-                    </div>
-
-                    <!-- Clear Visible Price Box -->
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">50.000</span>
-                            <span class="price-duration">/ Sesi</span>
-                        </div>
-                        <span class="price-status-badge"><i class="fa-solid fa-check"></i> All-In</span>
-                    </div>
-
-                    <p class="card-short-summary">
-                        Latihan tembak sasaran presisi jarak jauh dengan sistem bolt-action dan teleskop optik pembesar.
-                    </p>
-
-                    <!-- Toggle Button with Arrow -->
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-st-sniper')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-
-                    <!-- Expandable Drawer -->
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Sniper Spring Bolt-Action Akurasi Tinggi</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Optical Scope pembesar dengan crosshair presisi</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Bullseye jarak jauh (20-25m)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan kestabilan napas, zeroing, dan kalkulasi jarak</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bipod rest untuk stabilitas tembakan maksimal</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Ideal untuk menguji ketenangan, konsentrasi tingkat tinggi, dan akurasi titik bullseye.
-                        </div>
-                        <a href="booking.html?cat=target&pkg=st-sniper" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-
-                    <a href="booking.html?cat=target&pkg=st-sniper" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Paket Ini
-                    </a>
-                </div>
-
-            </div>
-        
-                    </div>
-                </div>
-            </div>
+            </a>
 
             <!-- ARENA 2: WAR GAME CQB -->
-            <div class="arena-accordion-item" id="item-wargame">
-                <div class="arena-bar-header" onclick="toggleArenaSection('wargame')" role="button" tabindex="0" aria-expanded="false">
-                    <div class="arena-bar-left">
-                        <span class="arena-num-badge">02</span>
-                        <img src="assets/img/arena-wargame.jpg" alt="War Game CQB Arena" class="arena-bar-thumb" loading="lazy">
-                        <div class="arena-bar-info">
+            <a href="booking.html?cat=wargame" class="arena-bar-link featured" id="arena-wargame" title="Pilih War Game CQB Arena">
+                <div class="arena-bar-left">
+                    <span class="arena-num-badge">02</span>
+                    <img src="assets/img/arena-wargame.jpg" alt="War Game CQB Arena" class="arena-bar-thumb" loading="lazy">
+                    <div class="arena-bar-info">
+                        <div class="arena-badge-row">
                             <span class="arena-bar-step-badge"><i class="fa-solid fa-shield-halved"></i> Arena 2 · CQB 1.200m² Bertingkat</span>
-                            <h3 class="arena-bar-title">WAR GAME CQB ARENA</h3>
-                            <p class="arena-bar-subtitle">Simulasi kontak senjata taktis & skirmish tim (4 Paket Populer)</p>
+                            <span class="arena-tag-populer"><i class="fa-solid fa-fire"></i> TERPOPULER</span>
                         </div>
-                    </div>
-                    <div class="arena-bar-right">
-                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                        <h3 class="arena-bar-title">WAR GAME CQB ARENA</h3>
+                        <p class="arena-bar-subtitle">Simulasi kontak senjata taktis & skirmish tim · 4 Paket Populer Mulai Rp 35.000</p>
                     </div>
                 </div>
-                <div class="arena-accordion-body" id="body-wargame">
-                    <div class="pricelist-section-inner">
-
-            <div class="sec-header-banner">
-                <div class="sec-header-left">
-                    <div class="sec-header-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div>
-                        <h2 class="sec-header-title">WAR GAME <span>CQB ARENA</span></h2>
-                        <p class="sec-header-desc">Simulasi pertempuran tim jarak dekat di arena indoor CQB berskala militer.</p>
-                    </div>
+                <div class="arena-bar-right">
+                    <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-arrow-right arena-bar-arrow"></i></span>
                 </div>
-                <div class="sec-header-badges">
-                    <span class="sec-chip"><i class="fa-solid fa-fire"></i> Paling Populer</span>
-                    <span class="sec-chip"><i class="fa-solid fa-scale-balanced"></i> Wasit / Marshal Resmi</span>
-                    <span class="sec-chip"><i class="fa-solid fa-gauge-high"></i> Chrono Safe</span>
-                </div>
-            </div>
-
-            <!-- Arena Showcase -->
-            <div class="arena-showcase">
-                <div class="arena-img-wrap">
-                    <img src="assets/img/arena-wargame.jpg" alt="CQB Arena Dreamfield Tactical" class="arena-img" loading="lazy">
-                    <div class="arena-badge-photo"><i class="fa-solid fa-camera"></i> Foto Asli Arena CQB</div>
-                    <div class="arena-hud-info">
-                        <span class="hud-tag"><i class="fa-solid fa-building"></i> Labirin Taktis Urban</span>
-                        <span class="hud-tag"><i class="fa-solid fa-users"></i> Multi-Player Skirmish</span>
-                    </div>
-                </div>
-                <div class="arena-details">
-                    <span class="arena-cat-tag"><i class="fa-solid fa-shield-halved"></i> REAL COMBAT ZONE</span>
-                    <h3 class="arena-name">Medan Pertempuran CQB Urban Labyrinth</h3>
-                    <p class="arena-desc">
-                        Arena indoor ber-AC dengan partisi taktis baja hitam, pilar perlindungan, choke point strategis, dan pencahayaan dinamis yang memacu adrenalin pertempuran regu.
-                    </p>
-                    <div class="arena-specs-list">
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Skenario: Team Deathmatch, Bomb Defusal, & VIP Escort</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Safety Chronograph test sebelum memasuki medan tempur</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Briefing SOP taktis & aturan fair-play oleh Field Marshal</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Packages Grid (War Game - 8 Packages in 2-Column Grid) -->
-            <div class="packages-grid">
-                
-                <!-- WG 1: Lapangan 1 Jam -->
-                <div class="tac-card" id="card-wg-lapangan-1h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-shield"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Bawa Unit Sendiri</div>
-                            <h4 class="card-pkg-name">LAPANGAN (1 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">35.000</span>
-                            <span class="price-duration">/ 1 Jam</span>
-                        </div>
-                        <span class="price-status-badge">HTM Lapangan</span>
-                    </div>
-                    <p class="card-short-summary">Akses penuh pertempuran CQB arena 1 jam. Ideal bagi pemain yang sudah memiliki unit airsoft sendiri.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-lapangan-1h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses penuh ke seluruh sektor CQB arena selama 1 jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Uji batas FPS gratis (Chrono test station)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Safe Zone & Staging Area ber-AC</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pendampingan Field Marshal selama pertandingan</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Unit pribadi wajib lolos chrono (maksimal 350 FPS untuk CQB indoor).
-                        </div>
-                        <a href="booking.html?cat=wargame&pkg=wg-lapangan-1h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-lapangan-1h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan 1 Jam
-                    </a>
-                </div>
-
-                <!-- WG 2: Lapangan 2 Jam -->
-                <div class="tac-card" id="card-wg-lapangan-2h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Bawa Unit Sendiri · Hemat</div>
-                            <h4 class="card-pkg-name">LAPANGAN (2 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">50.000</span>
-                            <span class="price-duration">/ 2 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Hemat 20K</span>
-                    </div>
-                    <p class="card-short-summary">Sesi pertempuran 2 jam penuh. Waktu lebih leluasa untuk eksplorasi strategi regu dan mode permainan.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-lapangan-2h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses CQB arena 2 jam penuh (multi-game modes)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Free Battery Charging & Chrono Test Station</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pengaturan skenario TDM & Bomb Defusal oleh Marshal</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Sangat disarankan untuk komunitas atau sesi sparring antar regu.
-                        </div>
-                        <a href="booking.html?cat=wargame&pkg=wg-lapangan-2h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-lapangan-2h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan 2 Jam
-                    </a>
-                </div>
-
-                <!-- WG 3: Lapangan + AEG (1 Jam) - HOT POPULER -->
-                <div class="tac-card" id="card-wg-aeg-1h">
-                    <span class="card-hot-badge"><i class="fa-solid fa-fire"></i> Terfavorit</span>
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Full Rental Unit Taktis</div>
-                            <h4 class="card-pkg-name">LAPANGAN + AEG (1 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">150.000</span>
-                            <span class="price-duration">/ 1 Jam</span>
-                        </div>
-                        <span class="price-status-badge"><i class="fa-solid fa-star"></i> Best Value</span>
-                    </div>
-                    <p class="card-short-summary">Paket terlengkap: sewa arena 1 jam + rental senapan serbu otomatis elektrik (M4/HK416 platform) & BB.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-aeg-1h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 1 Jam penuh</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Senapan Otomatis Elektrik (AEG Rifle M4 / HK)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include Magazine + Peluru BB 6mm kualitas kompetisi</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Goggle / Masker pelindung wajah standar CQB</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Briefing cara pengoperasian unit & strategi oleh Marshal</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Paket paling direkomendasikan untuk pemula yang ingin langsung merasakan atmosfer perang kota.
-                        </div>
-                        <a href="booking.html?cat=wargame&pkg=wg-aeg-1h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-aeg-1h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + AEG
-                    </a>
-                </div>
-
-                <!-- WG 4: Lapangan + AEG (2 Jam) -->
-                <div class="tac-card" id="card-wg-aeg-2h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Full Rental · Durasi Panjang</div>
-                            <h4 class="card-pkg-name">LAPANGAN + AEG (2 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">225.000</span>
-                            <span class="price-duration">/ 2 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Hemat 75K</span>
-                    </div>
-                    <p class="card-short-summary">Durasi 2 jam penuh bersama unit AEG elektrik. Puas menjelajahi seluruh strategi penyerangan & bertahan.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-aeg-2h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 2 Jam penuh tanpa terburu-buru</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Senapan Otomatis Elektrik AEG 2 jam penuh</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Suplai Peluru BB & swap baterai jika diperlukan</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Mask & Tactical Goggle perlindungan standar</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Pilihan favorit untuk gathering kantor, perayaan ulang tahun, atau acara komunitas.
-                        </div>
-                        <a href="booking.html?cat=wargame&pkg=wg-aeg-2h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-aeg-2h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + AEG (2 Jam)
-                    </a>
-                </div>
-
-                <!-- WG 5: Lapangan + GBB (1 Jam) -->
-                <div class="tac-card" id="card-wg-gbb-1h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-gun"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Gas Recoil Realistic</div>
-                            <h4 class="card-pkg-name">LAPANGAN + GBB (1 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">125.000</span>
-                            <span class="price-duration">/ 1 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Recoil Nyata</span>
-                    </div>
-                    <p class="card-short-summary">Akses arena 1 jam + rental unit Gas Blowback dengan hentakan recoil gas nyata yang taktis.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-gbb-1h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 1 Jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Unit Pistol / SMG Gas Blowback</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pengisian Green Gas penuh & BB Pellets</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Eye Protection</span></li>
-                        </ul>
-                        <a href="booking.html?cat=wargame&pkg=wg-gbb-1h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-gbb-1h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + GBB
-                    </a>
-                </div>
-
-                <!-- WG 6: Lapangan + GBB (2 Jam) -->
-                <div class="tac-card" id="card-wg-gbb-2h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-gun"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Gas Recoil · 2 Jam</div>
-                            <h4 class="card-pkg-name">LAPANGAN + GBB (2 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">200.000</span>
-                            <span class="price-duration">/ 2 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Hemat 50K</span>
-                    </div>
-                    <p class="card-short-summary">Sesi tempur 2 jam penuh menggunakan unit Gas Blowback dengan recoil mekanis realistis.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-gbb-2h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 2 Jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Unit Gas Blowback 2 jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Refill Green Gas & Peluru BB</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Masker & Kacamata Pelindung</span></li>
-                        </ul>
-                        <a href="booking.html?cat=wargame&pkg=wg-gbb-2h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-gbb-2h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + GBB (2 Jam)
-                    </a>
-                </div>
-
-                <!-- WG 7: Lapangan + WGG (1 Jam) -->
-                <div class="tac-card" id="card-wg-wgg-1h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-droplet"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Water Gel Blaster</div>
-                            <h4 class="card-pkg-name">LAPANGAN + WGG (1 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">100.000</span>
-                            <span class="price-duration">/ 1 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Friendly Impact</span>
-                    </div>
-                    <p class="card-short-summary">Bermain di arena CQB menggunakan Water Gel Gun. Lembut, aman, dan sangat seru untuk pemula & remaja.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-wgg-1h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 1 Jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Unit Water Gel Gun (WGG Blaster)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru Water Gel ramah lingkungan (larut air)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Kacamata pelindung mata aman</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Bebas rasa sakit, sangat cocok untuk keluarga dan perkenalan taktis pertama.
-                        </div>
-                        <a href="booking.html?cat=wargame&pkg=wg-wgg-1h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-wgg-1h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + WGG
-                    </a>
-                </div>
-
-                <!-- WG 8: Lapangan + WGG (2 Jam) -->
-                <div class="tac-card" id="card-wg-wgg-2h">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-droplet"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Water Gel Blaster · 2 Jam</div>
-                            <h4 class="card-pkg-name">LAPANGAN + WGG (2 JAM)</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">150.000</span>
-                            <span class="price-duration">/ 2 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Hemat 50K</span>
-                    </div>
-                    <p class="card-short-summary">Pertarungan seru 2 jam penuh menggunakan unit Water Gel Gun. Bebas cemas memar dan ramah keluarga.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-wg-wgg-2h')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses Arena CQB 2 Jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Rental Unit Water Gel Blaster 2 jam</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Suplai Gel Ball melimpah</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Kacamata pelindung mata</span></li>
-                        </ul>
-                        <a href="booking.html?cat=wargame&pkg=wg-wgg-2h" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=wargame&pkg=wg-wgg-2h" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Lapangan + WGG (2 Jam)
-                    </a>
-                </div>
-
-            </div>
-        
-                    </div>
-                </div>
-            </div>
+            </a>
 
             <!-- ARENA 3: TACTICAL COACHING -->
-            <div class="arena-accordion-item" id="item-coaching">
-                <div class="arena-bar-header" onclick="toggleArenaSection('coaching')" role="button" tabindex="0" aria-expanded="false">
-                    <div class="arena-bar-left">
-                        <span class="arena-num-badge">03</span>
-                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Tactical Coaching" class="arena-bar-thumb" loading="lazy">
-                        <div class="arena-bar-info">
-                            <span class="arena-bar-step-badge"><i class="fa-solid fa-user-ninja"></i> Arena 3 · Private Masterclass</span>
-                            <h3 class="arena-bar-title">TACTICAL COACHING</h3>
-                            <p class="arena-bar-subtitle">Pelatihan pergerakan CQB, room clearing & drill bersama pelatih (2 Paket)</p>
-                        </div>
-                    </div>
-                    <div class="arena-bar-right">
-                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+            <a href="booking.html?cat=coaching" class="arena-bar-link" id="arena-coaching" title="Pilih Tactical Coaching">
+                <div class="arena-bar-left">
+                    <span class="arena-num-badge">03</span>
+                    <img src="assets/img/arena-coaching.jpg" alt="Tactical Coaching Arena" class="arena-bar-thumb" loading="lazy">
+                    <div class="arena-bar-info">
+                        <span class="arena-bar-step-badge"><i class="fa-solid fa-user-ninja"></i> Arena 3 · Private Masterclass</span>
+                        <h3 class="arena-bar-title">TACTICAL COACHING</h3>
+                        <p class="arena-bar-subtitle">Bimbingan teknik CQB privat instruktur bersertifikat · 2 Paket Mulai Rp 35.000</p>
                     </div>
                 </div>
-                <div class="arena-accordion-body" id="body-coaching">
-                    <div class="pricelist-section-inner">
+                <div class="arena-bar-right">
+                    <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-arrow-right arena-bar-arrow"></i></span>
+                </div>
+            </a>
 
-            <div class="sec-header-banner">
-                <div class="sec-header-left">
-                    <div class="sec-header-icon"><i class="fa-solid fa-user-ninja"></i></div>
-                    <div>
-                        <h2 class="sec-header-title">TACTICAL <span>COACHING</span></h2>
-                        <p class="sec-header-desc">Bimbingan intensif 1-on-1 bersama instruktur militer/CQB berpengalaman.</p>
+            <!-- ARENA 4: UNIT COACHING & DRILL -->
+            <a href="booking.html?cat=unit" class="arena-bar-link" id="arena-unit" title="Pilih Unit Coaching & Drill">
+                <div class="arena-bar-left">
+                    <span class="arena-num-badge">04</span>
+                    <img src="assets/img/arena-unit-drill.jpg" alt="Unit Coaching & Drill" class="arena-bar-thumb" loading="lazy">
+                    <div class="arena-bar-info">
+                        <span class="arena-bar-step-badge"><i class="fa-solid fa-layer-group"></i> Arena 4 · Platform GBB & AEG</span>
+                        <h3 class="arena-bar-title">UNIT COACHING & DRILL</h3>
+                        <p class="arena-bar-subtitle">Mastering mekanika unit, handling, & reload drills · 2 Paket Mulai Rp 100.000</p>
                     </div>
                 </div>
-                <div class="sec-header-badges">
-                    <span class="sec-chip"><i class="fa-solid fa-award"></i> Instruktur Berpengalaman</span>
-                    <span class="sec-chip"><i class="fa-solid fa-person-military-pointing"></i> 1-on-1 Mentoring</span>
+                <div class="arena-bar-right">
+                    <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-arrow-right arena-bar-arrow"></i></span>
                 </div>
-            </div>
+            </a>
 
-            <!-- Arena Showcase -->
-            <div class="arena-showcase">
-                <div class="arena-img-wrap">
-                    <img src="assets/img/shooter-aiming-drill.jpg" alt="Coaching Facility Dreamfield" class="arena-img" loading="lazy">
-                    <div class="arena-badge-photo"><i class="fa-solid fa-camera"></i> Foto Fasilitas Coaching</div>
-                    <div class="arena-hud-info">
-                        <span class="hud-tag"><i class="fa-solid fa-bullseye"></i> Marksmanship Drill</span>
-                        <span class="hud-tag"><i class="fa-solid fa-door-open"></i> Room Clearing</span>
+            <!-- ARENA 5: TACTICAL GEAR RENTAL -->
+            <a href="booking.html?cat=gear" class="arena-bar-link" id="arena-gear" title="Pilih Tactical Gear Rental">
+                <div class="arena-bar-left">
+                    <span class="arena-num-badge">05</span>
+                    <img src="assets/img/gear-rental-armory.jpg" alt="Tactical Gear Rental" class="arena-bar-thumb" loading="lazy">
+                    <div class="arena-bar-info">
+                        <span class="arena-bar-step-badge"><i class="fa-solid fa-vest"></i> Arena 5 · Full Protective Armor</span>
+                        <h3 class="arena-bar-title">TACTICAL GEAR RENTAL</h3>
+                        <p class="arena-bar-subtitle">Plate carrier vest, helm ops, goggle anti-fog & gloves · 1 Set Lengkap Rp 30.000</p>
                     </div>
                 </div>
-                <div class="arena-details">
-                    <span class="arena-cat-tag"><i class="fa-solid fa-user-ninja"></i> PRO TACTICAL CLINIC</span>
-                    <h3 class="arena-name">Klinik Pelatihan Teknik Menembak & CQB Taktis</h3>
-                    <p class="arena-desc">
-                        Tingkatkan akurasi dan kecepatan reaksi Anda melalui kurikulum terstruktur: penarikan senjata cepat (*drawing*), bidikan stabil, manajemen sudut (*slicing the pie*), dan pergerakan tim.
-                    </p>
-                    <div class="arena-specs-list">
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Koreksi posisi postur badan (*tactical shooting stance*)</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Simulasi skenario penyergapan sudut ruangan secara aman</span></div>
-                    </div>
+                <div class="arena-bar-right">
+                    <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-arrow-right arena-bar-arrow"></i></span>
                 </div>
-            </div>
-
-            <div class="packages-grid">
-                
-                <!-- Coaching 1: Private Coaching -->
-                <div class="tac-card" id="card-ch-private">
-                    <span class="card-hot-badge"><i class="fa-solid fa-medal"></i> Rekomendasi</span>
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-user-tie"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Bimbingan Eksklusif Privat</div>
-                            <h4 class="card-pkg-name">PRIVATE COACHING</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">150.000</span>
-                            <span class="price-duration">/ 1,5 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Privat 1-on-1</span>
-                    </div>
-                    <p class="card-short-summary">Bimbingan privat 1-on-1 intensif selama 90 menit bersama pelatih profesional.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-ch-private')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan privat eksklusif 1-on-1 selama 90 menit</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Teknik bidik presisi, grip pistol/rifle, & recoil mitigation</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Movement: Pie Slicing, Room Clearing, & Low-Light Movement</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses penuh area pelatihan & shooting lane</span></li>
-                        </ul>
-                        <div class="drawer-notes">
-                            <i class="fa-solid fa-info-circle"></i> Sesuai untuk pemain yang ingin naik level ke ranah turnamen atau taktis kompetitif.
-                        </div>
-                        <a href="booking.html?cat=coaching&pkg=ch-private" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=coaching&pkg=ch-private" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Private Coaching
-                    </a>
-                </div>
-
-                <!-- Coaching 2: HTM Coaching -->
-                <div class="tac-card" id="card-ch-htm">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Tiket Sesi Pelatihan</div>
-                            <h4 class="card-pkg-name">HTM COACHING</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">35.000</span>
-                            <span class="price-duration">/ 1,5 Jam</span>
-                        </div>
-                        <span class="price-status-badge">Sesi Reguler</span>
-                    </div>
-                    <p class="card-short-summary">Tiket masuk sesi pelatihan dasar teknik CQB dan penanganan unit di arena.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-ch-htm')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses ke sesi kelas drill taktis bersama tim selama 90 menit</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pemahaman kode taktis komunikasi regu dan SOP lapangan</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan drill transisi posisi berdiri, berlutut, dan tiarap</span></li>
-                        </ul>
-                        <a href="booking.html?cat=coaching&pkg=ch-htm" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=coaching&pkg=ch-htm" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking HTM Coaching
-                    </a>
-                </div>
-
-            </div>
-        
-                    </div>
-                </div>
-            </div>
-
-            <!-- ARENA 4: UNIT COACHING -->
-            <div class="arena-accordion-item" id="item-unit">
-                <div class="arena-bar-header" onclick="toggleArenaSection('unit')" role="button" tabindex="0" aria-expanded="false">
-                    <div class="arena-bar-left">
-                        <span class="arena-num-badge">04</span>
-                        <img src="assets/img/unit-coaching-drill.jpg" alt="Unit Coaching Drill" class="arena-bar-thumb" loading="lazy">
-                        <div class="arena-bar-info">
-                            <span class="arena-bar-step-badge"><i class="fa-solid fa-layer-group"></i> Arena 4 · Weapon Platform Drill</span>
-                            <h3 class="arena-bar-title">UNIT COACHING & DRILL</h3>
-                            <p class="arena-bar-subtitle">Pendalaman handling GBB handgun & AEG rifle platform (2 Platform)</p>
-                        </div>
-                    </div>
-                    <div class="arena-bar-right">
-                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
-                    </div>
-                </div>
-                <div class="arena-accordion-body" id="body-unit">
-                    <div class="pricelist-section-inner">
-
-            <div class="sec-header-banner">
-                <div class="sec-header-left">
-                    <div class="sec-header-icon"><i class="fa-solid fa-layer-group"></i></div>
-                    <div>
-                        <h2 class="sec-header-title">UNIT COACHING & <span>DRILL</span></h2>
-                        <p class="sec-header-desc">Pelatihan drill operasional, akurasi, dan reload cepat untuk unit AEG dan GBB.</p>
-                    </div>
-                </div>
-                <div class="sec-header-badges">
-                    <span class="sec-chip"><i class="fa-solid fa-crosshairs"></i> Gun Manipulation</span>
-                    <span class="sec-chip"><i class="fa-solid fa-stopwatch"></i> Rapid Reload Drill</span>
-                </div>
-            </div>
-
-            <!-- Arena Showcase -->
-            <div class="arena-showcase">
-                <div class="arena-img-wrap">
-                    <img src="assets/img/unit-coaching-drill.jpg" alt="Unit Drill Dreamfield Tactical" class="arena-img" loading="lazy">
-                    <div class="arena-badge-photo"><i class="fa-solid fa-camera"></i> Foto Sesi Drill Unit</div>
-                    <div class="arena-hud-info">
-                        <span class="hud-tag"><i class="fa-solid fa-gear"></i> Weapon Familiarity</span>
-                        <span class="hud-tag"><i class="fa-solid fa-gauge-high"></i> Speed & Precision</span>
-                    </div>
-                </div>
-                <div class="arena-details">
-                    <span class="arena-cat-tag"><i class="fa-solid fa-layer-group"></i> PLATFORM SPECIALIZATION</span>
-                    <h3 class="arena-name">Drill Penguasaan Unit & Penanganan Malfungsi</h3>
-                    <p class="arena-desc">
-                        Kuasai senjata Anda seutuhnya. Pelatihan meliputi teknik penarikan mag kilat (*speed reload*), penanganan kemacetan (*clear jam / malfunction*), dan penembakan burst terkendali.
-                    </p>
-                    <div class="arena-specs-list">
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Materi terpisah untuk karakteristik GBB (Gas) dan AEG (Elektrik)</span></div>
-                        <div class="spec-item"><i class="fa-solid fa-circle-check"></i> <span>Pengujian grouping tembakan pada jarak 15-20 meter</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="packages-grid">
-                
-                <!-- Unit 1: GBB Drill -->
-                <div class="tac-card" id="card-uc-gbb">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-gun"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Gas Blowback System</div>
-                            <h4 class="card-pkg-name">UNIT DRILL: GBB</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">100.000</span>
-                            <span class="price-duration">/ 2 Mag</span>
-                        </div>
-                        <span class="price-status-badge">2 Mag Full Gas</span>
-                    </div>
-                    <p class="card-short-summary">Latihan operasional, firing cadence, dan reload unit Gas Blowback dengan recoil realistis.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-uc-gbb')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>2 Magazine penuh diisi Green Gas & BB kompetisi</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill Slide Lock, Reload, & Target Re-engagement</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pelatihan manajemen gas agar FPS tetap konsisten</span></li>
-                        </ul>
-                        <a href="booking.html?cat=unit&pkg=uc-gbb" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=unit&pkg=uc-gbb" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Drill GBB
-                    </a>
-                </div>
-
-                <!-- Unit 2: AEG Drill -->
-                <div class="tac-card" id="card-uc-aeg">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Automatic Electric Gun</div>
-                            <h4 class="card-pkg-name">UNIT DRILL: AEG</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">125.000</span>
-                            <span class="price-duration">/ 1 Mag</span>
-                        </div>
-                        <span class="price-status-badge">High-Cap Mag</span>
-                    </div>
-                    <p class="card-short-summary">Latihan trigger control, firing stance, dan grouping akurasi senapan serbu otomatis.</p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-uc-aeg')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>1 Magazine High-Capacity penuh amunisi BB berkualitas</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill Single Fire vs Burst Mode pada target bergerak</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Hop-Up adjustment & tuning akurasi jarak jauh</span></li>
-                        </ul>
-                        <a href="booking.html?cat=unit&pkg=uc-aeg" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> PILIH PAKET INI & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=unit&pkg=uc-aeg" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Booking Drill AEG
-                    </a>
-                </div>
-
-            </div>
-        
-                    </div>
-                </div>
-            </div>
-
-            <!-- ARENA 5: GEAR RENTAL -->
-            <div class="arena-accordion-item" id="item-gear">
-                <div class="arena-bar-header" onclick="toggleArenaSection('gear')" role="button" tabindex="0" aria-expanded="false">
-                    <div class="arena-bar-left">
-                        <span class="arena-num-badge">05</span>
-                        <img src="assets/img/gear-rental-armory.jpg" alt="Tactical Gear Rental" class="arena-bar-thumb" loading="lazy">
-                        <div class="arena-bar-info">
-                            <span class="arena-bar-step-badge"><i class="fa-solid fa-vest"></i> Arena 5 · Full Protective Armor</span>
-                            <h3 class="arena-bar-title">TACTICAL GEAR RENTAL</h3>
-                            <p class="arena-bar-subtitle">Plate carrier vest, helm ops, goggle anti-fog & gloves (1 Set Lengkap)</p>
-                        </div>
-                    </div>
-                    <div class="arena-bar-right">
-                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
-                    </div>
-                </div>
-                <div class="arena-accordion-body" id="body-gear">
-                    <div class="pricelist-section-inner">
-
-            <div class="sec-header-banner">
-                <div class="sec-header-left">
-                    <div class="sec-header-icon"><i class="fa-solid fa-vest"></i></div>
-                    <div>
-                        <h2 class="sec-header-title">TACTICAL <span>GEAR RENTAL</span></h2>
-                        <p class="sec-header-desc">Perlengkapan proteksi standar tempur untuk kenyamanan dan keamanan optimal.</p>
-                    </div>
-                </div>
-                <div class="sec-header-badges">
-                    <span class="sec-chip"><i class="fa-solid fa-pump-medical"></i> Steril & Dicuci Bersih</span>
-                    <span class="sec-chip"><i class="fa-solid fa-shield"></i> Full Body Protection</span>
-                </div>
-            </div>
-
-            <!-- Single Card Grid for Gear -->
-            <div class="packages-grid" style="grid-template-columns: minmax(300px, 580px);">
-                
-                <div class="tac-card" id="card-gr-set">
-                    <div class="card-top-row">
-                        <div class="card-icon"><i class="fa-solid fa-vest"></i></div>
-                        <div class="card-title-group">
-                            <div class="card-platform-tag">Full Protective Armor</div>
-                            <h4 class="card-pkg-name">TACTICAL GEAR SET LENGKAP</h4>
-                        </div>
-                    </div>
-                    <div class="card-price-display">
-                        <div class="price-left">
-                            <span class="price-currency">Rp</span>
-                            <span class="price-amount">30.000</span>
-                            <span class="price-duration">/ Set</span>
-                        </div>
-                        <span class="price-status-badge">1 Sesi Penuh</span>
-                    </div>
-                    <p class="card-short-summary">
-                        Pelindung tubuh lengkap: Tactical Plate Carrier/Vest, Helm/Goggle anti-pecah, & Tactical Gloves anti-selip.
-                    </p>
-
-                    <button type="button" class="btn-toggle-details" onclick="toggleCardDetail('card-gr-set')">
-                        <span class="toggle-btn-text">Lihat Detail Fasilitas</span>
-                        <i class="fa-solid fa-chevron-down toggle-arrow-icon"></i>
-                    </button>
-                    <div class="card-expanded-drawer">
-                        <div class="drawer-subtitle"><i class="fa-solid fa-list-check"></i> Item yang Didapat dalam 1 Set:</div>
-                        <ul class="drawer-features-list">
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Plate Carrier Vest (Molle system pelindung dada & punggung)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Fast Helmet atau Kacamata Tactical Goggle impact-rated</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full-finger / Half-finger Tactical Gloves cengkeraman kokoh</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pelindung Siku & Lutut (Elbow & Knee Protective Pads)</span></li>
-                            <li class="drawer-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Seluruh perlengkapan dicuci bersih dan disanitasi steril setiap sesi</span></li>
-                        </ul>
-                        <a href="booking.html?cat=gear&pkg=gr-set" class="btn-select-book">
-                            <i class="fa-solid fa-arrow-right"></i> SEWA GEAR SET & LANJUT KE BOOKING
-                        </a>
-                    </div>
-                    <a href="booking.html?cat=gear&pkg=gr-set" class="btn-quick-pick">
-                        <i class="fa-solid fa-calendar-check"></i> Sewa Gear Set Sekarang
-                    </a>
-                </div>
-
-            </div>
-        
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
 
         <!-- Bottom Assistance & Direct Booking Banner -->
@@ -2456,7 +891,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Interaktif -->
+    <!-- JavaScript -->
     <script>
         // Force browser to always return to top on page refresh/reload if no hash
         if ('scrollRestoration' in history) {
@@ -2465,78 +900,6 @@
         if (!window.location.hash) {
             window.scrollTo(0, 0);
         }
-
-        // Fungsi Interaktif: Buka / Tutup Section Arena (Tahap Eksplor Arena Sebaris-sebaris)
-        function toggleArenaSection(secId) {
-            const item = document.getElementById('item-' + secId);
-            if (!item) return;
-
-            const isOpen = item.classList.contains('is-open');
-
-            // Tutup semua item lain agar rapi (accordion)
-            document.querySelectorAll('.arena-accordion-item').forEach(el => {
-                el.classList.remove('is-open');
-                const pillText = el.querySelector('.arena-bar-pill .pill-text');
-                if (pillText) pillText.textContent = 'Pilih Arena';
-                const header = el.querySelector('.arena-bar-header');
-                if (header) header.setAttribute('aria-expanded', 'false');
-            });
-
-            // Toggle item yang diklik
-            if (!isOpen) {
-                item.classList.add('is-open');
-                const pillText = item.querySelector('.arena-bar-pill .pill-text');
-                if (pillText) pillText.textContent = 'Tutup';
-                const header = item.querySelector('.arena-bar-header');
-                if (header) header.setAttribute('aria-expanded', 'true');
-
-                // Smooth scroll ke baris arena yang dibuka
-                setTimeout(() => {
-                    const rect = item.getBoundingClientRect();
-                    if (rect.top < 60 || rect.top > 220) {
-                        item.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 100);
-            }
-        }
-
-        // Fungsi Interaktif: Expand Detail Fasilitas Kartu Saat Panah Diklik
-        function toggleCardDetail(cardId) {
-            const card = document.getElementById(cardId);
-            if (!card) return;
-
-            const isExpanded = card.classList.contains('expanded');
-            const toggleBtn = card.querySelector('.btn-toggle-details .toggle-btn-text');
-
-            if (isExpanded) {
-                card.classList.remove('expanded');
-                if (toggleBtn) toggleBtn.textContent = 'Lihat Detail Fasilitas';
-            } else {
-                card.classList.add('expanded');
-                if (toggleBtn) toggleBtn.textContent = 'Tutup Detail Fasilitas';
-                setTimeout(() => {
-                    const rect = card.getBoundingClientRect();
-                    if (rect.top < 70 || rect.bottom > window.innerHeight) {
-                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
-                }, 180);
-            }
-        }
-
-        // Auto-open specific arena if URL contains ?cat=... or #sec-...
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const catParam = urlParams.get('cat') || window.location.hash.replace('#', '').replace('sec-', '');
-            
-            if (catParam) {
-                const lower = catParam.toLowerCase();
-                if (lower.includes('shoot') || lower.includes('target')) toggleArenaSection('target');
-                else if (lower.includes('war') || lower.includes('game')) toggleArenaSection('wargame');
-                else if (lower.includes('coach') && !lower.includes('unit')) toggleArenaSection('coaching');
-                else if (lower.includes('unit')) toggleArenaSection('unit');
-                else if (lower.includes('gear')) toggleArenaSection('gear');
-            }
-        });
     </script>
 </body>
 </html>

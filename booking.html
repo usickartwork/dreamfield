@@ -707,6 +707,200 @@
             color: var(--color-lime);
         }
 
+        /* --- Expandable Package Card & Details --- */
+        .pkg-platform-pill {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--color-lime);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: inline-block;
+            margin-bottom: 2px;
+        }
+
+        .pkg-badge-highlight {
+            font-size: 9px;
+            font-weight: 800;
+            background: rgba(183, 255, 0, 0.2);
+            color: var(--color-lime);
+            border: 1px solid var(--color-lime);
+            padding: 1px 6px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-left: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .pkg-price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            margin: 4px 0 6px;
+            flex-wrap: wrap;
+        }
+
+        .pkg-price-main {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        .pkg-price-curr {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-moss);
+        }
+
+        .pkg-price-val {
+            font-family: 'Teko', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--color-lime);
+            line-height: 1;
+        }
+
+        .pkg-card.expanded {
+            border-color: var(--color-lime) !important;
+            background: linear-gradient(135deg, rgba(46, 52, 38, 0.98) 0%, rgba(26, 29, 23, 0.98) 100%) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 16px rgba(183, 255, 0, 0.2) !important;
+            transform: scale(1.01);
+            z-index: 5;
+        }
+
+        .pkg-card.expanded .toggle-arrow {
+            transform: rotate(180deg);
+            color: var(--color-lime);
+        }
+
+        .btn-toggle-pkg-details {
+            background: rgba(78, 91, 49, 0.25);
+            border: 1px solid rgba(78, 91, 49, 0.6);
+            color: var(--color-sage);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            transition: all 0.18s ease;
+        }
+
+        .btn-toggle-pkg-details:hover {
+            border-color: var(--color-lime);
+            color: #ffffff;
+            background: rgba(78, 91, 49, 0.5);
+        }
+
+        .toggle-arrow {
+            font-size: 10px;
+            color: var(--color-lime);
+            transition: transform 0.2s ease;
+        }
+
+        .pkg-drawer-detail {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(183, 255, 0, 0.35);
+            animation: pkgDrawerFade 0.22s ease-out;
+        }
+
+        .pkg-card.expanded .pkg-drawer-detail {
+            display: block;
+        }
+
+        @keyframes pkgDrawerFade {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drawer-title {
+            font-size: 10.5px;
+            font-weight: 800;
+            color: var(--color-lime);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .drawer-feat-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .drawer-feat-list li {
+            font-size: 11px;
+            color: var(--color-sage);
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.35;
+        }
+
+        .drawer-feat-list li i {
+            color: var(--color-lime);
+            font-size: 9.5px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .btn-confirm-select-pkg {
+            width: 100%;
+            background: var(--color-lime);
+            color: #121212;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .btn-confirm-select-pkg:hover {
+            opacity: 0.9;
+        }
+
+        .btn-back-to-arena {
+            background: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-lime);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-back-to-arena:hover {
+            border-color: var(--color-lime);
+            background: rgba(78, 91, 49, 0.6);
+            color: #ffffff;
+        }
+
         /* --- Step 2: Jadwal & Pemain Form --- */
         .schedule-grid {
             display: grid;
@@ -1519,6 +1713,13 @@
             .arena-preview-title { font-size: 14px !important; margin: 0 !important; }
             .arena-preview-desc { font-size: 10.5px !important; line-height: 1.35 !important; margin: 0 !important; }
 
+            /* Expanded package card on mobile spans full 2 columns */
+            .pkg-card.expanded {
+                grid-column: 1 / -1 !important;
+                transform: none !important;
+            }
+            .pkg-price-val { font-size: 22px !important; }
+
             /* Package Cards — Dibikin 2 Kolom Berdampingan / 2 Baris ke bawah */
             .package-grid {
                 display: grid !important;
@@ -1880,21 +2081,21 @@
     <!-- 3-Step Flow Progress Bar -->
     <div class="flow-stepper-wrap">
         <div class="flow-stepper-container">
-            <a href="index.html" class="flow-step-item done" title="Kembali ke Halaman Beranda">
+            <a href="pricelist.html" class="flow-step-item done" title="Kembali ke Eksplor Arena">
                 <div class="step-circle"><i class="fa-solid fa-check"></i></div>
                 <div class="step-info">
-                    <span class="step-num-label">Langkah 1</span>
+                    <span class="step-num-label">Langkah 1 (Selesai)</span>
                     <span class="step-text">Eksplor Arena</span>
                 </div>
             </a>
             <div class="flow-line done"></div>
-            <a href="pricelist.html" class="flow-step-item done" title="Buka Katalog Pricelist">
-                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+            <div class="flow-step-item active">
+                <div class="step-circle">2</div>
                 <div class="step-info">
-                    <span class="step-num-label">Langkah 2</span>
+                    <span class="step-num-label">Langkah 2 (Aktif)</span>
                     <span class="step-text">Pilih Paket</span>
                 </div>
-            </a>
+            </div>
             <div class="flow-line done"></div>
             <div class="flow-step-item active">
                 <div class="step-circle">3</div>
@@ -1936,10 +2137,13 @@
             <div class="panel-card slide-reveal slide-left">
                 <div class="panel-header">
                     <div class="step-badge">1</div>
-                    <div>
+                    <div style="flex: 1; min-width: 0;">
                         <h2 class="panel-title">PILIH KATEGORI & PAKET</h2>
-                        <p class="panel-subtitle">Klik tab kategori di bawah untuk ganti paket kapan saja secara instan</p>
+                        <p class="panel-subtitle">Klik tab kategori atau pilih opsi paket di bawah. Tekan panah untuk melihat fasilitas lengkap.</p>
                     </div>
+                    <a href="pricelist.html" class="btn-back-to-arena" title="Kembali ke Tahap Eksplor Arena">
+                        <i class="fa-solid fa-compass"></i> Ganti Arena
+                    </a>
                 </div>
 
                 <!-- Category Tabs -->
@@ -2189,52 +2393,277 @@
             window.scrollTo(0, 0);
         }
 
-        // Database Semua Paket Sesuai Pricelist
+        // Database Semua Paket Sesuai Pricelist Lengkap & Terperinci
         const packageCatalog = {
             wargame: {
-                catName: "WAR GAME",
+                catName: "WAR GAME CQB",
                 icon: "fa-shield-halved",
+                badge: "CQB 1.200m² Bertingkat",
                 items: [
-                    { id: "wg-lapangan-1h", name: "Lapangan (1 Jam)", price: "35K", unit: "/ 1 Jam", desc: "Akses arena pertempuran CQB (unit bawa sendiri)" },
-                    { id: "wg-lapangan-2h", name: "Lapangan (2 Jam)", price: "50K", unit: "/ 2 Jam", desc: "Akses arena pertempuran CQB 2 jam penuh" },
-                    { id: "wg-wgg-1h", name: "Lapangan + WGG (1 Jam)", price: "100K", unit: "/ 1 Jam", desc: "Akses arena + Rental Water Gel Gun (1 Jam)" },
-                    { id: "wg-wgg-2h", name: "Lapangan + WGG (2 Jam)", price: "150K", unit: "/ 2 Jam", desc: "Akses arena + Rental Water Gel Gun (2 Jam)" },
-                    { id: "wg-aeg-1h", name: "Lapangan + AEG (1 Jam)", price: "150K", unit: "/ 1 Jam", desc: "Akses arena + Rental Automatic Electric Gun (1 Jam)" },
-                    { id: "wg-aeg-2h", name: "Lapangan + AEG (2 Jam)", price: "225K", unit: "/ 2 Jam", desc: "Akses arena + Rental Automatic Electric Gun (2 Jam)" },
-                    { id: "wg-gbb-1h", name: "Lapangan + GBB (1 Jam)", price: "125K", unit: "/ 1 Jam", desc: "Akses arena + Rental Gas Blowback (1 Jam)" },
-                    { id: "wg-gbb-2h", name: "Lapangan + GBB (2 Jam)", price: "200K", unit: "/ 2 Jam", desc: "Akses arena + Rental Gas Blowback (2 Jam)" }
+                    {
+                        id: "wg-lapangan-1h",
+                        name: "Sewa Lapangan (1 Jam)",
+                        platform: "Unit Bawa Sendiri",
+                        price: "Rp 35.000",
+                        unit: "/ Orang / Jam",
+                        desc: "Akses arena pertempuran CQB 1 jam penuh. Cocok untuk skirmisher yang memiliki unit & gear sendiri.",
+                        features: [
+                            "Akses arena CQB 1.200m² bertingkat selama 60 menit",
+                            "Chrono test unit pribadi sebelum masuk arena (Max 350 FPS)",
+                            "Briefing safety & pengawasan penuh Game Marshal",
+                            "Safe-zone ber-AC, free flow air mineral & area re-gas"
+                        ]
+                    },
+                    {
+                        id: "wg-lapangan-2h",
+                        name: "Sewa Lapangan (2 Jam)",
+                        platform: "Unit Bawa Sendiri",
+                        price: "Rp 50.000",
+                        unit: "/ Orang / 2 Jam",
+                        desc: "Akses arena CQB 2 jam penuh dengan rotasi skenario pertempuran dan waktu taktis lebih panjang.",
+                        features: [
+                            "Akses arena CQB 2 jam penuh tanpa jeda terburu-buru",
+                            "Rotasi skenario: Team Deathmatch & Hostage Rescue",
+                            "Didampingi Marshal & chrono test unit",
+                            "Akses safe-zone ber-AC, charger unit & air mineral"
+                        ]
+                    },
+                    {
+                        id: "wg-wgg-1h",
+                        name: "Lapangan + WGG (1 Jam)",
+                        platform: "Rental Water Gel Gun",
+                        price: "Rp 100.000",
+                        unit: "/ Orang / Jam",
+                        desc: "Sensasi kontak senjata aman minim sakit dengan Water Gel Gun elektrik. Sangat ramah pemula.",
+                        features: [
+                            "Akses arena CQB 1 jam dengan skenario terarah",
+                            "Rental 1 Unit Water Gel Gun elektrik otomatis",
+                            "Amunisi Water Gel tak terbatas / refill berkala",
+                            "Masker pelindung wajah penuh (Full Face Mask)",
+                            "Didampingi wasit & pemandu gameplay tim"
+                        ]
+                    },
+                    {
+                        id: "wg-wgg-2h",
+                        name: "Lapangan + WGG (2 Jam)",
+                        platform: "Rental Water Gel Gun",
+                        price: "Rp 150.000",
+                        unit: "/ Orang / 2 Jam",
+                        desc: "Sesi WGG 2 jam penuh dengan turnamen mini antar tim dan skenario pertempuran seru.",
+                        features: [
+                            "Akses arena CQB 2 jam penuh",
+                            "Unit WGG elektrik otomatis + baterai cadangan",
+                            "Refill amunisi water gel selama durasi sesi",
+                            "Full face protective mask & safety briefing",
+                            "Variasi mode: VIP Escort & Capture the Flag"
+                        ]
+                    },
+                    {
+                        id: "wg-aeg-1h",
+                        name: "Lapangan + AEG (1 Jam)",
+                        platform: "Airsoft AEG M4 CQB",
+                        price: "Rp 150.000",
+                        unit: "/ Orang / Jam",
+                        badge: "TERPOPULER",
+                        desc: "Pengalaman airsoft sejati dengan senapan serbu elektrik M4 CQB, rompi taktis, & goggle anti-fog.",
+                        features: [
+                            "Akses arena CQB 1 jam penuh dengan skenario Search & Destroy",
+                            "Rental Unit Airsoft AEG M4 CQB High-Performance",
+                            "1 Magazine penuh (±300 butir BB competition grade)",
+                            "Tactical Vest pelindung dada & Tactical Goggle anti-fog",
+                            "Briefing taktis dasar & pengawasan penuh wasit"
+                        ]
+                    },
+                    {
+                        id: "wg-aeg-2h",
+                        name: "Lapangan + AEG (2 Jam)",
+                        platform: "Airsoft AEG M4 CQB",
+                        price: "Rp 225.000",
+                        unit: "/ Orang / 2 Jam",
+                        badge: "BEST VALUE",
+                        desc: "Puas bertempur 2 jam penuh! Ekstra amunisi dan perlengkapan proteksi komplit tanpa terburu-buru.",
+                        features: [
+                            "Akses arena CQB 2 jam penuh leluasa",
+                            "Rental Unit Airsoft AEG M4 CQB elektrik",
+                            "Amunisi ekstra: 2 Magazine BB (total ±600 butir BB)",
+                            "Rompi taktis molly, goggle anti-fog & helm ops-core",
+                            "Free flow air minum & handuk steril"
+                        ]
+                    },
+                    {
+                        id: "wg-gbb-1h",
+                        name: "Lapangan + GBB (1 Jam)",
+                        platform: "Gas Blowback Pistol",
+                        price: "Rp 125.000",
+                        unit: "/ Orang / Jam",
+                        desc: "Simulasi tempur jarak dekat dengan pistol Gas Blowback yang memiliki hentakan recoil nyata.",
+                        features: [
+                            "Akses arena CQB 1 jam",
+                            "Rental Unit GBB Pistol (Glock / Hi-Capa platform)",
+                            "2 Magazine penuh + Green Gas refill",
+                            "Kacamata tactical goggle & masker pelindung",
+                            "Latihan quick draw & transition shooting"
+                        ]
+                    },
+                    {
+                        id: "wg-gbb-2h",
+                        name: "Lapangan + GBB (2 Jam)",
+                        platform: "Gas Blowback Pistol",
+                        price: "Rp 200.000",
+                        unit: "/ Orang / 2 Jam",
+                        desc: "2 jam pertempuran pistol taktis CQB dengan sensasi recoil realistis dan mobilitas tinggi.",
+                        features: [
+                            "Akses arena CQB 2 jam penuh",
+                            "Rental Unit GBB Pistol + Holster Taktis",
+                            "Refill Green Gas & Amunisi BB selama 2 jam",
+                            "Tactical Belt, Goggle, & Gloves",
+                            "Skenario John Wick style handgun combat"
+                        ]
+                    }
                 ]
             },
             target: {
                 catName: "SHOOTING TARGET",
                 icon: "fa-bullseye",
+                badge: "Lane 10-25M Presisi",
                 items: [
-                    { id: "st-aeg", name: "AEG / Rifle", price: "75K", unit: "per sesi", desc: "Latihan tembak sasaran senapan otomatis elektrik" },
-                    { id: "st-gbb", name: "GBB / Handgun", price: "50K", unit: "per sesi", desc: "Latihan tembak sasaran pistol recoil gas realistis" },
-                    { id: "st-sniper", name: "Sniper Spring", price: "50K", unit: "per sesi", desc: "Latihan tembak sasaran presisi akurasi jarak jauh" }
+                    {
+                        id: "st-gbb",
+                        name: "GBB / Handgun",
+                        platform: "Gas Blowback Handgun",
+                        price: "Rp 50.000",
+                        unit: "/ Sesi Latihan",
+                        desc: "Latihan tembak sasaran plat baja reaktif dengan pistol gas berhentakan recoil nyata.",
+                        features: [
+                            "1 Sesi tembak sasaran plat baja & target siluet",
+                            "1 Magazine penuh peluru BB & gas bertekanan",
+                            "Kacamata safety goggle anti-fog & earmuff pelindung",
+                            "Panduan stance dasar & alignment bidikan oleh staf"
+                        ]
+                    },
+                    {
+                        id: "st-sniper",
+                        name: "Sniper Spring",
+                        platform: "Bolt-Action Precision",
+                        price: "Rp 50.000",
+                        unit: "/ Sesi Latihan",
+                        desc: "Latihan tembak sasaran presisi akurasi jarak jauh dengan teleskop pembesar di lane 20-25 meter.",
+                        features: [
+                            "Unit Senapan Sniper Spring dengan Telescopic Scope",
+                            "15 butir BB presisi kompetisi (berat 0.28g)",
+                            "Lane jarak jauh 20-25 meter & bipod stand stabil",
+                            "Target kertas skor personal untuk dibawa pulang"
+                        ]
+                    },
+                    {
+                        id: "st-aeg",
+                        name: "AEG / Rifle",
+                        platform: "Electric Assault Rifle",
+                        price: "Rp 75.000",
+                        unit: "/ Sesi Latihan",
+                        badge: "FAVORIT",
+                        desc: "Latihan tembak sasaran senapan serbu otomatis elektrik berdaya tembak tinggi.",
+                        features: [
+                            "Unit Assault Rifle AEG (Automatic Electric Gun)",
+                            "1 Magazine kapasitas tinggi (±150 butir BB)",
+                            "Mode tembak Semi-Auto & Full-Auto fleksibel",
+                            "Proteksi mata & arahan teknik trigger reset"
+                        ]
+                    }
                 ]
             },
             coaching: {
-                catName: "COACHING",
+                catName: "TACTICAL COACHING",
                 icon: "fa-user-ninja",
+                badge: "Private Masterclass",
                 items: [
-                    { id: "ch-private", name: "Private Coaching", price: "150K", unit: "/ 1,5 Jam", desc: "Bimbingan taktis privat 1-on-1 dengan instruktur" },
-                    { id: "ch-htm", name: "HTM Coaching", price: "35K", unit: "/ 1,5 Jam", desc: "Tiket masuk sesi pelatihan dasar teknik CQB" }
+                    {
+                        id: "ch-htm",
+                        name: "HTM Coaching CQB",
+                        platform: "Kelas Teori & Drill Dasar",
+                        price: "Rp 35.000",
+                        unit: "/ Orang / 1,5 Jam",
+                        desc: "Tiket masuk sesi pelatihan dasar CQB. Mempelajari aturan baku pertempuran, etika, dan safety handling.",
+                        features: [
+                            "Materi etika airsoft, aturan hit, dan kedisiplinan trigger safety",
+                            "Pengenalan dasar formasi pergerakan regu CQB (stacking & breach)",
+                            "Simulasi pergerakan taktis tanpa peluru (dry fire drill)",
+                            "Konsultasi tanya jawab seputar unit dan perlengkapan airsoft"
+                        ]
+                    },
+                    {
+                        id: "ch-private",
+                        name: "Private Coaching",
+                        platform: "1-on-1 Bersama Instruktur",
+                        price: "Rp 150.000",
+                        unit: "/ Orang / 1,5 Jam",
+                        badge: "VIP DRILL",
+                        desc: "Bimbingan intensif 1-on-1 dengan instruktur untuk mempertajam teknik menembak, pergerakan, dan evaluasi.",
+                        features: [
+                            "Instruktur pribadi mendedikasikan 100% perhatian selama 1,5 jam",
+                            "Drill transisi senjata, shooting on the move, dan cornering pie",
+                            "Analisis koreksi postur tubuh, pernapasan, dan recoil control",
+                            "Skenario pertempuran terarah dengan instruktur sebagai sparing partner"
+                        ]
+                    }
                 ]
             },
             unit: {
-                catName: "UNIT COACHING",
+                catName: "UNIT COACHING & DRILL",
                 icon: "fa-layer-group",
+                badge: "Platform GBB & AEG",
                 items: [
-                    { id: "uc-gbb", name: "Unit Coaching: GBB", price: "100K", unit: "/ 2 Mag", desc: "Latihan operasional, firing & reload unit Gas Blowback" },
-                    { id: "uc-aeg", name: "Unit Coaching: AEG", price: "125K", unit: "/ 1 Mag", desc: "Latihan trigger control, firing stance & grouping AEG" }
+                    {
+                        id: "uc-gbb",
+                        name: "Unit Drill: GBB",
+                        platform: "Gas Blowback System",
+                        price: "Rp 100.000",
+                        unit: "/ 2 Mag",
+                        desc: "Latihan operasional, firing cadence, dan reload unit Gas Blowback dengan recoil realistis.",
+                        features: [
+                            "2 Magazine penuh diisi Green Gas & BB kompetisi",
+                            "Drill Slide Lock, Reload, & Target Re-engagement",
+                            "Pelatihan manajemen gas agar FPS tetap konsisten",
+                            "Evaluasi akurasi & grouping tembakan"
+                        ]
+                    },
+                    {
+                        id: "uc-aeg",
+                        name: "Unit Drill: AEG",
+                        platform: "Electric Assault Rifle",
+                        price: "Rp 125.000",
+                        unit: "/ 1 Mag",
+                        desc: "Latihan trigger control, stance pertempuran cepat, dan grouping tight-shot senapan serbu AEG.",
+                        features: [
+                            "1 High-Cap Magazine penuh (±300 butir BB)",
+                            "Drill Double-Tap, Controlled Pairs & Off-Shoulder Firing",
+                            "Simulasi pergantian magazine dalam tekanan waktu (Speed Reload)",
+                            "Chrono tuning & penjelasan hop-up adjustment"
+                        ]
+                    }
                 ]
             },
             gear: {
-                catName: "GEAR",
+                catName: "TACTICAL GEAR RENTAL",
                 icon: "fa-vest",
+                badge: "Full Protective Armor",
                 items: [
-                    { id: "gr-set", name: "Tactical Gear Set", price: "30K", unit: "/ Set", desc: "Pelindung lengkap: Tactical Vest, Helm/Goggle, & Gloves" }
+                    {
+                        id: "gr-set",
+                        name: "Tactical Gear Set Lengkap",
+                        platform: "Full Protective Armor",
+                        price: "Rp 30.000",
+                        unit: "/ Set / Sesi",
+                        badge: "STERIL & BERSIH",
+                        desc: "Pelindung tubuh lengkap: Tactical Plate Carrier/Vest, Helm/Goggle anti-pecah, & Tactical Gloves anti-selip.",
+                        features: [
+                            "Tactical Plate Carrier Vest (Molle system pelindung dada & punggung)",
+                            "Fast Helmet atau Kacamata Tactical Goggle impact-rated",
+                            "Full-finger / Half-finger Tactical Gloves cengkeraman kokoh",
+                            "Pelindung Siku & Lutut (Elbow & Knee Protective Pads)",
+                            "Seluruh perlengkapan dicuci bersih dan disanitasi steril setiap sesi"
+                        ]
+                    }
                 ]
             }
         };
@@ -2264,69 +2693,47 @@
                 desc: 'Jalur tembak indoor berlisensi resmi Dreamfield Tactical dengan paper target multi-jarak dan steel plate reactive.',
                 img: 'assets/img/arena-shooting-target.jpg',
                 alt: 'Real Shooting Target Range Dreamfield Tactical',
-                tag: 'Precision Range'
+                tag: 'Precision Lane'
             },
             coaching: {
-                badge: 'TACTICAL DRILL FACILITY',
+                badge: 'MASTERCLASS CQB',
                 badgeIcon: 'fa-solid fa-user-ninja',
-                title: 'Fasilitas Coaching & Private Drill',
-                desc: 'Pelatihan langsung oleh coach berpengalaman: bimbingan 1-on-1, teknik bidik presisi, dan room clearing drill di arena CQB.',
-                img: 'assets/img/shooter-aiming-drill.jpg',
-                alt: 'Tactical Coaching Range Dreamfield Tactical',
-                tag: 'Accuracy Drill'
+                title: 'Tactical Coaching & Room Clearing',
+                desc: 'Fasilitas edukasi taktis CQB indoor dengan layout simulasi ruangan, pintu breach, dan area manuver instruktur.',
+                img: 'assets/img/arena-coaching.jpg',
+                alt: 'Tactical Coaching Dreamfield',
+                tag: 'Drill Master'
             },
             unit: {
-                badge: 'OFFICIAL UNIT TEST & DRILL',
+                badge: 'UNIT HANDLING & DRILL',
                 badgeIcon: 'fa-solid fa-layer-group',
-                title: 'Drill Penguasaan Unit & Tactical Shooting',
-                desc: 'Bawa unit AEG/GBB Anda sendiri untuk latihan akurasi, manipulasi senjata, handling recoil, dan reload drill berstandar CQB.',
-                img: 'assets/img/unit-coaching-drill.jpg',
-                alt: 'Unit Coaching & Rifle Drill Dreamfield Tactical',
-                tag: 'Unit Drill'
+                title: 'Weapon Manipulation & Chrono Lane',
+                desc: 'Area pendalaman operasional unit GBB dan AEG berstandar kompetisi dengan perlengkapan chrono tester digital.',
+                img: 'assets/img/arena-unit-drill.jpg',
+                alt: 'Unit Coaching Dreamfield',
+                tag: 'Unit Platform'
             },
             gear: {
-                badge: 'AUTHENTIC GEAR & PRO SHOP ARMORY',
+                badge: 'TACTICAL GEAR ARMORY',
                 badgeIcon: 'fa-solid fa-vest',
-                title: 'Pro Shop, Display Armory & Rental Gear',
-                desc: 'Etalase resmi perlengkapan taktis: helm ops, rompi plate carrier, goggle anti-fog, dan unit rental siap pakai higienis.',
+                title: 'Certified Safety Gear Armory',
+                desc: 'Ruang penyimpanan perlengkapan proteksi standar tempur yang selalu disanitasi steril dan siap pakai.',
                 img: 'assets/img/gear-rental-armory.jpg',
-                alt: 'Pro Shop & Rental Gear Dreamfield Tactical',
-                tag: 'Pro Shop'
+                alt: 'Gear Rental Armory Dreamfield',
+                tag: 'Full Armor'
             }
         };
 
-        // Inisialisasi Halaman
+        // Inisialisasi Saat Dokumen Dimuat
         window.addEventListener('DOMContentLoaded', () => {
-            // Set tanggal minimal hari ini
-            const dateInput = document.getElementById('book-date');
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.min = today;
-            dateInput.value = today;
-
-            // Realtime clear input errors
-            ['book-name', 'book-phone', 'book-date'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', () => {
-                        el.classList.remove('has-error');
-                        const fb = document.getElementById('feedback-' + id.replace('book-', ''));
-                        if (fb) fb.classList.remove('show');
-                    });
-                    el.addEventListener('change', () => {
-                        el.classList.remove('has-error');
-                    });
-                }
-            });
-
-            // Baca Parameter URL (?cat=...&pkg=...)
             const urlParams = new URLSearchParams(window.location.search);
-            const catParam = urlParams.get('cat') || urlParams.get('category');
-            const pkgParam = urlParams.get('pkg') || urlParams.get('package');
+            const catParam = urlParams.get('cat');
+            const pkgParam = urlParams.get('pkg');
 
             if (catParam) {
                 const lowerCat = catParam.toLowerCase();
-                if (lowerCat.includes('target') || lowerCat.includes('shoot')) currentCategory = 'target';
-                else if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
+                if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
+                else if (lowerCat.includes('shoot') || lowerCat.includes('target')) currentCategory = 'target';
                 else if (lowerCat.includes('unit')) currentCategory = 'unit';
                 else if (lowerCat.includes('coach')) currentCategory = 'coaching';
                 else if (lowerCat.includes('gear')) currentCategory = 'gear';
@@ -2366,7 +2773,6 @@
             renderTabs();
             renderArenaPreview(catKey);
             renderPackages();
-            // Otomatis pilih item pertama di kategori baru
             if (packageCatalog[catKey] && packageCatalog[catKey].items.length > 0) {
                 selectPackage(packageCatalog[catKey].items[0]);
             }
@@ -2383,7 +2789,7 @@
             });
         }
 
-        // Render Kartu-Kartu Paket untuk Kategori Aktif
+        // Render Kartu-Kartu Paket untuk Kategori Aktif (2 Kolom ke Bawah, Harga Utuh, Panah Expand Membesar)
         function renderPackages(targetPkgQuery = null) {
             const container = document.getElementById('packages-container');
             const catData = packageCatalog[currentCategory];
@@ -2393,7 +2799,6 @@
             let foundMatch = null;
 
             catData.items.forEach((item, index) => {
-                // Cek apakah item ini cocok dengan parameter URL
                 let isMatch = false;
                 if (targetPkgQuery) {
                     const query = targetPkgQuery.toLowerCase();
@@ -2403,16 +2808,44 @@
                     }
                 }
 
+                const priceNumOnly = item.price.replace('Rp ', '').replace('K', '.000');
+                const featuresList = (item.features || []).map(f => `<li><i class="fa-solid fa-circle-check"></i> <span>${f}</span></li>`).join('');
+
                 html += `
-                    <div class="pkg-card slide-reveal slide-up" id="card-${item.id}" style="transition-delay: ${index * 45}ms" onclick="selectPackageById('${item.id}')">
-                        <div class="pkg-card-top">
-                            <div class="pkg-name">${item.name}</div>
-                            <div>
-                                <span class="pkg-price">${item.price}</span>
-                                <span class="pkg-price-unit">${item.unit}</span>
+                    <div class="pkg-card slide-reveal slide-up" id="card-${item.id}" style="transition-delay: ${index * 35}ms" onclick="selectPackageById('${item.id}')">
+                        <div class="pkg-card-top" style="flex-direction: column; gap: 3px; align-items: flex-start;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 4px;">
+                                <span class="pkg-platform-pill">${item.platform || 'Platform Taktis'}</span>
+                                ${item.badge ? `<span class="pkg-badge-highlight">${item.badge}</span>` : ''}
                             </div>
+                            <div class="pkg-name">${item.name}</div>
                         </div>
+
+                        <div class="pkg-price-box">
+                            <div class="pkg-price-main">
+                                <span class="pkg-price-curr">Rp</span>
+                                <span class="pkg-price-val">${priceNumOnly}</span>
+                            </div>
+                            <span class="pkg-price-unit" style="display: inline-block; margin-left: 2px;">${item.unit}</span>
+                        </div>
+
                         <div class="pkg-desc">${item.desc}</div>
+
+                        <button type="button" class="btn-toggle-pkg-details" onclick="togglePkgDetail(event, '${item.id}')" title="Lihat detail fasilitas paket">
+                            <span class="detail-btn-text">Lihat Detail Fasilitas</span>
+                            <i class="fa-solid fa-chevron-down toggle-arrow"></i>
+                        </button>
+
+                        <div class="pkg-drawer-detail" id="drawer-${item.id}">
+                            <div class="drawer-title"><i class="fa-solid fa-list-check"></i> Fasilitas Termasuk:</div>
+                            <ul class="drawer-feat-list">
+                                ${featuresList}
+                            </ul>
+                            <button type="button" class="btn-confirm-select-pkg" onclick="confirmPackageSelect(event, '${item.id}')">
+                                <i class="fa-solid fa-circle-check"></i> PILIH PAKET INI
+                            </button>
+                        </div>
+
                         <div class="pkg-select-indicator">
                             <span class="indicator-text"><i class="fa-regular fa-circle"></i> Klik untuk Pilih</span>
                             <i class="fa-solid fa-check check-icon" style="display: none;"></i>
@@ -2423,7 +2856,6 @@
 
             container.innerHTML = html;
 
-            // Trigger cascading slide entrance
             requestAnimationFrame(() => {
                 const cards = container.querySelectorAll('.pkg-card');
                 cards.forEach(card => card.classList.add('active'));
@@ -2441,6 +2873,52 @@
                 highlightSelectedCard(currentSelectedPackage.id);
             } else {
                 selectPackage(catData.items[0]);
+            }
+        }
+
+        // Toggle Expand Card Drawer (Tampilan Membesar saat Panah Diklik)
+        function togglePkgDetail(event, id) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const card = document.getElementById(`card-${id}`);
+            if (!card) return;
+
+            const isExpanded = card.classList.contains('expanded');
+
+            // Tutup card lain yang sedang expanded agar rapi
+            document.querySelectorAll('.pkg-card.expanded').forEach(c => {
+                if (c.id !== `card-${id}`) {
+                    c.classList.remove('expanded');
+                    const txt = c.querySelector('.btn-toggle-pkg-details .detail-btn-text');
+                    if (txt) txt.textContent = 'Lihat Detail Fasilitas';
+                }
+            });
+
+            if (isExpanded) {
+                card.classList.remove('expanded');
+                const txt = card.querySelector('.btn-toggle-pkg-details .detail-btn-text');
+                if (txt) txt.textContent = 'Lihat Detail Fasilitas';
+            } else {
+                card.classList.add('expanded');
+                const txt = card.querySelector('.btn-toggle-pkg-details .detail-btn-text');
+                if (txt) txt.textContent = 'Tutup Detail';
+                selectPackageById(id);
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 120);
+            }
+        }
+
+        function confirmPackageSelect(event, id) {
+            if (event) {
+                event.stopPropagation();
+            }
+            selectPackageById(id);
+            // Smooth scroll ke langkah 2 (jadwal)
+            const scheduleSection = document.querySelector('.schedule-grid');
+            if (scheduleSection) {
+                scheduleSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
