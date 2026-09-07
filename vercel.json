@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/pricelist",
+      "destination": "/index.html#pricelist"
+    },
+    {
+      "source": "/pricelist.html",
+      "destination": "/index.html#pricelist"
+    }
+  ]
+}
