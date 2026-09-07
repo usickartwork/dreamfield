@@ -33,7 +33,7 @@ Tempat hiburan dan rekreasi olahraga menembak taktis CQB indoor yang aman, ramah
   - **CHARCOAL (`#1A1A1A` / `#121212` / `#22251E`)**: Background permukaan gelap taktikal.
   - **SAGE (`#DDE5D1`)**: Tipografi judul utama dan elemen badge.
   - **MOSS (`#8A9A5B`)**: Teks keterangan sekunder dan label pendukung.
-  - **OLIVE (`#4E5B31`)**: Border taktikal kartu dan garis aksen pemisah.
+  - **OLIVE**: Dihapus atas permintaan user. Border dan pemisah menggunakan wireframe netral / translucent Sage (`rgba(221, 229, 209, 0.15)`).
 
 ## Evidence on Hand
 - Kode frontend fungsional di `index.html` dan `booking.html`.
