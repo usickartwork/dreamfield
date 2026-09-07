@@ -3280,11 +3280,6 @@
             showcaseEl.innerHTML = `
                 <img src="${data.img}" alt="${data.alt}" class="arena-big-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/arena-wargame.jpg';">
                 <div class="arena-big-overlay">
-                    <div class="arena-big-badge-row">
-                        <span class="arena-real-badge"><i class="fa-solid fa-circle-check"></i> REAL ARENA DREAMFIELD</span>
-                        <span class="arena-spec-badge"><i class="${data.badgeIcon}"></i> ${data.badge}</span>
-                        ${data.spec ? `<span class="arena-spec-badge" style="background: rgba(0,0,0,0.65); border-color: rgba(183, 255, 0, 0.4);"><i class="fa-solid fa-location-dot" style="color: var(--color-lime);"></i> ${data.spec}</span>` : ''}
-                    </div>
                     <h3 class="arena-big-title">${data.title}</h3>
                     <p class="arena-big-desc">${data.desc}</p>
                 </div>
