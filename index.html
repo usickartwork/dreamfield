@@ -1969,19 +1969,26 @@
                 max-width: 100%;
             }
             .hero-buttons {
-                flex-direction: column;
+                flex-direction: row;
                 width: 100%;
-                max-width: 300px;
-                margin: 0 auto;
-                gap: 10px;
-            }
-            .btn-primary-tactical,
-            .btn-secondary-tactical {
-                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                gap: 8px;
                 justify-content: center;
-                font-size: 16.5px;
-                padding: 11px 18px;
-                min-height: 44px;
+            }
+            .hero-buttons .btn-primary-tactical,
+            .hero-buttons .btn-secondary-tactical {
+                display: flex;
+                flex: 1;
+                max-width: 165px;
+                justify-content: center;
+                align-items: center;
+                font-size: 14.5px;
+                padding: 10px 8px;
+                min-height: 42px;
+                gap: 6px;
+                box-sizing: border-box;
+                white-space: nowrap;
             }
             .features-bar {
                 padding: 18px 16px;
@@ -2284,6 +2291,41 @@
                 min-height: 44px !important;
             }
             .footer-content { flex-direction: column; text-align: center; gap: 16px; }
+        }
+
+        /* --- Extra Small Phones (≤390px) --- */
+        @media (max-width: 390px) {
+            .nav-container {
+                padding: 9px 12px;
+            }
+            .logo {
+                font-size: 16px;
+            }
+            .hero {
+                padding: 82px 16px 44px;
+            }
+            .hero-badge {
+                font-size: 10.5px;
+                letter-spacing: 0.5px;
+                padding: 4px 10px;
+            }
+            .hero-title {
+                font-size: clamp(28px, 8vw, 34px);
+            }
+            .hero-description {
+                font-size: 13px;
+                margin-bottom: 18px;
+            }
+            .hero-buttons {
+                gap: 6px;
+            }
+            .hero-buttons .btn-primary-tactical,
+            .hero-buttons .btn-secondary-tactical {
+                font-size: 13.5px;
+                padding: 9px 7px;
+                min-height: 40px;
+                max-width: 150px;
+            }
         }
 
         /* --- Touch Device Hover Protection (Emil Design Engineering) --- */
