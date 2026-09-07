@@ -2714,19 +2714,19 @@
                         </div>
                     </div>
 
-                    <!-- Pilihan Jam Sesi Fleksibel Bebas -->
+                    <!-- Pilihan Jam Sesi Fleksibel Bebas (Sesuai Jam Operasional 12.00 - 21.00 WIB, Selasa Libur) -->
                     <div class="form-group full">
                         <div class="time-header-flex">
                             <label><i class="fa-solid fa-clock"></i> Jam Kedatangan (Fleksibel Bebas)</label>
-                            <span class="time-badge-open"><i class="fa-solid fa-bolt"></i> Buka 10:00 - 23:00 WIB</span>
+                            <span class="time-badge-open"><i class="fa-solid fa-clock"></i> 12:00 - 21:00 WIB (Selasa Libur)</span>
                         </div>
                         <div class="time-slots" id="time-slots">
-                            <div class="time-pill selected" onclick="selectTimeSlot(this, '10:00 WIB')">10:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '13:00 WIB')">13:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '15:30 WIB')">15:30 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '17:30 WIB')">17:30 WIB</div>
+                            <div class="time-pill selected" onclick="selectTimeSlot(this, '12:00 WIB')">12:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '14:00 WIB')">14:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '16:00 WIB')">16:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '18:00 WIB')">18:00 WIB</div>
                             <div class="time-pill" onclick="selectTimeSlot(this, '19:30 WIB')">19:30 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '21:00 WIB')">21:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '20:30 WIB')">20:30 WIB</div>
                             <div class="time-pill flexible-pill" id="pill-flexible" onclick="selectFlexibleTimeSlot(this)">
                                 <i class="fa-solid fa-arrows-split-up-and-left"></i> Jam Bebas / Fleksibel
                             </div>
@@ -2739,12 +2739,12 @@
                                     <i class="fa-regular fa-clock"></i> Atau atur jam spesifik pilihan Anda:
                                 </label>
                                 <div class="time-input-wrap">
-                                    <input type="time" class="time-input-field" id="custom-time-input" value="10:00" min="10:00" max="23:00" onchange="onCustomTimeChanged(this.value)">
+                                    <input type="time" class="time-input-field" id="custom-time-input" value="12:00" min="12:00" max="21:00" onchange="onCustomTimeChanged(this.value)">
                                     <span class="time-input-unit">WIB</span>
                                 </div>
                             </div>
                             <div class="time-note" id="time-status-desc">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong id="time-display-badge" style="color: var(--color-lime);">10:00 WIB</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong id="time-display-badge" style="color: var(--color-lime);">12:00 WIB</strong> (Buka 12.00 - 21.00 WIB, jam fleksibel bisa didiskusikan via chat WhatsApp Admin).
                             </div>
                         </div>
                     </div>
@@ -2797,7 +2797,7 @@
                     </div>
                     <div class="summary-row">
                         <span class="summary-label"><i class="fa-solid fa-clock"></i> Jam Sesi:</span>
-                        <span class="summary-val" id="sum-time">10:00 WIB</span>
+                        <span class="summary-val" id="sum-time">12:00 WIB</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label"><i class="fa-solid fa-users"></i> Personel:</span>
@@ -2837,10 +2837,9 @@
                 DREAMFIELD <span>TACTICAL</span>
             </div>
             <div class="social-links">
-                <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/dreamfieldtacticalsurabaya?stkn=MWI1NnJ3dWYxN3Rvdw==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram Dreamfield Tactical"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp CS Admin"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.tiktok.com/@dreamfieldtactical?_r=1&_t=ZS-99XNAs3k4X6" target="_blank" rel="noopener noreferrer" class="social-btn" title="TikTok Dreamfield Tactical"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
         <div class="copyright">
@@ -3180,10 +3179,10 @@
         };
 
         // State Global
-        const ADMIN_WA_NUMBER = "6281234567890";
+        const ADMIN_WA_NUMBER = "6285196561811";
         let currentCategory = "wargame";
         let currentSelectedPackage = packageCatalog.wargame.items[4]; // Default: Lapangan + AEG 1h
-        let selectedTime = "10:00 WIB";
+        let selectedTime = "12:00 WIB";
         let isTimeFlexible = false;
 
         // Arena Preview Data for Real Arena Photos & Specs
@@ -3551,8 +3550,21 @@
         // 4. ATUR JADWAL (Langkah 3 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
         function onDateChanged(val) {
             if (!val) return;
-            const dateObj = new Date(val);
+            const dateObj = new Date(val + 'T00:00:00');
+            const dayOfWeek = dateObj.getDay(); // 0 = Minggu, 1 = Senin, 2 = Selasa (LIBUR)
+            const isTuesday = (dayOfWeek === 2);
             const formatted = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            const descEl = document.getElementById('time-status-desc');
+            if (isTuesday) {
+                if (descEl) {
+                    descEl.innerHTML = `<span style="color: #ffb700; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> PERHATIAN: Hari Selasa adalah jadwal LIBUR arena. Anda tetap dapat melanjutkan chat admin untuk konsultasi jadwal atau silakan ganti ke hari lain (Senin atau Rabu - Minggu).</span>`;
+                }
+            } else {
+                if (descEl) {
+                    descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Buka 12.00 - 21.00 WIB, fleksibel bisa didiskusikan via chat WhatsApp Admin).`;
+                }
+            }
 
             // Checklist Step 3: Update status & ceklist hijau
             const checkSched = document.getElementById('check-step-schedule');
