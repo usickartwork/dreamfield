@@ -2781,6 +2781,343 @@
                 animation: none !important;
             }
         }
+
+        /* =========================================================
+           TACTICAL OPENING REVEAL (Awwwards-Tier Shutter & HUD Boot)
+           ========================================================= */
+        .tactical-intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .tactical-intro-overlay.pointer-off {
+            pointer-events: none !important;
+        }
+
+        /* Dual Armored Blast Doors (Shutters) */
+        .intro-shutter {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #0b0d09;
+            z-index: 1;
+            transition: transform 750ms cubic-bezier(0.77, 0, 0.175, 1);
+            will-change: transform;
+            overflow: hidden;
+        }
+
+        .intro-shutter-top {
+            top: 0;
+            border-bottom: 2px solid var(--color-lime);
+            box-shadow: 0 4px 30px rgba(159, 230, 0, 0.3);
+        }
+
+        .intro-shutter-bottom {
+            bottom: 0;
+            border-top: 2px solid var(--color-lime);
+            box-shadow: 0 -4px 30px rgba(159, 230, 0, 0.3);
+        }
+
+        /* Tactical Grid Background on Shutters */
+        .shutter-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(78, 91, 49, 0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(78, 91, 49, 0.14) 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .shutter-edge-glow {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 50px;
+            pointer-events: none;
+        }
+
+        .intro-shutter-top .shutter-edge-glow {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(159, 230, 0, 0.18) 0%, transparent 100%);
+        }
+
+        .intro-shutter-bottom .shutter-edge-glow {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(159, 230, 0, 0.18) 0%, transparent 100%);
+        }
+
+        /* Shutter Open States */
+        .tactical-intro-overlay.doors-open .intro-shutter-top {
+            transform: translateY(-100%);
+        }
+
+        .tactical-intro-overlay.doors-open .intro-shutter-bottom {
+            transform: translateY(100%);
+        }
+
+        /* Center Tactical HUD Boot Interface */
+        .intro-hud-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 490px;
+            width: 88%;
+            padding: 38px 28px 28px;
+            background: rgba(18, 20, 15, 0.88);
+            border: 1px solid rgba(78, 91, 49, 0.55);
+            border-radius: 12px;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(159, 230, 0, 0.12);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out);
+            will-change: opacity, transform;
+            animation: introHudPop 400ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes introHudPop {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .tactical-intro-overlay.hud-fade-out .intro-hud-content {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+        /* Corner Tactical Brackets */
+        .hud-bracket {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--color-lime);
+            pointer-events: none;
+        }
+        .hud-tl { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+        .hud-tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+        .hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+        .hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        /* Reticle & Spinning Crosshair */
+        .hud-reticle-wrap {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hud-reticle-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(159, 230, 0, 0.45);
+            animation: reticleSpin 8s linear infinite;
+        }
+
+        .hud-reticle-spin {
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            border: 1px solid rgba(138, 154, 91, 0.3);
+            animation: reticleSpinRev 5s linear infinite;
+        }
+
+        @keyframes reticleSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes reticleSpinRev {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        .hud-core-crosshair {
+            font-size: 28px;
+            color: var(--color-lime);
+            filter: drop-shadow(0 0 12px rgba(159, 230, 0, 0.75));
+            animation: pulseGlowIcon 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlowIcon {
+            0%, 100% { transform: scale(1); opacity: 0.92; }
+            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 18px rgba(159, 230, 0, 0.95)); }
+        }
+
+        /* Brand & Typography */
+        .hud-sub-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.2px;
+            color: var(--color-moss);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .hud-pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--color-lime);
+            box-shadow: 0 0 8px var(--color-lime);
+            display: inline-block;
+            animation: blinkDot 1s steps(2, start) infinite;
+        }
+
+        @keyframes blinkDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .hud-logo-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 46px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            line-height: 1;
+            color: #ffffff;
+            margin-bottom: 18px;
+        }
+
+        .hud-logo-title span {
+            color: var(--color-lime);
+        }
+
+        /* Progress Track & Metric */
+        .hud-progress-wrap {
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 16px;
+        }
+
+        .hud-progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(40, 46, 32, 0.8);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(78, 91, 49, 0.6);
+        }
+
+        .hud-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--color-moss) 0%, var(--color-lime) 100%);
+            box-shadow: 0 0 10px var(--color-lime);
+            border-radius: 2px;
+            transition: width 800ms cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: width;
+        }
+
+        .hud-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hud-status-text {
+            color: var(--color-sage);
+            font-family: monospace, 'Rajdhani', sans-serif;
+        }
+
+        .hud-status-text.granted {
+            color: var(--color-lime);
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(159, 230, 0, 0.6);
+        }
+
+        .hud-percent {
+            color: var(--color-lime);
+            font-family: monospace, 'Rajdhani', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Skip Hint */
+        .hud-skip-hint {
+            background: transparent;
+            border: none;
+            color: var(--color-moss);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 3px;
+            transition: color 150ms ease, opacity 150ms ease;
+            opacity: 0.7;
+            font-family: inherit;
+        }
+
+        .hud-skip-hint:hover {
+            color: var(--color-lime);
+            opacity: 1;
+        }
+
+        .hud-skip-hint span {
+            background: rgba(78, 91, 49, 0.4);
+            border: 1px solid var(--color-olive);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 9px;
+            margin-left: 3px;
+            color: var(--color-sage);
+        }
+
+        @media (max-width: 600px) {
+            .hud-logo-title {
+                font-size: 38px;
+            }
+            .intro-hud-content {
+                padding: 30px 20px 22px;
+            }
+            .hud-reticle-wrap {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 14px;
+            }
+            .hud-core-crosshair {
+                font-size: 24px;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .tactical-intro-overlay {
+                display: none !important;
+            }
+        }
+
     </style>
     <noscript>
         <style>
@@ -2789,6 +3126,60 @@
     </noscript>
 </head>
 <body>
+    <!-- Tactical Opening Experience (Awwwards-Tier Shutter Reveal) -->
+    <div id="tacticalIntro" class="tactical-intro-overlay" aria-hidden="true">
+        <!-- Top & Bottom Blast Shutters (Dual Architectural Reveal) -->
+        <div class="intro-shutter intro-shutter-top">
+            <div class="shutter-grid-pattern"></div>
+            <div class="shutter-edge-glow"></div>
+        </div>
+        <div class="intro-shutter intro-shutter-bottom">
+            <div class="shutter-grid-pattern"></div>
+            <div class="shutter-edge-glow"></div>
+        </div>
+
+        <!-- Center Tactical HUD Boot Interface -->
+        <div class="intro-hud-content" id="introHudContent">
+            <!-- Corner Tactical Brackets -->
+            <div class="hud-bracket hud-tl"></div>
+            <div class="hud-bracket hud-tr"></div>
+            <div class="hud-bracket hud-bl"></div>
+            <div class="hud-bracket hud-br"></div>
+
+            <!-- Precision Reticle / Crosshair -->
+            <div class="hud-reticle-wrap">
+                <div class="hud-reticle-ring"></div>
+                <div class="hud-reticle-spin"></div>
+                <i class="fa-solid fa-crosshairs hud-core-crosshair"></i>
+            </div>
+
+            <!-- Typography & Brand -->
+            <div class="hud-brand-wrap">
+                <div class="hud-sub-tag">
+                    <span class="hud-pulse-dot"></span> SYSTEM BOOT // SURABAYA CQB
+                </div>
+                <div class="hud-logo-title">
+                    DREAMFIELD <span>TACTICAL</span>
+                </div>
+            </div>
+
+            <!-- HUD Loading Progress Bar & Metric -->
+            <div class="hud-progress-wrap">
+                <div class="hud-progress-track">
+                    <div class="hud-progress-bar" id="hudProgressBar"></div>
+                </div>
+                <div class="hud-meta-row">
+                    <span class="hud-status-text" id="hudStatusText">INITIALIZING SYSTEM...</span>
+                    <span class="hud-percent" id="hudPercent">0%</span>
+                </div>
+            </div>
+
+            <button type="button" class="hud-skip-hint" onclick="skipIntroAnimation()" aria-label="Lewati Intro">
+                TAP / KLIK UNTUK SKIP <span>ESC</span>
+            </button>
+        </div>
+    </div>
+
 
     <!-- Header Navbar -->
     <header id="header">
@@ -3315,6 +3706,169 @@
                 }, { passive: true });
             }
         });
+
+        // =========================================================
+        // TACTICAL OPENING REVEAL ANIMATION (Awwwards-Tier Motion)
+        // =========================================================
+        let introCompleted = false;
+
+        function runTacticalIntro() {
+            // Check prefers-reduced-motion
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                skipIntroAnimation(true);
+                return;
+            }
+
+            const overlay = document.getElementById('tacticalIntro');
+            const pBar = document.getElementById('hudProgressBar');
+            const pText = document.getElementById('hudPercent');
+            const statusEl = document.getElementById('hudStatusText');
+
+            if (!overlay) return;
+
+            // Lock scrolling while intro is running
+            document.body.style.overflow = 'hidden';
+
+            // Animate Progress Bar & Counter
+            let currentPct = 0;
+            const targetPct = 100;
+            const duration = 750; // ms
+            const startTime = performance.now();
+
+            if (pBar) {
+                requestAnimationFrame(() => {
+                    pBar.style.width = '100%';
+                });
+            }
+
+            function updateCounter(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // easeOutQuad
+                const eased = 1 - (1 - progress) * (1 - progress);
+                currentPct = Math.round(eased * targetPct);
+
+                if (pText) pText.textContent = `${currentPct}%`;
+
+                if (currentPct > 35 && currentPct < 70) {
+                    if (statusEl) statusEl.textContent = 'CALIBRATING CQB MEDAN...';
+                } else if (currentPct >= 70 && currentPct < 99) {
+                    if (statusEl) statusEl.textContent = 'TACTICAL GEAR READY...';
+                } else if (currentPct >= 100) {
+                    if (statusEl) {
+                        statusEl.textContent = 'ACCESS GRANTED // WELCOME';
+                        statusEl.classList.add('granted');
+                    }
+                }
+
+                if (progress < 1 && !introCompleted) {
+                    requestAnimationFrame(updateCounter);
+                } else if (!introCompleted) {
+                    // Ready to open shutters
+                    setTimeout(() => {
+                        triggerShutterOpen();
+                    }, 220);
+                }
+            }
+
+            requestAnimationFrame(updateCounter);
+
+            // Allow click or tap anywhere to fast-forward / skip
+            overlay.addEventListener('click', (e) => {
+                skipIntroAnimation(false);
+            });
+            window.addEventListener('keydown', handleIntroKeyDown);
+        }
+
+        function handleIntroKeyDown(e) {
+            if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+                skipIntroAnimation(false);
+            }
+        }
+
+        function triggerShutterOpen() {
+            if (introCompleted) return;
+            introCompleted = true;
+
+            window.removeEventListener('keydown', handleIntroKeyDown);
+
+            const overlay = document.getElementById('tacticalIntro');
+            if (!overlay) {
+                document.body.style.overflow = '';
+                return;
+            }
+
+            // 1. Fade out HUD center content
+            overlay.classList.add('hud-fade-out');
+
+            // 2. Open dual shutters
+            setTimeout(() => {
+                overlay.classList.add('doors-open');
+                overlay.classList.add('pointer-off');
+
+                // Unlock body scroll immediately as shutters separate
+                document.body.style.overflow = '';
+
+                // Trigger hero elements ingress
+                triggerHeroEntrance();
+
+                // 3. Remove overlay from DOM after transitions finish
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    if (overlay.parentNode) {
+                        overlay.parentNode.removeChild(overlay);
+                    }
+                }, 800);
+            }, 200);
+        }
+
+        function skipIntroAnimation(instant = false) {
+            if (introCompleted) return;
+            introCompleted = true;
+
+            window.removeEventListener('keydown', handleIntroKeyDown);
+            document.body.style.overflow = '';
+
+            const overlay = document.getElementById('tacticalIntro');
+            if (!overlay) return;
+
+            if (instant) {
+                overlay.style.display = 'none';
+                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                triggerHeroEntrance();
+                return;
+            }
+
+            // Quick fast-forward exit
+            overlay.classList.add('hud-fade-out');
+            overlay.classList.add('doors-open');
+            overlay.classList.add('pointer-off');
+            triggerHeroEntrance();
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }, 450);
+        }
+
+        function triggerHeroEntrance() {
+            const heroBadge = document.querySelector('.hero-badge');
+            const heroTitle = document.querySelector('.hero-title');
+            const heroDesc = document.querySelector('.hero-description');
+            const heroBtns = document.querySelector('.hero-buttons');
+
+            [heroBadge, heroTitle, heroDesc, heroBtns].forEach(el => {
+                if (el) el.classList.add('active');
+            });
+        }
+
+        // Jalankan intro saat dokumen dimuat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runTacticalIntro);
+        } else {
+            runTacticalIntro();
+        }
+
     </script>
 </body>
 </html>
