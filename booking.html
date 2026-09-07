@@ -1639,11 +1639,21 @@
             .back-text-desk { display: none !important; }
             .back-text-mob { display: inline !important; }
 
-            /* Page Banner: Compact & Scaled Down */
-            .page-banner { padding: 14px 10px 12px !important; }
-            .banner-badge { font-size: 10px !important; padding: 2px 8px !important; margin-bottom: 4px !important; letter-spacing: 0.5px !important; }
-            .page-title { font-size: 23px !important; line-height: 1.05 !important; margin-bottom: 4px !important; }
-            .page-desc { font-size: 12px !important; line-height: 1.4 !important; opacity: 0.85 !important; }
+            /* Page Banner: Scaled & Completely Visible (Tidak Ketutup Stepper) */
+            .page-banner {
+                padding: 24px 12px 18px !important;
+                margin-top: 0 !important;
+                position: relative !important;
+                z-index: 10 !important;
+                clear: both !important;
+            }
+            .page-banner .slide-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .banner-badge { font-size: 10.5px !important; padding: 3px 10px !important; margin-bottom: 6px !important; letter-spacing: 0.5px !important; }
+            .page-title { font-size: 28px !important; line-height: 1.1 !important; margin-bottom: 6px !important; }
+            .page-desc { font-size: 12.5px !important; line-height: 1.4 !important; opacity: 0.88 !important; }
 
             /* Layout */
             .booking-layout { padding: 10px 8px 120px !important; gap: 10px !important; }
@@ -1721,13 +1731,76 @@
             .pkg-price-val { font-size: 22px !important; }
 
 
-            /* Checklist stepper on mobile */
-            .checklist-stepper-wrap { padding: 8px 10px !important; top: 52px !important; }
-            .check-step-circle { width: 28px !important; height: 28px !important; font-size: 14px !important; }
-            .check-step-title { font-size: 13px !important; }
-            .check-step-num { font-size: 8px !important; }
-            .check-step-status { font-size: 9.5px !important; max-width: 70px !important; }
-            .check-flow-line { margin: 0 4px !important; }
+            /* Checklist stepper on mobile (Fit 100% presisi — tidak terpotong & tidak nutupin banner) */
+            .checklist-stepper-wrap {
+                padding: 6px 8px !important;
+                position: relative !important;
+                top: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                border-top: 1px solid rgba(78, 91, 49, 0.4) !important;
+                border-bottom: 1px solid rgba(183, 255, 0, 0.3) !important;
+            }
+            .checklist-stepper-container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                gap: 2px !important;
+                overflow: visible !important;
+                box-sizing: border-box !important;
+            }
+            .check-step-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 4px !important;
+                flex: 1 1 0 !important;
+                min-width: 0 !important;
+                max-width: 25% !important;
+                box-sizing: border-box !important;
+            }
+            .check-step-circle {
+                width: 22px !important;
+                height: 22px !important;
+                min-width: 22px !important;
+                font-size: 11px !important;
+                flex-shrink: 0 !important;
+                border-width: 1.5px !important;
+            }
+            .check-step-info {
+                display: flex !important;
+                flex-direction: column !important;
+                min-width: 0 !important;
+                overflow: hidden !important;
+                line-height: 1.1 !important;
+            }
+            .check-step-num {
+                display: none !important; /* Disembunyikan di HP agar hemat ruang & tidak desak-desakan */
+            }
+            .check-step-title {
+                font-size: 12.5px !important;
+                line-height: 1.1 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                margin: 0 !important;
+                letter-spacing: 0.2px !important;
+            }
+            .check-step-status {
+                font-size: 9px !important;
+                line-height: 1.1 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                max-width: 100% !important;
+            }
+            .check-flow-line {
+                flex: 0 0 6px !important;
+                min-width: 4px !important;
+                max-width: 8px !important;
+                margin: 0 1px !important;
+            }
 
             /* Arena selection grid on mobile */
             .arena-select-grid {
@@ -1997,7 +2070,7 @@
             .nav-container { padding: 6px 10px !important; }
             .logo { font-size: 15px !important; }
             .page-title { font-size: 21px !important; }
-            .page-banner { padding: 12px 8px 10px !important; }
+            .page-banner { padding: 20px 10px 14px !important; }
             .booking-layout { padding: 8px 6px 120px !important; }
             .panel-card, .summary-card { padding: 10px 8px !important; }
             .panel-title { font-size: 15px !important; }
@@ -2504,9 +2577,9 @@
 
     <!-- Page Banner -->
     <section class="page-banner">
-        <span class="banner-badge slide-reveal slide-up"><i class="fa-solid fa-bolt"></i> Fast & Easy Booking</span>
-        <h1 class="page-title slide-reveal slide-up" style="transition-delay: 80ms;">RESERVASI <span>ARENA TAKTIS</span></h1>
-        <p class="page-desc slide-reveal slide-up" style="transition-delay: 160ms;">
+        <span class="banner-badge slide-reveal slide-up active"><i class="fa-solid fa-bolt"></i> Fast & Easy Booking</span>
+        <h1 class="page-title slide-reveal slide-up active" style="transition-delay: 80ms;">RESERVASI <span>ARENA TAKTIS</span></h1>
+        <p class="page-desc slide-reveal slide-up active" style="transition-delay: 160ms;">
             Pilih paket dan tentukan jadwal Anda langsung di halaman ini tanpa ribet bolak-balik. Konfirmasi instan via WhatsApp!
         </p>
     </section>
