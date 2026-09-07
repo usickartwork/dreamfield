@@ -2783,7 +2783,7 @@
         }
 
         /* =========================================================
-           TACTICAL OPENING REVEAL (Awwwards-Tier Shutter & HUD Boot)
+           TACTICAL OPENING REVEAL (Cinematic Smooth Dissolve & HUD Boot)
            ========================================================= */
         .tactical-intro-overlay {
             position: fixed;
@@ -2794,77 +2794,46 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: transparent;
+            background: #080a06;
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 850ms cubic-bezier(0.16, 1, 0.3, 1), transform 850ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        .tactical-intro-overlay.pointer-off {
-            pointer-events: none !important;
-        }
-
-        /* Dual Armored Blast Doors (Shutters) */
-        .intro-shutter {
+        /* Ambient Vignette & Fine Grid Backdrop */
+        .intro-backdrop-vignette {
             position: absolute;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: #0b0d09;
-            z-index: 1;
-            transition: transform 750ms cubic-bezier(0.77, 0, 0.175, 1);
-            will-change: transform;
-            overflow: hidden;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(28, 34, 22, 0.95) 0%, rgba(9, 11, 7, 0.98) 72%, #050604 100%);
+            pointer-events: none;
         }
 
-        .intro-shutter-top {
-            top: 0;
-            border-bottom: 2px solid var(--color-lime);
-            box-shadow: 0 4px 30px rgba(159, 230, 0, 0.3);
-        }
-
-        .intro-shutter-bottom {
-            bottom: 0;
-            border-top: 2px solid var(--color-lime);
-            box-shadow: 0 -4px 30px rgba(159, 230, 0, 0.3);
-        }
-
-        /* Tactical Grid Background on Shutters */
-        .shutter-grid-pattern {
+        .intro-backdrop-grid {
             position: absolute;
             inset: 0;
             background-image: 
-                linear-gradient(rgba(78, 91, 49, 0.14) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(78, 91, 49, 0.14) 1px, transparent 1px);
-            background-size: 36px 36px;
-            opacity: 0.9;
+                linear-gradient(rgba(159, 230, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(159, 230, 0, 0.06) 1px, transparent 1px);
+            background-size: 38px 38px;
+            opacity: 0.85;
             pointer-events: none;
         }
 
-        .shutter-edge-glow {
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 50px;
-            pointer-events: none;
+        /* Silky Smooth Exit State */
+        .tactical-intro-overlay.fade-exit {
+            opacity: 0;
+            transform: scale(1.06);
+            pointer-events: none !important;
         }
 
-        .intro-shutter-top .shutter-edge-glow {
-            bottom: 0;
-            background: linear-gradient(to top, rgba(159, 230, 0, 0.18) 0%, transparent 100%);
-        }
-
-        .intro-shutter-bottom .shutter-edge-glow {
-            top: 0;
-            background: linear-gradient(to bottom, rgba(159, 230, 0, 0.18) 0%, transparent 100%);
-        }
-
-        /* Shutter Open States */
-        .tactical-intro-overlay.doors-open .intro-shutter-top {
-            transform: translateY(-100%);
-        }
-
-        .tactical-intro-overlay.doors-open .intro-shutter-bottom {
-            transform: translateY(100%);
+        .tactical-intro-overlay.fade-exit .intro-hud-content {
+            opacity: 0;
+            transform: scale(1.08);
+            filter: blur(5px);
+            transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), transform 650ms cubic-bezier(0.16, 1, 0.3, 1), filter 650ms ease;
         }
 
         /* Center Tactical HUD Boot Interface */
@@ -2877,16 +2846,16 @@
             text-align: center;
             max-width: 490px;
             width: 88%;
-            padding: 38px 28px 28px;
-            background: rgba(18, 20, 15, 0.88);
-            border: 1px solid rgba(78, 91, 49, 0.55);
+            padding: 40px 28px 28px;
+            background: rgba(18, 22, 16, 0.92);
+            border: 1px solid rgba(78, 91, 49, 0.6);
             border-radius: 12px;
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(159, 230, 0, 0.12);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(159, 230, 0, 0.14);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), filter 500ms ease;
             will-change: opacity, transform;
-            animation: introHudPop 400ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation: introHudPop 500ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
         @keyframes introHudPop {
@@ -2898,11 +2867,6 @@
                 opacity: 1;
                 transform: scale(1);
             }
-        }
-
-        .tactical-intro-overlay.hud-fade-out .intro-hud-content {
-            opacity: 0;
-            transform: scale(1.05);
         }
 
         /* Corner Tactical Brackets */
@@ -2921,12 +2885,28 @@
         /* Reticle & Spinning Crosshair */
         .hud-reticle-wrap {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 76px;
+            height: 76px;
             margin-bottom: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .hud-reticle-ripple {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid var(--color-lime);
+            opacity: 0;
+            transform: scale(0.85);
+            pointer-events: none;
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease;
+        }
+
+        .hud-reticle-ripple.active {
+            opacity: 0.85;
+            transform: scale(1.45);
         }
 
         .hud-reticle-ring {
@@ -2941,7 +2921,7 @@
             position: absolute;
             inset: 6px;
             border-radius: 50%;
-            border: 1px solid rgba(138, 154, 91, 0.3);
+            border: 1px solid rgba(138, 154, 91, 0.35);
             animation: reticleSpinRev 5s linear infinite;
         }
 
@@ -3018,9 +2998,9 @@
 
         .hud-progress-track {
             width: 100%;
-            height: 4px;
+            height: 5px;
             background: rgba(40, 46, 32, 0.8);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
             position: relative;
             border: 1px solid rgba(78, 91, 49, 0.6);
@@ -3030,9 +3010,9 @@
             height: 100%;
             width: 0%;
             background: linear-gradient(90deg, var(--color-moss) 0%, var(--color-lime) 100%);
-            box-shadow: 0 0 10px var(--color-lime);
-            border-radius: 2px;
-            transition: width 800ms cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 0 12px var(--color-lime);
+            border-radius: 3px;
+            transition: width 150ms linear;
             will-change: width;
         }
 
@@ -3049,12 +3029,13 @@
         .hud-status-text {
             color: var(--color-sage);
             font-family: monospace, 'Rajdhani', sans-serif;
+            transition: color 200ms ease;
         }
 
         .hud-status-text.granted {
             color: var(--color-lime);
             font-weight: 800;
-            text-shadow: 0 0 8px rgba(159, 230, 0, 0.6);
+            text-shadow: 0 0 10px rgba(159, 230, 0, 0.7);
         }
 
         .hud-percent {
@@ -3102,8 +3083,8 @@
                 padding: 30px 20px 22px;
             }
             .hud-reticle-wrap {
-                width: 60px;
-                height: 60px;
+                width: 62px;
+                height: 62px;
                 margin-bottom: 14px;
             }
             .hud-core-crosshair {
@@ -3126,17 +3107,11 @@
     </noscript>
 </head>
 <body>
-    <!-- Tactical Opening Experience (Awwwards-Tier Shutter Reveal) -->
+    <!-- Tactical Opening Experience (Cinematic Smooth Dissolve & HUD Boot) -->
     <div id="tacticalIntro" class="tactical-intro-overlay" aria-hidden="true">
-        <!-- Top & Bottom Blast Shutters (Dual Architectural Reveal) -->
-        <div class="intro-shutter intro-shutter-top">
-            <div class="shutter-grid-pattern"></div>
-            <div class="shutter-edge-glow"></div>
-        </div>
-        <div class="intro-shutter intro-shutter-bottom">
-            <div class="shutter-grid-pattern"></div>
-            <div class="shutter-edge-glow"></div>
-        </div>
+        <!-- Ambient Tactical Mesh & Vignette Backdrop -->
+        <div class="intro-backdrop-vignette"></div>
+        <div class="intro-backdrop-grid"></div>
 
         <!-- Center Tactical HUD Boot Interface -->
         <div class="intro-hud-content" id="introHudContent">
@@ -3146,8 +3121,9 @@
             <div class="hud-bracket hud-bl"></div>
             <div class="hud-bracket hud-br"></div>
 
-            <!-- Precision Reticle / Crosshair -->
+            <!-- Precision Reticle / Crosshair with Pulse Ripple -->
             <div class="hud-reticle-wrap">
+                <div class="hud-reticle-ripple" id="hudRipple"></div>
                 <div class="hud-reticle-ring"></div>
                 <div class="hud-reticle-spin"></div>
                 <i class="fa-solid fa-crosshairs hud-core-crosshair"></i>
@@ -3169,7 +3145,7 @@
                     <div class="hud-progress-bar" id="hudProgressBar"></div>
                 </div>
                 <div class="hud-meta-row">
-                    <span class="hud-status-text" id="hudStatusText">INITIALIZING SYSTEM...</span>
+                    <span class="hud-status-text" id="hudStatusText">INITIALIZING CQB SYSTEM...</span>
                     <span class="hud-percent" id="hudPercent">0%</span>
                 </div>
             </div>
@@ -3179,7 +3155,6 @@
             </button>
         </div>
     </div>
-
 
     <!-- Header Navbar -->
     <header id="header">
@@ -3708,7 +3683,7 @@
         });
 
         // =========================================================
-        // TACTICAL OPENING REVEAL ANIMATION (Awwwards-Tier Motion)
+        // TACTICAL OPENING REVEAL (Cinematic Smooth Dissolve & HUD Boot)
         // =========================================================
         let introCompleted = false;
 
@@ -3723,58 +3698,61 @@
             const pBar = document.getElementById('hudProgressBar');
             const pText = document.getElementById('hudPercent');
             const statusEl = document.getElementById('hudStatusText');
+            const rippleEl = document.getElementById('hudRipple');
 
             if (!overlay) return;
 
-            // Lock scrolling while intro is running
+            // Lock scrolling during intro
             document.body.style.overflow = 'hidden';
 
-            // Animate Progress Bar & Counter
-            let currentPct = 0;
-            const targetPct = 100;
-            const duration = 750; // ms
+            // Duration: 2.0s for smooth, readable immersion
+            const totalDuration = 2000;
             const startTime = performance.now();
 
-            if (pBar) {
-                requestAnimationFrame(() => {
-                    pBar.style.width = '100%';
-                });
-            }
+            function updateProgress(now) {
+                if (introCompleted) return;
 
-            function updateCounter(now) {
                 const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                // easeOutQuad
-                const eased = 1 - (1 - progress) * (1 - progress);
-                currentPct = Math.round(eased * targetPct);
+                const progress = Math.min(elapsed / totalDuration, 1);
+                
+                // Gentle custom ease-out curve
+                const eased = 1 - Math.pow(1 - progress, 2.2);
+                const currentPct = Math.round(eased * 100);
 
                 if (pText) pText.textContent = `${currentPct}%`;
+                if (pBar) pBar.style.width = `${currentPct}%`;
 
-                if (currentPct > 35 && currentPct < 70) {
-                    if (statusEl) statusEl.textContent = 'CALIBRATING CQB MEDAN...';
-                } else if (currentPct >= 70 && currentPct < 99) {
-                    if (statusEl) statusEl.textContent = 'TACTICAL GEAR READY...';
-                } else if (currentPct >= 100) {
+                // Tactical status progression
+                if (currentPct < 25) {
+                    if (statusEl) statusEl.textContent = 'INITIALIZING CQB SYSTEM...';
+                } else if (currentPct < 55) {
+                    if (statusEl) statusEl.textContent = 'CALIBRATING RADAR & ARENA...';
+                } else if (currentPct < 85) {
+                    if (statusEl) statusEl.textContent = 'ARMORY & SAFETY PROTOCOL...';
+                } else if (currentPct < 100) {
+                    if (statusEl) statusEl.textContent = 'PREPARING ARENA ACCESS...';
+                } else {
                     if (statusEl) {
                         statusEl.textContent = 'ACCESS GRANTED // WELCOME';
                         statusEl.classList.add('granted');
                     }
+                    if (rippleEl) rippleEl.classList.add('active');
                 }
 
-                if (progress < 1 && !introCompleted) {
-                    requestAnimationFrame(updateCounter);
-                } else if (!introCompleted) {
-                    // Ready to open shutters
+                if (progress < 1) {
+                    requestAnimationFrame(updateProgress);
+                } else {
+                    // Beri jeda 350ms agar user menikmati status ACCESS GRANTED sebelum transisi fade
                     setTimeout(() => {
-                        triggerShutterOpen();
-                    }, 220);
+                        triggerSmoothDissolve();
+                    }, 350);
                 }
             }
 
-            requestAnimationFrame(updateCounter);
+            requestAnimationFrame(updateProgress);
 
             // Allow click or tap anywhere to fast-forward / skip
-            overlay.addEventListener('click', (e) => {
+            overlay.addEventListener('click', () => {
                 skipIntroAnimation(false);
             });
             window.addEventListener('keydown', handleIntroKeyDown);
@@ -3786,7 +3764,8 @@
             }
         }
 
-        function triggerShutterOpen() {
+        // Transisi Halus (Smooth Cinematic Fade & Scale Dissolve)
+        function triggerSmoothDissolve() {
             if (introCompleted) return;
             introCompleted = true;
 
@@ -3798,28 +3777,22 @@
                 return;
             }
 
-            // 1. Fade out HUD center content
-            overlay.classList.add('hud-fade-out');
+            // Mulai fade-out transisi halus
+            overlay.classList.add('fade-exit');
 
-            // 2. Open dual shutters
+            // Buka scroll body tepat saat transisi fade dimulai
+            document.body.style.overflow = '';
+
+            // Munculkan elemen hero secara sinkron & mulus
+            triggerHeroEntrance();
+
+            // Hapus elemen overlay setelah transisi selesai (850ms)
             setTimeout(() => {
-                overlay.classList.add('doors-open');
-                overlay.classList.add('pointer-off');
-
-                // Unlock body scroll immediately as shutters separate
-                document.body.style.overflow = '';
-
-                // Trigger hero elements ingress
-                triggerHeroEntrance();
-
-                // 3. Remove overlay from DOM after transitions finish
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    if (overlay.parentNode) {
-                        overlay.parentNode.removeChild(overlay);
-                    }
-                }, 800);
-            }, 200);
+                overlay.style.display = 'none';
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
+                }
+            }, 850);
         }
 
         function skipIntroAnimation(instant = false) {
@@ -3839,16 +3812,14 @@
                 return;
             }
 
-            // Quick fast-forward exit
-            overlay.classList.add('hud-fade-out');
-            overlay.classList.add('doors-open');
-            overlay.classList.add('pointer-off');
+            // Transisi fade cepat saat di-skip (350ms)
+            overlay.classList.add('fade-exit');
             triggerHeroEntrance();
 
             setTimeout(() => {
                 overlay.style.display = 'none';
                 if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-            }, 450);
+            }, 350);
         }
 
         function triggerHeroEntrance() {
