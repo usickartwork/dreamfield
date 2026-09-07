@@ -951,6 +951,12 @@
             box-shadow: 0 0 10px rgba(183, 255, 0, 0.2);
         }
 
+        select.form-control option {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 8px;
+        }
+
         /* Time Section Header & Flexible Badge */
         .time-header-flex {
             display: flex;
@@ -2708,13 +2714,53 @@
                         <input type="date" class="form-control" id="book-date" onchange="onDateChanged(this.value)" required>
                     </div>
 
-                    <!-- Jam Kedatangan (Diisi Sendiri Sesuai Jam Operasional) -->
+                    <!-- Jam Kedatangan (Pilihan Khusus Jam Operasional 12:00 - 21:00 WIB) -->
                     <div class="form-group">
                         <div class="time-header-flex">
                             <label for="book-time" style="margin: 0;"><i class="fa-solid fa-clock"></i> Jam Kedatangan</label>
                             <span class="time-badge-open"><i class="fa-solid fa-door-open"></i> 12:00 - 21:00 WIB</span>
                         </div>
-                        <input type="time" class="form-control" id="book-time" min="12:00" max="21:00" placeholder="12:00" onchange="onTimeChanged(this.value)" required>
+                        <select class="form-control" id="book-time" onchange="onTimeDropdownChanged(this.value)" required>
+                            <option value="" disabled selected>-- Pilih Jam (12:00 - 21:00 WIB) --</option>
+                            <option value="12:00">12:00 WIB (Buka)</option>
+                            <option value="12:30">12:30 WIB</option>
+                            <option value="13:00">13:00 WIB</option>
+                            <option value="13:30">13:30 WIB</option>
+                            <option value="14:00">14:00 WIB</option>
+                            <option value="14:30">14:30 WIB</option>
+                            <option value="15:00">15:00 WIB</option>
+                            <option value="15:30">15:30 WIB</option>
+                            <option value="16:00">16:00 WIB</option>
+                            <option value="16:30">16:30 WIB</option>
+                            <option value="17:00">17:00 WIB</option>
+                            <option value="17:30">17:30 WIB</option>
+                            <option value="18:00">18:00 WIB</option>
+                            <option value="18:30">18:30 WIB</option>
+                            <option value="19:00">19:00 WIB</option>
+                            <option value="19:30">19:30 WIB</option>
+                            <option value="20:00">20:00 WIB</option>
+                            <option value="20:30">20:30 WIB</option>
+                            <option value="21:00">21:00 WIB (Sesi Terakhir)</option>
+                        </select>
+                    </div>
+
+                    <!-- Pilihan Cepat Jam Operasional (Tombol Grid 12:00 - 21:00) -->
+                    <div class="form-group full">
+                        <label style="font-size: 11.5px; color: var(--color-moss); margin-bottom: 2px;">
+                            <i class="fa-solid fa-hand-pointer"></i> Atau Klik Pilihan Jam Sesi:
+                        </label>
+                        <div class="time-slots" id="time-slots">
+                            <button type="button" class="time-pill" data-time="12:00" onclick="selectTimeSlot('12:00')">12:00</button>
+                            <button type="button" class="time-pill" data-time="13:00" onclick="selectTimeSlot('13:00')">13:00</button>
+                            <button type="button" class="time-pill" data-time="14:00" onclick="selectTimeSlot('14:00')">14:00</button>
+                            <button type="button" class="time-pill" data-time="15:00" onclick="selectTimeSlot('15:00')">15:00</button>
+                            <button type="button" class="time-pill" data-time="16:00" onclick="selectTimeSlot('16:00')">16:00</button>
+                            <button type="button" class="time-pill" data-time="17:00" onclick="selectTimeSlot('17:00')">17:00</button>
+                            <button type="button" class="time-pill" data-time="18:00" onclick="selectTimeSlot('18:00')">18:00</button>
+                            <button type="button" class="time-pill" data-time="19:00" onclick="selectTimeSlot('19:00')">19:00</button>
+                            <button type="button" class="time-pill" data-time="20:00" onclick="selectTimeSlot('20:00')">20:00</button>
+                            <button type="button" class="time-pill" data-time="21:00" onclick="selectTimeSlot('21:00')">21:00</button>
+                        </div>
                     </div>
 
                     <!-- Jumlah Orang -->
@@ -2727,10 +2773,10 @@
                         </div>
                     </div>
 
-                    <!-- Status Jam Operasional -->
+                    <!-- Status Jam Operasional & Feedback Validasi -->
                     <div class="form-group full" style="margin-bottom: 0;">
                         <div class="time-note" id="time-status-desc">
-                            <i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> setiap hari (<strong>Selasa LIBUR</strong>). Silakan isi jam kedatangan Anda.
+                            <i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> (<strong>Hari Selasa LIBUR</strong>). Silakan pilih jam kedatangan di atas.
                         </div>
                     </div>
                 </div>
@@ -3672,22 +3718,82 @@
             }
         }
 
-        // 4. ATUR JADWAL (Input Tanggal & Input Jam Mandiri Sesuai Jam Operasional)
+        // 4. ATUR JADWAL (Pilihan Khusus Jam Operasional 12:00 - 21:00 WIB & Selasa Libur)
         function onDateChanged(val) {
             selectedDate = val;
             checkScheduleCompletion();
         }
 
-        function onTimeChanged(val) {
-            selectedTime = val ? `${val} WIB` : '';
+        function selectTimeSlot(timeStr) {
+            selectedTime = `${timeStr} WIB`;
+
+            // Sinkronkan dropdown
+            const dropdown = document.getElementById('book-time');
+            if (dropdown) {
+                dropdown.value = timeStr;
+                dropdown.classList.remove('has-error');
+            }
+
+            // Highlight tombol pill
+            document.querySelectorAll('.time-pill').forEach(pill => {
+                if (pill.getAttribute('data-time') === timeStr) {
+                    pill.classList.add('selected');
+                } else {
+                    pill.classList.remove('selected');
+                }
+            });
+
             checkScheduleCompletion();
+        }
+
+        function onTimeDropdownChanged(timeStr) {
+            if (!timeStr) {
+                selectedTime = '';
+                document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
+                checkScheduleCompletion();
+                return;
+            }
+
+            selectedTime = `${timeStr} WIB`;
+
+            const dropdown = document.getElementById('book-time');
+            if (dropdown) dropdown.classList.remove('has-error');
+
+            // Highlight tombol pill jika pas di jam genap
+            document.querySelectorAll('.time-pill').forEach(pill => {
+                if (pill.getAttribute('data-time') === timeStr) {
+                    pill.classList.add('selected');
+                } else {
+                    pill.classList.remove('selected');
+                }
+            });
+
+            checkScheduleCompletion();
+        }
+
+        // Deactivate Step Ready jika prasyarat belum lengkap / tidak valid
+        function deactivateStepReady() {
+            const checkReady = document.getElementById('check-step-ready');
+            if (checkReady) checkReady.classList.remove('checked', 'active');
+            const circleReady = document.getElementById('circle-step-ready');
+            if (circleReady) circleReady.innerHTML = '<i class="fa-solid fa-bolt"></i>';
+            const statusReady = document.getElementById('status-ready');
+            if (statusReady) statusReady.textContent = 'Isi Pemesan';
+
+            const badgeReady = document.getElementById('badge-ready-live');
+            if (badgeReady) {
+                badgeReady.textContent = 'MENUNGGU PILIHAN';
+                badgeReady.style.background = 'rgba(78, 91, 49, 0.35)';
+                badgeReady.style.color = 'var(--color-moss)';
+                badgeReady.style.borderColor = 'var(--color-olive)';
+            }
         }
 
         function checkScheduleCompletion() {
             const dateInput = document.getElementById('book-date');
-            const timeInput = document.getElementById('book-time');
+            const timeDropdown = document.getElementById('book-time');
             const dateVal = dateInput ? dateInput.value : '';
-            const timeVal = timeInput ? timeInput.value : '';
+            const rawTimeVal = (selectedTime || (timeDropdown ? timeDropdown.value : '')).replace(' WIB', '').trim();
 
             const descEl = document.getElementById('time-status-desc');
 
@@ -3701,32 +3807,6 @@
                 formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
             }
 
-            // Panduan / status keterangan jam operasional
-            if (isTuesday) {
-                if (descEl) {
-                    descEl.innerHTML = `<span style="color: #ffb700; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> PERHATIAN: Hari Selasa adalah jadwal LIBUR arena. Anda tetap dapat melanjutkan reservasi untuk konsultasi via WhatsApp Admin, atau silakan pilih hari lain (Senin atau Rabu - Minggu).</span>`;
-                }
-            } else if (timeVal) {
-                const parts = timeVal.split(':');
-                const hh = parseInt(parts[0], 10);
-                const mm = parseInt(parts[1], 10);
-                const totalMins = hh * 60 + mm;
-
-                if (totalMins < 12 * 60 || totalMins > 21 * 60) {
-                    if (descEl) {
-                        descEl.innerHTML = `<span style="color: #ffb700; font-weight: 600;"><i class="fa-solid fa-clock"></i> Jam dipilih: <strong>${timeVal} WIB</strong>. Catatan: Jam operasional reguler arena adalah 12:00 - 21:00 WIB. Admin akan mengkonfirmasi ketersediaan slot.</span>`;
-                    }
-                } else {
-                    if (descEl) {
-                        descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam kedatangan: <strong style="color: var(--color-lime);">${timeVal} WIB</strong> (Sesuai Jam Operasional 12:00 - 21:00 WIB).`;
-                    }
-                }
-            } else {
-                if (descEl) {
-                    descEl.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> setiap hari (<strong>Hari Selasa LIBUR</strong>). Silakan isi jam kedatangan Anda.`;
-                }
-            }
-
             const checkSched = document.getElementById('check-step-schedule');
             const circleSched = document.getElementById('circle-step-schedule');
             const statusSched = document.getElementById('status-schedule');
@@ -3734,14 +3814,67 @@
             const tag3 = document.getElementById('tag-step-3');
             const conn3 = document.getElementById('conn-3');
 
-            // Tanggal dan Jam keduanya sudah terisi
-            if (dateVal && timeVal) {
+            // 1. JIKA HARI SELASA -> LIBUR (BLOCK CEKLIST STEP 3 & 4)
+            if (isTuesday) {
+                if (descEl) {
+                    descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> PERHATIAN: Hari Selasa adalah jadwal LIBUR arena. Booking tidak dapat dilakukan pada hari Selasa. Silakan ganti tanggal ke hari lain (Senin atau Rabu - Minggu).</span>`;
+                }
+                if (dateInput) dateInput.classList.add('has-error');
+
+                if (checkSched) {
+                    checkSched.classList.remove('checked');
+                    checkSched.classList.add('active');
+                }
+                if (circleSched) circleSched.textContent = '3';
+                if (statusSched) statusSched.textContent = 'Selasa LIBUR';
+
+                if (badge3) {
+                    badge3.classList.remove('checked');
+                    badge3.classList.add('active');
+                    badge3.textContent = '3';
+                }
+                if (tag3) tag3.style.display = 'none';
+                if (conn3) conn3.classList.remove('done');
+
+                deactivateStepReady();
+                updateLiveSummary();
+                return;
+            } else {
+                if (dateInput) dateInput.classList.remove('has-error');
+            }
+
+            // 2. VALIDASI JAM OPERASIONAL (12:00 - 21:00)
+            let isTimeValid = false;
+            if (rawTimeVal) {
+                const [hh, mm] = rawTimeVal.split(':').map(Number);
+                const totalMinutes = hh * 60 + (mm || 0);
+                isTimeValid = (totalMinutes >= 12 * 60 && totalMinutes <= 21 * 60);
+
+                if (!isTimeValid) {
+                    if (descEl) {
+                        descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> Jam yang dipilih (${rawTimeVal} WIB) di luar jam operasional (12:00 - 21:00 WIB). Silakan pilih opsi jam yang tersedia.</span>`;
+                    }
+                    if (timeDropdown) timeDropdown.classList.add('has-error');
+                } else {
+                    if (descEl) {
+                        descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam kedatangan: <strong style="color: var(--color-lime);">${rawTimeVal} WIB</strong> (Sesuai Jam Operasional 12:00 - 21:00 WIB).`;
+                    }
+                    if (timeDropdown) timeDropdown.classList.remove('has-error');
+                }
+            } else {
+                if (descEl) {
+                    descEl.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> (<strong>Hari Selasa LIBUR</strong>). Silakan pilih jam kedatangan di atas.`;
+                }
+            }
+
+            // 3. CEKLIST STEP 3 HANYA JIKA TANGGAL & JAM VALID
+            if (dateVal && rawTimeVal && isTimeValid && !isTuesday) {
                 if (checkSched) {
                     checkSched.classList.remove('active');
                     checkSched.classList.add('checked');
                 }
                 if (circleSched) circleSched.innerHTML = '<i class="fa-solid fa-check"></i>';
-                if (statusSched) statusSched.textContent = `${formattedDate} (${timeVal})`;
+                if (statusSched) statusSched.textContent = `${formattedDate} (${rawTimeVal})`;
 
                 if (badge3) {
                     badge3.classList.remove('active');
@@ -3750,7 +3883,7 @@
                 }
                 if (tag3) {
                     tag3.style.display = 'inline-flex';
-                    tag3.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${timeVal} WIB`;
+                    tag3.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${rawTimeVal} WIB`;
                 }
                 if (conn3) conn3.classList.add('done');
 
@@ -3771,14 +3904,30 @@
                         badgeReady.style.borderColor = 'var(--color-lime)';
                     }
                 }
-            } else if (dateVal) {
-                if (statusSched) statusSched.textContent = `${formattedDate} (Isi Jam)`;
-                if (checkSched) checkSched.classList.add('active');
-            } else if (timeVal) {
-                if (statusSched) statusSched.textContent = `${timeVal} WIB (Pilih Tgl)`;
-                if (checkSched) checkSched.classList.add('active');
             } else {
-                if (statusSched) statusSched.textContent = 'Belum Diatur';
+                // Belum lengkap / tidak valid
+                if (checkSched) {
+                    checkSched.classList.remove('checked');
+                    if (dateVal || rawTimeVal) checkSched.classList.add('active');
+                }
+                if (circleSched) circleSched.textContent = '3';
+                if (badge3) {
+                    badge3.classList.remove('checked');
+                    if (dateVal || rawTimeVal) badge3.classList.add('active');
+                    badge3.textContent = '3';
+                }
+                if (tag3) tag3.style.display = 'none';
+                if (conn3) conn3.classList.remove('done');
+
+                if (dateVal && !rawTimeVal) {
+                    if (statusSched) statusSched.textContent = `${formattedDate} (Pilih Jam)`;
+                } else if (!dateVal && rawTimeVal) {
+                    if (statusSched) statusSched.textContent = `${rawTimeVal} WIB (Pilih Tgl)`;
+                } else {
+                    if (statusSched) statusSched.textContent = 'Belum Diatur';
+                }
+
+                deactivateStepReady();
             }
 
             updateLiveSummary();
@@ -3848,8 +3997,8 @@
             }
 
             // Jam Kedatangan
-            const timeInput = document.getElementById('book-time');
-            const timeVal = timeInput ? timeInput.value : '';
+            const timeDropdown = document.getElementById('book-time');
+            const timeVal = (selectedTime || (timeDropdown ? timeDropdown.value : '')).replace(' WIB', '').trim();
             if (sumTimeEl) {
                 if (timeVal) {
                     sumTimeEl.innerHTML = `${timeVal} WIB <span style="font-size: 10px; background: rgba(183, 255, 0, 0.15); color: var(--color-lime); padding: 2px 5px; border-radius: 3px; margin-left: 4px; border: 1px solid rgba(183, 255, 0, 0.3);">12-21 WIB</span>`;
@@ -3863,7 +4012,7 @@
             if (sumPlayersEl) sumPlayersEl.textContent = `${players} Orang`;
         }
 
-        // Handle CTA from Mobile Sticky Checkout Bar
+        // Handle CTA dari Mobile Sticky Checkout Bar (Dengan Validasi Ketat Jam & Hari Libur)
         function handleMobileBookingCTA() {
             if (!currentCategory) {
                 const arenaEl = document.getElementById('step-arena');
@@ -3888,13 +4037,42 @@
                 return;
             }
 
-            const timeEl = document.getElementById('book-time');
-            const time = timeEl ? timeEl.value : '';
+            // Validasi Hari Selasa (Libur)
+            const dateObj = new Date(date + 'T00:00:00');
+            if (dateObj.getDay() === 2) {
+                if (dateEl) {
+                    dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightError('book-date');
+                    const descEl = document.getElementById('time-status-desc');
+                    if (descEl) {
+                        descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> TIDAK BISA KONFIRMASI: Hari Selasa adalah jadwal LIBUR arena. Silakan pilih hari lain (Senin / Rabu - Minggu).</span>`;
+                    }
+                }
+                return;
+            }
+
+            const timeDropdown = document.getElementById('book-time');
+            const time = (selectedTime || (timeDropdown ? timeDropdown.value : '')).replace(' WIB', '').trim();
             if (!time) {
-                if (timeEl) {
-                    timeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (timeDropdown) {
+                    timeDropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     highlightError('book-time');
-                    setTimeout(() => timeEl.focus(), 350);
+                    setTimeout(() => timeDropdown.focus(), 350);
+                }
+                return;
+            }
+
+            // Validasi Jam Operasional (12:00 - 21:00)
+            const [hh, mm] = time.split(':').map(Number);
+            const totalMins = hh * 60 + (mm || 0);
+            if (isNaN(totalMins) || totalMins < 12 * 60 || totalMins > 21 * 60) {
+                if (timeDropdown) {
+                    timeDropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightError('book-time');
+                    const descEl = document.getElementById('time-status-desc');
+                    if (descEl) {
+                        descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> TIDAK BISA KONFIRMASI: Jam yang dipilih (${time}) di luar jam operasional (12:00 - 21:00 WIB).</span>`;
+                    }
                 }
                 return;
             }
@@ -3943,15 +4121,17 @@
             document.querySelectorAll('.form-feedback').forEach(fb => fb.classList.remove('show'));
         }
 
-        // Kirim ke WhatsApp dengan Format Taktis Lengkap & Pengalihan Otomatis
+        // Kirim ke WhatsApp dengan Validasi Ketat Jam Operasional & Hari Libur
         function submitBookingToWhatsApp() {
             clearErrors();
 
+            // 1. Validasi Arena
             if (!currentCategory) {
                 scrollToStep('step-arena');
                 return;
             }
 
+            // 2. Validasi Paket
             if (!currentSelectedPackage) {
                 scrollToStep('step-pkg');
                 return;
@@ -3960,41 +4140,88 @@
             const nameEl = document.getElementById('book-name');
             const phoneEl = document.getElementById('book-phone');
             const dateEl = document.getElementById('book-date');
-            const timeEl = document.getElementById('book-time');
+            const timeDropdown = document.getElementById('book-time');
             const playersEl = document.getElementById('book-players');
             const notesEl = document.getElementById('book-notes');
 
+            const date = dateEl ? dateEl.value : '';
+            const time = (selectedTime || (timeDropdown ? timeDropdown.value : '')).replace(' WIB', '').trim();
             const name = nameEl ? nameEl.value.trim() : '';
             const phone = phoneEl ? phoneEl.value.trim() : '';
-            const date = dateEl ? dateEl.value : '';
-            const time = timeEl ? timeEl.value : '';
             const players = playersEl ? (playersEl.value || "1") : "1";
             const notes = notesEl && notesEl.value.trim() ? notesEl.value.trim() : '-';
 
-            let hasError = false;
-
+            // 3. Validasi Tanggal (Wajib diisi & Bukan Hari Selasa)
             if (!date) {
                 highlightError('book-date');
-                if (dateEl) dateEl.focus();
-                hasError = true;
-            } else if (!time) {
-                highlightError('book-time');
-                if (timeEl) timeEl.focus();
-                hasError = true;
-            } else if (!name) {
-                highlightError('book-name', 'feedback-name');
-                if (nameEl) nameEl.focus();
-                hasError = true;
-            } else if (!phone) {
-                highlightError('book-phone', 'feedback-phone');
-                if (phoneEl) phoneEl.focus();
-                hasError = true;
+                if (dateEl) {
+                    dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    dateEl.focus();
+                }
+                return;
             }
 
-            if (hasError) {
-                const summaryCard = document.querySelector('.summary-card');
-                if (summaryCard) {
-                    summaryCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const dateObj = new Date(date + 'T00:00:00');
+            if (dateObj.getDay() === 2) {
+                // Hari Selasa -> STRICT BLOCK!
+                highlightError('book-date');
+                const descEl = document.getElementById('time-status-desc');
+                if (descEl) {
+                    descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> TIDAK BISA KONFIRMASI: Hari Selasa adalah jadwal LIBUR arena. Silakan pilih hari lain (Senin atau Rabu - Minggu).</span>`;
+                }
+                if (dateEl) {
+                    dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    dateEl.focus();
+                }
+                return;
+            }
+
+            // 4. Validasi Jam Kedatangan (Wajib dipilih & Harus 12:00 - 21:00)
+            if (!time) {
+                highlightError('book-time');
+                const descEl = document.getElementById('time-status-desc');
+                if (descEl) {
+                    descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-circle-exclamation"></i> Silakan pilih jam kedatangan Anda terlebih dahulu (12:00 - 21:00 WIB).</span>`;
+                }
+                if (timeDropdown) {
+                    timeDropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    timeDropdown.focus();
+                }
+                return;
+            }
+
+            const [hh, mm] = time.split(':').map(Number);
+            const totalMinutes = hh * 60 + (mm || 0);
+            if (isNaN(totalMinutes) || totalMinutes < 12 * 60 || totalMinutes > 21 * 60) {
+                // Jam di luar operasional -> STRICT BLOCK!
+                highlightError('book-time');
+                const descEl = document.getElementById('time-status-desc');
+                if (descEl) {
+                    descEl.innerHTML = `<span style="color: #ff4444; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> TIDAK BISA KONFIRMASI: Jam ${time} WIB berada di luar jam operasional arena (12:00 - 21:00 WIB).</span>`;
+                }
+                if (timeDropdown) {
+                    timeDropdown.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    timeDropdown.focus();
+                }
+                return;
+            }
+
+            // 5. Validasi Nama
+            if (!name) {
+                highlightError('book-name', 'feedback-name');
+                if (nameEl) {
+                    nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    nameEl.focus();
+                }
+                return;
+            }
+
+            // 6. Validasi Nomor WhatsApp
+            if (!phone) {
+                highlightError('book-phone', 'feedback-phone');
+                if (phoneEl) {
+                    phoneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    phoneEl.focus();
                 }
                 return;
             }
@@ -4005,7 +4232,6 @@
             const pkgPrice = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
 
             // Format tanggal yang ramah dibaca
-            const dateObj = new Date(date + 'T00:00:00');
             const formattedDate = dateObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
             // Format Jam Kedatangan
