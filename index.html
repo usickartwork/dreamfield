@@ -1880,43 +1880,62 @@
 
         @media (max-width: 768px) {
             .nav-menu { display: none; }
+            .nav-container {
+                padding: 10px 14px;
+            }
+            .logo {
+                font-size: 18px;
+                gap: 6px;
+                flex-shrink: 1;
+                min-width: 0;
+            }
+            .logo i {
+                font-size: 16px;
+                flex-shrink: 0;
+            }
+            .logo span {
+                display: none;
+            }
             .mobile-nav-actions {
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 8px;
+                flex-shrink: 0;
             }
             .btn-header-mob {
                 background-color: var(--color-lime);
                 color: var(--color-charcoal);
-                padding: 6px 14px;
+                padding: 5px 11px;
                 border-radius: 4px;
                 font-family: 'Teko', sans-serif;
-                font-size: 18px;
+                font-size: 15px;
                 font-weight: 800;
                 letter-spacing: 0.5px;
                 text-decoration: none;
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
+                gap: 5px;
                 line-height: 1;
                 border: 1px solid var(--color-lime);
                 transition: transform 160ms var(--ease-out);
+                white-space: nowrap;
             }
             .btn-header-mob:active {
                 transform: scale(0.95);
             }
             .hamburger-btn {
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
                 border-radius: 6px;
                 background-color: rgba(78, 91, 49, 0.35);
                 border: 1px solid var(--color-olive);
                 color: var(--color-sage);
-                font-size: 18px;
+                font-size: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                flex-shrink: 0;
                 transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out);
             }
             .hamburger-btn:active {
