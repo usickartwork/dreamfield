@@ -1,0 +1,3396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DREAMFIELD TACTICAL - Premium Airsoft & Tactical Arena</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-lime: #B7FF00;
+            --color-charcoal: #1A1A1A;
+            --color-sage: #DDE5D1;
+            --color-moss: #8A9A5B;
+            --color-olive: #4E5B31;
+            --color-dark-surface: #121212;
+            --color-card-bg: #22251E;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+            --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+            --ease-slide: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur-slide: 650ms;
+            --transition-speed: 200ms var(--ease-out);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-charcoal);
+            color: var(--color-sage);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo, .nav-link, .btn-tactical {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Animations Keyframes --- */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(183, 255, 0, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(183, 255, 0, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(183, 255, 0, 0.4); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- Fluid Scroll Slide Animations (Apple & Emil Kowalski Design Engineering) --- */
+        .slide-reveal,
+        .reveal {
+            opacity: 0;
+            will-change: opacity, transform;
+            transition: opacity var(--dur-slide) var(--ease-slide), transform var(--dur-slide) var(--ease-slide);
+        }
+
+        /* Slide Up (Standard vertical elevation) */
+        .slide-reveal,
+        .slide-reveal.slide-up,
+        .reveal {
+            transform: translateY(32px);
+        }
+
+        /* Slide in from Left (Asymmetric split / columns) */
+        .slide-reveal.slide-left {
+            transform: translateX(-40px);
+        }
+
+        /* Slide in from Right (Asymmetric split / columns) */
+        .slide-reveal.slide-right {
+            transform: translateX(40px);
+        }
+
+        /* Slide Scale (Featured banners, stat boxes, CTA) */
+        .slide-reveal.slide-scale {
+            transform: translateY(24px) scale(0.95);
+        }
+
+        /* Active In-View Triggered State */
+        .slide-reveal.active,
+        .reveal.active {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Staggered Cascading Entrances for Grid Items */
+        .features-grid .feature-item:nth-child(1) { transition-delay: 0ms; }
+        .features-grid .feature-item:nth-child(2) { transition-delay: 80ms; }
+        .features-grid .feature-item:nth-child(3) { transition-delay: 160ms; }
+        .features-grid .feature-item:nth-child(4) { transition-delay: 240ms; }
+
+        .about-stats .stat-box:nth-child(1) { transition-delay: 0ms; }
+        .about-stats .stat-box:nth-child(2) { transition-delay: 70ms; }
+        .about-stats .stat-box:nth-child(3) { transition-delay: 140ms; }
+        .about-stats .stat-box:nth-child(4) { transition-delay: 210ms; }
+
+        .cards-grid-3 .tac-price-card:nth-child(1),
+        .cards-grid-4 .tac-price-card:nth-child(1) { transition-delay: 0ms; }
+        .cards-grid-3 .tac-price-card:nth-child(2),
+        .cards-grid-4 .tac-price-card:nth-child(2) { transition-delay: 70ms; }
+        .cards-grid-3 .tac-price-card:nth-child(3),
+        .cards-grid-4 .tac-price-card:nth-child(3) { transition-delay: 140ms; }
+        .cards-grid-4 .tac-price-card:nth-child(4) { transition-delay: 210ms; }
+
+        .facility-grid .facility-card:nth-child(1) { transition-delay: 0ms; }
+        .facility-grid .facility-card:nth-child(2) { transition-delay: 60ms; }
+        .facility-grid .facility-card:nth-child(3) { transition-delay: 120ms; }
+        .facility-grid .facility-card:nth-child(4) { transition-delay: 180ms; }
+        .facility-grid .facility-card:nth-child(5) { transition-delay: 240ms; }
+        .facility-grid .facility-card:nth-child(6) { transition-delay: 300ms; }
+
+        .contact-grid .contact-info-card:nth-child(1) { transition-delay: 0ms; }
+        .contact-grid .contact-info-card:nth-child(2) { transition-delay: 80ms; }
+        .contact-grid .contact-info-card:nth-child(3) { transition-delay: 160ms; }
+
+        /* --- Navbar --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.98);
+            border-bottom: 2px solid var(--color-olive);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out), padding 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(18, 18, 18, 0.98);
+            border-bottom-color: var(--color-lime);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 160ms var(--ease-out);
+        }
+
+        .logo:active {
+            transform: scale(0.97);
+        }
+
+        .logo i {
+            color: var(--color-lime);
+            transition: transform 250ms var(--ease-out);
+        }
+
+        .logo:hover i {
+            transform: rotate(90deg);
+        }
+
+        .logo span {
+            color: var(--color-lime);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--color-sage);
+            font-size: 20px;
+            font-weight: 700;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--color-lime);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-lime);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-header {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            padding: 7px 22px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            border: 2px solid var(--color-lime);
+            display: inline-block;
+        }
+
+        .btn-header:active {
+            transform: scale(0.97);
+        }
+
+        .btn-header:hover {
+            background-color: transparent;
+            color: var(--color-lime);
+            box-shadow: 0 0 15px rgba(183, 255, 0, 0.4);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.82) 0%, rgba(18, 18, 18, 0.94) 100%), 
+                        url('assets/img/community-squad-lineup.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 20px 70px;
+        }
+
+        .hero-content {
+            animation: fadeInUp 280ms var(--ease-out);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(78, 91, 49, 0.4);
+            color: var(--color-lime);
+            padding: 7px 20px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            margin-bottom: 22px;
+            border: 1px solid var(--color-lime);
+            box-shadow: 0 0 15px rgba(183, 255, 0, 0.2);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-size: 76px;
+            line-height: 0.95;
+            color: var(--color-sage);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title span {
+            color: var(--color-lime);
+            display: block;
+        }
+
+        .hero-description {
+            max-width: 680px;
+            margin: 0 auto 36px;
+            font-size: 19px;
+            color: var(--color-sage);
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-tactical {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            padding: 12px 34px;
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 2px solid var(--color-lime);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+        }
+
+        .btn-primary-tactical:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary-tactical:hover {
+            background-color: transparent;
+            color: var(--color-lime);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(183, 255, 0, 0.45);
+        }
+
+        .btn-secondary-tactical {
+            background-color: transparent;
+            color: var(--color-sage);
+            padding: 12px 34px;
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 2px solid var(--color-olive);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out);
+        }
+
+        .btn-secondary-tactical:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary-tactical:hover {
+            border-color: var(--color-lime);
+            color: var(--color-lime);
+            background-color: rgba(78, 91, 49, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* --- Features / Highlight Bar --- */
+        .features-bar {
+            background-color: rgba(34, 37, 30, 0.95);
+            border-top: 2px solid var(--color-olive);
+            border-bottom: 2px solid var(--color-olive);
+            padding: 28px 20px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: transform 200ms var(--ease-out);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            color: var(--color-lime);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .feature-title {
+            font-size: 20px;
+            color: var(--color-sage);
+            font-weight: 700;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: var(--color-moss);
+        }
+
+        /* --- Section Common --- */
+        section {
+            padding: 90px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            color: var(--color-sage);
+            line-height: 1;
+        }
+
+        .section-title span {
+            color: var(--color-lime);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--color-lime);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* --- About Section & Arena Photo Slider --- */
+        .about-container {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-slider-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .arena-slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid var(--color-olive);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6);
+            background-color: var(--color-charcoal);
+            aspect-ratio: 16 / 11;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .arena-slider-wrapper:hover {
+            border-color: var(--color-lime);
+            box-shadow: 0 16px 40px rgba(183, 255, 0, 0.18);
+        }
+
+        /* HUD Header */
+        .slider-hud-header {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .hud-status {
+            background: rgba(26, 26, 26, 0.88);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--color-olive);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-sage);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hud-counter {
+            background: rgba(26, 26, 26, 0.88);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--color-lime);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            color: var(--color-lime);
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        /* Slider Slides */
+        .slider-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.04);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        }
+
+        .slider-slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-caption-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 45px 20px 18px;
+            background: linear-gradient(180deg, transparent 0%, rgba(18, 18, 18, 0.8) 35%, rgba(18, 18, 18, 0.98) 100%);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            pointer-events: none;
+        }
+
+        .slide-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-lime);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slide-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 26px;
+            color: var(--color-sage);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .slide-desc {
+            font-size: 13px;
+            color: var(--color-moss);
+            line-height: 1.4;
+            margin: 0;
+            max-width: 85%;
+        }
+
+        /* Navigation Arrows */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(26, 26, 26, 0.85);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            backdrop-filter: blur(4px);
+        }
+
+        .slider-arrow.btn-prev {
+            left: 14px;
+        }
+
+        .slider-arrow.btn-next {
+            right: 14px;
+        }
+
+        .slider-arrow:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+
+        .slider-arrow:hover {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+            box-shadow: 0 0 15px rgba(183, 255, 0, 0.4);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        /* Dots / Pills Indicators */
+        .slider-dots-container {
+            position: absolute;
+            bottom: 16px;
+            right: 18px;
+            z-index: 10;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background-color: var(--color-moss);
+            border: none;
+            cursor: pointer;
+            transition: width 200ms var(--ease-out), background-color 200ms var(--ease-out), opacity 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+            padding: 0;
+            opacity: 0.5;
+        }
+
+        .slider-dot.active {
+            width: 22px;
+            background-color: var(--color-lime);
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(183, 255, 0, 0.6);
+        }
+
+        /* Thumbnail Navigation Row */
+        .slider-thumbs-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .slider-thumb {
+            border: 2px solid var(--color-olive);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out), transform 160ms var(--ease-out);
+            background-color: var(--color-card-bg);
+            position: relative;
+            aspect-ratio: 16 / 10;
+        }
+
+        .slider-thumb:active {
+            transform: scale(0.96);
+        }
+
+        .slider-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.65);
+            transition: filter 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+
+        .slider-thumb .thumb-lbl {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-sage);
+            background: rgba(18, 18, 18, 0.85);
+            padding: 2px 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .slider-thumb:hover {
+            border-color: var(--color-moss);
+        }
+
+        .slider-thumb:hover img {
+            filter: brightness(0.9);
+            transform: scale(1.05);
+        }
+
+        .slider-thumb.active {
+            border-color: var(--color-lime);
+            box-shadow: 0 0 12px rgba(183, 255, 0, 0.35);
+        }
+
+        .slider-thumb.active img {
+            filter: brightness(1);
+        }
+
+        .slider-thumb.active .thumb-lbl {
+            color: var(--color-lime);
+            background: rgba(18, 18, 18, 0.95);
+        }
+
+        /* About Text Styling */
+        .about-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(78, 91, 49, 0.35);
+            color: var(--color-lime);
+            border: 1px solid var(--color-olive);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .about-text h3 {
+            font-size: 34px;
+            color: var(--color-sage);
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .about-text h3 span {
+            color: var(--color-lime);
+        }
+
+        .about-text p {
+            margin-bottom: 14px;
+            color: var(--color-sage);
+            opacity: 0.9;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .about-highlights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 16px 0 22px;
+        }
+
+        .highlight-point {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-sage);
+        }
+
+        .highlight-point i {
+            color: var(--color-lime);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(138, 154, 91, 0.25);
+        }
+
+        .stat-box {
+            text-align: center;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(78, 91, 49, 0.3);
+            border-radius: 6px;
+            padding: 10px 6px;
+        }
+
+        .stat-box h4 {
+            font-size: 32px;
+            color: var(--color-lime);
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .stat-box p {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--color-moss);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Pricelist Section (Multi-Section / Category Tabs) --- */
+        .pricing {
+            background-color: var(--color-dark-surface);
+            padding: 90px 20px;
+        }
+
+        .section-lead-text {
+            font-size: 16px;
+            color: var(--color-sage);
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 10px auto 0;
+            text-align: center;
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tactical Category Navigation Tabs */
+        .pricing-tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 30px auto 36px;
+            max-width: 1100px;
+        }
+
+        .price-tab-btn {
+            background-color: rgba(26, 26, 26, 0.9);
+            border: 2px solid var(--color-olive);
+            border-radius: 8px;
+            padding: 12px 18px;
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            text-align: left;
+            user-select: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .price-tab-btn:active {
+            transform: scale(0.97);
+        }
+
+        .price-tab-btn:hover {
+            border-color: var(--color-moss);
+            background-color: rgba(78, 91, 49, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .price-tab-btn.active {
+            background: linear-gradient(135deg, rgba(78, 91, 49, 0.6) 0%, rgba(34, 37, 30, 0.95) 100%);
+            border-color: var(--color-lime);
+            box-shadow: 0 0 20px rgba(183, 255, 0, 0.25);
+        }
+
+        .tab-btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background-color: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+            flex-shrink: 0;
+        }
+
+        .price-tab-btn:hover .tab-btn-icon {
+            transform: scale(1.08);
+        }
+
+        .price-tab-btn.active .tab-btn-icon {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+        }
+
+        .tab-btn-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .tab-btn-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 22px;
+            line-height: 1;
+            letter-spacing: 1px;
+            color: var(--color-sage);
+            transition: color 160ms var(--ease-out);
+        }
+
+        .price-tab-btn.active .tab-btn-title {
+            color: var(--color-lime);
+        }
+
+        .tab-btn-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .price-tab-btn.active .tab-btn-badge {
+            color: var(--color-sage);
+        }
+
+        .tab-btn-badge.hot {
+            color: var(--color-lime);
+            font-weight: 800;
+        }
+
+        /* Section View Toggling */
+        .price-section-view {
+            display: none;
+            animation: fadeSection 220ms var(--ease-out) forwards;
+        }
+
+        .price-section-view.active {
+            display: block;
+        }
+
+        @keyframes fadeSection {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Category Header Banner */
+        .sec-banner-card {
+            background: linear-gradient(135deg, rgba(34, 37, 30, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border: 1px solid var(--color-olive);
+            border-left: 4px solid var(--color-lime);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .sec-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sec-banner-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background-color: rgba(183, 255, 0, 0.12);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .sec-banner-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 32px;
+            line-height: 1;
+            color: var(--color-sage);
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+
+        .sec-banner-title span {
+            color: var(--color-lime);
+        }
+
+        .sec-banner-desc {
+            font-size: 14px;
+            color: var(--color-moss);
+            margin: 0;
+        }
+
+        .sec-banner-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sec-tag-chip {
+            background-color: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sec-tag-chip i {
+            color: var(--color-lime);
+        }
+
+        /* Arena Showcase Card (Real Photo Showcase for Target & War Game) */
+        .arena-showcase-card {
+            background: linear-gradient(145deg, rgba(30, 33, 26, 0.95) 0%, rgba(18, 20, 16, 0.98) 100%);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+        }
+
+        .arena-showcase-card:hover {
+            border-color: rgba(183, 255, 0, 0.45);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .arena-showcase-img-wrap {
+            position: relative;
+            min-height: 280px;
+            max-height: 360px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .arena-showcase-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .arena-showcase-card:hover .arena-showcase-img {
+            transform: scale(1.035);
+        }
+
+        .arena-showcase-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(18, 18, 18, 0.88);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(6px);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+        }
+
+        .arena-showcase-hud {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hud-pill {
+            background: rgba(18, 18, 18, 0.82);
+            border: 1px solid rgba(138, 154, 91, 0.45);
+            color: var(--color-sage);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 3px;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hud-pill i {
+            color: var(--color-lime);
+        }
+
+        .arena-showcase-details {
+            padding: 24px 24px 24px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .showcase-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-lime);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .showcase-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 32px;
+            line-height: 1.1;
+            color: var(--color-sage);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .showcase-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--color-moss);
+            margin-bottom: 16px;
+        }
+
+        .showcase-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .highlight-item {
+            font-size: 13px;
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-item i {
+            color: var(--color-lime);
+            font-size: 11px;
+        }
+
+        /* Card Grids */
+        .cards-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .cards-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .cards-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 26px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cards-grid-1 {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        /* Tactical Price Card */
+        .tac-price-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .tac-price-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-lime);
+            box-shadow: 0 12px 28px rgba(183, 255, 0, 0.12);
+        }
+
+        .tac-price-card.popular {
+            border: 2px solid var(--color-lime);
+            box-shadow: 0 0 25px rgba(183, 255, 0, 0.15);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            padding: 3px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-header-block {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(138, 154, 91, 0.25);
+        }
+
+        .card-header-icon {
+            width: 44px;
+            height: 44px;
+            background-color: rgba(183, 255, 0, 0.1);
+            border: 1px solid var(--color-olive);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--color-lime);
+            flex-shrink: 0;
+            transition: transform 200ms var(--ease-out), background-color 200ms var(--ease-out), color 200ms var(--ease-out);
+        }
+
+        .tac-price-card:hover .card-header-icon {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            transform: rotate(6deg) scale(1.05);
+        }
+
+        .card-header-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 28px;
+            line-height: 1;
+            color: var(--color-sage);
+            letter-spacing: 1px;
+        }
+
+        .card-header-sub {
+            font-size: 12px;
+            color: var(--color-moss);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        /* Price Banner Area */
+        .tac-price-display {
+            background: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(78, 91, 49, 0.35);
+            border-radius: 6px;
+            padding: 10px 16px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .tac-price-display .price-val {
+            font-family: 'Teko', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--color-lime);
+            line-height: 1;
+        }
+
+        .tac-price-display .price-unit {
+            font-size: 14px;
+            color: var(--color-sage);
+            font-weight: 600;
+        }
+
+        /* Dual Rate Box for War Game (1h vs 2h) */
+        .dual-rate-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .dual-rate-box {
+            background: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(78, 91, 49, 0.4);
+            border-radius: 6px;
+            padding: 8px 6px;
+            text-align: center;
+            transition: border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), transform 160ms var(--ease-out);
+        }
+
+        .dual-rate-box:active {
+            transform: scale(0.97);
+        }
+
+        .dual-rate-box:hover {
+            border-color: var(--color-lime);
+            background-color: rgba(78, 91, 49, 0.2);
+        }
+
+        .dual-rate-time {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-moss);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .dual-rate-val {
+            font-family: 'Teko', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-lime);
+            line-height: 1;
+        }
+
+        /* Features Bullet List */
+        .card-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .card-feature-item {
+            font-size: 14px;
+            color: var(--color-sage);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .card-feature-item i {
+            color: var(--color-lime);
+            font-size: 13px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Action Buttons */
+        .btn-card-action {
+            width: 100%;
+            justify-content: center;
+            font-size: 18px;
+            padding: 11px 20px;
+            cursor: pointer;
+            margin-top: auto;
+            text-align: center;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+        }
+
+        .btn-card-action:active {
+            transform: scale(0.97);
+        }
+
+        .dual-action-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-tactical-action {
+            padding: 10px 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            white-space: nowrap;
+        }
+
+        .btn-tactical-action:active {
+            transform: scale(0.97);
+        }
+
+        .btn-action-outline {
+            background-color: transparent;
+            color: var(--color-sage);
+            border: 1px solid var(--color-moss);
+        }
+
+        .btn-action-outline:hover {
+            border-color: var(--color-lime);
+            color: var(--color-lime);
+            background-color: rgba(183, 255, 0, 0.08);
+        }
+
+        .btn-action-solid {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            border: 1px solid var(--color-lime);
+        }
+
+        .btn-action-solid:hover {
+            background-color: transparent;
+            color: var(--color-lime);
+            box-shadow: 0 0 12px rgba(183, 255, 0, 0.4);
+        }
+
+        /* Bottom Quick Booking Banner */
+        .pricelist-bottom-cta {
+            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(34, 37, 30, 0.95) 0%, rgba(18, 18, 18, 0.98) 100%);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .bottom-cta-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .bottom-cta-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(183, 255, 0, 0.1);
+            border: 1px solid var(--color-lime);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--color-lime);
+            flex-shrink: 0;
+        }
+
+        .bottom-cta-text h4 {
+            font-family: 'Teko', sans-serif;
+            font-size: 26px;
+            line-height: 1;
+            color: var(--color-sage);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-cta-text p {
+            font-size: 14px;
+            color: var(--color-moss);
+            margin: 0;
+        }
+
+        .bottom-cta-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .bottom-cta-actions .btn-primary-tactical,
+        .bottom-cta-actions .btn-secondary-tactical {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        /* --- Contact & CTA Section --- */
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .cta-banner-card {
+            background: linear-gradient(135deg, rgba(34, 37, 30, 0.95) 0%, rgba(18, 18, 18, 0.98) 100%);
+            border: 2px solid var(--color-lime);
+            border-radius: 8px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(183, 255, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cta-banner-card h3 {
+            font-size: 46px;
+            color: var(--color-sage);
+            line-height: 1;
+        }
+
+        .cta-banner-card h3 span {
+            color: var(--color-lime);
+        }
+
+        .cta-banner-card p {
+            max-width: 650px;
+            font-size: 17px;
+            color: var(--color-sage);
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .contact-info-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--color-lime);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(183, 255, 0, 0.1);
+        }
+
+        .contact-icon {
+            width: 52px;
+            height: 52px;
+            background-color: rgba(183, 255, 0, 0.1);
+            border: 1px solid var(--color-lime);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--color-lime);
+            margin-bottom: 4px;
+        }
+
+        .contact-info-card h4 {
+            font-size: 22px;
+            color: var(--color-sage);
+        }
+
+        .contact-info-card p {
+            font-size: 14px;
+            color: var(--color-moss);
+        }
+
+        .contact-info-card a {
+            color: var(--color-lime);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+
+        .contact-info-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--color-charcoal);
+            border-top: 1px solid var(--color-olive);
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+        }
+
+        .social-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: var(--color-moss);
+            border-top: 1px solid rgba(221, 229, 209, 0.05);
+            padding-top: 20px;
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .cards-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .cards-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .cards-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .pricelist-bottom-cta {
+                flex-direction: column;
+                text-align: center;
+            }
+            .bottom-cta-left {
+                flex-direction: column;
+                text-align: center;
+            }
+            .bottom-cta-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* --- Mobile Navigation Drawer (Base Hidden on Desktop) --- */
+        .mobile-nav-actions {
+            display: none;
+        }
+
+        .mobile-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1090;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 220ms var(--ease-out), visibility 220ms;
+        }
+
+        .mobile-drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(85vw, 320px);
+            background-color: #161814;
+            border-left: 2px solid var(--color-olive);
+            z-index: 1100;
+            transform: translateX(100%);
+            transition: transform 280ms var(--ease-drawer);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 18px;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        .mobile-drawer.active {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(78, 91, 49, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .drawer-logo {
+            font-family: 'Teko', sans-serif;
+            font-size: 26px;
+            color: var(--color-sage);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawer-close-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 6px;
+            background: rgba(78, 91, 49, 0.3);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+        }
+
+        .drawer-close-btn:active {
+            transform: scale(0.92);
+        }
+
+        .drawer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .drawer-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            border-radius: 6px;
+            color: var(--color-sage);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            background: rgba(26, 26, 26, 0.5);
+            transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out);
+        }
+
+        .drawer-link i {
+            color: var(--color-lime);
+            width: 20px;
+            text-align: center;
+        }
+
+        .drawer-link:active {
+            background: rgba(183, 255, 0, 0.12);
+            color: var(--color-lime);
+            border-color: var(--color-olive);
+            transform: scale(0.98);
+        }
+
+        .drawer-book-btn {
+            margin-top: 14px;
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            padding: 13px 18px;
+            border-radius: 6px;
+            font-family: 'Teko', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 1px;
+            border: 2px solid var(--color-lime);
+            transition: transform 160ms var(--ease-out);
+        }
+
+        .drawer-book-btn:active {
+            transform: scale(0.97);
+        }
+
+        .drawer-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(78, 91, 49, 0.35);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .drawer-hours {
+            font-size: 13px;
+            color: var(--color-moss);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawer-wa-btn {
+            background-color: rgba(37, 211, 102, 0.15);
+            border: 1px solid #25D366;
+            color: #25D366;
+            padding: 10px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 160ms var(--ease-out);
+        }
+
+        .drawer-wa-btn:active {
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .btn-header-mob {
+                background-color: var(--color-lime);
+                color: var(--color-charcoal);
+                padding: 6px 14px;
+                border-radius: 4px;
+                font-family: 'Teko', sans-serif;
+                font-size: 18px;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                line-height: 1;
+                border: 1px solid var(--color-lime);
+                transition: transform 160ms var(--ease-out);
+            }
+            .btn-header-mob:active {
+                transform: scale(0.95);
+            }
+            .hamburger-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 6px;
+                background-color: rgba(78, 91, 49, 0.35);
+                border: 1px solid var(--color-olive);
+                color: var(--color-sage);
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+            }
+            .hamburger-btn:active {
+                transform: scale(0.92);
+            }
+            .hero {
+                padding: 100px 18px 50px;
+                min-height: auto;
+            }
+            .hero-badge {
+                font-size: 12px;
+                letter-spacing: 1px;
+                padding: 5px 14px;
+                margin-bottom: 16px;
+            }
+            .hero-title {
+                font-size: clamp(38px, 9vw, 50px);
+                line-height: 1.02;
+                margin-bottom: 16px;
+            }
+            .hero-description {
+                font-size: 16px;
+                margin-bottom: 26px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+                gap: 12px;
+            }
+            .btn-primary-tactical,
+            .btn-secondary-tactical {
+                width: 100%;
+                justify-content: center;
+                font-size: 19px;
+                padding: 12px 20px;
+            }
+            .features-bar {
+                padding: 22px 16px;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px 12px;
+            }
+            .feature-icon {
+                font-size: 26px;
+            }
+            .feature-title {
+                font-size: 17px;
+            }
+            .feature-desc {
+                font-size: 12px;
+            }
+            section {
+                padding: 60px 16px;
+            }
+            .section-header {
+                margin-bottom: 32px;
+            }
+            .section-title {
+                font-size: clamp(34px, 8vw, 44px);
+            }
+            .about-container { grid-template-columns: 1fr; }
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .stat-box {
+                padding: 16px 10px;
+            }
+            .arena-slider-wrapper {
+                aspect-ratio: 16 / 11;
+            }
+            .slider-thumbs-row {
+                gap: 5px;
+            }
+            .slider-thumb .thumb-lbl {
+                font-size: 8px;
+                padding: 1px 2px;
+                letter-spacing: 0;
+            }
+            .slide-title {
+                font-size: 20px;
+            }
+            .slide-desc {
+                font-size: 12px;
+                max-width: 100%;
+            }
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+            .pricing {
+                padding: 60px 16px;
+            }
+            .pricing-tabs-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 4px 4px 14px 4px;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x proximity;
+                gap: 8px;
+            }
+            .pricing-tabs-nav::-webkit-scrollbar {
+                display: none;
+            }
+            .price-tab-btn {
+                flex-shrink: 0;
+                scroll-snap-align: center;
+                padding: 10px 14px;
+            }
+            .tab-btn-title {
+                font-size: 20px;
+            }
+            .tab-btn-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            .sec-banner-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 18px;
+                gap: 12px;
+            }
+            .sec-banner-title {
+                font-size: 26px;
+            }
+            .arena-showcase-card {
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin-bottom: 22px;
+            }
+            .arena-showcase-img-wrap {
+                min-height: 200px;
+                max-height: 240px;
+            }
+            .arena-showcase-details {
+                padding: 18px 16px;
+            }
+            .showcase-title {
+                font-size: 26px;
+            }
+            .cards-grid-3,
+            .cards-grid-4,
+            .cards-grid-2 {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .tac-price-card {
+                padding: 20px 16px;
+            }
+            .card-header-title {
+                font-size: 26px;
+            }
+            .dual-action-btns {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .btn-tactical-action {
+                padding: 12px 14px;
+                font-size: 16px;
+                min-height: 44px;
+            }
+            .btn-card-action {
+                min-height: 44px;
+                padding: 12px 16px;
+            }
+            .pricelist-bottom-cta {
+                padding: 20px 16px;
+            }
+            .bottom-cta-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+            .bottom-cta-actions .btn-primary-tactical,
+            .bottom-cta-actions .btn-secondary-tactical {
+                width: 100%;
+                justify-content: center;
+            }
+            .contact-info-grid { grid-template-columns: 1fr; gap: 14px; }
+            .cta-banner-card { padding: 32px 18px; }
+            .cta-banner-card h3 { font-size: 32px; }
+            .footer-content { flex-direction: column; text-align: center; gap: 16px; }
+        }
+
+        /* --- Touch Device Hover Protection (Emil Design Engineering) --- */
+        @media (hover: hover) and (pointer: fine) {
+            .logo:hover {
+                transform: scale(1.03);
+            }
+            .btn-header:hover {
+                background-color: transparent;
+                color: var(--color-lime);
+                box-shadow: 0 0 15px rgba(183, 255, 0, 0.4);
+            }
+            .btn-primary-tactical:hover {
+                background-color: transparent;
+                color: var(--color-lime);
+                transform: translateY(-2px);
+                box-shadow: 0 0 20px rgba(183, 255, 0, 0.45);
+            }
+            .btn-secondary-tactical:hover {
+                border-color: var(--color-lime);
+                color: var(--color-lime);
+                background-color: rgba(78, 91, 49, 0.2);
+                transform: translateY(-2px);
+            }
+            .feature-item:hover {
+                transform: translateY(-4px);
+            }
+            .feature-item:hover .feature-icon {
+                transform: scale(1.15) rotate(5deg);
+            }
+            .slider-arrow:hover {
+                background-color: var(--color-lime);
+                color: var(--color-charcoal);
+                border-color: var(--color-lime);
+                box-shadow: 0 0 15px rgba(183, 255, 0, 0.4);
+                transform: translateY(-50%) scale(1.06);
+            }
+            .slider-thumb:hover {
+                border-color: var(--color-moss);
+            }
+            .slider-thumb:hover img {
+                filter: brightness(0.9);
+                transform: scale(1.04);
+            }
+            .price-tab-btn:hover {
+                border-color: var(--color-moss);
+                background-color: rgba(78, 91, 49, 0.25);
+                transform: translateY(-2px);
+            }
+            .tac-price-card:hover {
+                transform: translateY(-4px);
+                border-color: var(--color-lime);
+                box-shadow: 0 12px 28px rgba(183, 255, 0, 0.12);
+            }
+            .btn-action-outline:hover {
+                border-color: var(--color-lime);
+                color: var(--color-lime);
+                background-color: rgba(183, 255, 0, 0.08);
+            }
+            .btn-action-solid:hover {
+                background-color: transparent;
+                color: var(--color-lime);
+                box-shadow: 0 0 12px rgba(183, 255, 0, 0.4);
+            }
+            .social-btn:hover {
+                background-color: var(--color-lime);
+                color: var(--color-charcoal);
+                border-color: var(--color-lime);
+                transform: translateY(-3px) rotate(6deg);
+            }
+        }
+
+        /* --- Accessibility: Reduced Motion (Emil Design Engineering) --- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal,
+            .slide-reveal,
+            .slide-reveal.slide-up,
+            .slide-reveal.slide-left,
+            .slide-reveal.slide-right,
+            .slide-reveal.slide-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: opacity 200ms ease !important;
+            }
+            .hero-badge {
+                animation: none !important;
+            }
+        }
+    </style>
+    <noscript>
+        <style>
+            .slide-reveal, .reveal { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                DREAMFIELD <span>TACTICAL</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#pricelist" class="nav-link">Pricelist</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="booking.html" class="btn-header">Book Now</a></li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <a href="booking.html" class="btn-header-mob"><i class="fa-solid fa-calendar-check"></i> Book</a>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+        <div class="drawer-header">
+            <div class="drawer-logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i> DREAMFIELD
+            </div>
+            <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="drawer-links">
+            <a href="#about" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> About Us</a>
+            <a href="#pricelist" class="drawer-link"><i class="fa-solid fa-tags"></i> Pricelist & Paket</a>
+            <a href="#contact" class="drawer-link"><i class="fa-solid fa-location-dot"></i> Lokasi & Contact</a>
+            <a href="booking.html" class="drawer-book-btn"><i class="fa-solid fa-calendar-check"></i> Book Online Now</a>
+        </div>
+        <div class="drawer-footer">
+            <div class="drawer-hours"><i class="fa-regular fa-clock"></i> Buka Setiap Hari: 10.00 - 22.00 WIB</div>
+            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="drawer-wa-btn">
+                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge slide-reveal slide-up active"><i class="fa-solid fa-shield-halved"></i> Premium Tactical Experience</span>
+            <h1 class="hero-title slide-reveal slide-up active" style="transition-delay: 80ms;">Dominate The Field <span>Master The Game</span></h1>
+            <p class="hero-description slide-reveal slide-up active" style="transition-delay: 160ms;">
+                Arena airsoft gun taktis indoor & outdoor dengan standar peralatan militer, CQB zone realistis, dan persewaan unit lengkap untuk pertempuran sesungguhnya.
+            </p>
+            <div class="hero-buttons slide-reveal slide-up active" style="transition-delay: 240ms;">
+                <a href="booking.html" class="btn-primary-tactical"><i class="fa-solid fa-calendar-check"></i> Book Session</a>
+                <a href="#pricelist" class="btn-secondary-tactical"><i class="fa-solid fa-tags"></i> View Pricelist</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Bar -->
+    <div class="features-bar slide-reveal slide-up">
+        <div class="features-grid">
+            <div class="feature-item slide-reveal slide-up">
+                <i class="fa-solid fa-gun feature-icon"></i>
+                <div class="feature-title">High-Grade Armory</div>
+                <div class="feature-desc">Unit AEG & GBB terawat presisi tinggi</div>
+            </div>
+            <div class="feature-item slide-reveal slide-up">
+                <i class="fa-solid fa-map-location-dot feature-icon"></i>
+                <div class="feature-title">Realistic CQB Arena</div>
+                <div class="feature-desc">Layout medan pertempuran taktis modular</div>
+            </div>
+            <div class="feature-item slide-reveal slide-up">
+                <i class="fa-solid fa-user-shield feature-icon"></i>
+                <div class="feature-title">Safety Guaranteed</div>
+                <div class="feature-desc">Pelindung wajah & body vest standar militer</div>
+            </div>
+            <div class="feature-item slide-reveal slide-up">
+                <i class="fa-solid fa-trophy feature-icon"></i>
+                <div class="feature-title">Tournament Ready</div>
+                <div class="feature-desc">Skor digital & briefing marshal profesional</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header slide-reveal slide-up">
+            <span class="section-subtitle">Who We Are</span>
+            <h2 class="section-title">About <span>Dreamfield Tactical</span></h2>
+        </div>
+        <div class="about-container">
+            <!-- Left Column: Tactical Arena Photo Slider -->
+            <div class="about-slider-column slide-reveal slide-left">
+                <div class="arena-slider-wrapper" id="arenaSlider">
+                    <!-- HUD Status & Counter -->
+                    <div class="slider-hud-header">
+                        <span class="hud-status"><i class="fa-solid fa-circle" style="color: var(--color-lime); font-size: 8px;"></i> ARENA PHOTO GALLERY</span>
+                        <span class="hud-counter" id="sliderCounter">01 / 05</span>
+                    </div>
+
+                    <!-- Slide Track -->
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Slide 1: CQB Arena -->
+                        <div class="slider-slide active">
+                            <img src="assets/img/arena-wargame.jpg" alt="Arena CQB War Game Dreamfield Tactical" class="slide-img">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag"><i class="fa-solid fa-shield-halved"></i> ZONE 01 · CQB ARENA</span>
+                                <h3 class="slide-title">Medan Pertempuran CQB Urban</h3>
+                                <p class="slide-desc">Foto asli arena: barikade taktikal modular, rintangan multi-sudut, dan rute penyergapan berstandar CQB.</p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Target Range -->
+                        <div class="slider-slide">
+                            <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Range Dreamfield Tactical" class="slide-img">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag"><i class="fa-solid fa-bullseye"></i> ZONE 02 · TARGET RANGE</span>
+                                <h3 class="slide-title">Precision Shooting Target</h3>
+                                <p class="slide-desc">Foto asli lane tembak sasaran presisi 10-25m dengan target paper & plat baja untuk uji akurasi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Squad & Community (Replaced flower photo) -->
+                        <div class="slider-slide">
+                            <img src="assets/img/squad-team-cqb.jpg" alt="Squad & Tim Pemain Dreamfield Tactical" class="slide-img">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag"><i class="fa-solid fa-users"></i> ZONE 03 · SQUAD COMBAT</span>
+                                <h3 class="slide-title">Komunitas & Tim Skirmish CQB</h3>
+                                <p class="slide-desc">Foto asli pemain: keseruan simulasi pertempuran tim, perlengkapan taktis lengkap, dan skenario laga seru.</p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Trigger Control & Akurasi (Replaced drone photo) -->
+                        <div class="slider-slide">
+                            <img src="assets/img/shooter-aiming-drill.jpg" alt="Fokus Akurasi Shooter Dreamfield Tactical" class="slide-img">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag"><i class="fa-solid fa-crosshairs"></i> ZONE 04 · PRECISION DRILL</span>
+                                <h3 class="slide-title">Fokus Akurasi & Trigger Drill</h3>
+                                <p class="slide-desc">Foto asli latihan: penguasaan teknik membidik, kontrol picu (*trigger control*), dan manipulasi unit M4.</p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5: Safety First & Family Friendly -->
+                        <div class="slider-slide">
+                            <img src="assets/img/junior-shooting-lane.jpg" alt="Standar Keselamatan dan Proteksi Dreamfield Tactical" class="slide-img">
+                            <div class="slide-caption-overlay">
+                                <span class="slide-tag"><i class="fa-solid fa-user-shield"></i> ZONE 05 · SAFETY FIRST</span>
+                                <h3 class="slide-title">Standar Proteksi & Ramah Pemula</h3>
+                                <p class="slide-desc">Foto asli fasilitas: rompi taktis, helm proteksi, SOP keamanan jelas, dan pendampingan Range Safety Officer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Arrow Controls -->
+                    <button class="slider-arrow btn-prev" onclick="prevSlide()" aria-label="Foto Sebelumnya">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-arrow btn-next" onclick="nextSlide()" aria-label="Foto Berikutnya">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Indicators / Dots -->
+                    <div class="slider-dots-container" id="sliderDots">
+                        <button class="slider-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                        <button class="slider-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                        <button class="slider-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                        <button class="slider-dot" onclick="goToSlide(3)" aria-label="Slide 4"></button>
+                        <button class="slider-dot" onclick="goToSlide(4)" aria-label="Slide 5"></button>
+                    </div>
+                </div>
+
+                <!-- Thumbnail Preview Navigation Row -->
+                <div class="slider-thumbs-row">
+                    <div class="slider-thumb active" onclick="goToSlide(0)">
+                        <img src="assets/img/arena-wargame.jpg" alt="CQB Arena">
+                        <span class="thumb-lbl">CQB Arena</span>
+                    </div>
+                    <div class="slider-thumb" onclick="goToSlide(1)">
+                        <img src="assets/img/arena-shooting-target.jpg" alt="Target Range">
+                        <span class="thumb-lbl">Target Range</span>
+                    </div>
+                    <div class="slider-thumb" onclick="goToSlide(2)">
+                        <img src="assets/img/squad-team-cqb.jpg" alt="Squad Team">
+                        <span class="thumb-lbl">Squad Team</span>
+                    </div>
+                    <div class="slider-thumb" onclick="goToSlide(3)">
+                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Akurasi Drill">
+                        <span class="thumb-lbl">Akurasi Drill</span>
+                    </div>
+                    <div class="slider-thumb" onclick="goToSlide(4)">
+                        <img src="assets/img/junior-shooting-lane.jpg" alt="Safety Standard">
+                        <span class="thumb-lbl">Safety First</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: About Description & Stats -->
+            <div class="about-text slide-reveal slide-right">
+                <span class="about-badge"><i class="fa-solid fa-shield-halved"></i> ARENA CQB BERSTANDAR MILITER</span>
+                <h3>Sensasi Pertempuran Taktis <span>Paling Nyata</span></h3>
+                <p>Dreamfield Tactical didirikan untuk menghadirkan pengalaman simulasi pertempuran dan olahraga airsoft paling imersif. Dirancang dengan tata letak Close Quarter Battle (CQB) modern untuk menguji strategi, reflek, dan kerja sama tim Anda.</p>
+                <p>Mulai dari pemula yang baru pertama kali memegang unit hingga komunitas skirmish veteran, fasilitas kami siap memberikan simulasi laga yang aman, kompetitif, dan penuh adrenalin.</p>
+                
+                <div class="about-highlights-list">
+                    <div class="highlight-point"><i class="fa-solid fa-circle-check"></i> <span>Arena CQB 1.200 m² dengan rintangan dinamis</span></div>
+                    <div class="highlight-point"><i class="fa-solid fa-circle-check"></i> <span>Chrono test station & gear standar keamanan internasional</span></div>
+                    <div class="highlight-point"><i class="fa-solid fa-circle-check"></i> <span>Game Marshal bersertifikasi & ruang briefing taktis ber-AC</span></div>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat-box slide-reveal slide-up">
+                        <h4 class="counter" data-target="2500">0</h4>
+                        <p>Active Players</p>
+                    </div>
+                    <div class="stat-box slide-reveal slide-up">
+                        <h4 class="counter" data-target="50">0</h4>
+                        <p>Rental Guns</p>
+                    </div>
+                    <div class="stat-box slide-reveal slide-up">
+                        <h4>100%</h4>
+                        <p>Safety Record</p>
+                    </div>
+                    <div class="stat-box slide-reveal slide-up">
+                        <h4>1.200m²</h4>
+                        <p>Arena CQB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricelist Section -->
+    <section id="pricelist" class="pricing">
+        <div class="section-header slide-reveal slide-up">
+            <span class="section-subtitle">Tactical Packages & Rates</span>
+            <h2 class="section-title">Official Arena <span>Pricelist</span></h2>
+            <p class="section-lead-text">Klik kategori pertempuran di bawah untuk melihat detail harga & fasilitas. Pilih paket yang sesuai kebutuhan Anda.</p>
+        </div>
+
+        <!-- Tactical Category Navigation Tabs -->
+        <div class="pricing-tabs-nav slide-reveal slide-up">
+            <button class="price-tab-btn active" onclick="switchPriceSection('target')" id="btn-tab-target" aria-label="Shooting Target">
+                <div class="tab-btn-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <div class="tab-btn-info">
+                    <span class="tab-btn-title">SHOOTING TARGET</span>
+                    <span class="tab-btn-badge">3 Unit Sasaran</span>
+                </div>
+            </button>
+            <button class="price-tab-btn" onclick="switchPriceSection('wargame')" id="btn-tab-wargame" aria-label="War Game">
+                <div class="tab-btn-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="tab-btn-info">
+                    <span class="tab-btn-title">WAR GAME</span>
+                    <span class="tab-btn-badge hot">Populer · 4 Paket</span>
+                </div>
+            </button>
+            <button class="price-tab-btn" onclick="switchPriceSection('coaching')" id="btn-tab-coaching" aria-label="Coaching">
+                <div class="tab-btn-icon"><i class="fa-solid fa-user-ninja"></i></div>
+                <div class="tab-btn-info">
+                    <span class="tab-btn-title">COACHING</span>
+                    <span class="tab-btn-badge">2 Paket Taktis</span>
+                </div>
+            </button>
+            <button class="price-tab-btn" onclick="switchPriceSection('unit')" id="btn-tab-unit" aria-label="Unit Coaching">
+                <div class="tab-btn-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="tab-btn-info">
+                    <span class="tab-btn-title">UNIT COACHING</span>
+                    <span class="tab-btn-badge">2 Paket Drill</span>
+                </div>
+            </button>
+            <button class="price-tab-btn" onclick="switchPriceSection('gear')" id="btn-tab-gear" aria-label="Gear Rental">
+                <div class="tab-btn-icon"><i class="fa-solid fa-vest"></i></div>
+                <div class="tab-btn-info">
+                    <span class="tab-btn-title">GEAR RENTAL</span>
+                    <span class="tab-btn-badge">1 Paket Lengkap</span>
+                </div>
+            </button>
+        </div>
+
+        <div class="pricing-container">
+            <!-- SECTION 1: SHOOTING TARGET (Active Default) -->
+            <div id="sec-target" class="price-section-view active">
+                <div class="sec-banner-card slide-reveal slide-scale">
+                    <div class="sec-banner-left">
+                        <div class="sec-banner-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <div>
+                            <h3 class="sec-banner-title">SHOOTING TARGET <span>RANGE</span></h3>
+                            <p class="sec-banner-desc">Latihan tembak sasaran presisi jarak 10 - 25 meter. Uji konsentrasi, akurasi tembakan, dan teknik bidik Anda.</p>
+                        </div>
+                    </div>
+                    <div class="sec-banner-badges">
+                        <span class="sec-tag-chip"><i class="fa-solid fa-crosshairs"></i> Target Paper & Steel Plate</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-user-shield"></i> Range Safety Officer</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-check"></i> Pemula & Mahir</span>
+                    </div>
+                </div>
+
+                <!-- Arena Showcase: Real Photo of Shooting Target Range -->
+                <div class="arena-showcase-card slide-reveal slide-scale">
+                    <div class="arena-showcase-img-wrap">
+                        <img src="assets/img/arena-shooting-target.jpg" alt="Foto Asli Arena Shooting Target Range Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
+                        <div class="arena-showcase-badge">
+                            <i class="fa-solid fa-camera"></i> Foto Asli Arena Shooting Target
+                        </div>
+                        <div class="arena-showcase-hud">
+                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Target Paper & Steel Plates</span>
+                            <span class="hud-pill"><i class="fa-solid fa-shield-halved"></i> Jarak Tembak 10-25M</span>
+                        </div>
+                    </div>
+                    <div class="arena-showcase-details">
+                        <h3 class="showcase-title">Area Tembak Sasaran Presisi & Pengujian Akurasi</h3>
+                        <div class="showcase-tag"><i class="fa-solid fa-bullseye"></i> FASILITAS TARGET RANGE RESMI</div>
+                        <p class="showcase-desc">
+                            Lihat langsung lane tembak Dreamfield Tactical: jalur tembak individual bersekat, target kertas presisi serta plat baja (*steel poppers*), lengkap dengan pencahayaan optimal dan pendampingan Range Safety Officer (RSO).
+                        </p>
+                        <div class="showcase-highlights">
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Lane tembak berpartisi individual aman & nyaman</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Target paper jarak 10-25m & plat baja reaktif berdenting</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Cocok untuk pemula, keluarga, & latihan tembak reaksi</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid-3">
+                    <!-- Target: AEG / Rifle -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                            <div>
+                                <div class="card-header-sub">Automatic Rifle Platform</div>
+                                <h4 class="card-header-title">AEG / RIFLE</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">75K</span>
+                            <span class="price-unit">/ Sesi Latihan</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Otomatis Elektrik (M4 / HK416 platform)</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include 6mm High-Grade BB Pellets & Magazine</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Tembak Sasaran Presisi</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Didampingi Range Safety Officer bersertifikasi</span></li>
+                        </ul>
+                        <a href="booking.html?cat=target&pkg=st-aeg" class="btn-primary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking AEG Rifle (75K)
+                        </a>
+                    </div>
+
+                    <!-- Target: GBB / Handgun -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
+                            <div>
+                                <div class="card-header-sub">Gas Blowback Pistol</div>
+                                <h4 class="card-header-title">GBB / HANDGUN</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">50K</span>
+                            <span class="price-unit">/ Sesi Latihan</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Pistol Gas Blowback dengan hentakan recoil nyata</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include Magazine & Pengisian Green Gas penuh</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Paper Sasaran Jarak 10-15 meter</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Panduan cara memegang senjata & safety trigger</span></li>
+                        </ul>
+                        <a href="booking.html?cat=target&pkg=st-gbb" class="btn-secondary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking GBB Handgun (50K)
+                        </a>
+                    </div>
+
+                    <!-- Target: Sniper Spring -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <div>
+                                <div class="card-header-sub">Bolt-Action Long Range</div>
+                                <h4 class="card-header-title">SNIPER SPRING</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">50K</span>
+                            <span class="price-unit">/ Sesi Latihan</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Unit Senapan Sniper Spring Bolt-Action Akurasi Tinggi</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Dilengkapi Optical Scope pembesar jarak jauh</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Lembar Target Bullseye presisi jarak 20-25 meter</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan kestabilan napas & zeroing crosshair</span></li>
+                        </ul>
+                        <a href="booking.html?cat=target&pkg=st-sniper" class="btn-secondary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking Sniper Spring (50K)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: WAR GAME (Skirmish / Battle Arena) -->
+            <div id="sec-wargame" class="price-section-view">
+                <div class="sec-banner-card reveal">
+                    <div class="sec-banner-left">
+                        <div class="sec-banner-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h3 class="sec-banner-title">WAR GAME <span>CQB ARENA</span></h3>
+                            <p class="sec-banner-desc">Pertempuran taktis tim di arena berstandar militer. Lengkap dengan rintangan bunker, barikade, dan skenario game seru.</p>
+                        </div>
+                    </div>
+                    <div class="sec-banner-badges">
+                        <span class="sec-tag-chip"><i class="fa-solid fa-flag"></i> TDM & Bomb Defusal</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-scale-balanced"></i> Wasit / Marshal Resmi</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-gauge-high"></i> Safety Chrono Tested</span>
+                    </div>
+                </div>
+
+                <!-- Arena Showcase: Real Photo of War Game CQB Arena -->
+                <div class="arena-showcase-card slide-reveal slide-scale">
+                    <div class="arena-showcase-img-wrap">
+                        <img src="assets/img/arena-wargame.jpg" alt="Foto Asli Arena CQB War Game Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
+                        <div class="arena-showcase-badge">
+                            <i class="fa-solid fa-camera"></i> Foto Asli Arena War Game CQB
+                        </div>
+                        <div class="arena-showcase-hud">
+                            <span class="hud-pill"><i class="fa-solid fa-shield-halved"></i> Labirin Barikade Taktis</span>
+                            <span class="hud-pill"><i class="fa-solid fa-users"></i> Kapasitas 2 - 20 Pemain</span>
+                        </div>
+                    </div>
+                    <div class="arena-showcase-details">
+                        <h3 class="showcase-title">Medan Skirmish & Labirin Pertempuran Taktis</h3>
+                        <div class="showcase-tag"><i class="fa-solid fa-shield-halved"></i> FASILITAS CQB BATTLE ARENA RESMI</div>
+                        <p class="showcase-desc">
+                            Lihat langsung layout arena pertempuran CQB Dreamfield Tactical: barikade taktikal modular multi-sudut, rute flanking penyergapan, pilar terlindung, dan ruangan ber-AC untuk pertandingan tim yang seru dan menantang.
+                        </p>
+                        <div class="showcase-highlights">
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Barikade CQB modular & rute penyergapan taktis</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Arena indoor full AC sejuk, bebas cuaca panas/hujan</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Didampingi Marshal wasit resmi & skenario game seru</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid-4">
+                    <!-- WG: Lapangan Only -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <div>
+                                <div class="card-header-sub">Bring Your Own Gear</div>
+                                <h4 class="card-header-title">LAPANGAN</h4>
+                            </div>
+                        </div>
+                        <div class="dual-rate-container">
+                            <div class="dual-rate-box">
+                                <div class="dual-rate-time">1 JAM</div>
+                                <div class="dual-rate-val">35K</div>
+                            </div>
+                            <div class="dual-rate-box highlight">
+                                <div class="dual-rate-time">2 JAM</div>
+                                <div class="dual-rate-val">50K</div>
+                            </div>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses penuh arena pertempuran CQB</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Wasit / Game Marshal pengatur alur taktik</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Chrono test keamanan sebelum bertanding</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Cocok untuk pemain dengan unit & gear sendiri</span></li>
+                        </ul>
+                        <div class="dual-action-btns">
+                            <a href="booking.html?cat=wargame&pkg=wg-lapangan-1h" class="btn-tactical-action btn-action-outline">
+                                Book 1 Jam (35K)
+                            </a>
+                            <a href="booking.html?cat=wargame&pkg=wg-lapangan-2h" class="btn-tactical-action btn-action-solid">
+                                Book 2 Jam (50K)
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- WG: Lapangan + WGG -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <div class="card-header-sub">Water Gel Blaster</div>
+                                <h4 class="card-header-title">LAPANGAN + WGG</h4>
+                            </div>
+                        </div>
+                        <div class="dual-rate-container">
+                            <div class="dual-rate-box">
+                                <div class="dual-rate-time">1 JAM</div>
+                                <div class="dual-rate-val">100K</div>
+                            </div>
+                            <div class="dual-rate-box highlight">
+                                <div class="dual-rate-time">2 JAM</div>
+                                <div class="dual-rate-val">150K</div>
+                            </div>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket masuk arena CQB + Unit Senjata WGG</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru Water Gel ramah lingkungan & aman</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Eye Goggle pelindung mata</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Sangat ramah pemula, remaja & kumpul teman</span></li>
+                        </ul>
+                        <div class="dual-action-btns">
+                            <a href="booking.html?cat=wargame&pkg=wg-wgg-1h" class="btn-tactical-action btn-action-outline">
+                                Book 1 Jam (100K)
+                            </a>
+                            <a href="booking.html?cat=wargame&pkg=wg-wgg-2h" class="btn-tactical-action btn-action-solid">
+                                Book 2 Jam (150K)
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- WG: Lapangan + AEG (Popular) -->
+                    <div class="tac-price-card popular reveal">
+                        <span class="popular-badge">PALING DIMINATI</span>
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
+                            <div>
+                                <div class="card-header-sub">Full Tactical Airsoft</div>
+                                <h4 class="card-header-title">LAPANGAN + AEG</h4>
+                            </div>
+                        </div>
+                        <div class="dual-rate-container">
+                            <div class="dual-rate-box">
+                                <div class="dual-rate-time">1 JAM</div>
+                                <div class="dual-rate-val">150K</div>
+                            </div>
+                            <div class="dual-rate-box highlight">
+                                <div class="dual-rate-time">2 JAM</div>
+                                <div class="dual-rate-val">225K</div>
+                            </div>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket arena + Rental Senapan Otomatis AEG</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Peluru 6mm BB Pellets + High-Cap Magazine</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Protection Mask & Safety Briefing</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pengalaman perang taktis paling autentik & seru</span></li>
+                        </ul>
+                        <div class="dual-action-btns">
+                            <a href="booking.html?cat=wargame&pkg=wg-aeg-1h" class="btn-tactical-action btn-action-outline">
+                                Book 1 Jam (150K)
+                            </a>
+                            <a href="booking.html?cat=wargame&pkg=wg-aeg-2h" class="btn-tactical-action btn-action-solid">
+                                Book 2 Jam (225K)
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- WG: Lapangan + GBB -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-fire"></i></div>
+                            <div>
+                                <div class="card-header-sub">Heavy Recoil Experience</div>
+                                <h4 class="card-header-title">LAPANGAN + GBB</h4>
+                            </div>
+                        </div>
+                        <div class="dual-rate-container">
+                            <div class="dual-rate-box">
+                                <div class="dual-rate-time">1 JAM</div>
+                                <div class="dual-rate-val">125K</div>
+                            </div>
+                            <div class="dual-rate-box highlight">
+                                <div class="dual-rate-time">2 JAM</div>
+                                <div class="dual-rate-val">200K</div>
+                            </div>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket arena + Unit Gas Blowback Recoil</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Suara & hentakan recoil senjata yang nyata</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Include Green Gas & BB Pellets siap pakai</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Mask & Pelindung Taktis Lengkap</span></li>
+                        </ul>
+                        <div class="dual-action-btns">
+                            <a href="booking.html?cat=wargame&pkg=wg-gbb-1h" class="btn-tactical-action btn-action-outline">
+                                Book 1 Jam (125K)
+                            </a>
+                            <a href="booking.html?cat=wargame&pkg=wg-gbb-2h" class="btn-tactical-action btn-action-solid">
+                                Book 2 Jam (200K)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: COACHING -->
+            <div id="sec-coaching" class="price-section-view">
+                <div class="sec-banner-card reveal">
+                    <div class="sec-banner-left">
+                        <div class="sec-banner-icon"><i class="fa-solid fa-user-ninja"></i></div>
+                        <div>
+                            <h3 class="sec-banner-title">TACTICAL <span>COACHING</span></h3>
+                            <p class="sec-banner-desc">Tingkatkan skill menembak dan manuver tempur Anda dengan bimbingan langsung instruktur berpengalaman.</p>
+                        </div>
+                    </div>
+                    <div class="sec-banner-badges">
+                        <span class="sec-tag-chip"><i class="fa-solid fa-medal"></i> Instruktur Profesional</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-clock"></i> Sesi 1,5 Jam Efektif</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-chart-line"></i> Evaluasi Akurasi</span>
+                    </div>
+                </div>
+
+                <!-- Arena Showcase: Real Photo of Tactical Coaching & Aiming Drill -->
+                <div class="arena-showcase-card slide-reveal slide-scale">
+                    <div class="arena-showcase-img-wrap">
+                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Foto Asli Sesi Latihan Coaching & Drill Akurasi Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
+                        <div class="arena-showcase-badge">
+                            <i class="fa-solid fa-camera"></i> Foto Asli Sesi Tactical Coaching
+                        </div>
+                        <div class="arena-showcase-hud">
+                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Trigger Control Drill</span>
+                            <span class="hud-pill"><i class="fa-solid fa-user-check"></i> 1-on-1 Head Coach</span>
+                        </div>
+                    </div>
+                    <div class="arena-showcase-details">
+                        <h3 class="showcase-title">Bimbingan Intensif & Penguasaan Akurasi Tembak</h3>
+                        <div class="showcase-tag"><i class="fa-solid fa-user-ninja"></i> PROGRAM COACHING RESMI</div>
+                        <p class="showcase-desc">
+                            Lihat langsung keseriusan sesi pembinaan di Dreamfield Tactical: bimbingan intensif stance tubuh, penempatan grip senapan, sight alignment, kontrol pernapasan, serta evaluasi grouping tembakan secara sistematis.
+                        </p>
+                        <div class="showcase-highlights">
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Mentorship privat 1-on-1 bersama Head Coach bersertifikasi</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan CQB room clearing, corner peeking & dynamic shooting</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Evaluasi akurasi, koreksi flinching & konsultasi kalibrasi unit</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid-2">
+                    <!-- Coaching: Private -->
+                    <div class="tac-price-card popular reveal">
+                        <span class="popular-badge">1-ON-1 INTENSIF</span>
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-user-shield"></i></div>
+                            <div>
+                                <div class="card-header-sub">Personal Mentorship</div>
+                                <h4 class="card-header-title">PRIVATE COACHING</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">150K</span>
+                            <span class="price-unit">/ 1,5 Jam</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Bimbingan taktis privat 1-on-1 bersama Head Coach</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Materi: Grip, Shooting Stance, Weapon Manipulation</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan CQB Room Clearing & Corner Peeking Drill</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Analisis evaluasi akurasi & konsultasi upgrade unit</span></li>
+                        </ul>
+                        <a href="booking.html?cat=coaching&pkg=ch-private" class="btn-primary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking Private Coaching (150K)
+                        </a>
+                    </div>
+
+                    <!-- Coaching: HTM -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-ticket"></i></div>
+                            <div>
+                                <div class="card-header-sub">Class & Workshop Session</div>
+                                <h4 class="card-header-title">HTM COACHING</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">35K</span>
+                            <span class="price-unit">/ 1,5 Jam</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tiket masuk sesi kelas pelatihan taktis bersama</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Materi dasar keselamatan, aturan CQB & etika airsoft</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Akses ke arena drill kelompok bersama peserta lain</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Sesi tanya-jawab teknis seputar operasional unit</span></li>
+                        </ul>
+                        <a href="booking.html?cat=coaching&pkg=ch-htm" class="btn-secondary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking HTM Coaching (35K)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: UNIT COACHING -->
+            <div id="sec-unit" class="price-section-view">
+                <div class="sec-banner-card reveal">
+                    <div class="sec-banner-left">
+                        <div class="sec-banner-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <h3 class="sec-banner-title">UNIT COACHING <span>& DRILLS</span></h3>
+                            <p class="sec-banner-desc">Drill intensif penguasaan unit khusus per-magazine. Fokus pada kecepatan reload, grouping presisi, dan pengendalian recoil.</p>
+                        </div>
+                    </div>
+                    <div class="sec-banner-badges">
+                        <span class="sec-tag-chip"><i class="fa-solid fa-rotate"></i> Quick Mag Reload</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-burst"></i> Recoil Management</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-stopwatch"></i> Speed Drills</span>
+                    </div>
+                </div>
+
+                <!-- Arena Showcase: Real Photo of Unit Coaching & Tactical Rifle Drill -->
+                <div class="arena-showcase-card slide-reveal slide-scale">
+                    <div class="arena-showcase-img-wrap">
+                        <img src="assets/img/unit-coaching-drill.jpg" alt="Foto Asli Sesi Unit Coaching & Tactical Rifle Drill Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
+                        <div class="arena-showcase-badge">
+                            <i class="fa-solid fa-camera"></i> Foto Asli Sesi Unit Coaching
+                        </div>
+                        <div class="arena-showcase-hud">
+                            <span class="hud-pill"><i class="fa-solid fa-crosshairs"></i> Advanced Rifle Drill</span>
+                            <span class="hud-pill"><i class="fa-solid fa-layer-group"></i> Weapon Manipulation</span>
+                        </div>
+                    </div>
+                    <div class="arena-showcase-details">
+                        <h3 class="showcase-title">Penguasaan Senjata & Drill Taktis Tingkat Lanjut</h3>
+                        <div class="showcase-tag"><i class="fa-solid fa-layer-group"></i> DRILL UNIT SPESIFIK RESMI</div>
+                        <p class="showcase-desc">
+                            Lihat langsung standar latihan unit di Dreamfield Tactical: drill penguasaan senapan otomatis, teknik penanganan hentakan recoil, transisi magazine kilat, serta postur menembak taktis yang presisi bersama instruktur.
+                        </p>
+                        <div class="showcase-highlights">
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan kontrol recoil GBB & burst rhythm senapan AEG</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Drill emergency reload cepat & magazine change efisien</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Penanganan malfunction (jam clearing) & transisi sudut bidikan</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid-2">
+                    <!-- Unit: GBB -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-gun"></i></div>
+                            <div>
+                                <div class="card-header-sub">Gas Blowback Mastery</div>
+                                <h4 class="card-header-title">GBB COACHING</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">100K</span>
+                            <span class="price-unit">/ 2 Mag</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill intensif 2 Magazine Gas Blowback penuh</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan kontrol recoil hentakan & double-tap shot</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill kecepatan emergency reload & magazine change</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Praktik penanganan malfunction / jam clearing</span></li>
+                        </ul>
+                        <a href="booking.html?cat=unit&pkg=uc-gbb" class="btn-primary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking GBB Drill (100K)
+                        </a>
+                    </div>
+
+                    <!-- Unit: AEG -->
+                    <div class="tac-price-card reveal">
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <div class="card-header-sub">Automatic Electric Gun</div>
+                                <h4 class="card-header-title">AEG COACHING</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">125K</span>
+                            <span class="price-unit">/ 1 Mag</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Drill terarah 1 High-Cap Magazine Senapan AEG</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Latihan grouping ketat, burst control & ritme trigger</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Dynamic shooting: menembak sambil bergerak cepat</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Target acquisition speed drill & transisi bidikan</span></li>
+                        </ul>
+                        <a href="booking.html?cat=unit&pkg=uc-aeg" class="btn-secondary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Booking AEG Drill (125K)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: GEAR RENTAL -->
+            <div id="sec-gear" class="price-section-view">
+                <div class="sec-banner-card reveal">
+                    <div class="sec-banner-left">
+                        <div class="sec-banner-icon"><i class="fa-solid fa-vest"></i></div>
+                        <div>
+                            <h3 class="sec-banner-title">TACTICAL <span>GEAR RENTAL</span></h3>
+                            <p class="sec-banner-desc">Perlengkapan proteksi standar militer untuk keamanan maksimal selama bertempur di arena Dreamfield.</p>
+                        </div>
+                    </div>
+                    <div class="sec-banner-badges">
+                        <span class="sec-tag-chip"><i class="fa-solid fa-shield-halved"></i> Standar Taktis Internasional</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-spray-can-sparkles"></i> Higienis & Disanitasi</span>
+                        <span class="sec-tag-chip"><i class="fa-solid fa-users"></i> Ukuran Lengkap</span>
+                    </div>
+                </div>
+
+                <!-- Arena Showcase: Real Photo of Pro Shop Armory & Tactical Gear Display -->
+                <div class="arena-showcase-card slide-reveal slide-scale">
+                    <div class="arena-showcase-img-wrap">
+                        <img src="assets/img/gear-rental-armory.jpg" alt="Foto Asli Pro Shop, Display Armory & Rental Gear Dreamfield Tactical" class="arena-showcase-img" loading="lazy">
+                        <div class="arena-showcase-badge">
+                            <i class="fa-solid fa-camera"></i> Foto Asli Display Armory & Pro Shop
+                        </div>
+                        <div class="arena-showcase-hud">
+                            <span class="hud-pill"><i class="fa-solid fa-vest"></i> Tactical Gear & Vest</span>
+                            <span class="hud-pill"><i class="fa-solid fa-gun"></i> Armory Display</span>
+                        </div>
+                    </div>
+                    <div class="arena-showcase-details">
+                        <h3 class="showcase-title">Fasilitas Pro Shop, Display Armory & Rental Gear</h3>
+                        <div class="showcase-tag"><i class="fa-solid fa-vest"></i> DISPLAY ARMORY RESMI</div>
+                        <p class="showcase-desc">
+                            Lihat langsung display pro shop & armory resmi Dreamfield Tactical: deretan etalase unit airsoft berstandar turnamen, rak gantung senapan taktis, helm ops balistik, rompi plate carrier, dan aksesoris tempur yang siap disewa.
+                        </p>
+                        <div class="showcase-highlights">
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Etalase pro shop resmi & display unit airsoft terlengkap</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Rental vest taktis Molle, helm ops & goggle anti-fog terawat</span></div>
+                            <div class="highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Seluruh gear disanitasi steril & higienis setiap selesai pemakaian</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid-1">
+                    <!-- Gear Set -->
+                    <div class="tac-price-card popular reveal">
+                        <span class="popular-badge">FULL PROTECTION PACK</span>
+                        <div class="card-header-block">
+                            <div class="card-header-icon"><i class="fa-solid fa-shield"></i></div>
+                            <div>
+                                <div class="card-header-sub">Standard Tactical Safety</div>
+                                <h4 class="card-header-title">RENTAL GEAR SET</h4>
+                            </div>
+                        </div>
+                        <div class="tac-price-display">
+                            <span class="price-val">30K</span>
+                            <span class="price-unit">/ Set Lengkap</span>
+                        </div>
+                        <ul class="card-features-list">
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Tactical Vest / Plate Carrier berstandar militer</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Full Face Protection Mask & Anti-Fog Tactical Goggle</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Heavy Duty Tactical Gloves anti-selip & pelindung buku jari</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Pelindung Siku & Lutut (Elbow & Knee Protective Pads)</span></li>
+                            <li class="card-feature-item"><i class="fa-solid fa-circle-check"></i> <span>Seluruh perlengkapan dicuci & disanitasi steril setiap pemakaian</span></li>
+                        </ul>
+                        <a href="booking.html?cat=gear&pkg=gr-set" class="btn-primary-tactical btn-card-action">
+                            <i class="fa-solid fa-calendar-check"></i> Sewa Gear Set Sekarang (30K)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Quick Action & Booking Card -->
+            <div class="pricelist-bottom-cta slide-reveal slide-scale">
+                <div class="bottom-cta-left">
+                    <div class="bottom-cta-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="bottom-cta-text">
+                        <h4>Mau Reservasi Jadwal Main Langsung Tanpa Ribet?</h4>
+                        <p>Pilih kategori, tanggal & sesi jam main Anda di halaman booking, lalu konfirmasi instan via WhatsApp.</p>
+                    </div>
+                </div>
+                <div class="bottom-cta-actions">
+                    <a href="booking.html" class="btn-primary-tactical">
+                        <i class="fa-solid fa-calendar-check"></i> Buka Form Booking Cepat
+                    </a>
+                    <a href="https://wa.me/6281234567890?text=Halo%20Dreamfield%20Tactical%2C%20saya%20mau%20tanya%20seputar%20booking%20jadwal" target="_blank" class="btn-secondary-tactical">
+                        <i class="fa-brands fa-whatsapp"></i> Chat Admin WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location Section -->
+    <section id="contact" class="pricing" style="background-color: var(--color-charcoal); border-top: 1px solid var(--color-olive);">
+        <div class="section-header slide-reveal slide-up">
+            <span class="section-subtitle">Tactical Headquarters</span>
+            <h2 class="section-title">Contact & <span>Location</span></h2>
+        </div>
+        <div class="contact-container">
+            <!-- CTA Card -->
+            <div class="cta-banner-card slide-reveal slide-scale">
+                <h3>SIAP DOMINASI <span>MEDAN PERTEMPURAN?</span></h3>
+                <p>Pilih paket taktis Anda dan lakukan reservasi jadwal langsung melalui halaman booking online kami dengan konfirmasi instan via WhatsApp.</p>
+                <a href="booking.html" class="btn-primary-tactical" style="font-size: 22px; padding: 16px 36px;">
+                    <i class="fa-solid fa-calendar-check"></i> Masuk ke Halaman Booking Sesi
+                </a>
+            </div>
+
+            <!-- Contact Info Grid -->
+            <div class="contact-info-grid">
+                <div class="contact-info-card slide-reveal slide-up">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h4>Lokasi Arena CQB</h4>
+                    <p>Jl. Taktikal No. 88, Kawasan Olahraga & Rekreasi CQB, Jakarta</p>
+                    <a href="https://maps.google.com" target="_blank"><i class="fa-solid fa-diamond-turn-right"></i> Petunjuk Arah Maps</a>
+                </div>
+
+                <div class="contact-info-card slide-reveal slide-up">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h4>Jam Operasional</h4>
+                    <p>Buka Setiap Hari (Senin - Minggu)<br>10:00 WIB - 23:00 WIB</p>
+                    <a href="booking.html"><i class="fa-solid fa-calendar-plus"></i> Reservasi Jadwal</a>
+                </div>
+
+                <div class="contact-info-card slide-reveal slide-up">
+                    <div class="contact-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h4>Hotline WhatsApp</h4>
+                    <p>Konsultasi private event, corporate skirmish, & armory rental</p>
+                    <a href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Admin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                DREAMFIELD <span>TACTICAL</span>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 DREAMFIELD TACTICAL. All Rights Reserved. Airsoft Sports & Tactical Arena.
+        </div>
+    </footer>
+
+    <!-- JavaScript Interaktif & Animasi -->
+    <script>
+        // Navbar Effect On Scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- Smooth Slide-In Scroll Animation Engine (Apple & Emil Kowalski Design Engineering) ---
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.slide-reveal, .reveal');
+            if (!elements.length) return;
+
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -40px 0px',
+                    threshold: 0.12
+                };
+
+                const scrollObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                elements.forEach(el => scrollObserver.observe(el));
+
+                // Stats Counter Observer (Triggers smoothly when stats enter view)
+                const statsSection = document.querySelector('.about-stats');
+                if (statsSection) {
+                    let counted = false;
+                    const statsObserver = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !counted) {
+                                counted = true;
+                                animateCounters();
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.25 });
+                    statsObserver.observe(statsSection);
+                }
+            } else {
+                // Fallback for older environments
+                elements.forEach(el => el.classList.add('active'));
+                animateCounters();
+            }
+        }
+
+        function animateCounters() {
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = target / 40;
+                
+                const updateCount = () => {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count) + "+";
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target + "+";
+                    }
+                };
+                requestAnimationFrame(updateCount);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initScrollAnimations);
+
+        // Mobile Drawer Controller
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+
+        function openDrawer() {
+            if (mobileDrawer && mobileDrawerOverlay) {
+                mobileDrawer.classList.add('active');
+                mobileDrawerOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                if (hamburgerBtn) hamburgerBtn.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        function closeDrawer() {
+            if (mobileDrawer && mobileDrawerOverlay) {
+                mobileDrawer.classList.remove('active');
+                mobileDrawerOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                if (hamburgerBtn) hamburgerBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        if (hamburgerBtn) hamburgerBtn.addEventListener('click', openDrawer);
+        if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        document.querySelectorAll('.drawer-link, .drawer-book-btn').forEach(link => {
+            link.addEventListener('click', closeDrawer);
+        });
+
+        // Tab Switching for Multi-Section Pricelist
+        function switchPriceSection(category) {
+            // 1. Update tab buttons
+            document.querySelectorAll('.price-tab-btn').forEach(btn => btn.classList.remove('active'));
+            const targetBtn = document.getElementById('btn-tab-' + category);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+                // Smooth scroll active tab to center on mobile
+                targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+
+            // 2. Update visible section view
+            document.querySelectorAll('.price-section-view').forEach(view => view.classList.remove('active'));
+            const targetView = document.getElementById('sec-' + category);
+            if (targetView) {
+                targetView.classList.add('active');
+                // Trigger smooth cascading slide-reveal on newly active category cards
+                const items = targetView.querySelectorAll('.slide-reveal, .reveal');
+                items.forEach((el, idx) => {
+                    el.classList.remove('active');
+                    setTimeout(() => el.classList.add('active'), idx * 50 + 20);
+                });
+            }
+        }
+
+        // Auto-select tab based on URL param or hash
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat') || window.location.hash.replace('#', '');
+            if (catParam) {
+                const lower = catParam.toLowerCase();
+                if (lower.includes('war') || lower.includes('game')) switchPriceSection('wargame');
+                else if (lower.includes('target') || lower.includes('shoot')) switchPriceSection('target');
+                else if (lower.includes('unit')) switchPriceSection('unit');
+                else if (lower.includes('coach')) switchPriceSection('coaching');
+                else if (lower.includes('gear')) switchPriceSection('gear');
+            }
+        });
+
+        // Arena Photo Slider Logic
+        let currentSlideIdx = 0;
+        let slideInterval = null;
+
+        function updateSliderUI(index) {
+            const slides = document.querySelectorAll('.slider-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const thumbs = document.querySelectorAll('.slider-thumb');
+            const counter = document.getElementById('sliderCounter');
+
+            if (!slides.length) return;
+
+            // Normalize index
+            if (index >= slides.length) currentSlideIdx = 0;
+            else if (index < 0) currentSlideIdx = slides.length - 1;
+            else currentSlideIdx = index;
+
+            // Set slide active
+            slides.forEach((s, idx) => {
+                if (idx === currentSlideIdx) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            // Set dots active
+            dots.forEach((d, idx) => {
+                if (idx === currentSlideIdx) d.classList.add('active');
+                else d.classList.remove('active');
+            });
+
+            // Set thumbs active
+            thumbs.forEach((t, idx) => {
+                if (idx === currentSlideIdx) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+
+            // Update HUD Counter
+            if (counter) {
+                const cur = (currentSlideIdx + 1).toString().padStart(2, '0');
+                const tot = slides.length.toString().padStart(2, '0');
+                counter.textContent = `${cur} / ${tot}`;
+            }
+        }
+
+        function nextSlide() {
+            updateSliderUI(currentSlideIdx + 1);
+        }
+
+        function prevSlide() {
+            updateSliderUI(currentSlideIdx - 1);
+        }
+
+        function goToSlide(idx) {
+            updateSliderUI(idx);
+            resetSlideTimer();
+        }
+
+        function startSlideTimer() {
+            stopSlideTimer();
+            slideInterval = setInterval(nextSlide, 4500);
+        }
+
+        function stopSlideTimer() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+                slideInterval = null;
+            }
+        }
+
+        function resetSlideTimer() {
+            startSlideTimer();
+        }
+
+        // Initialize Slider & Touch Handlers
+        window.addEventListener('DOMContentLoaded', () => {
+            const sliderWrapper = document.getElementById('arenaSlider');
+            if (sliderWrapper) {
+                startSlideTimer();
+                sliderWrapper.addEventListener('mouseenter', stopSlideTimer);
+                sliderWrapper.addEventListener('mouseleave', startSlideTimer);
+
+                // Touch Swipe Handlers for Mobile
+                let startX = 0;
+                sliderWrapper.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    stopSlideTimer();
+                }, { passive: true });
+
+                sliderWrapper.addEventListener('touchend', (e) => {
+                    const diffX = e.changedTouches[0].clientX - startX;
+                    if (Math.abs(diffX) > 40) {
+                        if (diffX > 0) prevSlide();
+                        else nextSlide();
+                    }
+                    startSlideTimer();
+                }, { passive: true });
+            }
+        });
+    </script>
+</body>
+</html>

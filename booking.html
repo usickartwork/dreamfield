@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Mudah & Cepat - DREAMFIELD TACTICAL</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-lime: #B7FF00;
+            --color-charcoal: #1A1A1A;
+            --color-sage: #DDE5D1;
+            --color-moss: #8A9A5B;
+            --color-olive: #4E5B31;
+            --color-dark-surface: #121212;
+            --color-card-bg: #22251E;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+            --ease-slide: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur-slide: 650ms;
+            --transition-speed: 200ms var(--ease-out);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-charcoal);
+            color: var(--color-sage);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, .logo, .nav-link, .page-title, .pkg-price, .step-badge {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Fluid Scroll Slide Animations (Apple & Emil Kowalski Design Engineering) --- */
+        .slide-reveal {
+            opacity: 0;
+            will-change: opacity, transform;
+            transition: opacity var(--dur-slide) var(--ease-slide), transform var(--dur-slide) var(--ease-slide);
+        }
+
+        .slide-reveal,
+        .slide-reveal.slide-up {
+            transform: translateY(32px);
+        }
+
+        .slide-reveal.slide-left {
+            transform: translateX(-36px);
+        }
+
+        .slide-reveal.slide-right {
+            transform: translateX(36px);
+        }
+
+        .slide-reveal.slide-scale {
+            transform: translateY(20px) scale(0.96);
+        }
+
+        .slide-reveal.active {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Staggered cascades for package cards */
+        .package-grid .pkg-card:nth-child(1) { transition-delay: 0ms; }
+        .package-grid .pkg-card:nth-child(2) { transition-delay: 50ms; }
+        .package-grid .pkg-card:nth-child(3) { transition-delay: 100ms; }
+        .package-grid .pkg-card:nth-child(4) { transition-delay: 150ms; }
+        .package-grid .pkg-card:nth-child(5) { transition-delay: 200ms; }
+        .package-grid .pkg-card:nth-child(6) { transition-delay: 250ms; }
+        .package-grid .pkg-card:nth-child(7) { transition-delay: 300ms; }
+        .package-grid .pkg-card:nth-child(8) { transition-delay: 350ms; }
+
+        /* --- Header Navbar --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.98);
+            border-bottom: 2px solid var(--color-olive);
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 160ms var(--ease-out);
+        }
+
+        .logo:active {
+            transform: scale(0.97);
+        }
+
+        .logo span {
+            color: var(--color-lime);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-header-back {
+            background-color: transparent;
+            color: var(--color-sage);
+            padding: 7px 18px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--color-moss);
+            transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out), background-color 160ms var(--ease-out);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-header-back:active {
+            transform: scale(0.97);
+        }
+
+        .btn-header-back:hover {
+            border-color: var(--color-lime);
+            color: var(--color-lime);
+            background-color: rgba(183, 255, 0, 0.08);
+        }
+
+        .back-text-mob {
+            display: none;
+        }
+
+        /* --- Page Header Banner --- */
+        .page-banner {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.68) 0%, rgba(26, 26, 26, 0.88) 100%),
+                        url('assets/img/arena-wargame.jpg') center/cover no-repeat;
+            padding: 40px 20px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--color-olive);
+        }
+
+        .banner-badge {
+            display: inline-block;
+            background-color: rgba(78, 91, 49, 0.4);
+            color: var(--color-lime);
+            padding: 4px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            border: 1px solid var(--color-lime);
+        }
+
+        .page-title {
+            font-size: 46px;
+            line-height: 1;
+            color: var(--color-sage);
+            margin-bottom: 6px;
+        }
+
+        .page-title span {
+            color: var(--color-lime);
+        }
+
+        .page-desc {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 15px;
+            color: var(--color-sage);
+            opacity: 0.85;
+        }
+
+        /* --- Booking Main Grid Layout --- */
+        .booking-layout {
+            max-width: 1200px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* Section Container Cards */
+        .panel-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            border-radius: 8px;
+            padding: 26px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            margin-bottom: 24px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(138, 154, 91, 0.25);
+        }
+
+        .step-badge {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .panel-title {
+            font-size: 24px;
+            color: var(--color-sage);
+            line-height: 1.1;
+        }
+
+        .panel-subtitle {
+            font-size: 13px;
+            color: var(--color-moss);
+            font-weight: 500;
+        }
+
+        /* --- Category Tabs Selector --- */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            background-color: rgba(26, 26, 26, 0.7);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:active {
+            transform: scale(0.97);
+        }
+
+        .tab-btn i {
+            color: var(--color-lime);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--color-lime);
+            background-color: rgba(78, 91, 49, 0.3);
+        }
+
+        .tab-btn.active {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+            box-shadow: 0 0 15px rgba(183, 255, 0, 0.3);
+        }
+
+        .tab-btn.active i {
+            color: var(--color-charcoal);
+        }
+
+        /* --- Step 1 Arena Preview Banner --- */
+        .arena-preview-banner {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(38, 42, 30, 0.55) 100%);
+            border: 1px solid rgba(138, 154, 91, 0.4);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            transition: border-color 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+
+        .arena-preview-banner:hover {
+            border-color: rgba(183, 255, 0, 0.45);
+        }
+
+        .arena-preview-thumb-wrap {
+            position: relative;
+            width: 140px;
+            height: 95px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(138, 154, 91, 0.4);
+            flex-shrink: 0;
+            background-color: #121212;
+        }
+
+        .arena-preview-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 300ms var(--ease-out);
+        }
+
+        .arena-preview-banner:hover .arena-preview-thumb {
+            transform: scale(1.06);
+        }
+
+        .arena-preview-tag {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(18, 18, 18, 0.88);
+            color: var(--color-lime);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(183, 255, 0, 0.35);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .arena-preview-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .arena-preview-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .arena-preview-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(183, 255, 0, 0.12);
+            color: var(--color-lime);
+            border: 1px solid rgba(183, 255, 0, 0.35);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .arena-preview-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 20px;
+            line-height: 1.1;
+            color: var(--color-sage);
+            margin: 0;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .arena-preview-desc {
+            font-size: 12px;
+            line-height: 1.4;
+            color: var(--color-moss);
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 640px) {
+            .arena-preview-banner {
+                grid-template-columns: 100px 1fr;
+                gap: 12px;
+                padding: 10px 12px;
+            }
+            .arena-preview-thumb-wrap {
+                width: 100px;
+                height: 75px;
+            }
+            .arena-preview-title {
+                font-size: 17px;
+            }
+            .arena-preview-desc {
+                font-size: 11px;
+            }
+        }
+
+        /* --- Package Cards Grid --- */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .pkg-card {
+            background: rgba(26, 26, 26, 0.75);
+            border: 1px solid rgba(78, 91, 49, 0.5);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            transition: opacity var(--dur-slide) var(--ease-slide), transform var(--dur-slide) var(--ease-slide), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .pkg-card:active {
+            transform: scale(0.98);
+        }
+
+        .pkg-card.active:hover {
+            border-color: var(--color-lime);
+            background: rgba(34, 37, 30, 0.95);
+            transform: translateY(-2px);
+            transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+        }
+
+        .pkg-card.selected {
+            border: 2px solid var(--color-lime);
+            background: rgba(40, 46, 32, 0.95);
+            box-shadow: 0 0 16px rgba(183, 255, 0, 0.25);
+        }
+
+        .pkg-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .pkg-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--color-sage);
+            line-height: 1.2;
+        }
+
+        .pkg-price {
+            font-size: 24px;
+            color: var(--color-lime);
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .pkg-price-unit {
+            font-size: 12px;
+            color: var(--color-moss);
+            font-weight: 600;
+            display: block;
+            text-align: right;
+        }
+
+        .pkg-desc {
+            font-size: 13px;
+            color: var(--color-moss);
+            margin: 6px 0 12px;
+            flex-grow: 1;
+        }
+
+        .pkg-select-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid rgba(138, 154, 91, 0.2);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-moss);
+        }
+
+        .pkg-card.selected .pkg-select-indicator {
+            color: var(--color-lime);
+        }
+
+        .pkg-card.selected .pkg-select-indicator i {
+            color: var(--color-lime);
+        }
+
+        /* --- Step 2: Jadwal & Pemain Form --- */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group label i {
+            color: var(--color-lime);
+        }
+
+        .form-control {
+            background-color: var(--color-charcoal);
+            border: 1px solid var(--color-olive);
+            padding: 12px 14px;
+            border-radius: 5px;
+            color: var(--color-sage);
+            font-size: 15px;
+            outline: none;
+            transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--color-lime);
+            box-shadow: 0 0 10px rgba(183, 255, 0, 0.2);
+        }
+
+        /* Time Section Header & Flexible Badge */
+        .time-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .time-badge-open {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-lime);
+            background: rgba(183, 255, 0, 0.1);
+            border: 1px solid rgba(183, 255, 0, 0.3);
+            border-radius: 4px;
+            padding: 2px 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Time Pills */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .time-pill {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid var(--color-olive);
+            padding: 8px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out), background-color 140ms var(--ease-out), color 140ms var(--ease-out);
+            user-select: none;
+        }
+
+        .time-pill:active {
+            transform: scale(0.95);
+        }
+
+        .time-pill:hover {
+            border-color: var(--color-lime);
+            background: rgba(40, 46, 32, 0.5);
+        }
+
+        .time-pill.selected {
+            background: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+            font-weight: 800;
+        }
+
+        .time-pill.flexible-pill {
+            border-color: rgba(183, 255, 0, 0.5);
+            color: var(--color-lime);
+            background: rgba(183, 255, 0, 0.06);
+        }
+
+        .time-pill.flexible-pill.selected {
+            background: var(--color-lime);
+            color: var(--color-charcoal);
+            border-color: var(--color-lime);
+        }
+
+        /* Custom & Flexible Time Controls */
+        .custom-time-box {
+            margin-top: 10px;
+            padding: 12px 14px;
+            background: rgba(18, 18, 18, 0.75);
+            border: 1px dashed rgba(78, 91, 49, 0.8);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .custom-time-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .custom-time-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-moss);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0 !important;
+        }
+
+        .time-input-wrap {
+            display: inline-flex;
+            align-items: center;
+            background: var(--color-charcoal);
+            border: 1px solid var(--color-olive);
+            border-radius: 5px;
+            padding: 2px 8px;
+            transition: border-color 140ms var(--ease-out);
+        }
+
+        .time-input-wrap:focus-within {
+            border-color: var(--color-lime);
+            box-shadow: 0 0 8px rgba(183, 255, 0, 0.2);
+        }
+
+        .time-input-field {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: var(--color-lime) !important;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 6px;
+            width: 105px;
+            cursor: pointer;
+            outline: none;
+            color-scheme: dark;
+        }
+
+        .time-input-unit {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-moss);
+            padding-left: 2px;
+        }
+
+        .time-note {
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--color-sage);
+            opacity: 0.95;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        /* Form Feedback & Error Highlight */
+        .form-control.has-error {
+            border-color: #ff5555 !important;
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.25) !important;
+            animation: shake 250ms ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .form-feedback {
+            font-size: 11px;
+            color: #ff6666;
+            margin-top: 4px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-feedback.show {
+            display: block;
+        }
+
+        /* Person Counter Input */
+        .counter-wrap {
+            display: flex;
+            align-items: center;
+            background-color: var(--color-charcoal);
+            border: 1px solid var(--color-olive);
+            border-radius: 5px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .counter-btn {
+            background: rgba(78, 91, 49, 0.3);
+            border: none;
+            color: var(--color-lime);
+            width: 44px;
+            height: 42px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 140ms var(--ease-out), background-color 140ms var(--ease-out), color 140ms var(--ease-out);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-btn:active {
+            transform: scale(0.92);
+        }
+
+        .counter-btn:hover {
+            background: var(--color-lime);
+            color: var(--color-charcoal);
+        }
+
+        .counter-input {
+            width: 60px;
+            background: transparent;
+            border: none;
+            color: var(--color-sage);
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            outline: none;
+        }
+
+        /* --- Right Column: Sticky Summary & Instant Booking --- */
+        .sticky-summary {
+            position: sticky;
+            top: 85px;
+        }
+
+        .summary-card {
+            background: linear-gradient(145deg, rgba(34, 37, 30, 0.98) 0%, rgba(20, 22, 18, 0.98) 100%);
+            border: 2px solid var(--color-lime);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(138, 154, 91, 0.25);
+            margin-bottom: 16px;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            color: var(--color-sage);
+        }
+
+        .badge-live {
+            background-color: rgba(183, 255, 0, 0.15);
+            color: var(--color-lime);
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 1px solid var(--color-lime);
+            letter-spacing: 1px;
+        }
+
+        /* Selected Package Highlighted Box in Summary */
+        .chosen-box {
+            background: rgba(18, 18, 18, 0.85);
+            border: 1px solid var(--color-olive);
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 18px;
+        }
+
+        .chosen-cat {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-lime);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .chosen-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-sage);
+            margin: 2px 0 4px;
+        }
+
+        .chosen-price {
+            font-size: 26px;
+            font-family: 'Teko', sans-serif;
+            color: var(--color-lime);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* Summary Breakdown Rows */
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(138, 154, 91, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .summary-label {
+            color: var(--color-moss);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .summary-val {
+            font-weight: 700;
+            color: var(--color-sage);
+            text-align: right;
+        }
+
+        /* Instant WhatsApp Button */
+        .btn-whatsapp-book {
+            background-color: var(--color-lime);
+            color: var(--color-charcoal);
+            padding: 16px 20px;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            border: 2px solid var(--color-lime);
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+            box-shadow: 0 4px 20px rgba(183, 255, 0, 0.35);
+        }
+
+        .btn-whatsapp-book:active {
+            transform: scale(0.97);
+        }
+
+        .btn-whatsapp-book i {
+            font-size: 24px;
+        }
+
+        .guarantee-note {
+            font-size: 12px;
+            color: var(--color-moss);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Tactical Booking Handoff Modal Overlay */
+        .booking-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 250ms var(--ease-out);
+        }
+
+        .booking-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .booking-modal-card {
+            background: #1c1f17;
+            border: 2px solid var(--color-lime);
+            border-radius: 8px;
+            max-width: 480px;
+            width: 100%;
+            padding: 26px 24px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
+            transform: translateY(20px) scale(0.96);
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+        }
+
+        .booking-modal-overlay.active .booking-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-badge-success {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: rgba(183, 255, 0, 0.15);
+            border: 2px solid var(--color-lime);
+            border-radius: 50%;
+            font-size: 26px;
+            color: var(--color-lime);
+            margin: 0 auto 14px;
+        }
+
+        .modal-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: var(--color-sage);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #c5cec0;
+            margin-bottom: 16px;
+        }
+
+        .modal-summary-box {
+            background: rgba(26, 26, 26, 0.85);
+            border: 1px solid var(--color-olive);
+            border-radius: 6px;
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .modal-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(78, 91, 49, 0.3);
+        }
+
+        .modal-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .modal-summary-label {
+            color: var(--color-moss);
+            font-weight: 600;
+        }
+
+        .modal-summary-val {
+            color: var(--color-sage);
+            font-weight: 700;
+        }
+
+        .modal-btn-wa {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 20px;
+            background: #25D366;
+            color: #111810;
+            font-family: 'Teko', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 140ms ease, transform 140ms ease;
+        }
+
+        .modal-btn-wa:hover {
+            background: #1eb853;
+            color: #111810;
+        }
+
+        .modal-btn-wa:active {
+            transform: scale(0.97);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-moss);
+            font-size: 13px;
+            margin-top: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            display: inline-block;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--color-charcoal);
+            border-top: 1px solid var(--color-olive);
+            padding: 36px 20px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+        }
+
+        .social-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: var(--color-moss);
+        }
+
+        /* Sticky Mobile Summary Bar */
+        .mobile-sticky-summary {
+            display: none;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .booking-layout {
+                grid-template-columns: 1fr;
+                padding: 24px 16px 110px;
+                gap: 24px;
+            }
+            .sticky-summary {
+                position: static;
+            }
+            .mobile-sticky-summary {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                background: rgba(18, 20, 16, 0.96);
+                border-top: 1px solid var(--color-lime);
+                backdrop-filter: blur(10px);
+                padding: 12px 18px;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
+            }
+            .mob-sum-left {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                max-width: 60%;
+            }
+            .mob-sum-pkg {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--color-sage);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .mob-sum-price {
+                font-family: 'Teko', sans-serif;
+                font-size: 24px;
+                color: var(--color-lime);
+                line-height: 1;
+                letter-spacing: 0.5px;
+            }
+            .mob-sum-btn {
+                background: var(--color-lime);
+                color: var(--color-charcoal);
+                border: none;
+                border-radius: 4px;
+                padding: 10px 18px;
+                font-family: 'Teko', sans-serif;
+                font-size: 20px;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: transform 140ms var(--ease-out);
+            }
+            .mob-sum-btn:active {
+                transform: scale(0.95);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-title { font-size: 38px; }
+            .page-banner { padding: 28px 16px 20px; }
+            .schedule-grid { grid-template-columns: 1fr; gap: 14px; }
+            .form-group.full { grid-column: span 1; }
+            .package-grid { grid-template-columns: 1fr; gap: 12px; }
+            .time-slots { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .time-pill { padding: 8px 4px; font-size: 12px; }
+            .time-pill.flexible-pill { grid-column: span 3; padding: 10px; font-size: 13px; }
+            .custom-time-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .time-input-wrap { width: 100%; justify-content: space-between; }
+            .time-input-field { width: 100%; }
+            .booking-modal-card { padding: 20px 16px; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .category-tabs {
+                padding-bottom: 8px;
+                gap: 6px;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x proximity;
+            }
+            .category-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 14px;
+                scroll-snap-align: center;
+            }
+            .btn-header-back {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+            .back-text-desk {
+                display: none;
+            }
+            .back-text-mob {
+                display: inline;
+            }
+        }
+
+        /* --- Touch Device Hover Protection (Emil Design Engineering) --- */
+        @media (hover: hover) and (pointer: fine) {
+            .logo:hover {
+                transform: scale(1.03);
+            }
+            .btn-header-back:hover {
+                border-color: var(--color-lime);
+                color: var(--color-lime);
+                background-color: rgba(183, 255, 0, 0.08);
+            }
+            .tab-btn:hover {
+                border-color: var(--color-lime);
+                background-color: rgba(78, 91, 49, 0.3);
+            }
+            .tab-btn.active:hover {
+                border-color: var(--color-lime);
+                background-color: var(--color-lime);
+                color: var(--color-charcoal);
+            }
+            .pkg-card:hover {
+                border-color: var(--color-lime);
+                background: rgba(34, 37, 30, 0.95);
+                transform: translateY(-2px);
+            }
+            .time-pill:hover {
+                border-color: var(--color-lime);
+                background: rgba(40, 46, 32, 0.5);
+            }
+            .time-pill.selected:hover {
+                border-color: var(--color-lime);
+                background: var(--color-lime);
+                color: var(--color-charcoal);
+            }
+            .counter-btn:hover {
+                background: var(--color-lime);
+                color: var(--color-charcoal);
+            }
+            .btn-whatsapp-book:hover {
+                background-color: transparent;
+                color: var(--color-lime);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 25px rgba(183, 255, 0, 0.5);
+            }
+            .social-btn:hover {
+                background-color: var(--color-lime);
+                color: var(--color-charcoal);
+                border-color: var(--color-lime);
+            }
+        }
+
+        /* --- Accessibility: Reduced Motion (Emil Design Engineering) --- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .slide-reveal,
+            .slide-reveal.slide-up,
+            .slide-reveal.slide-left,
+            .slide-reveal.slide-right,
+            .slide-reveal.slide-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: opacity 200ms ease !important;
+            }
+        }
+    </style>
+    <noscript>
+        <style>
+            .slide-reveal { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                DREAMFIELD <span>TACTICAL</span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html#pricelist" class="btn-header-back" aria-label="Kembali ke Beranda">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span class="back-text-desk">Kembali ke Beranda</span>
+                    <span class="back-text-mob">Kembali</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <span class="banner-badge slide-reveal slide-up"><i class="fa-solid fa-bolt"></i> Fast & Easy Booking</span>
+        <h1 class="page-title slide-reveal slide-up" style="transition-delay: 80ms;">RESERVASI <span>ARENA TAKTIS</span></h1>
+        <p class="page-desc slide-reveal slide-up" style="transition-delay: 160ms;">
+            Pilih paket dan tentukan jadwal Anda langsung di halaman ini tanpa ribet bolak-balik. Konfirmasi instan via WhatsApp!
+        </p>
+    </section>
+
+    <!-- Main Booking Layout -->
+    <main class="booking-layout">
+        <!-- LEFT COLUMN: Step 1 & Step 2 -->
+        <div class="left-col">
+            <!-- STEP 1: PILIH PAKET -->
+            <div class="panel-card slide-reveal slide-left">
+                <div class="panel-header">
+                    <div class="step-badge">1</div>
+                    <div>
+                        <h2 class="panel-title">PILIH KATEGORI & PAKET</h2>
+                        <p class="panel-subtitle">Klik tab kategori di bawah untuk ganti paket kapan saja secara instan</p>
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="category-tabs" id="category-tabs">
+                    <button type="button" class="tab-btn active" data-cat="wargame" onclick="switchCategory('wargame')">
+                        <i class="fa-solid fa-shield-halved"></i> War Game
+                    </button>
+                    <button type="button" class="tab-btn" data-cat="target" onclick="switchCategory('target')">
+                        <i class="fa-solid fa-bullseye"></i> Shooting Target
+                    </button>
+                    <button type="button" class="tab-btn" data-cat="coaching" onclick="switchCategory('coaching')">
+                        <i class="fa-solid fa-user-ninja"></i> Coaching
+                    </button>
+                    <button type="button" class="tab-btn" data-cat="unit" onclick="switchCategory('unit')">
+                        <i class="fa-solid fa-layer-group"></i> Unit Coaching
+                    </button>
+                    <button type="button" class="tab-btn" data-cat="gear" onclick="switchCategory('gear')">
+                        <i class="fa-solid fa-vest"></i> Gear
+                    </button>
+                </div>
+
+                <!-- Arena Preview Banner (Dynamic according to active category) -->
+                <div class="arena-preview-banner" id="arenaPreviewBanner">
+                    <!-- Injected by JavaScript -->
+                </div>
+
+                <!-- Package Cards Container (Dynamic Render via JS) -->
+                <div class="package-grid" id="packages-container">
+                    <!-- Injected by JavaScript -->
+                </div>
+            </div>
+
+            <!-- STEP 2: JADWAL & PERSONEL -->
+            <div class="panel-card slide-reveal slide-left" style="transition-delay: 100ms;">
+                <div class="panel-header">
+                    <div class="step-badge">2</div>
+                    <div>
+                        <h2 class="panel-title">JADWAL & JUMLAH PEMAIN</h2>
+                        <p class="panel-subtitle">Tentukan tanggal main dan jam kedatangan yang diinginkan</p>
+                    </div>
+                </div>
+
+                <div class="schedule-grid">
+                    <!-- Tanggal -->
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-calendar-days"></i> Tanggal Main</label>
+                        <input type="date" class="form-control" id="book-date" onchange="updateLiveSummary()" required>
+                    </div>
+
+                    <!-- Jumlah Orang -->
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-users"></i> Jumlah Personel</label>
+                        <div class="counter-wrap">
+                            <button type="button" class="counter-btn" onclick="adjustPlayers(-1)"><i class="fa-solid fa-minus"></i></button>
+                            <input type="number" class="counter-input" id="book-players" value="1" min="1" max="50" onchange="updateLiveSummary()" readonly>
+                            <button type="button" class="counter-btn" onclick="adjustPlayers(1)"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Pilihan Jam Sesi Fleksibel Bebas -->
+                    <div class="form-group full">
+                        <div class="time-header-flex">
+                            <label><i class="fa-solid fa-clock"></i> Jam Kedatangan (Fleksibel Bebas)</label>
+                            <span class="time-badge-open"><i class="fa-solid fa-bolt"></i> Buka 10:00 - 23:00 WIB</span>
+                        </div>
+                        <div class="time-slots" id="time-slots">
+                            <div class="time-pill selected" onclick="selectTimeSlot(this, '10:00 WIB')">10:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '13:00 WIB')">13:00 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '15:30 WIB')">15:30 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '17:30 WIB')">17:30 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '19:30 WIB')">19:30 WIB</div>
+                            <div class="time-pill" onclick="selectTimeSlot(this, '21:00 WIB')">21:00 WIB</div>
+                            <div class="time-pill flexible-pill" id="pill-flexible" onclick="selectFlexibleTimeSlot(this)">
+                                <i class="fa-solid fa-arrows-split-up-and-left"></i> Jam Bebas / Fleksibel
+                            </div>
+                        </div>
+
+                        <!-- Custom Time Picker Box -->
+                        <div class="custom-time-box">
+                            <div class="custom-time-row">
+                                <label for="custom-time-input" class="custom-time-label">
+                                    <i class="fa-regular fa-clock"></i> Atau atur jam spesifik pilihan Anda:
+                                </label>
+                                <div class="time-input-wrap">
+                                    <input type="time" class="time-input-field" id="custom-time-input" value="10:00" min="10:00" max="23:00" onchange="onCustomTimeChanged(this.value)">
+                                    <span class="time-input-unit">WIB</span>
+                                </div>
+                            </div>
+                            <div class="time-note" id="time-status-desc">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong id="time-display-badge" style="color: var(--color-lime);">10:00 WIB</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: STEP 3 (Data Diri & WhatsApp Instant Submit) -->
+        <div class="right-col sticky-summary">
+            <div class="summary-card slide-reveal slide-right" style="transition-delay: 150ms;">
+                <div class="summary-header">
+                    <h3 class="summary-title"><i class="fa-solid fa-clipboard-check" style="color: var(--color-lime);"></i> RINGKASAN</h3>
+                    <span class="badge-live">READY TO BOOK</span>
+                </div>
+
+                <!-- Paket Terpilih Display -->
+                <div class="chosen-box">
+                    <div class="chosen-cat" id="sum-category">WAR GAME</div>
+                    <div class="chosen-name" id="sum-package-name">Lapangan + AEG (1 Jam)</div>
+                    <div class="chosen-price" id="sum-price">150K <span style="font-size: 14px; font-weight: normal; color: var(--color-moss);">/ 1 Jam</span></div>
+                </div>
+
+                <!-- Input Data Diri -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-user"></i> Nama Lengkap / Call Sign <span style="color: var(--color-lime); font-size: 11px;">*Wajib</span></label>
+                    <input type="text" class="form-control" id="book-name" placeholder="Contoh: Alex 'Ghost' Pratama" required>
+                    <div class="form-feedback" id="feedback-name">Silakan masukkan nama lengkap atau call sign Anda.</div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-brands fa-whatsapp"></i> Nomor WhatsApp <span style="color: var(--color-lime); font-size: 11px;">*Wajib</span></label>
+                    <input type="tel" class="form-control" id="book-phone" placeholder="Contoh: 08123456789" required>
+                    <div class="form-feedback" id="feedback-phone">Silakan masukkan nomor WhatsApp aktif Anda.</div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-comment-dots"></i> Catatan Khusus (Opsional)</label>
+                    <input type="text" class="form-control" id="book-notes" placeholder="Contoh: Sewa vest tambahan, butuh arahan pemula...">
+                </div>
+
+                <!-- Rincian Data Booking -->
+                <div class="summary-list">
+                    <div class="summary-row">
+                        <span class="summary-label"><i class="fa-solid fa-calendar"></i> Tanggal:</span>
+                        <span class="summary-val" id="sum-date">-</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label"><i class="fa-solid fa-clock"></i> Jam Sesi:</span>
+                        <span class="summary-val" id="sum-time">10:00 WIB</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label"><i class="fa-solid fa-users"></i> Personel:</span>
+                        <span class="summary-val" id="sum-players">1 Orang</span>
+                    </div>
+                </div>
+
+                <!-- Action Button: Send WhatsApp -->
+                <button type="button" class="btn-whatsapp-book" id="btnMainSubmit" onclick="submitBookingToWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> Konfirmasi Booking
+                </button>
+
+                <div class="guarantee-note">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--color-lime);"></i>
+                    Konfirmasi cepat langsung via chat Admin Dreamfield Tactical
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Sticky Checkout Bar -->
+    <div class="mobile-sticky-summary" id="mobileStickySummary">
+        <div class="mob-sum-left">
+            <div class="mob-sum-pkg" id="mob-sum-pkg">Lapangan + AEG (1 Jam)</div>
+            <div class="mob-sum-price" id="mob-sum-price">150K / 1 Jam</div>
+        </div>
+        <button type="button" class="mob-sum-btn" onclick="handleMobileBookingCTA()">
+            <i class="fa-brands fa-whatsapp"></i> Book Now
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                DREAMFIELD <span>TACTICAL</span>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 DREAMFIELD TACTICAL. All Rights Reserved. Airsoft Sports & CQB Tactical Arena.
+        </div>
+    </footer>
+
+    <!-- Tactical Booking Handoff Modal Overlay -->
+    <div class="booking-modal-overlay" id="bookingModalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="booking-modal-card">
+            <div class="modal-badge-success">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="modal-title" id="modalTitle">RINGKASAN RESERVASI SIAP</h3>
+            <p class="modal-desc">
+                Ringkasan reservasi Anda telah dirangkum. Anda sedang dialihkan langsung ke chat <strong>CS Admin Dreamfield Tactical</strong> di WhatsApp untuk konfirmasi jadwal.
+            </p>
+
+            <div class="modal-summary-box">
+                <div class="modal-summary-item">
+                    <span class="modal-summary-label">Nama Pemesan:</span>
+                    <span class="modal-summary-val" id="modal-sum-name">-</span>
+                </div>
+                <div class="modal-summary-item">
+                    <span class="modal-summary-label">Paket:</span>
+                    <span class="modal-summary-val" id="modal-sum-pkg">-</span>
+                </div>
+                <div class="modal-summary-item">
+                    <span class="modal-summary-label">Tanggal Main:</span>
+                    <span class="modal-summary-val" id="modal-sum-date">-</span>
+                </div>
+                <div class="modal-summary-item">
+                    <span class="modal-summary-label">Jam Sesi:</span>
+                    <span class="modal-summary-val" id="modal-sum-time" style="color: var(--color-lime);">-</span>
+                </div>
+                <div class="modal-summary-item">
+                    <span class="modal-summary-label">Jumlah Personel:</span>
+                    <span class="modal-summary-val" id="modal-sum-players">-</span>
+                </div>
+            </div>
+
+            <a href="#" id="modalWaDirectBtn" target="_blank" rel="noopener noreferrer" class="modal-btn-wa">
+                <i class="fa-brands fa-whatsapp"></i> Buka Chat WhatsApp CS Admin
+            </a>
+
+            <div>
+                <button type="button" class="modal-close-btn" onclick="closeBookingModal()">
+                    Kembali ke Form Reservasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Database Semua Paket Sesuai Pricelist
+        const packageCatalog = {
+            wargame: {
+                catName: "WAR GAME",
+                icon: "fa-shield-halved",
+                items: [
+                    { id: "wg-lapangan-1h", name: "Lapangan (1 Jam)", price: "35K", unit: "/ 1 Jam", desc: "Akses arena pertempuran CQB (unit bawa sendiri)" },
+                    { id: "wg-lapangan-2h", name: "Lapangan (2 Jam)", price: "50K", unit: "/ 2 Jam", desc: "Akses arena pertempuran CQB 2 jam penuh" },
+                    { id: "wg-wgg-1h", name: "Lapangan + WGG (1 Jam)", price: "100K", unit: "/ 1 Jam", desc: "Akses arena + Rental Water Gel Gun (1 Jam)" },
+                    { id: "wg-wgg-2h", name: "Lapangan + WGG (2 Jam)", price: "150K", unit: "/ 2 Jam", desc: "Akses arena + Rental Water Gel Gun (2 Jam)" },
+                    { id: "wg-aeg-1h", name: "Lapangan + AEG (1 Jam)", price: "150K", unit: "/ 1 Jam", desc: "Akses arena + Rental Automatic Electric Gun (1 Jam)" },
+                    { id: "wg-aeg-2h", name: "Lapangan + AEG (2 Jam)", price: "225K", unit: "/ 2 Jam", desc: "Akses arena + Rental Automatic Electric Gun (2 Jam)" },
+                    { id: "wg-gbb-1h", name: "Lapangan + GBB (1 Jam)", price: "125K", unit: "/ 1 Jam", desc: "Akses arena + Rental Gas Blowback (1 Jam)" },
+                    { id: "wg-gbb-2h", name: "Lapangan + GBB (2 Jam)", price: "200K", unit: "/ 2 Jam", desc: "Akses arena + Rental Gas Blowback (2 Jam)" }
+                ]
+            },
+            target: {
+                catName: "SHOOTING TARGET",
+                icon: "fa-bullseye",
+                items: [
+                    { id: "st-aeg", name: "AEG / Rifle", price: "75K", unit: "per sesi", desc: "Latihan tembak sasaran senapan otomatis elektrik" },
+                    { id: "st-gbb", name: "GBB / Handgun", price: "50K", unit: "per sesi", desc: "Latihan tembak sasaran pistol recoil gas realistis" },
+                    { id: "st-sniper", name: "Sniper Spring", price: "50K", unit: "per sesi", desc: "Latihan tembak sasaran presisi akurasi jarak jauh" }
+                ]
+            },
+            coaching: {
+                catName: "COACHING",
+                icon: "fa-user-ninja",
+                items: [
+                    { id: "ch-private", name: "Private Coaching", price: "150K", unit: "/ 1,5 Jam", desc: "Bimbingan taktis privat 1-on-1 dengan instruktur" },
+                    { id: "ch-htm", name: "HTM Coaching", price: "35K", unit: "/ 1,5 Jam", desc: "Tiket masuk sesi pelatihan dasar teknik CQB" }
+                ]
+            },
+            unit: {
+                catName: "UNIT COACHING",
+                icon: "fa-layer-group",
+                items: [
+                    { id: "uc-gbb", name: "Unit Coaching: GBB", price: "100K", unit: "/ 2 Mag", desc: "Latihan operasional, firing & reload unit Gas Blowback" },
+                    { id: "uc-aeg", name: "Unit Coaching: AEG", price: "125K", unit: "/ 1 Mag", desc: "Latihan trigger control, firing stance & grouping AEG" }
+                ]
+            },
+            gear: {
+                catName: "GEAR",
+                icon: "fa-vest",
+                items: [
+                    { id: "gr-set", name: "Tactical Gear Set", price: "30K", unit: "/ Set", desc: "Pelindung lengkap: Tactical Vest, Helm/Goggle, & Gloves" }
+                ]
+            }
+        };
+
+        // State Global
+        const ADMIN_WA_NUMBER = "6281234567890";
+        let currentCategory = "wargame";
+        let currentSelectedPackage = packageCatalog.wargame.items[4]; // Default: Lapangan + AEG 1h
+        let selectedTime = "10:00 WIB";
+        let isTimeFlexible = false;
+
+        // Inisialisasi Halaman
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set tanggal minimal hari ini
+            const dateInput = document.getElementById('book-date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            dateInput.value = today;
+
+            // Realtime clear input errors
+            ['book-name', 'book-phone', 'book-date'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        el.classList.remove('has-error');
+                        const fb = document.getElementById('feedback-' + id.replace('book-', ''));
+                        if (fb) fb.classList.remove('show');
+                    });
+                    el.addEventListener('change', () => {
+                        el.classList.remove('has-error');
+                    });
+                }
+            });
+
+            // Baca Parameter URL (?cat=...&pkg=...)
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat') || urlParams.get('category');
+            const pkgParam = urlParams.get('pkg') || urlParams.get('package');
+
+            if (catParam) {
+                const lowerCat = catParam.toLowerCase();
+                if (lowerCat.includes('target') || lowerCat.includes('shoot')) currentCategory = 'target';
+                else if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
+                else if (lowerCat.includes('unit')) currentCategory = 'unit';
+                else if (lowerCat.includes('coach')) currentCategory = 'coaching';
+                else if (lowerCat.includes('gear')) currentCategory = 'gear';
+            }
+
+            // Render Tab, Arena Preview & Paket
+            renderTabs();
+            renderArenaPreview(currentCategory);
+            renderPackages(pkgParam);
+            updateLiveSummary();
+            initScrollAnimations();
+        });
+
+        // Arena Preview Data for Real Arena Photos
+        const arenaPreviews = {
+            wargame: {
+                badge: 'REAL CQB ARENA',
+                badgeIcon: 'fa-solid fa-shield-halved',
+                title: 'Medan Pertempuran CQB Urban Labyrinth',
+                desc: 'Arena indoor Dreamfield dengan partisi taktis hitam, pilar pelindung, choke point strategis, dan tata cahaya dinamis.',
+                img: 'assets/img/arena-wargame.jpg',
+                alt: 'Real CQB Arena Dreamfield Tactical',
+                tag: 'Combat Arena'
+            },
+            target: {
+                badge: 'AUTHENTIC TARGET RANGE',
+                badgeIcon: 'fa-solid fa-bullseye',
+                title: 'Precision Indoor Shooting Target Range',
+                desc: 'Jalur tembak indoor berlisensi resmi Dreamfield Tactical dengan paper target multi-jarak dan steel plate reactive.',
+                img: 'assets/img/arena-shooting-target.jpg',
+                alt: 'Real Shooting Target Range Dreamfield Tactical',
+                tag: 'Precision Range'
+            },
+            coaching: {
+                badge: 'TACTICAL DRILL FACILITY',
+                badgeIcon: 'fa-solid fa-user-ninja',
+                title: 'Fasilitas Coaching & Private Drill',
+                desc: 'Pelatihan langsung oleh coach berpengalaman: bimbingan 1-on-1, teknik bidik presisi, dan room clearing drill di arena CQB.',
+                img: 'assets/img/shooter-aiming-drill.jpg',
+                alt: 'Tactical Coaching Range Dreamfield Tactical',
+                tag: 'Accuracy Drill'
+            },
+            unit: {
+                badge: 'OFFICIAL UNIT TEST & DRILL',
+                badgeIcon: 'fa-solid fa-layer-group',
+                title: 'Drill Penguasaan Unit & Tactical Shooting',
+                desc: 'Bawa unit AEG/GBB Anda sendiri untuk latihan akurasi, manipulasi senjata, handling recoil, dan reload drill berstandar CQB.',
+                img: 'assets/img/unit-coaching-drill.jpg',
+                alt: 'Unit Coaching & Rifle Drill Dreamfield Tactical',
+                tag: 'Unit Drill'
+            },
+            gear: {
+                badge: 'AUTHENTIC GEAR & PRO SHOP ARMORY',
+                badgeIcon: 'fa-solid fa-vest',
+                title: 'Pro Shop, Display Armory & Rental Gear',
+                desc: 'Etalase resmi perlengkapan taktis: helm ops, rompi plate carrier, goggle anti-fog, dan unit rental siap pakai higienis.',
+                img: 'assets/img/gear-rental-armory.jpg',
+                alt: 'Pro Shop & Rental Gear Dreamfield Tactical',
+                tag: 'Pro Shop'
+            }
+        };
+
+        function renderArenaPreview(catKey) {
+            const previewEl = document.getElementById('arenaPreviewBanner');
+            if (!previewEl) return;
+            const data = arenaPreviews[catKey] || arenaPreviews.wargame;
+            previewEl.innerHTML = `
+                <div class="arena-preview-thumb-wrap">
+                    <img src="${data.img}" alt="${data.alt}" class="arena-preview-thumb" loading="lazy">
+                    <span class="arena-preview-tag">${data.tag}</span>
+                </div>
+                <div class="arena-preview-content">
+                    <div class="arena-preview-badge-row">
+                        <span class="arena-preview-badge"><i class="${data.badgeIcon}"></i> ${data.badge}</span>
+                    </div>
+                    <h3 class="arena-preview-title">${data.title}</h3>
+                    <p class="arena-preview-desc">${data.desc}</p>
+                </div>
+            `;
+        }
+
+        // Ganti Kategori Tab
+        function switchCategory(catKey) {
+            currentCategory = catKey;
+            renderTabs();
+            renderArenaPreview(catKey);
+            renderPackages();
+            // Otomatis pilih item pertama di kategori baru
+            if (packageCatalog[catKey] && packageCatalog[catKey].items.length > 0) {
+                selectPackage(packageCatalog[catKey].items[0]);
+            }
+            // Auto scroll active tab into view on mobile
+            const activeTab = document.querySelector(`.tab-btn[data-cat="${catKey}"]`);
+            if (activeTab) {
+                activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // Render Status Tombol Tab
+        function renderTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === currentCategory) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Render Kartu-Kartu Paket untuk Kategori Aktif
+        function renderPackages(targetPkgQuery = null) {
+            const container = document.getElementById('packages-container');
+            const catData = packageCatalog[currentCategory];
+            if (!catData) return;
+
+            let html = '';
+            let foundMatch = null;
+
+            catData.items.forEach((item, index) => {
+                // Cek apakah item ini cocok dengan parameter URL
+                let isMatch = false;
+                if (targetPkgQuery) {
+                    const query = targetPkgQuery.toLowerCase();
+                    if (item.id.toLowerCase() === query || query.includes(item.id.toLowerCase()) || item.name.toLowerCase().includes(query) || query.includes(item.name.toLowerCase())) {
+                        isMatch = true;
+                        foundMatch = item;
+                    }
+                }
+
+                html += `
+                    <div class="pkg-card slide-reveal slide-up" id="card-${item.id}" style="transition-delay: ${index * 45}ms" onclick="selectPackageById('${item.id}')">
+                        <div class="pkg-card-top">
+                            <div class="pkg-name">${item.name}</div>
+                            <div>
+                                <span class="pkg-price">${item.price}</span>
+                                <span class="pkg-price-unit">${item.unit}</span>
+                            </div>
+                        </div>
+                        <div class="pkg-desc">${item.desc}</div>
+                        <div class="pkg-select-indicator">
+                            <span class="indicator-text"><i class="fa-regular fa-circle"></i> Klik untuk Pilih</span>
+                            <i class="fa-solid fa-check check-icon" style="display: none;"></i>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // Trigger cascading slide entrance
+            requestAnimationFrame(() => {
+                const cards = container.querySelectorAll('.pkg-card');
+                cards.forEach(card => card.classList.add('active'));
+            });
+
+            if (foundMatch) {
+                selectPackage(foundMatch);
+            } else if (currentSelectedPackage && catData.items.some(i => i.id === currentSelectedPackage.id)) {
+                highlightSelectedCard(currentSelectedPackage.id);
+            } else {
+                selectPackage(catData.items[0]);
+            }
+        }
+
+        function selectPackageById(id) {
+            const catData = packageCatalog[currentCategory];
+            if (!catData) return;
+            const item = catData.items.find(i => i.id === id);
+            if (item) {
+                selectPackage(item);
+            }
+        }
+
+        function selectPackage(item) {
+            currentSelectedPackage = item;
+            highlightSelectedCard(item.id);
+            updateLiveSummary();
+        }
+
+        function highlightSelectedCard(id) {
+            document.querySelectorAll('.pkg-card').forEach(card => {
+                card.classList.remove('selected');
+                const textSpan = card.querySelector('.indicator-text');
+                const checkIcon = card.querySelector('.check-icon');
+                if (textSpan) textSpan.innerHTML = '<i class="fa-regular fa-circle"></i> Klik untuk Pilih';
+                if (checkIcon) checkIcon.style.display = 'none';
+            });
+
+            const activeCard = document.getElementById(`card-${id}`);
+            if (activeCard) {
+                activeCard.classList.add('selected');
+                const textSpan = activeCard.querySelector('.indicator-text');
+                const checkIcon = activeCard.querySelector('.check-icon');
+                if (textSpan) textSpan.innerHTML = '<i class="fa-solid fa-circle-check"></i> Paket Terpilih';
+                if (checkIcon) checkIcon.style.display = 'inline-block';
+            }
+        }
+
+        // Pilihan Slot Waktu Cepat (Preset)
+        function selectTimeSlot(element, timeVal) {
+            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedTime = timeVal;
+            isTimeFlexible = false;
+
+            // Sinkronkan input picker waktu kustom
+            const timeInput = document.getElementById('custom-time-input');
+            if (timeInput) {
+                const cleanTime = timeVal.replace(' WIB', '');
+                if (/^\d{2}:\d{2}$/.test(cleanTime)) {
+                    timeInput.value = cleanTime;
+                }
+            }
+
+            // Update status keterangan waktu
+            const descEl = document.getElementById('time-status-desc');
+            if (descEl) {
+                descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
+            }
+
+            updateLiveSummary();
+        }
+
+        // Pilihan Mode Jam Bebas / Fleksibel
+        function selectFlexibleTimeSlot(element) {
+            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedTime = "Fleksibel / Bebas";
+            isTimeFlexible = true;
+
+            const descEl = document.getElementById('time-status-desc');
+            if (descEl) {
+                descEl.innerHTML = `<i class="fa-solid fa-arrows-split-up-and-left" style="color: var(--color-lime);"></i> Mode Jam Bebas Aktif: Anda dapat bebas mendiskusikan jam main yang pas langsung dengan CS Admin di WhatsApp.`;
+            }
+
+            updateLiveSummary();
+        }
+
+        // Input Jam Spesifik Kustom (On Change)
+        function onCustomTimeChanged(val) {
+            if (!val) return;
+            // Lepas highlight dari preset pills
+            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
+
+            selectedTime = `${val} WIB`;
+            isTimeFlexible = false;
+
+            const descEl = document.getElementById('time-status-desc');
+            if (descEl) {
+                descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam pilihan sendiri: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
+            }
+
+            updateLiveSummary();
+        }
+
+        // Counter Jumlah Personel (+ / -)
+        function adjustPlayers(delta) {
+            const input = document.getElementById('book-players');
+            let current = parseInt(input.value) || 1;
+            current += delta;
+            if (current < 1) current = 1;
+            if (current > 50) current = 50;
+            input.value = current;
+            updateLiveSummary();
+        }
+
+        // Update Ringkasan Live di Kolom Kanan & Mobile Bar
+        function updateLiveSummary() {
+            if (!currentSelectedPackage) return;
+
+            const catData = packageCatalog[currentCategory];
+            document.getElementById('sum-category').textContent = catData ? catData.catName : 'PAKET TERPILIH';
+            document.getElementById('sum-package-name').textContent = currentSelectedPackage.name;
+            document.getElementById('sum-price').innerHTML = `${currentSelectedPackage.price} <span style="font-size: 14px; font-weight: normal; color: var(--color-moss);">${currentSelectedPackage.unit}</span>`;
+
+            // Tanggal
+            const dateVal = document.getElementById('book-date').value;
+            if (dateVal) {
+                const dateObj = new Date(dateVal);
+                const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+                document.getElementById('sum-date').textContent = dateObj.toLocaleDateString('id-ID', options);
+            } else {
+                document.getElementById('sum-date').textContent = '-';
+            }
+
+            // Waktu (Tampilan Fleksibel)
+            const timeSumEl = document.getElementById('sum-time');
+            if (timeSumEl) {
+                if (isTimeFlexible) {
+                    timeSumEl.innerHTML = `Fleksibel <span style="font-size: 10px; background: rgba(183, 255, 0, 0.2); color: var(--color-lime); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--color-lime); margin-left: 4px;">BEBAS</span>`;
+                } else {
+                    timeSumEl.innerHTML = `${selectedTime} <span style="font-size: 10px; background: rgba(138, 154, 91, 0.2); color: var(--color-moss); padding: 2px 5px; border-radius: 3px; margin-left: 4px;">Fleksibel</span>`;
+                }
+            }
+
+            // Personel
+            const players = document.getElementById('book-players').value || 1;
+            document.getElementById('sum-players').textContent = `${players} Orang`;
+
+            // Sync Mobile Floating Summary Bar
+            const mobPkgEl = document.getElementById('mob-sum-pkg');
+            const mobPriceEl = document.getElementById('mob-sum-price');
+            if (mobPkgEl) mobPkgEl.textContent = currentSelectedPackage.name;
+            if (mobPriceEl) mobPriceEl.textContent = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
+        }
+
+        // Handle CTA from Mobile Sticky Checkout Bar
+        function handleMobileBookingCTA() {
+            const name = document.getElementById('book-name').value.trim();
+            const phone = document.getElementById('book-phone').value.trim();
+            const date = document.getElementById('book-date').value;
+
+            // Jika data diri belum lengkap, scroll halus ke form agar user melengkapi
+            if (!name || !phone || !date) {
+                const summaryEl = document.querySelector('.summary-card');
+                if (summaryEl) {
+                    summaryEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                if (!name) {
+                    highlightError('book-name', 'feedback-name');
+                    setTimeout(() => document.getElementById('book-name').focus(), 300);
+                } else if (!phone) {
+                    highlightError('book-phone', 'feedback-phone');
+                    setTimeout(() => document.getElementById('book-phone').focus(), 300);
+                } else if (!date) {
+                    highlightError('book-date');
+                    setTimeout(() => document.getElementById('book-date').focus(), 300);
+                }
+                return;
+            }
+
+            // Jika sudah lengkap, submit langsung ke WhatsApp
+            submitBookingToWhatsApp();
+        }
+
+        function highlightError(inputId, feedbackId = null) {
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.classList.add('has-error');
+            }
+            if (feedbackId) {
+                const fb = document.getElementById(feedbackId);
+                if (fb) fb.classList.add('show');
+            }
+        }
+
+        function clearErrors() {
+            ['book-name', 'book-phone', 'book-date'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('has-error');
+            });
+            document.querySelectorAll('.form-feedback').forEach(fb => fb.classList.remove('show'));
+        }
+
+        // Kirim ke WhatsApp dengan Format Taktis Lengkap & Pengalihan Otomatis
+        function submitBookingToWhatsApp() {
+            clearErrors();
+
+            const nameEl = document.getElementById('book-name');
+            const phoneEl = document.getElementById('book-phone');
+            const dateEl = document.getElementById('book-date');
+            const playersEl = document.getElementById('book-players');
+            const notesEl = document.getElementById('book-notes');
+
+            const name = nameEl.value.trim();
+            const phone = phoneEl.value.trim();
+            const date = dateEl.value;
+            const players = playersEl.value || "1";
+            const notes = notesEl.value.trim() || '-';
+
+            let hasError = false;
+
+            // Validasi Input Kontekstual Tanpa alert() Kaku
+            if (!name) {
+                highlightError('book-name', 'feedback-name');
+                nameEl.focus();
+                hasError = true;
+            } else if (!phone) {
+                highlightError('book-phone', 'feedback-phone');
+                phoneEl.focus();
+                hasError = true;
+            } else if (!date) {
+                highlightError('book-date');
+                dateEl.focus();
+                hasError = true;
+            }
+
+            if (hasError) {
+                const summaryCard = document.querySelector('.summary-card');
+                if (summaryCard) {
+                    summaryCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                return;
+            }
+
+            const catData = packageCatalog[currentCategory];
+            const catName = catData ? catData.catName : 'ARENA TACTICAL';
+            const pkgName = currentSelectedPackage.name;
+            const pkgPrice = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
+
+            // Format tanggal yang ramah dibaca
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Format Jam Kedatangan (Fleksibel Bebas)
+            const timeDisplay = isTimeFlexible 
+                ? "Fleksibel / Bebas (Menyesuaikan Jadwal Kosong / Diskusi Chat Admin)" 
+                : `${selectedTime} (Fleksibel / Sesuai Kesepakatan)`;
+
+            // Format Ringkasan Lengkap Siap Kirim ke CS Admin WhatsApp
+            const message = 
+`🎯 *RESERVASI ARENA CQB - DREAMFIELD TACTICAL*
+==========================================
+👤 *Nama Pemesan:* ${name}
+📱 *No. WhatsApp:* ${phone}
+🎯 *Kategori:* ${catName}
+📦 *Paket:* ${pkgName}
+💰 *Tarif:* ${pkgPrice}
+📅 *Tanggal Main:* ${formattedDate}
+⏰ *Jam Kedatangan:* ${timeDisplay}
+👥 *Jumlah Personel:* ${players} Orang
+📝 *Catatan Khusus:* ${notes}
+==========================================
+Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untuk reservasi di atas. Terima kasih!`;
+
+            const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`;
+
+            // Isi Data ke Modal Ringkasan Handoff
+            document.getElementById('modal-sum-name').textContent = name;
+            document.getElementById('modal-sum-pkg').textContent = `${pkgName} (${pkgPrice})`;
+            document.getElementById('modal-sum-date').textContent = formattedDate;
+            document.getElementById('modal-sum-time').textContent = isTimeFlexible ? "Fleksibel / Bebas (Tanya Admin)" : `${selectedTime} (Fleksibel)`;
+            document.getElementById('modal-sum-players').textContent = `${players} Orang`;
+
+            // Pasang Link Tombol Langsung di Modal
+            const modalWaBtn = document.getElementById('modalWaDirectBtn');
+            if (modalWaBtn) {
+                modalWaBtn.href = waUrl;
+            }
+
+            // Tampilkan Modal Ringkasan Handoff
+            const modalOverlay = document.getElementById('bookingModalOverlay');
+            if (modalOverlay) {
+                modalOverlay.classList.add('active');
+            }
+
+            // Ubah Status Tombol untuk Feedback Sentuhan
+            const mainSubmitBtn = document.getElementById('btnMainSubmit');
+            if (mainSubmitBtn) {
+                mainSubmitBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-bounce"></i> Mengalihkan ke WhatsApp...`;
+            }
+            const mobBtn = document.querySelector('.mob-sum-btn');
+            if (mobBtn) {
+                mobBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-bounce"></i> WhatsApp...`;
+            }
+
+            // Auto-redirect ke WhatsApp Admin (Mendukung Desktop Web & Deep-Link Aplikasi Mobile)
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            setTimeout(() => {
+                if (isMobile) {
+                    window.location.href = waUrl;
+                } else {
+                    const win = window.open(waUrl, '_blank');
+                    // Fallback jika popup terblokir browser
+                    if (!win || win.closed || typeof win.closed === 'undefined') {
+                        window.location.href = waUrl;
+                    }
+                }
+            }, 600);
+        }
+
+        // Tutup Modal Ringkasan
+        function closeBookingModal() {
+            const modalOverlay = document.getElementById('bookingModalOverlay');
+            if (modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+            const mainSubmitBtn = document.getElementById('btnMainSubmit');
+            if (mainSubmitBtn) {
+                mainSubmitBtn.innerHTML = `<i class="fa-brands fa-whatsapp"></i> Konfirmasi Booking`;
+            }
+            const mobBtn = document.querySelector('.mob-sum-btn');
+            if (mobBtn) {
+                mobBtn.innerHTML = `<i class="fa-brands fa-whatsapp"></i> Book Now`;
+            }
+        }
+
+        // Smooth Slide-In Scroll Animation Engine (IntersectionObserver)
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.slide-reveal');
+            if (!elements.length) return;
+
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px -40px 0px',
+                    threshold: 0.12
+                };
+
+                const scrollObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                elements.forEach(el => scrollObserver.observe(el));
+            } else {
+                elements.forEach(el => el.classList.add('active'));
+            }
+        }
+    </script>
+</body>
+</html>
