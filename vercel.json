@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/pricelist",
-      "destination": "/index.html#pricelist"
+      "destination": "/pricelist.html"
     },
     {
-      "source": "/pricelist.html",
-      "destination": "/index.html#pricelist"
+      "source": "/booking",
+      "destination": "/booking.html"
     }
   ]
 }

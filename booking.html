@@ -166,6 +166,160 @@
             display: none;
         }
 
+        /* --- 3-Step Flow Progress Bar --- */
+        .flow-stepper-wrap {
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
+            border-bottom: 1px solid rgba(78, 91, 49, 0.4);
+            padding: 16px 20px;
+        }
+
+        .flow-stepper-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .flow-step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .flow-step-item.done .step-circle {
+            background-color: rgba(78, 91, 49, 0.6);
+            border: 2px solid var(--color-moss);
+            color: var(--color-lime);
+        }
+
+        .flow-step-item.active .step-circle {
+            background: linear-gradient(135deg, rgba(78, 91, 49, 0.8) 0%, rgba(34, 37, 30, 0.95) 100%);
+            border: 2px solid var(--color-lime);
+            color: var(--color-lime);
+            box-shadow: 0 0 15px rgba(159, 230, 0, 0.35);
+        }
+
+        .step-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-num-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--color-moss);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .flow-step-item.active .step-num-label {
+            color: var(--color-lime);
+        }
+
+        .step-text {
+            font-family: 'Teko', sans-serif;
+            font-size: 18px;
+            color: var(--color-sage);
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .flow-step-item.active .step-text {
+            color: var(--color-lime);
+        }
+
+        .flow-line {
+            flex: 1;
+            height: 2px;
+            background-color: rgba(78, 91, 49, 0.35);
+            margin: 0 14px;
+            position: relative;
+        }
+
+        .flow-line.done {
+            background-color: var(--color-olive);
+        }
+
+        /* Package source banner from pricelist */
+        .pkg-source-banner {
+            background: linear-gradient(135deg, rgba(78, 91, 49, 0.35) 0%, rgba(34, 37, 30, 0.9) 100%);
+            border: 1px solid var(--color-lime);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .source-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .source-banner-icon {
+            font-size: 22px;
+            color: var(--color-lime);
+            flex-shrink: 0;
+        }
+
+        .source-banner-tag {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--color-lime);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .source-banner-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .source-banner-desc {
+            font-size: 12px;
+            color: var(--color-sage);
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .btn-change-pkg-link {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-lime);
+            text-decoration: underline;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
         /* --- Page Header Banner --- */
         .page-banner {
             background: linear-gradient(180deg, rgba(18, 18, 18, 0.68) 0%, rgba(26, 26, 26, 0.88) 100%),
@@ -1710,14 +1864,47 @@
                 DREAMFIELD <span>TACTICAL</span>
             </a>
             <div class="nav-actions">
-                <a href="index.html#pricelist" class="btn-header-back" aria-label="Kembali ke Beranda">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span class="back-text-desk">Kembali ke Beranda</span>
-                    <span class="back-text-mob">Kembali</span>
+                <a href="pricelist.html" class="btn-header-back" aria-label="Kembali ke Pricelist">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="back-text-desk">Katalog Pricelist</span>
+                    <span class="back-text-mob">Pricelist</span>
+                </a>
+                <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda" style="border-color: var(--color-olive);">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="back-text-desk">Beranda</span>
                 </a>
             </div>
         </div>
     </header>
+
+    <!-- 3-Step Flow Progress Bar -->
+    <div class="flow-stepper-wrap">
+        <div class="flow-stepper-container">
+            <a href="index.html" class="flow-step-item done" title="Kembali ke Halaman Beranda">
+                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 1</span>
+                    <span class="step-text">Eksplor Arena</span>
+                </div>
+            </a>
+            <div class="flow-line done"></div>
+            <a href="pricelist.html" class="flow-step-item done" title="Buka Katalog Pricelist">
+                <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 2</span>
+                    <span class="step-text">Pilih Paket</span>
+                </div>
+            </a>
+            <div class="flow-line done"></div>
+            <div class="flow-step-item active">
+                <div class="step-circle">3</div>
+                <div class="step-info">
+                    <span class="step-num-label">Langkah 3</span>
+                    <span class="step-text">Booking Jadwal</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Page Banner -->
     <section class="page-banner">
@@ -1732,6 +1919,19 @@
     <main class="booking-layout">
         <!-- LEFT COLUMN: Step 1 & Step 2 -->
         <div class="left-col">
+            <!-- Pre-selected Package Notification Banner from Pricelist -->
+            <div class="pkg-source-banner" id="pkgSourceBanner" style="display: none;">
+                <div class="source-banner-left">
+                    <div class="source-banner-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <div>
+                        <span class="source-banner-tag"><i class="fa-solid fa-tags"></i> Paket Terpilih dari Pricelist</span>
+                        <h4 class="source-banner-title" id="sourceBannerPkgName">Paket Terpilih</h4>
+                        <p class="source-banner-desc">Paket telah aktif secara otomatis. Lengkapi jadwal & identitas pemain di bawah.</p>
+                    </div>
+                </div>
+                <a href="pricelist.html" class="btn-change-pkg-link"><i class="fa-solid fa-arrow-rotate-left"></i> Ganti Paket di Pricelist</a>
+            </div>
+
             <!-- STEP 1: PILIH PAKET -->
             <div class="panel-card slide-reveal slide-left">
                 <div class="panel-header">
@@ -2231,6 +2431,12 @@
 
             if (foundMatch) {
                 selectPackage(foundMatch);
+                const banner = document.getElementById('pkgSourceBanner');
+                const bannerName = document.getElementById('sourceBannerPkgName');
+                if (banner && bannerName) {
+                    banner.style.display = 'flex';
+                    bannerName.textContent = foundMatch.name + ' — ' + foundMatch.price;
+                }
             } else if (currentSelectedPackage && catData.items.some(i => i.id === currentSelectedPackage.id)) {
                 highlightSelectedCard(currentSelectedPackage.id);
             } else {
