@@ -11,7 +11,7 @@
     
     <style>
         :root {
-            --color-lime: #B7FF00;
+            --color-lime: #9FE600;
             --color-charcoal: #1A1A1A;
             --color-sage: #DDE5D1;
             --color-moss: #8A9A5B;
@@ -883,9 +883,9 @@
         }
 
         .price-tab-btn.active {
-            background: linear-gradient(135deg, rgba(78, 91, 49, 0.6) 0%, rgba(34, 37, 30, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(78, 91, 49, 0.45) 0%, rgba(34, 37, 30, 0.95) 100%);
             border-color: var(--color-lime);
-            box-shadow: 0 0 20px rgba(183, 255, 0, 0.25);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
         .tab-btn-icon {
@@ -908,8 +908,8 @@
         }
 
         .price-tab-btn.active .tab-btn-icon {
-            background-color: var(--color-lime);
-            color: var(--color-charcoal);
+            background-color: rgba(78, 91, 49, 0.6);
+            color: var(--color-lime);
             border-color: var(--color-lime);
         }
 
@@ -2093,23 +2093,22 @@
                 padding: 44px 16px;
             }
             .pricing-tabs-nav {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding: 4px 2px 12px 2px;
-                scrollbar-width: none;
-                -webkit-overflow-scrolling: touch;
-                scroll-snap-type: x proximity;
-                gap: 8px;
-                margin-bottom: 6px;
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 6px !important;
+                padding: 0 !important;
+                margin-bottom: 14px !important;
+                overflow-x: visible !important;
             }
             .pricing-tabs-nav::-webkit-scrollbar {
                 display: none;
             }
             .price-tab-btn {
-                flex-shrink: 0;
-                scroll-snap-align: center;
-                padding: 8px 14px;
-                border-radius: 6px;
+                flex: 1 1 calc(50% - 6px) !important;
+                padding: 8px 10px !important;
+                border-radius: 6px !important;
+                box-sizing: border-box !important;
             }
             .tab-btn-title {
                 font-size: 16px;
@@ -3368,6 +3367,14 @@
 
     <!-- JavaScript Interaktif & Animasi -->
     <script>
+        // Force browser to always return to top on page refresh/reload
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
+        window.addEventListener('load', () => { setTimeout(() => window.scrollTo(0, 0), 0); });
+
         // Navbar Effect On Scroll
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
@@ -3483,8 +3490,6 @@
             const targetBtn = document.getElementById('btn-tab-' + category);
             if (targetBtn) {
                 targetBtn.classList.add('active');
-                // Smooth scroll active tab to center on mobile
-                targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
 
             // 2. Update visible section view
