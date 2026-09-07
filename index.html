@@ -215,7 +215,10 @@
         }
 
         .logo span {
-            color: var(--color-lime);
+            color: inherit;
+            font-family: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
         }
 
         .nav-menu {
@@ -2371,17 +2374,15 @@
                 padding: 10px 14px;
             }
             .logo {
-                font-size: 18px;
-                gap: 6px;
+                font-size: clamp(16px, 4.2vw, 20px);
                 flex-shrink: 1;
                 min-width: 0;
-            }
-            .logo i {
-                font-size: 16px;
-                flex-shrink: 0;
+                white-space: nowrap;
             }
             .logo span {
-                display: none;
+                display: inline;
+                color: inherit;
+                font-family: inherit;
             }
             .mobile-nav-actions {
                 display: flex;
@@ -3123,7 +3124,9 @@
         }
 
         .hud-logo-title span {
-            color: var(--color-lime);
+            color: inherit;
+            font-family: inherit;
+            font-weight: inherit;
         }
 
         /* Progress Track & Metric */
@@ -3296,10 +3299,7 @@
     <!-- Header Navbar -->
     <header id="header">
         <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
-                DREAMFIELD <span>TACTICAL</span>
-            </a>
+            <a href="#" class="logo">DREAMFIELD <span>TACTICAL</span></a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#about" class="nav-link">About Us</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -3318,9 +3318,7 @@
     <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
     <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
         <div class="drawer-header">
-            <div class="drawer-logo">
-                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i> DREAMFIELD
-            </div>
+            <div class="drawer-logo">DREAMFIELD <span>TACTICAL</span></div>
             <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -3586,10 +3584,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="logo">
-                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
-                DREAMFIELD <span>TACTICAL</span>
-            </div>
+            <div class="logo">DREAMFIELD <span>TACTICAL</span></div>
             <div class="social-links">
                 <a href="https://www.instagram.com/dreamfieldtacticalsurabaya?stkn=MWI1NnJ3dWYxN3Rvdw==" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram Dreamfield Tactical"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp CS Admin"><i class="fa-brands fa-whatsapp"></i></a>
