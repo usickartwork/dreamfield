@@ -2527,24 +2527,24 @@
         <div class="checklist-stepper-wrap" id="checklistStepper">
             <div class="checklist-stepper-container">
                 <!-- Step 1: Arena -->
-                <div class="check-step-item checked" id="check-step-arena" onclick="scrollToStep('step-arena')">
-                    <div class="check-step-circle" id="circle-step-arena"><i class="fa-solid fa-check"></i></div>
+                <div class="check-step-item active" id="check-step-arena" onclick="scrollToStep('step-arena')">
+                    <div class="check-step-circle" id="circle-step-arena">1</div>
                     <div class="check-step-info">
                         <span class="check-step-num">Langkah 1</span>
                         <span class="check-step-title">Pilih Arena</span>
-                        <span class="check-step-status" id="status-arena">War Game CQB</span>
+                        <span class="check-step-status" id="status-arena">Belum Dipilih</span>
                     </div>
                 </div>
 
-                <div class="check-flow-line done" id="conn-1"></div>
+                <div class="check-flow-line" id="conn-1"></div>
 
                 <!-- Step 2: Paket -->
-                <div class="check-step-item active" id="check-step-pkg" onclick="scrollToStep('step-pkg')">
+                <div class="check-step-item" id="check-step-pkg" onclick="scrollToStep('step-pkg')">
                     <div class="check-step-circle" id="circle-step-pkg">2</div>
                     <div class="check-step-info">
                         <span class="check-step-num">Langkah 2</span>
                         <span class="check-step-title">Pilih Paket</span>
-                        <span class="check-step-status" id="status-pkg">Pilih Paket...</span>
+                        <span class="check-step-status" id="status-pkg">Pilih Arena Dulu</span>
                     </div>
                 </div>
 
@@ -2592,18 +2592,18 @@
             <!-- TAHAP 1: PILIH ARENA PERTEMPURAN -->
             <div class="panel-card slide-reveal slide-left" id="step-arena">
                 <div class="panel-header">
-                    <div class="step-badge checked" id="badge-step-1"><i class="fa-solid fa-check"></i></div>
+                    <div class="step-badge active" id="badge-step-1">1</div>
                     <div style="flex: 1; min-width: 0;">
                         <h2 class="panel-title">1. PILIH ARENA PERTEMPURAN</h2>
                         <p class="panel-subtitle">Klik arena di bawah untuk membuka paket & foto arena. Arena yang diklik otomatis ter-ceklist.</p>
                     </div>
-                    <span class="step-done-tag" id="tag-step-1"><i class="fa-solid fa-circle-check"></i> Arena Terpilih</span>
+                    <span class="step-done-tag" id="tag-step-1" style="display: none;"><i class="fa-solid fa-circle-check"></i> Arena Terpilih</span>
                 </div>
 
                 <!-- 5 Pilihan Arena Interaktif -->
                 <div class="arena-select-grid" id="arenaSelectGrid">
                     <!-- Button 1: War Game -->
-                    <div class="arena-select-btn active" data-cat="wargame" onclick="selectArena('wargame')">
+                    <div class="arena-select-btn" data-cat="wargame" onclick="selectArena('wargame')">
                         <div class="arena-btn-top">
                             <i class="fa-solid fa-shield-halved arena-btn-icon"></i>
                             <span class="arena-check-indicator"><i class="fa-solid fa-check"></i></span>
@@ -2664,7 +2664,7 @@
                 </div>
 
                 <!-- FOTO ARENA BESAR & CINEMATIC (Sesuai Arahan User) -->
-                <div class="arena-big-showcase" id="arenaBigShowcase">
+                <div class="arena-big-showcase" id="arenaBigShowcase" style="display: none;">
                     <!-- Injected by JavaScript renderArenaBigShowcase -->
                 </div>
             </div>
@@ -2682,7 +2682,11 @@
 
                 <!-- Package Cards Container (Dynamic Render via JS) -->
                 <div class="package-grid" id="packages-container">
-                    <!-- Injected by JavaScript -->
+                    <div class="pkg-empty-notice" style="grid-column: 1 / -1; padding: 36px 20px; text-align: center; background: rgba(18, 18, 18, 0.6); border: 1px dashed rgba(138, 154, 91, 0.35); border-radius: 8px; color: var(--color-sage);">
+                        <i class="fa-solid fa-hand-pointer" style="font-size: 28px; color: var(--color-lime); margin-bottom: 12px; display: block;"></i>
+                        <strong style="color: #ffffff; font-size: 15px; display: block; margin-bottom: 4px;">Pilih Arena Terlebih Dahulu</strong>
+                        <span style="font-size: 13px; color: var(--color-moss);">Silakan klik salah satu arena di Langkah 1 untuk memuat daftar paket dan tarif per jam.</span>
+                    </div>
                 </div>
             </div>
 
@@ -2700,12 +2704,21 @@
                 <div class="schedule-grid">
                     <!-- Tanggal -->
                     <div class="form-group">
-                        <label><i class="fa-solid fa-calendar-days"></i> Tanggal Main</label>
+                        <label for="book-date"><i class="fa-solid fa-calendar-days"></i> Tanggal Main</label>
                         <input type="date" class="form-control" id="book-date" onchange="onDateChanged(this.value)" required>
                     </div>
 
-                    <!-- Jumlah Orang -->
+                    <!-- Jam Kedatangan (Diisi Sendiri Sesuai Jam Operasional) -->
                     <div class="form-group">
+                        <div class="time-header-flex">
+                            <label for="book-time" style="margin: 0;"><i class="fa-solid fa-clock"></i> Jam Kedatangan</label>
+                            <span class="time-badge-open"><i class="fa-solid fa-door-open"></i> 12:00 - 21:00 WIB</span>
+                        </div>
+                        <input type="time" class="form-control" id="book-time" min="12:00" max="21:00" placeholder="12:00" onchange="onTimeChanged(this.value)" required>
+                    </div>
+
+                    <!-- Jumlah Orang -->
+                    <div class="form-group full">
                         <label><i class="fa-solid fa-users"></i> Jumlah Personel</label>
                         <div class="counter-wrap">
                             <button type="button" class="counter-btn" onclick="adjustPlayers(-1)"><i class="fa-solid fa-minus"></i></button>
@@ -2714,38 +2727,10 @@
                         </div>
                     </div>
 
-                    <!-- Pilihan Jam Sesi Fleksibel Bebas (Sesuai Jam Operasional 12.00 - 21.00 WIB, Selasa Libur) -->
-                    <div class="form-group full">
-                        <div class="time-header-flex">
-                            <label><i class="fa-solid fa-clock"></i> Jam Kedatangan (Fleksibel Bebas)</label>
-                            <span class="time-badge-open"><i class="fa-solid fa-clock"></i> 12:00 - 21:00 WIB (Selasa Libur)</span>
-                        </div>
-                        <div class="time-slots" id="time-slots">
-                            <div class="time-pill selected" onclick="selectTimeSlot(this, '12:00 WIB')">12:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '14:00 WIB')">14:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '16:00 WIB')">16:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '18:00 WIB')">18:00 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '19:30 WIB')">19:30 WIB</div>
-                            <div class="time-pill" onclick="selectTimeSlot(this, '20:30 WIB')">20:30 WIB</div>
-                            <div class="time-pill flexible-pill" id="pill-flexible" onclick="selectFlexibleTimeSlot(this)">
-                                <i class="fa-solid fa-arrows-split-up-and-left"></i> Jam Bebas / Fleksibel
-                            </div>
-                        </div>
-
-                        <!-- Custom Time Picker Box -->
-                        <div class="custom-time-box">
-                            <div class="custom-time-row">
-                                <label for="custom-time-input" class="custom-time-label">
-                                    <i class="fa-regular fa-clock"></i> Atau atur jam spesifik pilihan Anda:
-                                </label>
-                                <div class="time-input-wrap">
-                                    <input type="time" class="time-input-field" id="custom-time-input" value="12:00" min="12:00" max="21:00" onchange="onCustomTimeChanged(this.value)">
-                                    <span class="time-input-unit">WIB</span>
-                                </div>
-                            </div>
-                            <div class="time-note" id="time-status-desc">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong id="time-display-badge" style="color: var(--color-lime);">12:00 WIB</strong> (Buka 12.00 - 21.00 WIB, jam fleksibel bisa didiskusikan via chat WhatsApp Admin).
-                            </div>
+                    <!-- Status Jam Operasional -->
+                    <div class="form-group full" style="margin-bottom: 0;">
+                        <div class="time-note" id="time-status-desc">
+                            <i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> setiap hari (<strong>Selasa LIBUR</strong>). Silakan isi jam kedatangan Anda.
                         </div>
                     </div>
                 </div>
@@ -2761,14 +2746,14 @@
                         <h2 class="panel-title" style="margin: 0; font-size: 20px;">4. DATA DIRI & SIAP BOOKING</h2>
                         <p class="panel-subtitle" style="margin: 2px 0 0; font-size: 12px;">Lengkapi kontak WhatsApp untuk konfirmasi instan</p>
                     </div>
-                    <span class="badge-live" id="badge-ready-live" style="flex-shrink: 0;">SIAP BOOKING</span>
+                    <span class="badge-live" id="badge-ready-live" style="flex-shrink: 0; background: rgba(78, 91, 49, 0.35); color: var(--color-moss); border-color: var(--color-olive);">MENUNGGU PILIHAN</span>
                 </div>
 
                 <!-- Paket Terpilih Display -->
                 <div class="chosen-box">
-                    <div class="chosen-cat" id="sum-category">WAR GAME</div>
-                    <div class="chosen-name" id="sum-package-name">Lapangan + AEG (1 Jam)</div>
-                    <div class="chosen-price" id="sum-price">150K <span style="font-size: 14px; font-weight: normal; color: var(--color-moss);">/ 1 Jam</span></div>
+                    <div class="chosen-cat" id="sum-category">BELUM DIPILIH</div>
+                    <div class="chosen-name" id="sum-package-name">Belum Ada Paket Dipilih</div>
+                    <div class="chosen-price" id="sum-price">-</div>
                 </div>
 
                 <!-- Input Data Diri -->
@@ -2797,7 +2782,7 @@
                     </div>
                     <div class="summary-row">
                         <span class="summary-label"><i class="fa-solid fa-clock"></i> Jam Sesi:</span>
-                        <span class="summary-val" id="sum-time">12:00 WIB</span>
+                        <span class="summary-val" id="sum-time">-</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label"><i class="fa-solid fa-users"></i> Personel:</span>
@@ -2821,8 +2806,8 @@
     <!-- Mobile Sticky Checkout Bar -->
     <div class="mobile-sticky-summary" id="mobileStickySummary">
         <div class="mob-sum-left">
-            <div class="mob-sum-pkg" id="mob-sum-pkg">Lapangan + AEG (1 Jam)</div>
-            <div class="mob-sum-price" id="mob-sum-price">150K / 1 Jam</div>
+            <div class="mob-sum-pkg" id="mob-sum-pkg">Pilih Arena & Paket</div>
+            <div class="mob-sum-price" id="mob-sum-price">-</div>
         </div>
         <button type="button" class="mob-sum-btn" onclick="handleMobileBookingCTA()">
             <i class="fa-brands fa-whatsapp"></i> Book Now
@@ -3180,10 +3165,10 @@
 
         // State Global
         const ADMIN_WA_NUMBER = "6285196561811";
-        let currentCategory = "wargame";
-        let currentSelectedPackage = packageCatalog.wargame.items[4]; // Default: Lapangan + AEG 1h
-        let selectedTime = "12:00 WIB";
-        let isTimeFlexible = false;
+        let currentCategory = null; // Awal: belum ada arena dipilih
+        let currentSelectedPackage = null; // Awal: belum ada paket dipilih
+        let selectedDate = "";
+        let selectedTime = ""; // Awal: belum diisi (diisi sendiri sesuai jam operasional 12.00 - 21.00)
 
         // Arena Preview Data for Real Arena Photos & Specs
         const arenaPreviews = {
@@ -3245,15 +3230,6 @@
             const catParam = urlParams.get('cat');
             const pkgParam = urlParams.get('pkg');
 
-            if (catParam) {
-                const lowerCat = catParam.toLowerCase();
-                if (lowerCat.includes('war') || lowerCat.includes('game')) currentCategory = 'wargame';
-                else if (lowerCat.includes('shoot') || lowerCat.includes('target')) currentCategory = 'target';
-                else if (lowerCat.includes('unit')) currentCategory = 'unit';
-                else if (lowerCat.includes('coach')) currentCategory = 'coaching';
-                else if (lowerCat.includes('gear')) currentCategory = 'gear';
-            }
-
             // Atur minimum tanggal hari ini agar tidak memilih tanggal lampau
             const dateInput = document.getElementById('book-date');
             if (dateInput) {
@@ -3261,22 +3237,135 @@
                 dateInput.min = todayStr;
             }
 
-            // Inisialisasi Step 1: Arena & Foto Besar
-            selectArena(currentCategory);
+            // Jika ada parameter URL cat atau pkg, otomatis pilih arena tersebut
+            if (catParam) {
+                let catKey = null;
+                const lowerCat = catParam.toLowerCase();
+                if (lowerCat.includes('war') || lowerCat.includes('game')) catKey = 'wargame';
+                else if (lowerCat.includes('shoot') || lowerCat.includes('target')) catKey = 'target';
+                else if (lowerCat.includes('unit')) catKey = 'unit';
+                else if (lowerCat.includes('coach')) catKey = 'coaching';
+                else if (lowerCat.includes('gear')) catKey = 'gear';
 
-            // Inisialisasi Step 2: Render Paket & Default Selection
-            renderPackages(pkgParam);
-            
+                if (catKey) {
+                    selectArena(catKey);
+                    if (pkgParam) {
+                        renderPackages(pkgParam, true);
+                    }
+                }
+            } else {
+                // Tidak ada pilihan awal: Masuk dengan status bersih tanpa ceklist
+                renderInitialEmptyState();
+            }
+
             updateLiveSummary();
             initScrollAnimations();
             initMobileStickyObserver();
         });
 
-        // 1. RENDER FOTO ARENA BESAR & CINEMATIC (Sesuai Arahan User)
+        // 0. RESET KONDISI AWAL (Tanpa Pilihan & Tanpa Ceklist)
+        function renderInitialEmptyState() {
+            currentCategory = null;
+            currentSelectedPackage = null;
+            selectedDate = "";
+            selectedTime = "";
+
+            // Stepper Step 1: Active (belum checked)
+            const checkArena = document.getElementById('check-step-arena');
+            if (checkArena) {
+                checkArena.classList.remove('checked');
+                checkArena.classList.add('active');
+            }
+            const circleArena = document.getElementById('circle-step-arena');
+            if (circleArena) circleArena.textContent = '1';
+            const statusArena = document.getElementById('status-arena');
+            if (statusArena) statusArena.textContent = 'Belum Dipilih';
+
+            const conn1 = document.getElementById('conn-1');
+            if (conn1) conn1.classList.remove('done');
+
+            // Stepper Step 2
+            const checkPkg = document.getElementById('check-step-pkg');
+            if (checkPkg) checkPkg.classList.remove('active', 'checked');
+            const circlePkg = document.getElementById('circle-step-pkg');
+            if (circlePkg) circlePkg.textContent = '2';
+            const statusPkg = document.getElementById('status-pkg');
+            if (statusPkg) statusPkg.textContent = 'Pilih Arena Dulu';
+
+            const conn2 = document.getElementById('conn-2');
+            if (conn2) conn2.classList.remove('done');
+
+            // Stepper Step 3
+            const checkSched = document.getElementById('check-step-schedule');
+            if (checkSched) checkSched.classList.remove('active', 'checked');
+            const circleSched = document.getElementById('circle-step-schedule');
+            if (circleSched) circleSched.textContent = '3';
+            const statusSched = document.getElementById('status-schedule');
+            if (statusSched) statusSched.textContent = 'Belum Diatur';
+
+            const conn3 = document.getElementById('conn-3');
+            if (conn3) conn3.classList.remove('done');
+
+            // Stepper Step 4
+            const checkReady = document.getElementById('check-step-ready');
+            if (checkReady) checkReady.classList.remove('active', 'checked');
+            const circleReady = document.getElementById('circle-step-ready');
+            if (circleReady) circleReady.innerHTML = '<i class="fa-solid fa-bolt"></i>';
+            const statusReady = document.getElementById('status-ready');
+            if (statusReady) statusReady.textContent = 'Isi Pemesan';
+
+            // Panel Badges
+            const badge1 = document.getElementById('badge-step-1');
+            if (badge1) {
+                badge1.classList.remove('checked');
+                badge1.classList.add('active');
+                badge1.textContent = '1';
+            }
+            const tag1 = document.getElementById('tag-step-1');
+            if (tag1) tag1.style.display = 'none';
+
+            const badge2 = document.getElementById('badge-step-2');
+            if (badge2) {
+                badge2.classList.remove('checked', 'active');
+                badge2.textContent = '2';
+            }
+            const tag2 = document.getElementById('tag-step-2');
+            if (tag2) tag2.style.display = 'none';
+
+            const badge3 = document.getElementById('badge-step-3');
+            if (badge3) {
+                badge3.classList.remove('checked', 'active');
+                badge3.textContent = '3';
+            }
+            const tag3 = document.getElementById('tag-step-3');
+            if (tag3) tag3.style.display = 'none';
+
+            // Nonaktifkan semua button arena
+            document.querySelectorAll('.arena-select-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Sembunyikan showcase foto besar arena sampai arena dipilih
+            const showcaseEl = document.getElementById('arenaBigShowcase');
+            if (showcaseEl) showcaseEl.style.display = 'none';
+
+            // Render placeholder di paket container
+            const container = document.getElementById('packages-container');
+            if (container) {
+                container.innerHTML = `
+                    <div class="pkg-empty-notice" style="grid-column: 1 / -1; padding: 36px 20px; text-align: center; background: rgba(18, 18, 18, 0.6); border: 1px dashed rgba(138, 154, 91, 0.35); border-radius: 8px; color: var(--color-sage);">
+                        <i class="fa-solid fa-hand-pointer" style="font-size: 28px; color: var(--color-lime); margin-bottom: 12px; display: block;"></i>
+                        <strong style="color: #ffffff; font-size: 15px; display: block; margin-bottom: 4px;">Pilih Arena Terlebih Dahulu</strong>
+                        <span style="font-size: 13px; color: var(--color-moss);">Silakan klik salah satu arena di Langkah 1 untuk memuat daftar paket dan tarif per jam.</span>
+                    </div>
+                `;
+            }
+        }
+
+        // 1. RENDER FOTO ARENA BESAR & CINEMATIC
         function renderArenaBigShowcase(catKey) {
             const showcaseEl = document.getElementById('arenaBigShowcase');
             if (!showcaseEl) return;
             const data = arenaPreviews[catKey] || arenaPreviews.wargame;
+            showcaseEl.style.display = 'block';
             showcaseEl.innerHTML = `
                 <img src="${data.img}" alt="${data.alt}" class="arena-big-img" loading="eager" onerror="this.onerror=null; this.src='assets/img/arena-wargame.jpg';">
                 <div class="arena-big-overlay">
@@ -3286,7 +3375,7 @@
             `;
         }
 
-        // 2. PILIH ARENA (Langkah 1 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
+        // 2. PILIH ARENA (Langkah 1 Selesai -> Ceklist Aktif, Masuk Langkah 2)
         function selectArena(catKey) {
             currentCategory = catKey;
 
@@ -3299,7 +3388,7 @@
                 }
             });
 
-            // Tampilkan foto besar arena sesuai pilihan
+            // Tampilkan foto besar arena
             renderArenaBigShowcase(catKey);
 
             // Nama arena yang ramah dibaca
@@ -3314,7 +3403,10 @@
 
             // Checklist Step 1: Update status & ceklist hijau
             const checkArena = document.getElementById('check-step-arena');
-            if (checkArena) checkArena.classList.add('checked');
+            if (checkArena) {
+                checkArena.classList.remove('active');
+                checkArena.classList.add('checked');
+            }
             const circleArena = document.getElementById('circle-step-arena');
             if (circleArena) circleArena.innerHTML = '<i class="fa-solid fa-check"></i>';
             const statusArena = document.getElementById('status-arena');
@@ -3322,24 +3414,53 @@
 
             const badge1 = document.getElementById('badge-step-1');
             if (badge1) {
+                badge1.classList.remove('active');
                 badge1.classList.add('checked');
                 badge1.innerHTML = '<i class="fa-solid fa-check"></i>';
             }
             const tag1 = document.getElementById('tag-step-1');
             if (tag1) {
+                tag1.style.display = 'inline-flex';
                 tag1.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${arenaLabel}`;
             }
             const conn1 = document.getElementById('conn-1');
             if (conn1) conn1.classList.add('done');
 
-            // Render paket kategori baru (tetap di posisi pengguna, TIDAK ADA AUTO SCROLL)
-            renderPackages();
+            // Aktifkan Step 2 (Pilih Paket)
+            const checkPkg = document.getElementById('check-step-pkg');
+            if (checkPkg) {
+                checkPkg.classList.remove('checked');
+                checkPkg.classList.add('active');
+            }
+            const circlePkg = document.getElementById('circle-step-pkg');
+            if (circlePkg) circlePkg.textContent = '2';
+            const statusPkg = document.getElementById('status-pkg');
+            if (statusPkg) statusPkg.textContent = 'Pilih Paket...';
+
+            const badge2 = document.getElementById('badge-step-2');
+            if (badge2) {
+                badge2.classList.remove('checked');
+                badge2.classList.add('active');
+                badge2.textContent = '2';
+            }
+            const tag2 = document.getElementById('tag-step-2');
+            if (tag2) tag2.style.display = 'none';
+
+            const conn2 = document.getElementById('conn-2');
+            if (conn2) conn2.classList.remove('done');
+
+            // Reset selected package saat ganti arena
+            currentSelectedPackage = null;
+
+            // Render paket kategori baru tanpa auto-select (user klik paket sendiri)
+            renderPackages(null, false);
+            updateLiveSummary();
         }
 
         // Alias untuk kompatibilitas
         const switchCategory = selectArena;
 
-        // Navigasi Manual Stepper Atas (Hanya saat pengguna sengaja mengklik langkah di stepper)
+        // Navigasi Manual Stepper
         function scrollToStep(stepId) {
             if (stepId === 'step-ready') {
                 const el = document.getElementById('step-ready') || document.querySelector('.summary-card');
@@ -3356,9 +3477,22 @@
             }
         }
 
-        // Render Kartu-Kartu Paket untuk Kategori Aktif (2 Kolom ke Bawah, Harga Utuh, Panah Expand Membesar)
-        function renderPackages(targetPkgQuery = null) {
+        // Render Kartu-Kartu Paket untuk Kategori Aktif
+        function renderPackages(targetPkgQuery = null, autoSelect = false) {
             const container = document.getElementById('packages-container');
+            if (!container) return;
+
+            if (!currentCategory) {
+                container.innerHTML = `
+                    <div class="pkg-empty-notice" style="grid-column: 1 / -1; padding: 36px 20px; text-align: center; background: rgba(18, 18, 18, 0.6); border: 1px dashed rgba(138, 154, 91, 0.35); border-radius: 8px; color: var(--color-sage);">
+                        <i class="fa-solid fa-hand-pointer" style="font-size: 28px; color: var(--color-lime); margin-bottom: 12px; display: block;"></i>
+                        <strong style="color: #ffffff; font-size: 15px; display: block; margin-bottom: 4px;">Pilih Arena Terlebih Dahulu</strong>
+                        <span style="font-size: 13px; color: var(--color-moss);">Silakan klik salah satu arena di Langkah 1 untuk memuat daftar paket dan tarif per jam.</span>
+                    </div>
+                `;
+                return;
+            }
+
             const catData = packageCatalog[currentCategory];
             if (!catData) return;
 
@@ -3366,20 +3500,19 @@
             let foundMatch = null;
 
             catData.items.forEach((item, index) => {
-                let isMatch = false;
                 if (targetPkgQuery) {
                     const query = targetPkgQuery.toLowerCase();
                     if (item.id.toLowerCase() === query || query.includes(item.id.toLowerCase()) || item.name.toLowerCase().includes(query) || query.includes(item.name.toLowerCase())) {
-                        isMatch = true;
                         foundMatch = item;
                     }
                 }
 
                 const priceNumOnly = item.price.replace('Rp ', '').replace('K', '.000');
                 const featuresList = (item.features || []).map(f => `<li><i class="fa-solid fa-circle-check"></i> <span>${f}</span></li>`).join('');
+                const isSelected = (currentSelectedPackage && currentSelectedPackage.id === item.id);
 
                 html += `
-                    <div class="pkg-card slide-reveal slide-up" id="card-${item.id}" style="transition-delay: ${index * 35}ms" onclick="selectPackageById('${item.id}')">
+                    <div class="pkg-card slide-reveal slide-up ${isSelected ? 'selected' : ''}" id="card-${item.id}" style="transition-delay: ${index * 35}ms" onclick="selectPackageById('${item.id}')">
                         <div class="pkg-card-top" style="flex-direction: column; gap: 3px; align-items: flex-start;">
                             <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 4px;">
                                 <span class="pkg-platform-pill">${item.platform || 'Platform Taktis'}</span>
@@ -3414,8 +3547,8 @@
                         </div>
 
                         <div class="pkg-select-indicator">
-                            <span class="indicator-text"><i class="fa-regular fa-circle"></i> Klik untuk Pilih</span>
-                            <i class="fa-solid fa-check check-icon" style="display: none;"></i>
+                            <span class="indicator-text">${isSelected ? '<i class="fa-solid fa-circle-check"></i> Paket Terpilih' : '<i class="fa-regular fa-circle"></i> Klik untuk Pilih'}</span>
+                            <i class="fa-solid fa-check check-icon" style="${isSelected ? 'display: inline-block;' : 'display: none;'}"></i>
                         </div>
                     </div>
                 `;
@@ -3430,24 +3563,19 @@
 
             if (foundMatch) {
                 selectPackage(foundMatch);
-            } else if (currentSelectedPackage && catData.items.some(i => i.id === currentSelectedPackage.id)) {
-                highlightSelectedCard(currentSelectedPackage.id);
-            } else {
+            } else if (autoSelect && !currentSelectedPackage && catData.items.length > 0) {
                 selectPackage(catData.items[0]);
             }
         }
 
-        // Toggle Expand Card Drawer (Tampilan Membesar saat Panah Diklik, TANPA AUTO SCROLL)
+        // Toggle Expand Card Drawer
         function togglePkgDetail(event, id) {
-            if (event) {
-                event.stopPropagation();
-            }
+            if (event) event.stopPropagation();
             const card = document.getElementById(`card-${id}`);
             if (!card) return;
 
             const isExpanded = card.classList.contains('expanded');
 
-            // Tutup card lain yang sedang expanded agar rapi
             document.querySelectorAll('.pkg-card.expanded').forEach(c => {
                 if (c.id !== `card-${id}`) {
                     c.classList.remove('expanded');
@@ -3469,13 +3597,12 @@
         }
 
         function confirmPackageSelect(event, id) {
-            if (event) {
-                event.stopPropagation();
-            }
+            if (event) event.stopPropagation();
             selectPackageById(id);
         }
 
         function selectPackageById(id) {
+            if (!currentCategory) return;
             const catData = packageCatalog[currentCategory];
             if (!catData) return;
             const item = catData.items.find(i => i.id === id);
@@ -3484,13 +3611,13 @@
             }
         }
 
-        // 3. PILIH PAKET (Langkah 2 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
+        // 3. PILIH PAKET (Langkah 2 Selesai -> Ceklist Aktif)
         function selectPackage(item) {
             currentSelectedPackage = item;
             highlightSelectedCard(item.id);
             updateLiveSummary();
 
-            // Checklist Step 2: Update status & ceklist hijau
+            // Checklist Step 2
             const checkPkg = document.getElementById('check-step-pkg');
             if (checkPkg) {
                 checkPkg.classList.remove('active');
@@ -3503,6 +3630,7 @@
 
             const badge2 = document.getElementById('badge-step-2');
             if (badge2) {
+                badge2.classList.remove('active');
                 badge2.classList.add('checked');
                 badge2.innerHTML = '<i class="fa-solid fa-check"></i>';
             }
@@ -3519,8 +3647,10 @@
             if (checkSched && !checkSched.classList.contains('checked')) {
                 checkSched.classList.add('active');
             }
-
-            // TIDAK ADA AUTO SCROLL: Pengguna tetap memegang kendali layar
+            const badge3 = document.getElementById('badge-step-3');
+            if (badge3 && !badge3.classList.contains('checked')) {
+                badge3.classList.add('active');
+            }
         }
 
         function highlightSelectedCard(id) {
@@ -3542,142 +3672,116 @@
             }
         }
 
-        // 4. ATUR JADWAL (Langkah 3 Selesai -> Ceklist Langsung Aktif, TANPA AUTO SCROLL)
+        // 4. ATUR JADWAL (Input Tanggal & Input Jam Mandiri Sesuai Jam Operasional)
         function onDateChanged(val) {
-            if (!val) return;
-            const dateObj = new Date(val + 'T00:00:00');
-            const dayOfWeek = dateObj.getDay(); // 0 = Minggu, 1 = Senin, 2 = Selasa (LIBUR)
-            const isTuesday = (dayOfWeek === 2);
-            const formatted = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            selectedDate = val;
+            checkScheduleCompletion();
+        }
+
+        function onTimeChanged(val) {
+            selectedTime = val ? `${val} WIB` : '';
+            checkScheduleCompletion();
+        }
+
+        function checkScheduleCompletion() {
+            const dateInput = document.getElementById('book-date');
+            const timeInput = document.getElementById('book-time');
+            const dateVal = dateInput ? dateInput.value : '';
+            const timeVal = timeInput ? timeInput.value : '';
 
             const descEl = document.getElementById('time-status-desc');
+
+            let formattedDate = '';
+            let isTuesday = false;
+
+            if (dateVal) {
+                const dateObj = new Date(dateVal + 'T00:00:00');
+                const dayOfWeek = dateObj.getDay(); // 0 = Minggu, 1 = Senin, 2 = Selasa (LIBUR)
+                isTuesday = (dayOfWeek === 2);
+                formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            }
+
+            // Panduan / status keterangan jam operasional
             if (isTuesday) {
                 if (descEl) {
-                    descEl.innerHTML = `<span style="color: #ffb700; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> PERHATIAN: Hari Selasa adalah jadwal LIBUR arena. Anda tetap dapat melanjutkan chat admin untuk konsultasi jadwal atau silakan ganti ke hari lain (Senin atau Rabu - Minggu).</span>`;
+                    descEl.innerHTML = `<span style="color: #ffb700; font-weight: 700;"><i class="fa-solid fa-triangle-exclamation"></i> PERHATIAN: Hari Selasa adalah jadwal LIBUR arena. Anda tetap dapat melanjutkan reservasi untuk konsultasi via WhatsApp Admin, atau silakan pilih hari lain (Senin atau Rabu - Minggu).</span>`;
+                }
+            } else if (timeVal) {
+                const parts = timeVal.split(':');
+                const hh = parseInt(parts[0], 10);
+                const mm = parseInt(parts[1], 10);
+                const totalMins = hh * 60 + mm;
+
+                if (totalMins < 12 * 60 || totalMins > 21 * 60) {
+                    if (descEl) {
+                        descEl.innerHTML = `<span style="color: #ffb700; font-weight: 600;"><i class="fa-solid fa-clock"></i> Jam dipilih: <strong>${timeVal} WIB</strong>. Catatan: Jam operasional reguler arena adalah 12:00 - 21:00 WIB. Admin akan mengkonfirmasi ketersediaan slot.</span>`;
+                    }
+                } else {
+                    if (descEl) {
+                        descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam kedatangan: <strong style="color: var(--color-lime);">${timeVal} WIB</strong> (Sesuai Jam Operasional 12:00 - 21:00 WIB).`;
+                    }
                 }
             } else {
                 if (descEl) {
-                    descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Buka 12.00 - 21.00 WIB, fleksibel bisa didiskusikan via chat WhatsApp Admin).`;
+                    descEl.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--color-lime);"></i> Jam operasional arena: <strong>12:00 - 21:00 WIB</strong> setiap hari (<strong>Hari Selasa LIBUR</strong>). Silakan isi jam kedatangan Anda.`;
                 }
             }
 
-            // Checklist Step 3: Update status & ceklist hijau
             const checkSched = document.getElementById('check-step-schedule');
-            if (checkSched) {
-                checkSched.classList.remove('active');
-                checkSched.classList.add('checked');
-            }
             const circleSched = document.getElementById('circle-step-schedule');
-            if (circleSched) circleSched.innerHTML = '<i class="fa-solid fa-check"></i>';
             const statusSched = document.getElementById('status-schedule');
-            if (statusSched) statusSched.textContent = `${formatted} (${selectedTime})`;
-
             const badge3 = document.getElementById('badge-step-3');
-            if (badge3) {
-                badge3.classList.add('checked');
-                badge3.innerHTML = '<i class="fa-solid fa-check"></i>';
-            }
             const tag3 = document.getElementById('tag-step-3');
-            if (tag3) {
-                tag3.style.display = 'inline-flex';
-                tag3.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${formatted}`;
-            }
             const conn3 = document.getElementById('conn-3');
-            if (conn3) conn3.classList.add('done');
 
-            // Langkah 4 Siap Booking
-            const checkReady = document.getElementById('check-step-ready');
-            if (checkReady) {
-                checkReady.classList.add('checked');
-                const circleReady = document.getElementById('circle-step-ready');
-                if (circleReady) circleReady.innerHTML = '<i class="fa-solid fa-check"></i>';
-            }
-            const statusReady = document.getElementById('status-ready');
-            if (statusReady) statusReady.textContent = 'Siap Kirim WA';
+            // Tanggal dan Jam keduanya sudah terisi
+            if (dateVal && timeVal) {
+                if (checkSched) {
+                    checkSched.classList.remove('active');
+                    checkSched.classList.add('checked');
+                }
+                if (circleSched) circleSched.innerHTML = '<i class="fa-solid fa-check"></i>';
+                if (statusSched) statusSched.textContent = `${formattedDate} (${timeVal})`;
 
-            const badgeReady = document.getElementById('badge-ready-live');
-            if (badgeReady) {
-                badgeReady.textContent = 'SIAP BOOKING ✅';
-                badgeReady.style.background = 'var(--color-lime)';
-                badgeReady.style.color = '#121212';
-                badgeReady.style.borderColor = 'var(--color-lime)';
+                if (badge3) {
+                    badge3.classList.remove('active');
+                    badge3.classList.add('checked');
+                    badge3.innerHTML = '<i class="fa-solid fa-check"></i>';
+                }
+                if (tag3) {
+                    tag3.style.display = 'inline-flex';
+                    tag3.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${timeVal} WIB`;
+                }
+                if (conn3) conn3.classList.add('done');
+
+                // Aktifkan Step 4 jika paket juga sudah dipilih
+                if (currentSelectedPackage) {
+                    const checkReady = document.getElementById('check-step-ready');
+                    if (checkReady) checkReady.classList.add('checked');
+                    const circleReady = document.getElementById('circle-step-ready');
+                    if (circleReady) circleReady.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    const statusReady = document.getElementById('status-ready');
+                    if (statusReady) statusReady.textContent = 'Siap Kirim WA';
+
+                    const badgeReady = document.getElementById('badge-ready-live');
+                    if (badgeReady) {
+                        badgeReady.textContent = 'SIAP BOOKING ✅';
+                        badgeReady.style.background = 'var(--color-lime)';
+                        badgeReady.style.color = '#121212';
+                        badgeReady.style.borderColor = 'var(--color-lime)';
+                    }
+                }
+            } else if (dateVal) {
+                if (statusSched) statusSched.textContent = `${formattedDate} (Isi Jam)`;
+                if (checkSched) checkSched.classList.add('active');
+            } else if (timeVal) {
+                if (statusSched) statusSched.textContent = `${timeVal} WIB (Pilih Tgl)`;
+                if (checkSched) checkSched.classList.add('active');
+            } else {
+                if (statusSched) statusSched.textContent = 'Belum Diatur';
             }
 
             updateLiveSummary();
-
-            // TIDAK ADA AUTO SCROLL: Pengguna tetap memegang kendali layar
-        }
-
-        // Pilihan Slot Waktu Cepat (Preset)
-        function selectTimeSlot(element, timeVal) {
-            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedTime = timeVal;
-            isTimeFlexible = false;
-
-            // Sinkronkan input picker waktu kustom
-            const timeInput = document.getElementById('custom-time-input');
-            if (timeInput) {
-                const cleanTime = timeVal.replace(' WIB', '');
-                if (/^\d{2}:\d{2}$/.test(cleanTime)) {
-                    timeInput.value = cleanTime;
-                }
-            }
-
-            // Update status keterangan waktu
-            const descEl = document.getElementById('time-status-desc');
-            if (descEl) {
-                descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam dipilih: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
-            }
-
-            // Update status di Step 3 jika tanggal sudah dipilih
-            const dateVal = document.getElementById('book-date').value;
-            if (dateVal) {
-                onDateChanged(dateVal);
-            } else {
-                updateLiveSummary();
-            }
-        }
-
-        // Pilihan Mode Jam Bebas / Fleksibel
-        function selectFlexibleTimeSlot(element) {
-            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedTime = "Fleksibel / Bebas";
-            isTimeFlexible = true;
-
-            const descEl = document.getElementById('time-status-desc');
-            if (descEl) {
-                descEl.innerHTML = `<i class="fa-solid fa-arrows-split-up-and-left" style="color: var(--color-lime);"></i> Mode Jam Bebas Aktif: Anda dapat bebas mendiskusikan jam main yang pas langsung dengan CS Admin di WhatsApp.`;
-            }
-
-            const dateVal = document.getElementById('book-date').value;
-            if (dateVal) {
-                onDateChanged(dateVal);
-            } else {
-                updateLiveSummary();
-            }
-        }
-
-        // Input Jam Spesifik Kustom (On Change)
-        function onCustomTimeChanged(val) {
-            if (!val) return;
-            document.querySelectorAll('.time-pill').forEach(pill => pill.classList.remove('selected'));
-
-            selectedTime = `${val} WIB`;
-            isTimeFlexible = false;
-
-            const descEl = document.getElementById('time-status-desc');
-            if (descEl) {
-                descEl.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--color-lime);"></i> Jam pilihan sendiri: <strong style="color: var(--color-lime);">${selectedTime}</strong> (Fleksibel, jam bisa disesuaikan lagi via chat WhatsApp Admin).`;
-            }
-
-            const dateVal = document.getElementById('book-date').value;
-            if (dateVal) {
-                onDateChanged(dateVal);
-            } else {
-                updateLiveSummary();
-            }
         }
 
         // Counter Jumlah Personel (+ / -)
@@ -3693,53 +3797,89 @@
 
         // Update Ringkasan Live di Kolom Kanan & Mobile Bar
         function updateLiveSummary() {
-            if (!currentSelectedPackage) return;
+            const catData = currentCategory ? packageCatalog[currentCategory] : null;
+            const arenaNames = {
+                wargame: 'WAR GAME CQB',
+                target: 'SHOOTING TARGET',
+                coaching: 'TACTICAL COACHING',
+                unit: 'UNIT COACHING & DRILL',
+                gear: 'TACTICAL GEAR RENTAL'
+            };
 
-            const catData = packageCatalog[currentCategory];
-            document.getElementById('sum-category').textContent = catData ? catData.catName : 'PAKET TERPILIH';
-            document.getElementById('sum-package-name').textContent = currentSelectedPackage.name;
-            document.getElementById('sum-price').innerHTML = `${currentSelectedPackage.price} <span style="font-size: 14px; font-weight: normal; color: var(--color-moss);">${currentSelectedPackage.unit}</span>`;
+            const sumCatEl = document.getElementById('sum-category');
+            const sumPkgEl = document.getElementById('sum-package-name');
+            const sumPriceEl = document.getElementById('sum-price');
+            const sumDateEl = document.getElementById('sum-date');
+            const sumTimeEl = document.getElementById('sum-time');
+            const sumPlayersEl = document.getElementById('sum-players');
 
-            // Tanggal
-            const dateVal = document.getElementById('book-date').value;
-            if (dateVal) {
-                const dateObj = new Date(dateVal);
-                const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-                document.getElementById('sum-date').textContent = dateObj.toLocaleDateString('id-ID', options);
-            } else {
-                document.getElementById('sum-date').textContent = '-';
+            const mobPkgEl = document.getElementById('mob-sum-pkg');
+            const mobPriceEl = document.getElementById('mob-sum-price');
+
+            // Kategori
+            if (sumCatEl) {
+                sumCatEl.textContent = currentCategory ? (arenaNames[currentCategory] || currentCategory.toUpperCase()) : 'BELUM DIPILIH';
             }
 
-            // Waktu (Tampilan Fleksibel)
-            const timeSumEl = document.getElementById('sum-time');
-            if (timeSumEl) {
-                if (isTimeFlexible) {
-                    timeSumEl.innerHTML = `Fleksibel <span style="font-size: 10px; background: rgba(183, 255, 0, 0.2); color: var(--color-lime); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--color-lime); margin-left: 4px;">BEBAS</span>`;
+            // Paket & Tarif
+            if (currentSelectedPackage) {
+                if (sumPkgEl) sumPkgEl.textContent = currentSelectedPackage.name;
+                if (sumPriceEl) {
+                    sumPriceEl.innerHTML = `${currentSelectedPackage.price} <span style="font-size: 14px; font-weight: normal; color: var(--color-moss);">${currentSelectedPackage.unit}</span>`;
+                }
+                if (mobPkgEl) mobPkgEl.textContent = currentSelectedPackage.name;
+                if (mobPriceEl) mobPriceEl.textContent = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
+            } else {
+                if (sumPkgEl) sumPkgEl.textContent = currentCategory ? 'Silakan Pilih Paket di Langkah 2' : 'Belum Ada Paket Dipilih';
+                if (sumPriceEl) sumPriceEl.innerHTML = `-`;
+                if (mobPkgEl) mobPkgEl.textContent = currentCategory ? 'Pilih Paket' : 'Pilih Arena & Paket';
+                if (mobPriceEl) mobPriceEl.textContent = `-`;
+            }
+
+            // Tanggal
+            const dateInput = document.getElementById('book-date');
+            const dateVal = dateInput ? dateInput.value : '';
+            if (dateVal) {
+                const dateObj = new Date(dateVal + 'T00:00:00');
+                const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+                if (sumDateEl) sumDateEl.textContent = dateObj.toLocaleDateString('id-ID', options);
+            } else {
+                if (sumDateEl) sumDateEl.textContent = '-';
+            }
+
+            // Jam Kedatangan
+            const timeInput = document.getElementById('book-time');
+            const timeVal = timeInput ? timeInput.value : '';
+            if (sumTimeEl) {
+                if (timeVal) {
+                    sumTimeEl.innerHTML = `${timeVal} WIB <span style="font-size: 10px; background: rgba(183, 255, 0, 0.15); color: var(--color-lime); padding: 2px 5px; border-radius: 3px; margin-left: 4px; border: 1px solid rgba(183, 255, 0, 0.3);">12-21 WIB</span>`;
                 } else {
-                    timeSumEl.innerHTML = `${selectedTime} <span style="font-size: 10px; background: rgba(138, 154, 91, 0.2); color: var(--color-moss); padding: 2px 5px; border-radius: 3px; margin-left: 4px;">Fleksibel</span>`;
+                    sumTimeEl.textContent = '-';
                 }
             }
 
             // Personel
-            const players = document.getElementById('book-players').value || 1;
-            document.getElementById('sum-players').textContent = `${players} Orang`;
-
-            // Sync Mobile Floating Summary Bar
-            const mobPkgEl = document.getElementById('mob-sum-pkg');
-            const mobPriceEl = document.getElementById('mob-sum-price');
-            if (mobPkgEl) mobPkgEl.textContent = currentSelectedPackage.name;
-            if (mobPriceEl) mobPriceEl.textContent = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
+            const players = document.getElementById('book-players') ? document.getElementById('book-players').value : 1;
+            if (sumPlayersEl) sumPlayersEl.textContent = `${players} Orang`;
         }
 
         // Handle CTA from Mobile Sticky Checkout Bar
         function handleMobileBookingCTA() {
-            const name = document.getElementById('book-name').value.trim();
-            const phone = document.getElementById('book-phone').value.trim();
-            const date = document.getElementById('book-date').value;
+            if (!currentCategory) {
+                const arenaEl = document.getElementById('step-arena');
+                if (arenaEl) arenaEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
 
-            // Jika tanggal belum dipilih, arahkan ke input tanggal di Step 3
+            if (!currentSelectedPackage) {
+                const pkgEl = document.getElementById('step-pkg');
+                if (pkgEl) pkgEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+
+            const dateEl = document.getElementById('book-date');
+            const date = dateEl ? dateEl.value : '';
             if (!date) {
-                const dateEl = document.getElementById('book-date');
                 if (dateEl) {
                     dateEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     highlightError('book-date');
@@ -3748,9 +3888,20 @@
                 return;
             }
 
-            // Jika nama belum diisi, arahkan ke input nama di Step 4
+            const timeEl = document.getElementById('book-time');
+            const time = timeEl ? timeEl.value : '';
+            if (!time) {
+                if (timeEl) {
+                    timeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightError('book-time');
+                    setTimeout(() => timeEl.focus(), 350);
+                }
+                return;
+            }
+
+            const nameEl = document.getElementById('book-name');
+            const name = nameEl ? nameEl.value.trim() : '';
             if (!name) {
-                const nameEl = document.getElementById('book-name');
                 if (nameEl) {
                     nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     highlightError('book-name', 'feedback-name');
@@ -3759,9 +3910,9 @@
                 return;
             }
 
-            // Jika nomor HP belum diisi, arahkan ke input nomor di Step 4
+            const phoneEl = document.getElementById('book-phone');
+            const phone = phoneEl ? phoneEl.value.trim() : '';
             if (!phone) {
-                const phoneEl = document.getElementById('book-phone');
                 if (phoneEl) {
                     phoneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     highlightError('book-phone', 'feedback-phone');
@@ -3770,7 +3921,6 @@
                 return;
             }
 
-            // Jika sudah lengkap, submit langsung ke WhatsApp
             submitBookingToWhatsApp();
         }
 
@@ -3786,7 +3936,7 @@
         }
 
         function clearErrors() {
-            ['book-name', 'book-phone', 'book-date'].forEach(id => {
+            ['book-name', 'book-phone', 'book-date', 'book-time'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('has-error');
             });
@@ -3797,32 +3947,47 @@
         function submitBookingToWhatsApp() {
             clearErrors();
 
+            if (!currentCategory) {
+                scrollToStep('step-arena');
+                return;
+            }
+
+            if (!currentSelectedPackage) {
+                scrollToStep('step-pkg');
+                return;
+            }
+
             const nameEl = document.getElementById('book-name');
             const phoneEl = document.getElementById('book-phone');
             const dateEl = document.getElementById('book-date');
+            const timeEl = document.getElementById('book-time');
             const playersEl = document.getElementById('book-players');
             const notesEl = document.getElementById('book-notes');
 
-            const name = nameEl.value.trim();
-            const phone = phoneEl.value.trim();
-            const date = dateEl.value;
-            const players = playersEl.value || "1";
-            const notes = notesEl.value.trim() || '-';
+            const name = nameEl ? nameEl.value.trim() : '';
+            const phone = phoneEl ? phoneEl.value.trim() : '';
+            const date = dateEl ? dateEl.value : '';
+            const time = timeEl ? timeEl.value : '';
+            const players = playersEl ? (playersEl.value || "1") : "1";
+            const notes = notesEl && notesEl.value.trim() ? notesEl.value.trim() : '-';
 
             let hasError = false;
 
-            // Validasi Input Kontekstual Tanpa alert() Kaku
-            if (!name) {
+            if (!date) {
+                highlightError('book-date');
+                if (dateEl) dateEl.focus();
+                hasError = true;
+            } else if (!time) {
+                highlightError('book-time');
+                if (timeEl) timeEl.focus();
+                hasError = true;
+            } else if (!name) {
                 highlightError('book-name', 'feedback-name');
-                nameEl.focus();
+                if (nameEl) nameEl.focus();
                 hasError = true;
             } else if (!phone) {
                 highlightError('book-phone', 'feedback-phone');
-                phoneEl.focus();
-                hasError = true;
-            } else if (!date) {
-                highlightError('book-date');
-                dateEl.focus();
+                if (phoneEl) phoneEl.focus();
                 hasError = true;
             }
 
@@ -3835,18 +4000,16 @@
             }
 
             const catData = packageCatalog[currentCategory];
-            const catName = catData ? catData.catName : 'ARENA TACTICAL';
+            const catName = catData ? catData.catName : 'ARENA CQB';
             const pkgName = currentSelectedPackage.name;
             const pkgPrice = `${currentSelectedPackage.price} ${currentSelectedPackage.unit}`;
 
             // Format tanggal yang ramah dibaca
-            const dateObj = new Date(date);
+            const dateObj = new Date(date + 'T00:00:00');
             const formattedDate = dateObj.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-            // Format Jam Kedatangan (Fleksibel Bebas)
-            const timeDisplay = isTimeFlexible 
-                ? "Fleksibel / Bebas (Menyesuaikan Jadwal Kosong / Diskusi Chat Admin)" 
-                : `${selectedTime} (Fleksibel / Sesuai Kesepakatan)`;
+            // Format Jam Kedatangan
+            const timeDisplay = `${time} WIB`;
 
             // Format Ringkasan Lengkap Siap Kirim ke CS Admin WhatsApp
             const message = 
@@ -3854,7 +4017,7 @@
 ==========================================
 👤 *Nama Pemesan:* ${name}
 📱 *No. WhatsApp:* ${phone}
-🎯 *Kategori:* ${catName}
+🎯 *Kategori Arena:* ${catName}
 📦 *Paket:* ${pkgName}
 💰 *Tarif:* ${pkgPrice}
 📅 *Tanggal Main:* ${formattedDate}
@@ -3870,7 +4033,7 @@ Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untu
             document.getElementById('modal-sum-name').textContent = name;
             document.getElementById('modal-sum-pkg').textContent = `${pkgName} (${pkgPrice})`;
             document.getElementById('modal-sum-date').textContent = formattedDate;
-            document.getElementById('modal-sum-time').textContent = isTimeFlexible ? "Fleksibel / Bebas (Tanya Admin)" : `${selectedTime} (Fleksibel)`;
+            document.getElementById('modal-sum-time').textContent = timeDisplay;
             document.getElementById('modal-sum-players').textContent = `${players} Orang`;
 
             // Pasang Link Tombol Langsung di Modal
@@ -3895,7 +4058,7 @@ Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untu
                 mobBtn.innerHTML = `<i class="fa-brands fa-whatsapp fa-bounce"></i> WhatsApp...`;
             }
 
-            // Auto-redirect ke WhatsApp Admin (Mendukung Desktop Web & Deep-Link Aplikasi Mobile)
+            // Auto-redirect ke WhatsApp Admin
             const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             setTimeout(() => {
                 if (isMobile) {
