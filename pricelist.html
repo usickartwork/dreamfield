@@ -248,7 +248,7 @@
         /* --- Page Hero Banner --- */
         .pricelist-hero {
             background: radial-gradient(circle at 50% 20%, rgba(78, 91, 49, 0.25) 0%, rgba(18, 18, 18, 0.95) 80%), #121212;
-            padding: 44px 20px 32px;
+            padding: 28px 20px 20px;
             text-align: center;
             border-bottom: 1px solid rgba(78, 91, 49, 0.3);
         }
@@ -257,23 +257,23 @@
             background-color: rgba(78, 91, 49, 0.45);
             border: 1px solid var(--color-olive);
             color: var(--color-lime);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
-            padding: 5px 14px;
+            padding: 4px 12px;
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 8px;
         }
 
         .hero-title {
-            font-size: clamp(34px, 5vw, 54px);
-            line-height: 1;
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.05;
             color: var(--color-sage);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             letter-spacing: 1px;
         }
 
@@ -282,83 +282,233 @@
         }
 
         .hero-desc {
-            max-width: 650px;
-            margin: 0 auto 20px;
-            font-size: 16px;
-            color: var(--color-moss);
-            line-height: 1.5;
-        }
-
-        .hero-guide-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(26, 26, 26, 0.85);
-            border: 1px dashed var(--color-olive);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: var(--color-sage);
-        }
-
-        .hero-guide-pill i {
-            color: var(--color-lime);
-        }
-
-        /* --- Sticky Category Navigation Tabs --- */
-        .category-nav-sticky {
-            position: sticky;
-            top: 61px;
-            background-color: rgba(22, 24, 19, 0.96);
-            backdrop-filter: blur(10px);
-            z-index: 900;
-            border-bottom: 1px solid var(--color-olive);
-            padding: 12px 20px;
-        }
-
-        .category-nav-container {
-            max-width: 1200px;
+            max-width: 600px;
             margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .cat-nav-btn {
-            background-color: rgba(26, 26, 26, 0.9);
-            border: 1px solid var(--color-olive);
-            border-radius: 6px;
-            padding: 8px 16px;
-            color: var(--color-sage);
             font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.16s ease;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .cat-nav-btn i {
-            color: var(--color-lime);
-            font-size: 13px;
-        }
-
-        .cat-nav-btn:hover, .cat-nav-btn.active {
-            border-color: var(--color-lime);
-            background: linear-gradient(135deg, rgba(78, 91, 49, 0.45) 0%, rgba(34, 37, 30, 0.95) 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            color: var(--color-moss);
+            line-height: 1.4;
         }
 
         /* --- Main Catalog Container --- */
         .catalog-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 36px 20px 80px;
+            padding: 24px 20px 80px;
+        }
+
+        /* --- Intro Header (Tahap Eksplor Arena) --- */
+        .catalog-intro-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .catalog-step-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-lime);
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .catalog-main-title {
+            font-size: clamp(24px, 3.5vw, 36px);
+            color: var(--color-sage);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .catalog-main-title span {
+            color: var(--color-lime);
+        }
+
+        .catalog-main-desc {
+            color: var(--color-moss);
+            font-size: 14px;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* --- Arena Accordion Stack (Sebaris-sebaris ke Bawah) --- */
+        .arena-accordion-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .arena-accordion-item {
+            background-color: rgba(26, 26, 26, 0.95);
+            border: 1px solid rgba(78, 91, 49, 0.45);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+        }
+
+        .arena-accordion-item:hover {
+            border-color: rgba(183, 255, 0, 0.5);
+        }
+
+        .arena-accordion-item.is-open {
+            border-color: var(--color-lime);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(183, 255, 0, 0.12);
+        }
+
+        .arena-bar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: linear-gradient(90deg, rgba(35, 38, 30, 0.95) 0%, rgba(24, 26, 21, 0.98) 100%);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .arena-bar-header:hover {
+            background: linear-gradient(90deg, rgba(46, 52, 38, 0.95) 0%, rgba(30, 33, 26, 0.98) 100%);
+        }
+
+        .arena-accordion-item.is-open .arena-bar-header {
+            background: linear-gradient(90deg, rgba(78, 91, 49, 0.35) 0%, rgba(26, 29, 23, 0.95) 100%);
+            border-bottom: 1px solid rgba(78, 91, 49, 0.45);
+        }
+
+        .arena-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .arena-num-badge {
+            font-family: 'Teko', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--color-lime);
+            line-height: 1;
+            min-width: 28px;
+            opacity: 0.9;
+        }
+
+        .arena-bar-thumb {
+            width: 76px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(78, 91, 49, 0.6);
+            flex-shrink: 0;
+        }
+
+        .arena-bar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .arena-bar-step-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--color-lime);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .arena-bar-title {
+            font-size: 20px;
+            font-family: 'Teko', sans-serif;
+            letter-spacing: 0.8px;
+            color: var(--color-sage);
+            margin: 0;
+            line-height: 1.1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .arena-bar-subtitle {
+            font-size: 13px;
+            color: var(--color-moss);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .arena-bar-right {
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        .arena-bar-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(78, 91, 49, 0.35);
+            border: 1px solid var(--color-olive);
+            color: var(--color-sage);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .arena-bar-header:hover .arena-bar-pill {
+            border-color: var(--color-lime);
+            color: #ffffff;
+        }
+
+        .arena-bar-arrow {
+            transition: transform 0.25s ease;
+            font-size: 12px;
+            color: var(--color-lime);
+        }
+
+        .arena-accordion-item.is-open .arena-bar-pill {
+            background-color: var(--color-lime);
+            color: #121212;
+            border-color: var(--color-lime);
+        }
+
+        .arena-accordion-item.is-open .arena-bar-arrow {
+            transform: rotate(180deg);
+            color: #121212;
+        }
+
+        .arena-accordion-body {
+            display: none;
+        }
+
+        .arena-accordion-item.is-open .arena-accordion-body {
+            display: block;
+            animation: arenaAccordionFade 0.25s ease-out;
+        }
+
+        @keyframes arenaAccordionFade {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pricelist-section-inner {
+            padding: 24px 20px 28px;
         }
 
         /* --- Section Styling --- */
@@ -1059,23 +1209,28 @@
             .step-num-label { font-size: 9px; }
             .flow-line { margin: 0 8px; }
 
-            .pricelist-hero { padding: 28px 16px 22px; }
-            .hero-title { font-size: 32px; }
-            .hero-desc { font-size: 13.5px; }
+            .pricelist-hero { padding: 20px 14px 16px; }
+            .hero-badge { font-size: 10px; padding: 3px 10px; margin-bottom: 6px; }
+            .hero-title { font-size: 26px; margin-bottom: 4px; }
+            .hero-desc { font-size: 12.5px; }
 
-            .category-nav-sticky { top: 57px; padding: 8px 12px; }
-            .category-nav-container {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
-            .cat-nav-btn {
-                padding: 6px 8px;
-                font-size: 11.5px;
-                justify-content: center;
-            }
+            .catalog-container { padding: 16px 10px 60px; }
+            .catalog-intro-header { margin-bottom: 16px; }
+            .catalog-step-tag { font-size: 10.5px; padding: 3px 10px; margin-bottom: 6px; }
+            .catalog-main-title { font-size: 22px; }
+            .catalog-main-desc { font-size: 12px; }
 
-            .catalog-container { padding: 20px 12px 60px; }
+            .arena-accordion-list { gap: 10px; margin-bottom: 30px; }
+            .arena-bar-header { padding: 10px 12px; }
+            .arena-bar-left { gap: 10px; }
+            .arena-num-badge { font-size: 20px; min-width: 22px; }
+            .arena-bar-thumb { width: 50px; height: 38px; border-radius: 4px; }
+            .arena-bar-step-badge { font-size: 9.5px; }
+            .arena-bar-title { font-size: 16px; }
+            .arena-bar-subtitle { font-size: 11px; }
+            .arena-bar-pill { padding: 5px 9px; font-size: 11px; gap: 4px; }
+            .pricelist-section-inner { padding: 14px 8px 18px; }
+
             .arena-showcase { grid-template-columns: 1fr; }
             .arena-details { padding: 14px; }
             .arena-img-wrap { min-height: 180px; max-height: 200px; }
@@ -1251,24 +1406,35 @@
         </div>
     </section>
 
-    <!-- Sticky Category Filter Navigation -->
-    <nav class="category-nav-sticky" aria-label="Kategori Pricelist">
-        <div class="category-nav-container">
-            <a href="#sec-target" class="cat-nav-btn"><i class="fa-solid fa-bullseye"></i> Shooting Target</a>
-            <a href="#sec-wargame" class="cat-nav-btn active"><i class="fa-solid fa-shield-halved"></i> War Game CQB</a>
-            <a href="#sec-coaching" class="cat-nav-btn"><i class="fa-solid fa-user-ninja"></i> Coaching</a>
-            <a href="#sec-unit" class="cat-nav-btn"><i class="fa-solid fa-layer-group"></i> Unit Drill</a>
-            <a href="#sec-gear" class="cat-nav-btn"><i class="fa-solid fa-vest"></i> Gear Rental</a>
-        </div>
-    </nav>
-
     <!-- Main Catalog Container -->
     <main class="catalog-container">
 
-        <!-- ==============================================
-             SECTION 1: SHOOTING TARGET RANGE
-             ============================================== -->
-        <section id="sec-target" class="pricelist-section">
+        <div class="catalog-intro-header">
+            <span class="catalog-step-tag"><i class="fa-solid fa-compass"></i> TAHAP EKSPLOR ARENA (5 ARENA)</span>
+            <h2 class="catalog-main-title">PILIH ARENA <span>PERTEMPURAN</span></h2>
+            <p class="catalog-main-desc">Pilih salah satu arena di bawah untuk membuka daftar paket dan opsi harga lengkap.</p>
+        </div>
+
+        <div class="arena-accordion-list">
+            <!-- ARENA 1: SHOOTING TARGET -->
+            <div class="arena-accordion-item" id="item-target">
+                <div class="arena-bar-header" onclick="toggleArenaSection('target')" role="button" tabindex="0" aria-expanded="false">
+                    <div class="arena-bar-left">
+                        <span class="arena-num-badge">01</span>
+                        <img src="assets/img/arena-shooting-target.jpg" alt="Shooting Target Range" class="arena-bar-thumb" loading="lazy">
+                        <div class="arena-bar-info">
+                            <span class="arena-bar-step-badge"><i class="fa-solid fa-bullseye"></i> Arena 1 · Lane 10-25M</span>
+                            <h3 class="arena-bar-title">SHOOTING TARGET RANGE</h3>
+                            <p class="arena-bar-subtitle">Target silhouette presisi & plat baja reaktif (3 Pilihan Paket)</p>
+                        </div>
+                    </div>
+                    <div class="arena-bar-right">
+                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="arena-accordion-body" id="body-target">
+                    <div class="pricelist-section-inner">
+
             <div class="sec-header-banner">
                 <div class="sec-header-left">
                     <div class="sec-header-icon"><i class="fa-solid fa-bullseye"></i></div>
@@ -1471,13 +1637,30 @@
                 </div>
 
             </div>
-        </section>
+        
+                    </div>
+                </div>
+            </div>
 
+            <!-- ARENA 2: WAR GAME CQB -->
+            <div class="arena-accordion-item" id="item-wargame">
+                <div class="arena-bar-header" onclick="toggleArenaSection('wargame')" role="button" tabindex="0" aria-expanded="false">
+                    <div class="arena-bar-left">
+                        <span class="arena-num-badge">02</span>
+                        <img src="assets/img/arena-wargame.jpg" alt="War Game CQB Arena" class="arena-bar-thumb" loading="lazy">
+                        <div class="arena-bar-info">
+                            <span class="arena-bar-step-badge"><i class="fa-solid fa-shield-halved"></i> Arena 2 · CQB 1.200m² Bertingkat</span>
+                            <h3 class="arena-bar-title">WAR GAME CQB ARENA</h3>
+                            <p class="arena-bar-subtitle">Simulasi kontak senjata taktis & skirmish tim (4 Paket Populer)</p>
+                        </div>
+                    </div>
+                    <div class="arena-bar-right">
+                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="arena-accordion-body" id="body-wargame">
+                    <div class="pricelist-section-inner">
 
-        <!-- ==============================================
-             SECTION 2: WAR GAME CQB ARENA
-             ============================================== -->
-        <section id="sec-wargame" class="pricelist-section">
             <div class="sec-header-banner">
                 <div class="sec-header-left">
                     <div class="sec-header-icon"><i class="fa-solid fa-shield-halved"></i></div>
@@ -1857,13 +2040,30 @@
                 </div>
 
             </div>
-        </section>
+        
+                    </div>
+                </div>
+            </div>
 
+            <!-- ARENA 3: TACTICAL COACHING -->
+            <div class="arena-accordion-item" id="item-coaching">
+                <div class="arena-bar-header" onclick="toggleArenaSection('coaching')" role="button" tabindex="0" aria-expanded="false">
+                    <div class="arena-bar-left">
+                        <span class="arena-num-badge">03</span>
+                        <img src="assets/img/shooter-aiming-drill.jpg" alt="Tactical Coaching" class="arena-bar-thumb" loading="lazy">
+                        <div class="arena-bar-info">
+                            <span class="arena-bar-step-badge"><i class="fa-solid fa-user-ninja"></i> Arena 3 · Private Masterclass</span>
+                            <h3 class="arena-bar-title">TACTICAL COACHING</h3>
+                            <p class="arena-bar-subtitle">Pelatihan pergerakan CQB, room clearing & drill bersama pelatih (2 Paket)</p>
+                        </div>
+                    </div>
+                    <div class="arena-bar-right">
+                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="arena-accordion-body" id="body-coaching">
+                    <div class="pricelist-section-inner">
 
-        <!-- ==============================================
-             SECTION 3: COACHING PROGRAM
-             ============================================== -->
-        <section id="sec-coaching" class="pricelist-section">
             <div class="sec-header-banner">
                 <div class="sec-header-left">
                     <div class="sec-header-icon"><i class="fa-solid fa-user-ninja"></i></div>
@@ -1987,13 +2187,30 @@
                 </div>
 
             </div>
-        </section>
+        
+                    </div>
+                </div>
+            </div>
 
+            <!-- ARENA 4: UNIT COACHING -->
+            <div class="arena-accordion-item" id="item-unit">
+                <div class="arena-bar-header" onclick="toggleArenaSection('unit')" role="button" tabindex="0" aria-expanded="false">
+                    <div class="arena-bar-left">
+                        <span class="arena-num-badge">04</span>
+                        <img src="assets/img/unit-coaching-drill.jpg" alt="Unit Coaching Drill" class="arena-bar-thumb" loading="lazy">
+                        <div class="arena-bar-info">
+                            <span class="arena-bar-step-badge"><i class="fa-solid fa-layer-group"></i> Arena 4 · Weapon Platform Drill</span>
+                            <h3 class="arena-bar-title">UNIT COACHING & DRILL</h3>
+                            <p class="arena-bar-subtitle">Pendalaman handling GBB handgun & AEG rifle platform (2 Platform)</p>
+                        </div>
+                    </div>
+                    <div class="arena-bar-right">
+                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="arena-accordion-body" id="body-unit">
+                    <div class="pricelist-section-inner">
 
-        <!-- ==============================================
-             SECTION 4: UNIT COACHING & DRILL
-             ============================================== -->
-        <section id="sec-unit" class="pricelist-section">
             <div class="sec-header-banner">
                 <div class="sec-header-left">
                     <div class="sec-header-icon"><i class="fa-solid fa-layer-group"></i></div>
@@ -2112,13 +2329,30 @@
                 </div>
 
             </div>
-        </section>
+        
+                    </div>
+                </div>
+            </div>
 
+            <!-- ARENA 5: GEAR RENTAL -->
+            <div class="arena-accordion-item" id="item-gear">
+                <div class="arena-bar-header" onclick="toggleArenaSection('gear')" role="button" tabindex="0" aria-expanded="false">
+                    <div class="arena-bar-left">
+                        <span class="arena-num-badge">05</span>
+                        <img src="assets/img/gear-rental-armory.jpg" alt="Tactical Gear Rental" class="arena-bar-thumb" loading="lazy">
+                        <div class="arena-bar-info">
+                            <span class="arena-bar-step-badge"><i class="fa-solid fa-vest"></i> Arena 5 · Full Protective Armor</span>
+                            <h3 class="arena-bar-title">TACTICAL GEAR RENTAL</h3>
+                            <p class="arena-bar-subtitle">Plate carrier vest, helm ops, goggle anti-fog & gloves (1 Set Lengkap)</p>
+                        </div>
+                    </div>
+                    <div class="arena-bar-right">
+                        <span class="arena-bar-pill"><span class="pill-text">Pilih Arena</span> <i class="fa-solid fa-chevron-down arena-bar-arrow"></i></span>
+                    </div>
+                </div>
+                <div class="arena-accordion-body" id="body-gear">
+                    <div class="pricelist-section-inner">
 
-        <!-- ==============================================
-             SECTION 5: GEAR & SAFETY RENTAL
-             ============================================== -->
-        <section id="sec-gear" class="pricelist-section">
             <div class="sec-header-banner">
                 <div class="sec-header-left">
                     <div class="sec-header-icon"><i class="fa-solid fa-vest"></i></div>
@@ -2179,7 +2413,11 @@
                 </div>
 
             </div>
-        </section>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Bottom Assistance & Direct Booking Banner -->
         <div class="bottom-cta-wrap">
@@ -2228,7 +2466,41 @@
             window.scrollTo(0, 0);
         }
 
-        // Fungsi Interaktif: Expand Detail Kartu Saat Panah Diklik
+        // Fungsi Interaktif: Buka / Tutup Section Arena (Tahap Eksplor Arena Sebaris-sebaris)
+        function toggleArenaSection(secId) {
+            const item = document.getElementById('item-' + secId);
+            if (!item) return;
+
+            const isOpen = item.classList.contains('is-open');
+
+            // Tutup semua item lain agar rapi (accordion)
+            document.querySelectorAll('.arena-accordion-item').forEach(el => {
+                el.classList.remove('is-open');
+                const pillText = el.querySelector('.arena-bar-pill .pill-text');
+                if (pillText) pillText.textContent = 'Pilih Arena';
+                const header = el.querySelector('.arena-bar-header');
+                if (header) header.setAttribute('aria-expanded', 'false');
+            });
+
+            // Toggle item yang diklik
+            if (!isOpen) {
+                item.classList.add('is-open');
+                const pillText = item.querySelector('.arena-bar-pill .pill-text');
+                if (pillText) pillText.textContent = 'Tutup';
+                const header = item.querySelector('.arena-bar-header');
+                if (header) header.setAttribute('aria-expanded', 'true');
+
+                // Smooth scroll ke baris arena yang dibuka
+                setTimeout(() => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < 60 || rect.top > 220) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
+        }
+
+        // Fungsi Interaktif: Expand Detail Fasilitas Kartu Saat Panah Diklik
         function toggleCardDetail(cardId) {
             const card = document.getElementById(cardId);
             if (!card) return;
@@ -2251,25 +2523,19 @@
             }
         }
 
-        // Highlight Active Category in Sticky Nav on Scroll
-        const sections = document.querySelectorAll('.pricelist-section');
-        const navButtons = document.querySelectorAll('.cat-nav-btn');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 180;
-                if (window.pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('href') === '#' + current) {
-                    btn.classList.add('active');
-                }
-            });
+        // Auto-open specific arena if URL contains ?cat=... or #sec-...
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat') || window.location.hash.replace('#', '').replace('sec-', '');
+            
+            if (catParam) {
+                const lower = catParam.toLowerCase();
+                if (lower.includes('shoot') || lower.includes('target')) toggleArenaSection('target');
+                else if (lower.includes('war') || lower.includes('game')) toggleArenaSection('wargame');
+                else if (lower.includes('coach') && !lower.includes('unit')) toggleArenaSection('coaching');
+                else if (lower.includes('unit')) toggleArenaSection('unit');
+                else if (lower.includes('gear')) toggleArenaSection('gear');
+            }
         });
     </script>
 </body>
