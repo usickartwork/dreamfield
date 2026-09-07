@@ -12,12 +12,12 @@
     <style>
         :root {
             --color-lime: #9FE600;
-            --color-charcoal: #1A1A1A;
-            --color-sage: #DDE5D1;
-            --color-moss: #8A9A5B;
-            --color-olive: #4E5B31;
-            --color-dark-surface: #121212;
-            --color-card-bg: #22251E;
+            --color-charcoal: #121316;
+            --color-sage: #EDEDED;
+            --color-moss: #9CA3AF;
+            --color-olive: #2B2F38;
+            --color-dark-surface: #0C0D10;
+            --color-card-bg: #181A20;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
             --ease-slide: cubic-bezier(0.16, 1, 0.3, 1);
             --transition-speed: 200ms var(--ease-out);
@@ -145,7 +145,7 @@
         /* --- 3-Step Flow Progress Bar --- */
         .flow-stepper-wrap {
             background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-            border-bottom: 1px solid rgba(78, 91, 49, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             padding: 16px 20px;
         }
 
@@ -182,13 +182,13 @@
         }
 
         .flow-step-item.done .step-circle {
-            background-color: rgba(78, 91, 49, 0.6);
+            background-color: rgba(34, 38, 47, 0.8);
             border: 2px solid var(--color-moss);
             color: var(--color-lime);
         }
 
         .flow-step-item.active .step-circle {
-            background: linear-gradient(135deg, rgba(78, 91, 49, 0.8) 0%, rgba(34, 37, 30, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(34, 38, 46, 0.95) 0%, rgba(18, 20, 24, 0.98) 100%);
             border: 2px solid var(--color-lime);
             color: var(--color-lime);
             box-shadow: 0 0 15px rgba(159, 230, 0, 0.35);
@@ -236,25 +236,25 @@
         .flow-line {
             flex: 1;
             height: 2px;
-            background-color: rgba(78, 91, 49, 0.35);
+            background-color: rgba(255, 255, 255, 0.05);
             margin: 0 14px;
             position: relative;
         }
 
         .flow-line.done {
-            background-color: var(--color-olive);
+            background-color: var(--color-card-bg);
         }
 
         /* --- Page Hero Banner --- */
         .pricelist-hero {
-            background: radial-gradient(circle at 50% 20%, rgba(78, 91, 49, 0.25) 0%, rgba(18, 18, 18, 0.95) 80%), #121212;
+            background: radial-gradient(circle at 50% 20%, rgba(38, 43, 53, 0.4) 0%, rgba(14, 15, 18, 0.98) 80%), #121212;
             padding: 28px 20px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(78, 91, 49, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .hero-badge {
-            background-color: rgba(78, 91, 49, 0.45);
+            background-color: rgba(28, 32, 40, 0.7);
             border: 1px solid var(--color-olive);
             color: var(--color-lime);
             font-size: 11px;
@@ -306,7 +306,7 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            background: rgba(78, 91, 49, 0.35);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--color-olive);
             color: var(--color-lime);
             font-size: 11.5px;
@@ -351,7 +351,7 @@
             justify-content: space-between;
             padding: 15px 20px;
             background: linear-gradient(90deg, rgba(35, 38, 30, 0.95) 0%, rgba(24, 26, 21, 0.98) 100%);
-            border: 1px solid rgba(78, 91, 49, 0.45);
+            border: 1px solid rgba(28, 32, 40, 0.7);
             border-radius: 10px;
             cursor: pointer;
             user-select: none;
@@ -391,7 +391,7 @@
             height: 52px;
             object-fit: cover;
             border-radius: 6px;
-            border: 1px solid rgba(78, 91, 49, 0.6);
+            border: 1px solid rgba(34, 38, 47, 0.8);
             flex-shrink: 0;
         }
 
@@ -464,7 +464,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: rgba(78, 91, 49, 0.35);
+            background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--color-olive);
             color: var(--color-sage);
             padding: 8px 16px;
@@ -493,7 +493,7 @@
 
         /* --- Bottom Assistance Banner --- */
         .bottom-cta-wrap {
-            background: linear-gradient(135deg, rgba(34, 37, 30, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(26, 29, 36, 0.95) 0%, rgba(16, 17, 21, 0.98) 100%);
             border: 1px solid var(--color-olive);
             border-radius: 8px;
             padding: 24px 28px;
@@ -514,7 +514,7 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: rgba(78, 91, 49, 0.4);
+            background: rgba(255, 255, 255, 0.06);
             border: 1px solid var(--color-olive);
             color: var(--color-lime);
             display: flex;
@@ -585,7 +585,7 @@
         /* --- Footer --- */
         footer {
             background-color: rgba(18, 18, 18, 0.98);
-            border-top: 1px solid rgba(78, 91, 49, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding: 24px 20px;
             margin-top: auto;
         }

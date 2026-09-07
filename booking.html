@@ -12,12 +12,12 @@
     <style>
         :root {
             --color-lime: #9FE600;
-            --color-charcoal: #1A1A1A;
-            --color-sage: #DDE5D1;
-            --color-moss: #8A9A5B;
-            --color-olive: #4E5B31;
-            --color-dark-surface: #121212;
-            --color-card-bg: #22251E;
+            --color-charcoal: #121316;
+            --color-sage: #EDEDED;
+            --color-moss: #9CA3AF;
+            --color-olive: #2B2F38;
+            --color-dark-surface: #0C0D10;
+            --color-card-bg: #181A20;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
             --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
             --ease-slide: cubic-bezier(0.16, 1, 0.3, 1);
@@ -169,7 +169,7 @@
         /* --- 3-Step Flow Progress Bar --- */
         .flow-stepper-wrap {
             background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-            border-bottom: 1px solid rgba(78, 91, 49, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             padding: 16px 20px;
         }
 
@@ -206,13 +206,13 @@
         }
 
         .flow-step-item.done .step-circle {
-            background-color: rgba(78, 91, 49, 0.6);
+            background-color: rgba(34, 38, 47, 0.8);
             border: 2px solid var(--color-moss);
             color: var(--color-lime);
         }
 
         .flow-step-item.active .step-circle {
-            background: linear-gradient(135deg, rgba(78, 91, 49, 0.8) 0%, rgba(34, 37, 30, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(34, 38, 46, 0.95) 0%, rgba(18, 20, 24, 0.98) 100%);
             border: 2px solid var(--color-lime);
             color: var(--color-lime);
             box-shadow: 0 0 15px rgba(159, 230, 0, 0.35);
@@ -250,18 +250,18 @@
         .flow-line {
             flex: 1;
             height: 2px;
-            background-color: rgba(78, 91, 49, 0.35);
+            background-color: rgba(255, 255, 255, 0.05);
             margin: 0 14px;
             position: relative;
         }
 
         .flow-line.done {
-            background-color: var(--color-olive);
+            background-color: var(--color-lime);
         }
 
         /* Package source banner from pricelist */
         .pkg-source-banner {
-            background: linear-gradient(135deg, rgba(78, 91, 49, 0.35) 0%, rgba(34, 37, 30, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(30, 33, 40, 0.85) 0%, rgba(18, 20, 24, 0.95) 100%);
             border: 1px solid var(--color-lime);
             border-radius: 6px;
             padding: 12px 16px;
@@ -331,7 +331,7 @@
 
         .banner-badge {
             display: inline-block;
-            background-color: rgba(78, 91, 49, 0.25);
+            background-color: rgba(255, 255, 255, 0.04);
             color: var(--color-sage);
             padding: 4px 14px;
             font-size: 13px;
@@ -397,7 +397,7 @@
         }
 
         .step-badge {
-            background-color: rgba(78, 91, 49, 0.35);
+            background-color: rgba(255, 255, 255, 0.05);
             color: var(--color-lime);
             border: 1.5px solid var(--color-olive);
             width: 32px;
@@ -459,11 +459,11 @@
 
         .tab-btn:hover {
             border-color: var(--color-lime);
-            background-color: rgba(78, 91, 49, 0.3);
+            background-color: rgba(255, 255, 255, 0.04);
         }
 
         .tab-btn.active {
-            background-color: rgba(78, 91, 49, 0.45);
+            background-color: rgba(28, 32, 40, 0.7);
             color: var(--color-lime);
             border-color: var(--color-lime);
             box-shadow: 0 0 10px rgba(159, 230, 0, 0.15);
@@ -622,7 +622,7 @@
 
         .pkg-card {
             background: rgba(26, 26, 26, 0.75);
-            border: 1px solid rgba(78, 91, 49, 0.5);
+            border: 1px solid rgba(32, 36, 45, 0.75);
             border-radius: 6px;
             padding: 16px;
             cursor: pointer;
@@ -639,7 +639,7 @@
 
         .pkg-card.active:hover {
             border-color: var(--color-lime);
-            background: rgba(34, 37, 30, 0.95);
+            background: rgba(22, 24, 30, 0.96);
             transform: translateY(-2px);
             transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), background-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
         }
@@ -761,7 +761,7 @@
 
         .pkg-card.expanded {
             border-color: var(--color-lime) !important;
-            background: linear-gradient(135deg, rgba(46, 52, 38, 0.98) 0%, rgba(26, 29, 23, 0.98) 100%) !important;
+            background: linear-gradient(135deg, rgba(32, 36, 44, 0.98) 0%, rgba(18, 20, 24, 0.98) 100%) !important;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 16px rgba(183, 255, 0, 0.2) !important;
             transform: scale(1.01);
             z-index: 5;
@@ -773,8 +773,8 @@
         }
 
         .btn-toggle-pkg-details {
-            background: rgba(78, 91, 49, 0.25);
-            border: 1px solid rgba(78, 91, 49, 0.6);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(34, 38, 47, 0.8);
             color: var(--color-sage);
             font-size: 11px;
             font-weight: 700;
@@ -793,7 +793,7 @@
         .btn-toggle-pkg-details:hover {
             border-color: var(--color-lime);
             color: #ffffff;
-            background: rgba(78, 91, 49, 0.5);
+            background: rgba(32, 36, 45, 0.75);
         }
 
         .toggle-arrow {
@@ -880,7 +880,7 @@
         }
 
         .btn-back-to-arena {
-            background: rgba(78, 91, 49, 0.35);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--color-olive);
             color: var(--color-lime);
             font-size: 12px;
@@ -897,7 +897,7 @@
 
         .btn-back-to-arena:hover {
             border-color: var(--color-lime);
-            background: rgba(78, 91, 49, 0.6);
+            background: rgba(34, 38, 47, 0.8);
             color: #ffffff;
         }
 
@@ -1013,7 +1013,7 @@
         }
 
         .time-pill.selected {
-            background: rgba(78, 91, 49, 0.45);
+            background: rgba(28, 32, 40, 0.7);
             color: var(--color-lime);
             border-color: var(--color-lime);
             font-weight: 700;
@@ -1023,11 +1023,11 @@
         .time-pill.flexible-pill {
             border-color: rgba(138, 154, 91, 0.4);
             color: var(--color-lime);
-            background: rgba(78, 91, 49, 0.15);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .time-pill.flexible-pill.selected {
-            background: rgba(78, 91, 49, 0.45);
+            background: rgba(28, 32, 40, 0.7);
             color: var(--color-lime);
             border-color: var(--color-lime);
             font-weight: 700;
@@ -1038,7 +1038,7 @@
             margin-top: 10px;
             padding: 12px 14px;
             background: rgba(18, 18, 18, 0.75);
-            border: 1px dashed rgba(78, 91, 49, 0.8);
+            border: 1px dashed var(--color-olive);
             border-radius: 6px;
             display: flex;
             flex-direction: column;
@@ -1147,7 +1147,7 @@
         }
 
         .counter-btn {
-            background: rgba(78, 91, 49, 0.3);
+            background: rgba(255, 255, 255, 0.04);
             border: none;
             color: var(--color-lime);
             width: 44px;
@@ -1187,7 +1187,7 @@
         }
 
         .summary-card {
-            background: linear-gradient(145deg, rgba(34, 37, 30, 0.98) 0%, rgba(20, 22, 18, 0.98) 100%);
+            background: linear-gradient(145deg, rgba(28, 31, 38, 0.98) 0%, rgba(16, 18, 22, 0.98) 100%);
             border: 1px solid var(--color-olive);
             border-top: 2px solid var(--color-lime);
             border-radius: 8px;
@@ -1210,7 +1210,7 @@
         }
 
         .badge-live {
-            background-color: rgba(78, 91, 49, 0.3);
+            background-color: rgba(255, 255, 255, 0.04);
             color: var(--color-lime);
             padding: 3px 10px;
             border-radius: 3px;
@@ -1402,7 +1402,7 @@
             display: flex;
             justify-content: space-between;
             padding: 5px 0;
-            border-bottom: 1px solid rgba(78, 91, 49, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .modal-summary-item:last-child {
@@ -1744,7 +1744,7 @@
                 top: 0 !important;
                 width: 100% !important;
                 box-sizing: border-box !important;
-                border-top: 1px solid rgba(78, 91, 49, 0.4) !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
                 border-bottom: 1px solid rgba(183, 255, 0, 0.3) !important;
             }
             .checklist-stepper-container {
@@ -2101,7 +2101,7 @@
             }
             .tab-btn:hover {
                 border-color: var(--color-lime);
-                background-color: rgba(78, 91, 49, 0.3);
+                background-color: rgba(255, 255, 255, 0.04);
             }
             .tab-btn.active:hover {
                 border-color: var(--color-lime);
@@ -2110,7 +2110,7 @@
             }
             .pkg-card:hover {
                 border-color: var(--color-lime);
-                background: rgba(34, 37, 30, 0.95);
+                background: rgba(22, 24, 30, 0.96);
                 transform: translateY(-2px);
             }
             .time-pill:hover {
@@ -2143,7 +2143,7 @@
         /* --- 4-Step Interactive Checklist Bar --- */
         .checklist-stepper-wrap {
             background: linear-gradient(180deg, rgba(22, 26, 18, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%);
-            border-top: 1px solid rgba(78, 91, 49, 0.35);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(183, 255, 0, 0.3);
             padding: 10px 20px;
             position: relative;
@@ -2256,7 +2256,7 @@
         .check-flow-line {
             flex: 1;
             height: 2px;
-            background-color: rgba(78, 91, 49, 0.35);
+            background-color: rgba(255, 255, 255, 0.05);
             margin: 0 10px;
             transition: background-color 0.25s ease;
         }
@@ -2302,8 +2302,8 @@
         }
 
         .arena-select-btn {
-            background: linear-gradient(135deg, rgba(30, 34, 25, 0.95) 0%, rgba(20, 22, 18, 0.98) 100%);
-            border: 1px solid rgba(78, 91, 49, 0.5);
+            background: linear-gradient(135deg, rgba(28, 31, 38, 0.95) 0%, rgba(16, 18, 22, 0.98) 100%);
+            border: 1px solid rgba(32, 36, 45, 0.75);
             border-radius: 8px;
             padding: 12px 10px;
             cursor: pointer;
@@ -2446,7 +2446,7 @@
         }
 
         .arena-spec-badge {
-            background: rgba(78, 91, 49, 0.65);
+            background: rgba(36, 40, 49, 0.85);
             border: 1px solid var(--color-moss);
             color: #ffffff;
             font-size: 11px;
@@ -2521,7 +2521,7 @@
                 DREAMFIELD <span>TACTICAL</span>
             </a>
             <div class="nav-actions">
-                <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda" style="border-color: var(--color-olive);">
+                <a href="index.html" class="btn-header-back" aria-label="Kembali ke Beranda" style="border-color: var(--color-moss);">
                     <i class="fa-solid fa-house"></i>
                     <span class="back-text-desk">Beranda</span>
                     <span class="back-text-mob">Beranda</span>
@@ -2792,7 +2792,7 @@
                         <h2 class="panel-title" style="margin: 0; font-size: 20px;">4. DATA DIRI & SIAP BOOKING</h2>
                         <p class="panel-subtitle" style="margin: 2px 0 0; font-size: 12px;">Lengkapi kontak WhatsApp untuk konfirmasi instan</p>
                     </div>
-                    <span class="badge-live" id="badge-ready-live" style="flex-shrink: 0; background: rgba(78, 91, 49, 0.35); color: var(--color-moss); border-color: var(--color-olive);">MENUNGGU PILIHAN</span>
+                    <span class="badge-live" id="badge-ready-live" style="flex-shrink: 0; background: rgba(255, 255, 255, 0.05); color: var(--color-moss); border-color: var(--color-moss);">MENUNGGU PILIHAN</span>
                 </div>
 
                 <!-- Paket Terpilih Display -->
@@ -3783,7 +3783,7 @@
             const badgeReady = document.getElementById('badge-ready-live');
             if (badgeReady) {
                 badgeReady.textContent = 'MENUNGGU PILIHAN';
-                badgeReady.style.background = 'rgba(78, 91, 49, 0.35)';
+                badgeReady.style.background = 'rgba(255, 255, 255, 0.05)';
                 badgeReady.style.color = 'var(--color-moss)';
                 badgeReady.style.borderColor = 'var(--color-olive)';
             }
