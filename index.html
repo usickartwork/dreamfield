@@ -3305,6 +3305,7 @@
 
         /* Mini Shooting Range Box */
         .range-sim-box {
+            position: relative;
             max-width: 960px;
             margin: 0 auto;
             background: #151515;
@@ -3422,103 +3423,156 @@
             to { transform: scale(1.06); box-shadow: 0 0 10px rgba(255, 71, 87, 0.7); }
         }
 
-        /* Ready Overlay (Menunggu Tombol Ready Ditekan Baru Mulai) */
-        .stage-ready-overlay {
+        /* Ready & Banner Full-Box Overlays (Mencakup Seluruh Box Sim, Tidak Terpotong) */
+        .stage-ready-overlay,
+        .stage-banner-overlay,
+        .anti-zoom-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(7px);
-            z-index: 45;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.93);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 60;
             display: none;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            text-align: center;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
 
-        .stage-ready-overlay.active {
+        .stage-ready-overlay.active,
+        .stage-banner-overlay.active,
+        .anti-zoom-overlay.active {
             display: flex;
             animation: bannerFadeIn 220ms ease-out;
         }
 
-        .stage-ready-card {
+        @keyframes bannerFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .stage-ready-card,
+        .stage-banner-card,
+        .anti-zoom-card {
             background: #181818;
             border: 2px solid var(--color-lime);
-            border-radius: 8px;
-            padding: 26px 22px;
-            max-width: 420px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(183, 255, 0, 0.25);
+            border-radius: 10px;
+            padding: 24px 22px;
+            max-width: 440px;
+            width: 100%;
+            max-height: calc(100% - 24px);
+            overflow-y: auto;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9), 0 0 24px rgba(183, 255, 0, 0.25);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
+            text-align: center;
+            box-sizing: border-box;
+            margin: auto;
         }
 
-        .ready-badge-icon {
-            width: 52px;
-            height: 52px;
+        .anti-zoom-card {
+            border-color: #ff4757;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 71, 87, 0.35);
+        }
+
+        .anti-zoom-card i {
+            font-size: 30px;
+            color: #ff4757;
+        }
+
+        .anti-zoom-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            margin: 0;
+            color: #ff4757;
+            letter-spacing: 0.5px;
+        }
+
+        .anti-zoom-card p {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: var(--color-sage);
+            margin: 0;
+        }
+
+        .ready-badge-icon,
+        .banner-badge-icon {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: rgba(183, 255, 0, 0.15);
             border: 1px solid var(--color-lime);
             color: var(--color-lime);
-            font-size: 24px;
+            font-size: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
-        .stage-ready-card h3 {
+        .stage-ready-card h3,
+        .stage-banner-card h3 {
             font-family: 'Outfit', sans-serif;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--color-lime);
             margin: 0;
             letter-spacing: 0.5px;
         }
 
-        .stage-ready-card p {
+        .stage-ready-card p,
+        .stage-banner-card p {
             font-size: 13px;
             color: var(--color-sage);
             line-height: 1.55;
             margin: 0;
         }
 
-        .btn-ready-start {
-            background: var(--color-lime);
-            color: #111111;
-            border: 2px solid #ffffff;
-            padding: 11px 26px;
-            border-radius: 6px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px;
-            font-weight: 900;
-            letter-spacing: 0.6px;
-            cursor: pointer;
-            margin-top: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 16px rgba(183, 255, 0, 0.4);
-            transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
-        }
-
-        .btn-ready-start:hover {
-            background: #d4ff33;
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 24px rgba(183, 255, 0, 0.6);
-        }
-
-        .btn-ready-start:active {
-            transform: translateY(1px) scale(0.96);
-        }
-
-        /* Banner Retry Button */
         .banner-actions-wrap {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 6px;
+            align-items: center;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .btn-ready-start,
+        .btn-banner-next {
+            background: var(--color-lime);
+            color: #111111;
+            border: 2px solid #ffffff;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13.5px;
+            font-weight: 900;
+            letter-spacing: 0.6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 16px rgba(183, 255, 0, 0.4);
+            transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+        }
+
+        .btn-ready-start:hover,
+        .btn-banner-next:hover {
+            background: #d4ff33;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.8), 0 0 22px rgba(183, 255, 0, 0.6);
+        }
+
+        .btn-ready-start:active,
+        .btn-banner-next:active {
+            transform: translateY(1px) scale(0.96);
         }
 
         .btn-banner-retry {
@@ -3541,31 +3595,29 @@
             background: rgba(255, 255, 255, 0.22);
             color: #ffffff;
             border-color: #ffffff;
+            transform: translateY(-2px);
         }
 
         .btn-banner-retry:active {
             transform: scale(0.96);
         }
 
-        /* Range Bottom Hint & Centered Reload Button (Di Bawah Keterangan & Di Tengah) */
-        .range-hint-bar {
-            position: relative;
-            z-index: 25;
-            background: rgba(12, 12, 12, 0.94);
+        /* Range Bottom Bar (Keterangan + Tombol Reload di Bawah Panggung) */
+        .range-bottom-bar {
+            background: #111111;
             border-top: 1px solid rgba(221, 229, 209, 0.12);
-            padding: 10px 16px 12px;
+            padding: 12px 16px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 9px;
-            cursor: default;
+            gap: 10px;
         }
 
         .range-hint-msg {
             font-size: 12px;
             color: var(--color-moss);
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
         .range-hint-msg strong {
@@ -3587,7 +3639,7 @@
             background: var(--color-lime);
             color: #111111;
             border: 2px solid #ffffff;
-            padding: 8px 22px;
+            padding: 9px 24px;
             border-radius: 6px;
             font-family: 'Outfit', sans-serif;
             font-size: 13px;
@@ -3639,80 +3691,15 @@
             border-color: #ffffff;
         }
 
-        /* Range Stage Adjusted Height for Bottom Bar */
+        /* Range Stage (Spacious Firing Arena) */
         .range-stage {
             position: relative;
-            height: 420px;
+            height: 380px;
             background: radial-gradient(circle at center, rgba(35, 35, 35, 0.9) 0%, #0d0d0d 100%);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            touch-action: none !important;
-            cursor: crosshair;
-        }
-
-        .hud-score-val {
-            font-family: 'Outfit', sans-serif;
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--color-lime);
-            letter-spacing: 1.5px;
-            line-height: 1;
-        }
-
-        .hud-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hud-action-btn,
-        .hud-reload-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(221, 229, 209, 0.15);
-            color: var(--color-sage);
-            padding: 6px 11px;
-            border-radius: 4px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: background-color 140ms, color 140ms, transform 140ms;
-        }
-
-        .hud-action-btn:hover,
-        .hud-reload-btn:hover {
-            border-color: var(--color-lime);
-            color: var(--color-lime);
-        }
-
-        .hud-reload-btn {
-            background: rgba(183, 255, 0, 0.12);
-            border-color: rgba(183, 255, 0, 0.4);
-            color: var(--color-lime);
-        }
-
-        .hud-reload-btn:active,
-        .hud-action-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Range Stage (Hardened Touch Action & Crosshair) */
-        .range-stage {
-            position: relative;
-            height: 390px;
-            background: radial-gradient(circle at center, rgba(35, 35, 35, 0.9) 0%, #0d0d0d 100%);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
@@ -3733,7 +3720,7 @@
         /* CQB 5-Bunkers Layer (Barricades for Cover) */
         .cqb-bunkers-layer {
             position: absolute;
-            bottom: 30px;
+            bottom: 0;
             left: 0;
             right: 0;
             display: flex;
@@ -4391,18 +4378,6 @@
                 font-size: 10px;
                 padding: 2px 6px;
             }
-            .stage-center-reload-btn {
-                padding: 7px 18px;
-                font-size: 12px;
-                gap: 7px;
-            }
-            .center-ammo-counter {
-                font-size: 10px;
-                padding: 2px 6px;
-            }
-            .range-stage {
-                height: 360px;
-            }
             .hud-objective-pill {
                 font-size: 11px;
                 padding: 2px 6px;
@@ -4414,16 +4389,51 @@
             .hud-score-val {
                 font-size: 17px;
             }
-            .hud-action-btn,
-            .hud-reload-btn {
+            .hud-action-btn {
                 padding: 5px 8px;
                 font-size: 11px;
             }
+            .stage-center-reload-btn {
+                padding: 8px 20px;
+                font-size: 12px;
+                gap: 7px;
+            }
+            .center-ammo-counter {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
             .range-stage {
-                height: 310px;
+                height: 330px;
+            }
+            .stage-ready-card,
+            .stage-banner-card {
+                padding: 20px 16px;
+                gap: 9px;
+                max-width: 360px;
+            }
+            .ready-badge-icon,
+            .banner-badge-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .stage-ready-card h3,
+            .stage-banner-card h3 {
+                font-size: 18px;
+            }
+            .stage-ready-card p,
+            .stage-banner-card p {
+                font-size: 12px;
+                line-height: 1.45;
+            }
+            .btn-ready-start,
+            .btn-banner-next,
+            .btn-banner-retry {
+                padding: 8px 16px;
+                font-size: 12px;
             }
             .cqb-bunkers-layer {
-                bottom: 24px;
+                bottom: 0;
                 padding: 0 6px;
             }
             .bunker-p1, .bunker-p5 {
@@ -4478,17 +4488,72 @@
                 padding: 2px 5px;
                 margin-top: 8px;
             }
-            .range-hint-bar {
-                font-size: 10.5px;
-                padding: 6px 10px;
+            .range-hint-msg {
+                font-size: 11px;
             }
         }
 
         /* Simulator for Small Viewports (≤390px) */
         @media (max-width: 390px) {
             .range-stage {
-                height: 285px;
+                height: 310px;
             }
+            .stage-ready-card,
+            .stage-banner-card {
+                padding: 16px 12px;
+                gap: 8px;
+                max-width: 310px;
+            }
+            .ready-badge-icon,
+            .banner-badge-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            .stage-ready-card h3,
+            .stage-banner-card h3 {
+                font-size: 16.5px;
+            }
+            .bunker-p1, .bunker-p5 {
+                width: 44px;
+                height: 70px;
+            }
+            .bunker-p2, .bunker-p4 {
+                width: 52px;
+                height: 78px;
+            }
+            .bunker-center {
+                width: 72px;
+                height: 90px;
+            }
+            .target-popper {
+                width: 44px;
+                height: 95px;
+            }
+            .popper-head {
+                width: 36px;
+                height: 36px;
+            }
+            .target-bullseye {
+                width: 82px;
+                height: 82px;
+            }
+            .target-silhouette,
+            .target-hostage-body {
+                width: 68px;
+                height: 104px;
+            }
+            .silhouette-head,
+            .hostage-head {
+                width: 28px;
+                height: 32px;
+            }
+            .silhouette-chest,
+            .hostage-torso {
+                width: 62px;
+                height: 66px;
+            }
+        }
             .bunker-p1, .bunker-p5 {
                 width: 44px;
                 height: 70px;
@@ -4930,7 +4995,7 @@
     
 
     
-            <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
+                <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
     <section id="tactical-range" class="tactical-experience-section">
         <div class="section-header slide-reveal slide-up">
             <span class="section-subtitle"><i class="fa-solid fa-crosshairs"></i> CQB TARGET DRILL · 3 STEPS · 10S TIMER</span>
@@ -4938,7 +5003,46 @@
             <p class="section-lead-desc">Taklukkan 3 level sasaran taktis bertahap dalam batas waktu 10 detik per step: pelat baja berkecepatan dinamis, target bullseye gesit di balik barikade, dan duel refleks siluet musuh taktis.</p>
         </div>
 
-        <div class="range-sim-box slide-reveal slide-scale">
+        <div class="range-sim-box slide-reveal slide-scale" id="rangeSimBox">
+            <!-- Overlays Covering Full Simulator Box (Tidak Pernah Terpotong Frame) -->
+            <!-- 1. Initial Ready / Start Screen Overlay -->
+            <div class="stage-ready-overlay active" id="stageReadyOverlay">
+                <div class="stage-ready-card">
+                    <div class="ready-badge-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <h3>AIRSOFT SHOOTING DRILL</h3>
+                    <p>Uji refleks akurasi dalam 3 level bertahap dengan batas waktu <strong>10 detik</strong> per level. Waktu baru akan berjalan setelah Anda siap!</p>
+                    <button type="button" class="btn-ready-start" id="btnReadyStart" onclick="startDrillGame(event)">
+                        <i class="fa-solid fa-play"></i> READY · MULAI GAME (10S)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Stage Transition / Completion Banner Overlay (Full Size, No Clipping) -->
+            <div class="stage-banner-overlay" id="stageBannerOverlay">
+                <div class="stage-banner-card">
+                    <div class="banner-badge-icon" id="bannerBadgeIcon"><i class="fa-solid fa-award"></i></div>
+                    <h3 id="bannerTitle">STEP 1 CLEARED!</h3>
+                    <p id="bannerDesc">Hebat! Bersiap untuk Step 2: Target bergerak dan bersembunyi di balik barikade.</p>
+                    <div class="banner-actions-wrap" id="bannerActionsWrap">
+                        <button type="button" class="btn-banner-next" id="btnBannerNext" onclick="dismissBannerAndProceed()">
+                            LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button type="button" class="btn-banner-retry" id="btnBannerRetry" style="display:none;" onclick="retryCurrentStep()">
+                            <i class="fa-solid fa-rotate-right"></i> ULANGI STEP INI
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Anti-Zoom Cheating Warning Overlay -->
+            <div class="anti-zoom-overlay" id="antiZoomOverlay">
+                <div class="anti-zoom-card">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <h4>ZOOM LAYAR TERDETEKSI</h4>
+                    <p>Untuk menjaga tantangan dan akurasi, kembalikan zoom tampilan layar Anda ke <strong>100% (Normal)</strong> untuk dapat menembak.</p>
+                </div>
+            </div>
+
             <!-- Range HUD Bar -->
             <div class="range-hud">
                 <div class="hud-left">
@@ -4966,47 +5070,9 @@
                 </div>
             </div>
 
-            <!-- Range Interactive Stage Area (Click anywhere registers wall miss impact) -->
+            <!-- Range Interactive Stage Area (Only the Targets & Firing Range) -->
             <div class="range-stage" id="rangeStage" onclick="handleStageShot(event)">
                 <div class="range-backdrop-grid"></div>
-
-                <!-- Initial Ready / Start Screen Overlay (Waktu TIDAK berjalan sebelum tombol Ready ditekan) -->
-                <div class="stage-ready-overlay active" id="stageReadyOverlay">
-                    <div class="stage-ready-card">
-                        <div class="ready-badge-icon"><i class="fa-solid fa-crosshairs"></i></div>
-                        <h3>AIRSOFT SHOOTING DRILL</h3>
-                        <p>Uji refleks akurasi dalam 3 level bertahap dengan batas waktu <strong>10 detik</strong> per level. Waktu baru akan berjalan setelah Anda siap!</p>
-                        <button type="button" class="btn-ready-start" id="btnReadyStart" onclick="startDrillGame(event)">
-                            <i class="fa-solid fa-play"></i> READY · MULAI GAME (10S)
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Anti-Zoom Cheating Warning Overlay -->
-                <div class="anti-zoom-overlay" id="antiZoomOverlay">
-                    <div class="anti-zoom-card">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <h4>ZOOM LAYAR TERDETEKSI</h4>
-                        <p>Untuk menjaga tantangan dan akurasi, kembalikan zoom tampilan layar Anda ke <strong>100% (Normal)</strong> untuk dapat menembak.</p>
-                    </div>
-                </div>
-
-                <!-- Stage Transition / Completion Banner Overlay -->
-                <div class="stage-banner-overlay" id="stageBannerOverlay">
-                    <div class="stage-banner-card">
-                        <div class="banner-badge-icon" id="bannerBadgeIcon"><i class="fa-solid fa-award"></i></div>
-                        <h3 id="bannerTitle">STEP 1 CLEARED!</h3>
-                        <p id="bannerDesc">Hebat! Bersiap untuk Step 2: Target bergerak dan bersembunyi di balik barikade.</p>
-                        <div class="banner-actions-wrap" id="bannerActionsWrap">
-                            <button type="button" class="btn-banner-next" id="btnBannerNext" onclick="dismissBannerAndProceed()">
-                                LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                            <button type="button" class="btn-banner-retry" id="btnBannerRetry" style="display:none;" onclick="retryCurrentStep()">
-                                <i class="fa-solid fa-rotate-right"></i> ULANGI STEP INI
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- CQB Barricades (Cover layer for peek-a-boo mechanics) -->
                 <div class="cqb-bunkers-layer">
@@ -5082,20 +5148,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Range Bottom Hint & Central Reload Button Area -->
-                <div class="range-hint-bar" onclick="event.stopPropagation()">
-                    <div class="range-hint-msg" id="rangeHintText">
-                        <i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Kenai sasaran baja 4 kali sebelum waktu habis! Menembak hitam-hitam dihitung meleset (MISS).
-                    </div>
-                    <!-- Tombol Reload di bawahnya keterangan dan di tengah-tengah -->
-                    <div class="range-center-reload-wrap">
-                        <button type="button" class="stage-center-reload-btn" id="stageCenterReloadBtn" onclick="reloadMagazine(event)" title="Isi Ulang Magasin BB (15 Butir)">
-                            <i class="fa-solid fa-rotate-right"></i>
-                            <span>RELOAD MAGASIN</span>
-                            <span class="center-ammo-counter" id="centerAmmoCounter">15 BBs</span>
-                        </button>
-                    </div>
+            <!-- Range Bottom Bar: Keterangan Step & Tombol Reload di Tengah (Luar Panggung Tembak) -->
+            <div class="range-bottom-bar" id="rangeBottomBar">
+                <div class="range-hint-msg" id="rangeHintText">
+                    <i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Kenai sasaran baja 4 kali sebelum waktu habis! Menembak hitam-hitam dihitung meleset (MISS).
+                </div>
+                <div class="range-center-reload-wrap">
+                    <button type="button" class="stage-center-reload-btn" id="stageCenterReloadBtn" onclick="reloadMagazine(event)" title="Isi Ulang Magasin BB (15 Butir)">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>RELOAD MAGASIN</span>
+                        <span class="center-ammo-counter" id="centerAmmoCounter">15 BBs</span>
+                    </button>
                 </div>
             </div>
         </div>
