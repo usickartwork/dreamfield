@@ -177,25 +177,17 @@
         if (savedSound !== null) soundEnabled = savedSound === 'true';
         updateSoundButton();
 
-        // Restore session messages or add welcome message
-        try {
-            const savedHistory = sessionStorage.getItem(STORAGE_KEY);
-            if (savedHistory) {
-                messages = JSON.parse(savedHistory);
-            }
-        } catch (e) {
-            messages = [];
-        }
+        // Clear chat history on every page load/refresh
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
 
-        if (!messages || messages.length === 0) {
-            messages = [
-                {
-                    role: 'model',
-                    text: 'Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya CS AI resmi siap membantu Anda seputar **lokasi arena, jadwal operasional, harga paket, aturan keamanan, hingga cara booking**. Ada yang bisa saya bantu?'
-                }
-            ];
-            saveMessages();
-        }
+        // Always start with welcome message
+        messages = [
+            {
+                role: 'model',
+                text: 'Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya CS AI resmi siap membantu Anda seputar **lokasi arena, jadwal operasional, harga paket, aturan keamanan, hingga cara booking**. Ada yang bisa saya bantu?'
+            }
+        ];
+        saveMessages();
 
         renderMessages();
 
