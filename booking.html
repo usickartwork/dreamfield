@@ -1318,13 +1318,15 @@
         }
 
         .guarantee-note {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--color-moss);
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            margin-top: 18px;
+            opacity: 0.85;
         }
 
         /* Tactical Booking Handoff Modal Overlay */
@@ -1509,8 +1511,10 @@
         }
 
         .copyright {
-            font-size: 13px;
+            font-size: 11.5px;
             color: var(--color-moss);
+            opacity: 0.8;
+            letter-spacing: 0.3px;
         }
 
         /* Sticky Mobile Summary Bar */
@@ -2073,12 +2077,28 @@
             .modal-summary-item { font-size: 11.5px !important; }
             .modal-btn-wa { padding: 11px 14px !important; font-size: 17px !important; }
 
-            /* Footer */
+            /* Guarantee Note & Footer */
+            .guarantee-note {
+                margin-top: 22px !important;
+                font-size: 10.5px !important;
+                line-height: 1.45 !important;
+                padding: 0 10px !important;
+                opacity: 0.8 !important;
+            }
             .footer-content { flex-direction: column !important; text-align: center !important; gap: 10px !important; }
+            .copyright {
+                font-size: 10px !important;
+                line-height: 1.5 !important;
+                opacity: 0.75 !important;
+                text-align: center !important;
+                padding-top: 12px !important;
+            }
         }
 
         /* --- Extra Small Phones (≤360px) --- */
         @media (max-width: 360px) {
+            .guarantee-note { margin-top: 20px !important; font-size: 9.5px !important; }
+            .copyright { font-size: 9px !important; }
             .nav-container { padding: 6px 10px !important; }
             .logo { font-size: 15px !important; }
             .page-title { font-size: 21px !important; }
