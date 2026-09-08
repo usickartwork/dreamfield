@@ -1,6 +1,7 @@
 /**
  * Vercel Serverless Function: /api/chat
  * Integrates Google Gemini API with Dreamfield Tactical Official Knowledge Base
+ * Features Smart Fallback Knowledge Engine when API Key is not yet configured.
  */
 
 const SYSTEM_INSTRUCTION = `
@@ -87,6 +88,54 @@ Tugas utama Anda adalah menyapa pengunjung dengan ramah, sopan, antusias, dan me
   * Hindari memberikan spekulasi atau janji di luar data resmi ini.
 `;
 
+// Smart Fallback Matcher: Answers dynamically based on Google Docs knowledge even if Gemini API Key is not yet configured
+function getKnowledgeResponse(msg) {
+    const q = msg.toLowerCase();
+
+    // Jam buka & Jadwal operasional
+    if (q.includes('jam') || q.includes('buka') || q.includes('tutup') || q.includes('jadwal') || q.includes('operasional') || q.includes('selasa') || q.includes('hari apa')) {
+        return `**Jam Operasional Dreamfield Tactical Surabaya:**\n\n* **Jam Buka:** Pukul 12:00 – 21:00 WIB\n* **Hari Operasional:** Buka setiap **Senin, Rabu, Kamis, Jumat, Sabtu, dan Minggu**\n* ⚠️ **PENTING:** Hari **SELASA LIBUR / TUTUP** (kecuali hari libur nasional atau reservasi khusus).\n\nAda rencana datang di hari apa nih, Operator?`;
+    }
+
+    // Lokasi & Alamat
+    if (q.includes('lokasi') || q.includes('alamat') || q.includes('di mana') || q.includes('dimana') || q.includes('mall') || q.includes('tidar') || q.includes('tempat') || q.includes('surabaya')) {
+        return `**Lokasi Dreamfield Tactical Surabaya:**\n\n📍 **Alamat:** Jl. Tidar No.350, Tembok Dukuh, Kec. Bubutan, Kota Surabaya, Jawa Timur 60173\n🏢 **Gedung:** Berada di dalam **The Central Mall – Gunawangsa Tidar**.\n🎯 **Landmark:** Sekitar 2,8 km dari Tunjungan Plaza (TP) & dekat Marvell City.\n❄️ **Kondisi Arena:** Indoor ber-AC seluas 1.200 m², nyaman dan sejuk tanpa terganggu hujan atau terik matahari!\n\nPerlu petunjuk arah atau mau langsung reservasi jadwal?`;
+    }
+
+    // Harga / Pricelist / Biaya / Paket
+    if (q.includes('harga') || q.includes('biaya') || q.includes('paket') || q.includes('bayar') || q.includes('tarif') || q.includes('berapa') || q.includes('pricelist')) {
+        return `**Daftar Harga & Paket di Dreamfield Tactical:**\n\n* **Kisaran Harga:** Mulai dari **Rp50.000 s/d Rp225.000** per sesi tergantung arena dan kelengkapan unit.\n* **Durasi Main:** Minimal 1 jam per sesi permainan (tersedia paket 1 jam & 2 jam).\n* **Pilihan Arena:**\n  1. **War Game CQB** (Skirmish taktis di arena bertingkat 1.200 m²)\n  2. **Target Range** (Lane tembak presisi & reaksi 10–25m)\n  3. **Coaching CQB & Unit Drill** (Masterclass taktis)\n  4. **Gear Rental** (Sewa unit AEG/GBB + Full Body Armor)\n\n👉 Anda bisa cek rincian harga lengkap di halaman [Pricelist Resmi](https://dreamfield.vercel.app/pricelist.html) atau langsung pilih slot di [Formulir Booking Online](https://dreamfield.vercel.app/booking.html)!`;
+    }
+
+    // Cara Booking / Reservasi
+    if (q.includes('booking') || q.includes('pesan') || q.includes('reservasi') || q.includes('daftar') || q.includes('cara main') || q.includes('alur')) {
+        return `**Cara Mudah Booking Main di Dreamfield Tactical:**\n\n1. **Booking Online via Website:**\n   * Masuk ke halaman [Booking Online](https://dreamfield.vercel.app/booking.html)\n   * Pilih arena (War Game CQB / Target Range)\n   * Pilih paket unit & durasi (1 jam / 2 jam)\n   * Tentukan tanggal main & jam slot kedatangan (12:00–21:00 WIB)\n   * Isi nama/callsign & jumlah personel, lalu konfirmasi instan ke WhatsApp Admin.\n\n2. **Chat Langsung WhatsApp Admin:**\n   * Bisa langsung chat admin di [0851-9656-1811](https://wa.me/6285196561811) untuk bantuan jadwal cepat.\n\nMau booking untuk berapa orang, Operator?`;
+    }
+
+    // Keamanan / Safety / Senjata / Peluru / Pemula
+    if (q.includes('aman') || q.includes('safety') || q.includes('senjata') || q.includes('peluru') || q.includes('sakit') || q.includes('replika') || q.includes('airsoft') || q.includes('helm') || q.includes('rompi') || q.includes('pemula')) {
+        return `**Standar Keamanan & Perlengkapan di Dreamfield Tactical:**\n\n* **Unit Olahraga:** Menggunakan replika airsoft bersertifikasi (AEG & GBB), **BUKAN senjata api sungguhan**, dengan peluru BB plastik aman.\n* **Chrono Test:** Seluruh unit diuji batas kecepatan tembak (FPS) di stasiun chrono sebelum bermain.\n* **Safety Gear Lengkap (Wajib):** Rompi taktis (body armor), helm pelindung wajah penuh (full-face), dan kacamata goggle wajib dipakai.\n* **Pendampingan:** Selalu didampingi Game Marshal resmi dan Range Safety Officer (sangat ramah untuk pemula pertama kali main)!\n\nBagi pemula, kami juga sediakan ruang briefing taktis ber-AC sebelum turun ke medan laga. Siap uji ketangkasan?`;
+    }
+
+    // Kontak / Admin / WhatsApp / Telepon / Medsos
+    if (q.includes('kontak') || q.includes('whatsapp') || q.includes('wa') || q.includes('admin') || q.includes('nomor') || q.includes('no') || q.includes('ig') || q.includes('instagram') || q.includes('tiktok')) {
+        return `**Kontak Resmi & Media Sosial Dreamfield Tactical:**\n\n* **WhatsApp Admin (Utama):** [0851-9656-1811](https://wa.me/6285196561811)\n* **Website:** [dreamfield.vercel.app](https://dreamfield.vercel.app/)\n* **Instagram:** [@dreamfieldtacticalsurabaya](https://instagram.com/dreamfieldtacticalsurabaya)\n* **TikTok:** [@dreamfieldtactical](https://tiktok.com/@dreamfieldtactical)\n* **YouTube:** @DreamFieldTactical\n\nSilakan klik link nomor WhatsApp di atas untuk langsung terhubung dengan Admin kami!`;
+    }
+
+    // Rombongan / Corporate / Event / Gathering
+    if (q.includes('rombongan') || q.includes('event') || q.includes('corporate') || q.includes('gathering') || q.includes('kantor') || q.includes('banyak') || q.includes('komunitas')) {
+        return `**Program Corporate Gathering & Community Skirmish:**\n\n* Arena Dreamfield Tactical mampu menampung hingga **50 personel** per periode/sesi!\n* Kami menyediakan skenario seru bertema tim taktis, perlombaan skor akurasi digital, dan paket *Family & Corporate Gathering*.\n\nUntuk paket khusus rombongan kantor atau komunitas, silakan langsung hubungi WhatsApp Admin kami di [0851-9656-1811](https://wa.me/6285196561811) agar kami siapkan penawaran terbaik!`;
+    }
+
+    // Sapaan umum (Halo, Hai, Pagi, Siang, Malam, Siap)
+    if (q === 'halo' || q === 'hai' || q === 'hi' || q === 'pagi' || q === 'siang' || q === 'sore' || q === 'malam' || q === 'tes' || q === 'test') {
+        return `Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya CS AI resmi siap membantu Anda. Ada yang bisa saya informasikan seputar:\n* 📍 **Lokasi & Jam Buka**\n* 💰 **Daftar Harga & Paket**\n* 🛡️ **Aturan Safety & Perlengkapan**\n* 📅 **Cara Reservasi / Booking Slot**\n\nSilakan tanyakan apa saja, Operator!`;
+    }
+
+    // Default fallback yang tetap mengarahkan
+    return `Siap Operator! Pertanyaan Anda tercatat di pusat kendali Dreamfield Tactical.\n\nUntuk informasi detail atau kebutuhan khusus yang belum terjawab, Anda bisa langsung berkonsultasi secara cepat dengan Admin kami via WhatsApp resmi di **0851-9656-1811** (https://wa.me/6285196561811).\n\nAda hal lain seputar jadwal, lokasi, atau paket bermain yang ingin ditanyakan?`;
+}
+
 module.exports = async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -125,11 +174,13 @@ module.exports = async function handler(req, res) {
 
         const apiKey = process.env.GEMINI_API_KEY;
 
-        // Graceful fallback if API key is not yet configured in Vercel
+        // SMART KNOWLEDGE ENGINE:
+        // If API key is not yet configured, provide dynamic answers directly from the Google Docs knowledge base!
         if (!apiKey) {
+            const smartReply = getKnowledgeResponse(userMessage);
             return res.status(200).json({
-                reply: "Halo Operator! CS AI Dreamfield Tactical siap bertugas. Saat ini sistem integrasi Gemini API Key sedang dalam tahap finalisasi oleh Admin. Anda dapat langsung bertanya atau melakukan reservasi ke WhatsApp resmi kami di **0851-9656-1811** (https://wa.me/6285196561811). Siap melayani Anda!",
-                fallback: true
+                reply: smartReply,
+                source: 'knowledge_base'
             });
         }
 
@@ -154,7 +205,7 @@ module.exports = async function handler(req, res) {
             parts: [{ text: userMessage }]
         });
 
-        // Request Gemini API (Using gemini-1.5-flash for ultra fast and cost-efficient response)
+        // Request Gemini API (Using gemini-1.5-flash for ultra fast response)
         const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
         const payload = {
@@ -181,25 +232,11 @@ module.exports = async function handler(req, res) {
             const errorData = await response.text();
             console.error('Gemini API Error Response:', errorData);
 
-            // Attempt fallback to gemini-2.0-flash if 1.5-flash had an issue
-            const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            const fallbackResponse = await fetch(fallbackUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!fallbackResponse.ok) {
-                return res.status(200).json({
-                    reply: "Maaf Operator, sistem komunikasi kami sedang mengalami gangguan jaringan sementara. Anda bisa langsung menghubungi CS Admin kami di WhatsApp **0851-9656-1811** (https://wa.me/6285196561811).",
-                    fallback: true
-                });
-            }
-
-            const fallbackJson = await fallbackResponse.json();
-            const replyText = fallbackJson?.candidates?.[0]?.content?.parts?.[0]?.text;
+            // Fallback to Smart Knowledge Engine if Gemini API has temporary rate limit/issue
+            const smartReply = getKnowledgeResponse(userMessage);
             return res.status(200).json({
-                reply: replyText || "Siap Operator! Ada yang bisa kami bantu lagi mengenai Dreamfield Tactical?"
+                reply: smartReply,
+                source: 'knowledge_base_fallback'
             });
         }
 
@@ -207,20 +244,23 @@ module.exports = async function handler(req, res) {
         const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!replyText) {
+            const smartReply = getKnowledgeResponse(userMessage);
             return res.status(200).json({
-                reply: "Siap Operator! Mohon ulangi pertanyaan Anda, atau langsung hubungi WhatsApp Admin di 0851-9656-1811."
+                reply: smartReply
             });
         }
 
         return res.status(200).json({
-            reply: replyText
+            reply: replyText,
+            source: 'gemini_ai'
         });
 
     } catch (err) {
         console.error('Serverless function error:', err);
-        return res.status(500).json({
-            reply: "Terjadi kendala internal server. Silakan hubungi admin WhatsApp kami di 0851-9656-1811.",
-            error: err.message
+        const fallbackAnswer = getKnowledgeResponse(req.body?.message || '');
+        return res.status(200).json({
+            reply: fallbackAnswer,
+            source: 'offline_fallback'
         });
     }
 };
