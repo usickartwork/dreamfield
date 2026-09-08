@@ -61,7 +61,15 @@
     // Markdown simple formatter
     function formatMarkdown(text) {
         if (!text) return '';
-        let escaped = text
+        let cleaned = text.trim();
+        // Hapus tanda petik pembungkus jika ada
+        if ((cleaned.startsWith('"') && cleaned.endsWith('"')) || 
+            (cleaned.startsWith('“') && cleaned.endsWith('”')) ||
+            (cleaned.startsWith('\'') && cleaned.endsWith('\''))) {
+            cleaned = cleaned.slice(1, -1).trim();
+        }
+
+        let escaped = cleaned
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
@@ -132,7 +140,7 @@
                         </div>
                         <div class="df-cs-header-titles">
                             <span class="df-cs-header-name" id="dfCsHeaderTitle">Mindream</span>
-                            <span class="df-cs-header-status">Tactical Assistant • Online</span>
+                            <span class="df-cs-header-status">Admin Support • Online</span>
                         </div>
                     </div>
                     <div class="df-cs-header-actions">
@@ -192,7 +200,7 @@
         messages = [
             {
                 role: 'model',
-                text: 'Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya **Mindream**, asisten resmi yang siap membantu seputar **lokasi arena, jadwal operasional, harga paket, aturan safety, hingga booking online**. Ada yang bisa saya bantu?'
+                text: 'Halo kak! Selamat datang di Dreamfield Tactical Surabaya.\n\nAku Mindream, admin yang lagi standby shift di sini. Mau tanya info arena, harga paket main, jadwal buka, atau mau langsung pesan slot?'
             }
         ];
         saveMessages();
