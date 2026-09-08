@@ -347,6 +347,44 @@
     color: #ffffff;
 }
 
+/* Message content wrapper (bubble + CTA) */
+.df-cs-msg-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+/* Booking CTA Button */
+.df-cs-booking-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, var(--cs-lime), #9de600);
+    color: #0a0f0a;
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: 10px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 14px rgba(183, 255, 0, 0.3);
+    white-space: nowrap;
+}
+
+.df-cs-booking-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(183, 255, 0, 0.45);
+    text-decoration: none;
+    color: #0a0f0a;
+}
+
+.df-cs-booking-btn i {
+    font-size: 12px;
+}
+
+
 /* Quick Prompts Chip Carousel */
 .df-cs-quick-prompts {
     display: flex;

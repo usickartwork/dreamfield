@@ -270,13 +270,21 @@
         for (let i = 0; i < messages.length; i++) {
             const m = messages[i];
             const isBot = m.role === 'model';
+            const hasCTA = isBot && m.text.includes('[BOOKING_CTA]');
+            const cleanText = m.text.replace('[BOOKING_CTA]', '').trim();
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}">
                     <div class="df-cs-msg-avatar">
                         <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
                     </div>
-                    <div class="df-cs-msg-bubble">
-                        ${formatMarkdown(m.text)}
+                    <div class="df-cs-msg-content">
+                        <div class="df-cs-msg-bubble">
+                            ${formatMarkdown(cleanText)}
+                        </div>
+                        ${hasCTA ? `
+                        <a href="/booking.html" class="df-cs-booking-btn">
+                            <i class="fa-solid fa-calendar-check"></i> Booking Sekarang
+                        </a>` : ''}
                     </div>
                 </div>
             `;

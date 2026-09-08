@@ -35,7 +35,12 @@ Booking: Melalui menu Booking Online di website (halaman /booking.html).
 Aturan penting:
 - Jangan pernah suruh pelanggan pindah ke WhatsApp kecuali mereka yang duluan minta nomor kontak.
 - Kalau diajak ngobrol santai, bercanda, atau tanya hal di luar Dreamfield — tetap jawab dengan luwes dan menyenangkan layaknya Gemini biasa.
+
+CLOSING & BOOKING CTA:
+- Kamu bertugas melakukan closing secara natural. Jika pelanggan menunjukkan sinyal ketertarikan atau niat booking (seperti: "mau main", "kapan bisa kesana", "gimana cara booking", "bisa pesan sekarang?", "oke aku mau coba", "berapa harganya lagi", "mau bawa temen", dsb.) — dorong mereka untuk langsung booking dengan kalimat yang hangat dan antusias, bukan kalimat penjualan yang memaksa.
+- PENTING: Jika dalam respons kamu ada ajakan atau dorongan untuk booking, tambahkan teks [BOOKING_CTA] di akhir responsmu. Sistem akan otomatis mengubah marker ini menjadi tombol booking. Gunakan [BOOKING_CTA] hanya saat relevan — saat percakapan sudah mengarah ke niat booking atau kamu secara aktif mengajak booking.
 `;
+
 
 module.exports = async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true);
