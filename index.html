@@ -3422,122 +3422,237 @@
             to { transform: scale(1.06); box-shadow: 0 0 10px rgba(255, 71, 87, 0.7); }
         }
 
-        /* Dedicated Corner Reload Button (Pojok Kanan Bawah) */
-        .stage-corner-reload-btn {
+        /* Ready Overlay (Menunggu Tombol Ready Ditekan Baru Mulai) */
+        .stage-ready-overlay {
             position: absolute;
-            bottom: 38px;
-            right: 14px;
-            z-index: 35;
-            display: inline-flex;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(7px);
+            z-index: 45;
+            display: none;
             align-items: center;
-            gap: 7px;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stage-ready-overlay.active {
+            display: flex;
+            animation: bannerFadeIn 220ms ease-out;
+        }
+
+        .stage-ready-card {
+            background: #181818;
+            border: 2px solid var(--color-lime);
+            border-radius: 8px;
+            padding: 26px 22px;
+            max-width: 420px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(183, 255, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ready-badge-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(183, 255, 0, 0.15);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stage-ready-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--color-lime);
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .stage-ready-card p {
+            font-size: 13px;
+            color: var(--color-sage);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .btn-ready-start {
             background: var(--color-lime);
             color: #111111;
             border: 2px solid #ffffff;
-            padding: 8px 15px;
+            padding: 11px 26px;
             border-radius: 6px;
             font-family: 'Outfit', sans-serif;
-            font-size: 12.5px;
+            font-size: 14px;
             font-weight: 900;
             letter-spacing: 0.6px;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 14px rgba(183, 255, 0, 0.4);
+            margin-top: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 16px rgba(183, 255, 0, 0.4);
+            transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+        }
+
+        .btn-ready-start:hover {
+            background: #d4ff33;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 24px rgba(183, 255, 0, 0.6);
+        }
+
+        .btn-ready-start:active {
+            transform: translateY(1px) scale(0.96);
+        }
+
+        /* Banner Retry Button */
+        .banner-actions-wrap {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 6px;
+        }
+
+        .btn-banner-retry {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--color-sage);
+            border: 1px solid rgba(221, 229, 209, 0.35);
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 140ms, color 140ms, transform 140ms;
+        }
+
+        .btn-banner-retry:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .btn-banner-retry:active {
+            transform: scale(0.96);
+        }
+
+        /* Range Bottom Hint & Centered Reload Button (Di Bawah Keterangan & Di Tengah) */
+        .range-hint-bar {
+            position: relative;
+            z-index: 25;
+            background: rgba(12, 12, 12, 0.94);
+            border-top: 1px solid rgba(221, 229, 209, 0.12);
+            padding: 10px 16px 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 9px;
+            cursor: default;
+        }
+
+        .range-hint-msg {
+            font-size: 12px;
+            color: var(--color-moss);
+            line-height: 1.4;
+        }
+
+        .range-hint-msg strong {
+            color: var(--color-lime);
+        }
+
+        .range-center-reload-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .stage-center-reload-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            background: var(--color-lime);
+            color: #111111;
+            border: 2px solid #ffffff;
+            padding: 8px 22px;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 14px rgba(183, 255, 0, 0.35);
             transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
         }
 
-        .stage-corner-reload-btn:hover {
+        .stage-center-reload-btn:hover {
             background: #d4ff33;
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 20px rgba(183, 255, 0, 0.6);
         }
 
-        .stage-corner-reload-btn:active {
+        .stage-center-reload-btn:active {
             transform: translateY(1px) scale(0.96);
         }
 
-        .stage-corner-reload-btn.empty-alert {
+        .stage-center-reload-btn.empty-alert {
             background: #ff4757;
             color: #ffffff;
             border-color: #ffffff;
-            animation: cornerReloadAlert 0.45s infinite alternate;
+            animation: centerReloadAlert 0.45s infinite alternate;
         }
 
-        @keyframes cornerReloadAlert {
+        @keyframes centerReloadAlert {
             from { transform: scale(1); box-shadow: 0 0 8px rgba(255, 71, 87, 0.5); }
-            to { transform: scale(1.08); box-shadow: 0 0 20px rgba(255, 71, 87, 0.9); }
+            to { transform: scale(1.06); box-shadow: 0 0 22px rgba(255, 71, 87, 0.95); }
         }
 
-        .corner-ammo-counter {
+        .center-ammo-counter {
             background: #111111;
             color: var(--color-lime);
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 800;
-            padding: 2px 6px;
+            padding: 2.5px 7px;
             border-radius: 4px;
-            border: 1px solid rgba(183, 255, 0, 0.3);
+            border: 1px solid rgba(183, 255, 0, 0.4);
         }
 
-        .stage-corner-reload-btn.empty-alert .corner-ammo-counter {
+        .stage-center-reload-btn.empty-alert .center-ammo-counter {
             background: #ffffff;
             color: #ff4757;
             border-color: #ffffff;
         }
 
-        /* Wall Impact Crater & Spark Effect */
-        .wall-impact-mark {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-        }
-
-        .wall-impact-spark {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ffffff 10%, var(--color-lime) 45%, transparent 75%);
-            box-shadow: 0 0 12px var(--color-lime), 0 0 20px rgba(183, 255, 0, 0.6);
-            animation: sparkFlash 180ms ease-out forwards;
-        }
-
-        .wall-impact-crater {
-            position: absolute;
-            inset: 2px;
-            border-radius: 50%;
-            background: #111111;
-            border: 1px solid rgba(221, 229, 209, 0.45);
-            box-shadow: inset 0 0 4px #000000;
-            animation: craterStay 450ms ease-out forwards;
-        }
-
-        .wall-impact-dust {
-            position: absolute;
-            inset: -6px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(221, 229, 209, 0.35) 0%, transparent 70%);
-            animation: dustExpand 320ms ease-out forwards;
-        }
-
-        @keyframes sparkFlash {
-            0% { transform: scale(0.4); opacity: 1; }
-            50% { transform: scale(1.6); opacity: 1; }
-            100% { transform: scale(0.2); opacity: 0; }
-        }
-
-        @keyframes craterStay {
-            0% { opacity: 1; transform: scale(1); }
-            80% { opacity: 0.9; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.85); }
-        }
-
-        @keyframes dustExpand {
-            0% { opacity: 0.8; transform: scale(0.5); }
-            100% { opacity: 0; transform: scale(2.2); }
+        /* Range Stage Adjusted Height for Bottom Bar */
+        .range-stage {
+            position: relative;
+            height: 420px;
+            background: radial-gradient(circle at center, rgba(35, 35, 35, 0.9) 0%, #0d0d0d 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: none !important;
+            cursor: crosshair;
         }
 
         .hud-score-val {
@@ -4276,16 +4391,17 @@
                 font-size: 10px;
                 padding: 2px 6px;
             }
-            .stage-corner-reload-btn {
-                bottom: 34px;
-                right: 8px;
-                padding: 6px 11px;
-                font-size: 11px;
-                gap: 5px;
+            .stage-center-reload-btn {
+                padding: 7px 18px;
+                font-size: 12px;
+                gap: 7px;
             }
-            .corner-ammo-counter {
-                font-size: 9.5px;
-                padding: 1px 4px;
+            .center-ammo-counter {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+            .range-stage {
+                height: 360px;
             }
             .hud-objective-pill {
                 font-size: 11px;
@@ -4814,7 +4930,7 @@
     
 
     
-        <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
+            <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
     <section id="tactical-range" class="tactical-experience-section">
         <div class="section-header slide-reveal slide-up">
             <span class="section-subtitle"><i class="fa-solid fa-crosshairs"></i> CQB TARGET DRILL · 3 STEPS · 10S TIMER</span>
@@ -4847,15 +4963,24 @@
                     <button type="button" class="hud-action-btn" id="btnSoundToggle" onclick="toggleSimSound()" title="Toggle Suara Firing FX">
                         <i class="fa-solid fa-volume-high" id="soundIcon"></i> <span id="soundText">AUDIO ON</span>
                     </button>
-                    <button type="button" class="hud-reload-btn" id="btnReloadMag" onclick="reloadMagazine(event)" title="Reload Magasin BB">
-                        <i class="fa-solid fa-rotate-right"></i> RELOAD
-                    </button>
                 </div>
             </div>
 
             <!-- Range Interactive Stage Area (Click anywhere registers wall miss impact) -->
             <div class="range-stage" id="rangeStage" onclick="handleStageShot(event)">
                 <div class="range-backdrop-grid"></div>
+
+                <!-- Initial Ready / Start Screen Overlay (Waktu TIDAK berjalan sebelum tombol Ready ditekan) -->
+                <div class="stage-ready-overlay active" id="stageReadyOverlay">
+                    <div class="stage-ready-card">
+                        <div class="ready-badge-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                        <h3>AIRSOFT SHOOTING DRILL</h3>
+                        <p>Uji refleks akurasi dalam 3 level bertahap dengan batas waktu <strong>10 detik</strong> per level. Waktu baru akan berjalan setelah Anda siap!</p>
+                        <button type="button" class="btn-ready-start" id="btnReadyStart" onclick="startDrillGame(event)">
+                            <i class="fa-solid fa-play"></i> READY · MULAI GAME (10S)
+                        </button>
+                    </div>
+                </div>
 
                 <!-- Anti-Zoom Cheating Warning Overlay -->
                 <div class="anti-zoom-overlay" id="antiZoomOverlay">
@@ -4872,9 +4997,14 @@
                         <div class="banner-badge-icon" id="bannerBadgeIcon"><i class="fa-solid fa-award"></i></div>
                         <h3 id="bannerTitle">STEP 1 CLEARED!</h3>
                         <p id="bannerDesc">Hebat! Bersiap untuk Step 2: Target bergerak dan bersembunyi di balik barikade.</p>
-                        <button type="button" class="btn-banner-next" id="btnBannerNext" onclick="dismissBannerAndProceed()">
-                            LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        <div class="banner-actions-wrap" id="bannerActionsWrap">
+                            <button type="button" class="btn-banner-next" id="btnBannerNext" onclick="dismissBannerAndProceed()">
+                                LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button type="button" class="btn-banner-retry" id="btnBannerRetry" style="display:none;" onclick="retryCurrentStep()">
+                                <i class="fa-solid fa-rotate-right"></i> ULANGI STEP INI
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -4953,16 +5083,19 @@
                     </div>
                 </div>
 
-                <!-- Dedicated Corner Reload Button (Pojok Kanan Bawah Sesuai Request) -->
-                <button type="button" class="stage-corner-reload-btn" id="stageCornerReloadBtn" onclick="reloadMagazine(event)" title="Isi Ulang Magasin BB (Pojok Kanan Bawah)">
-                    <i class="fa-solid fa-rotate-right"></i>
-                    <span class="corner-reload-text">RELOAD</span>
-                    <span class="corner-ammo-counter" id="cornerAmmoCounter">15</span>
-                </button>
-
-                <!-- Range Bottom Hint -->
-                <div class="range-hint-bar">
-                    <span id="rangeHintText"><i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Kenai sasaran baja 4 kali sebelum waktu habis! Menembak hitam-hitam dihitung meleset (MISS).</span>
+                <!-- Range Bottom Hint & Central Reload Button Area -->
+                <div class="range-hint-bar" onclick="event.stopPropagation()">
+                    <div class="range-hint-msg" id="rangeHintText">
+                        <i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Kenai sasaran baja 4 kali sebelum waktu habis! Menembak hitam-hitam dihitung meleset (MISS).
+                    </div>
+                    <!-- Tombol Reload di bawahnya keterangan dan di tengah-tengah -->
+                    <div class="range-center-reload-wrap">
+                        <button type="button" class="stage-center-reload-btn" id="stageCenterReloadBtn" onclick="reloadMagazine(event)" title="Isi Ulang Magasin BB (15 Butir)">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>RELOAD MAGASIN</span>
+                            <span class="center-ammo-counter" id="centerAmmoCounter">15 BBs</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5451,13 +5584,14 @@
         }
     };
 
-    // --- 2. Hardcore 3-Step Random Target Simulator (10s Timer per Step, Corner Reload, Wall Miss Impact) ---
+    // --- 2. Hardcore 3-Step Random Target Simulator (Ready Gate, 10s Timer, Centered Reload, Wall Miss Impact) ---
     (function() {
         'use strict';
 
         let audioCtx = null;
         let isSoundEnabled = true;
         let isZoomBlocked = false;
+        let isGameActive = false; // TIDAK mulai timer sebelum tombol READY ditekan!
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -5752,6 +5886,7 @@
         }
 
         function consumeAmmo() {
+            if (!isGameActive) return false;
             if (isZoomBlocked) {
                 spawnFloatingHit('ZOOM TERDETEKSI! KEMBALIKAN KE 100%', null, null, 'warn');
                 return false;
@@ -5761,9 +5896,8 @@
                 triggerHaptic(30);
                 spawnFloatingHit('MAG KOSONG! TEKAN RELOAD', null, null, 'warn');
 
-                // Corner reload button attention pulse
-                const cornerBtn = document.getElementById('stageCornerReloadBtn');
-                if (cornerBtn) cornerBtn.classList.add('empty-alert');
+                const centerBtn = document.getElementById('stageCenterReloadBtn');
+                if (centerBtn) centerBtn.classList.add('empty-alert');
                 return false;
             }
             ammoCount--;
@@ -5772,8 +5906,8 @@
             triggerHaptic(15);
 
             if (ammoCount <= 0) {
-                const cornerBtn = document.getElementById('stageCornerReloadBtn');
-                if (cornerBtn) cornerBtn.classList.add('empty-alert');
+                const centerBtn = document.getElementById('stageCenterReloadBtn');
+                if (centerBtn) centerBtn.classList.add('empty-alert');
             }
             return true;
         }
@@ -5781,15 +5915,15 @@
         function updateAmmoHUD() {
             const ammoEl = document.getElementById('hudAmmoVal');
             if (ammoEl) ammoEl.textContent = ammoCount;
-            const cornerCounter = document.getElementById('cornerAmmoCounter');
-            if (cornerCounter) cornerCounter.textContent = ammoCount;
+            const centerCounter = document.getElementById('centerAmmoCounter');
+            if (centerCounter) centerCounter.textContent = ammoCount + ' BBs';
         }
 
         function updateGoalHUD() {
             const goalProg = document.getElementById('hudGoalProgress');
             const goalTot = document.getElementById('hudGoalTotal');
             const stagePill = document.getElementById('hudStagePill');
-            const hintText = document.getElementById('rangeHintText');
+            const hintMsg = document.getElementById('rangeHintText');
 
             if (goalProg) goalProg.textContent = currentStepHits;
             if (goalTot) goalTot.textContent = stepGoals[currentStep];
@@ -5800,16 +5934,31 @@
                 else if (currentStep === 3) stagePill.textContent = 'STEP 3 / 3 · REFLEX & HOSTAGES';
             }
 
-            if (hintText) {
+            if (hintMsg) {
                 if (currentStep === 1) {
-                    hintText.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Sasaran baja melesat cepat & berubah arah. Kenai 4 kali sebelum 10 detik!';
+                    hintMsg.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Sasaran baja melesat cepat & berubah arah. Kenai 4 kali sebelum 10 detik!';
                 } else if (currentStep === 2) {
-                    hintText.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 2 (10 DETIK):</strong> Bullseye berlari kencang & bersembunyi di balik barikade. Kenai 5 kali!';
+                    hintMsg.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 2 (10 DETIK):</strong> Bullseye berlari kencang & bersembunyi di balik barikade. Kenai 5 kali!';
                 } else if (currentStep === 3) {
-                    hintText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>STEP 3 (10 DETIK):</strong> Target muncul 0.7s! Kenai 6 kali. <strong>Awas:</strong> Sandera sipil (❌) penalti -50!';
+                    hintMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>STEP 3 (10 DETIK):</strong> Target muncul 0.7s! Kenai 6 kali. <strong>Awas:</strong> Sandera sipil (❌) penalti -50!';
                 }
             }
         }
+
+        // --- READY / START GATE SYSTEM ---
+        window.startDrillGame = function(e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            isGameActive = true;
+
+            const readyOverlay = document.getElementById('stageReadyOverlay');
+            if (readyOverlay) readyOverlay.classList.remove('active');
+
+            getAudioContext();
+            playReloadSound();
+            triggerHaptic(30);
+
+            setStage(1);
+        };
 
         // --- 10-SECOND STEP TIMER SYSTEM ---
         function startStepTimer() {
@@ -5849,37 +5998,74 @@
             }
         }
 
+        // Sesuai Request User: Jika waktu habis, tunjukkan skor dan berikan opsi lanjut ke step berikutnya atau coba lagi
         function handleStepTimeout() {
             stopStepTimer();
             cancelAllLoops();
             playBuzzerPenaltySound();
-            triggerHaptic(60);
+            triggerHaptic(50);
 
             const overlay = document.getElementById('stageBannerOverlay');
             const bTitle = document.getElementById('bannerTitle');
             const bDesc = document.getElementById('bannerDesc');
             const bBtn = document.getElementById('btnBannerNext');
+            const bRetry = document.getElementById('btnBannerRetry');
 
-            if (bTitle) bTitle.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-hourglass-end"></i> WAKTU 10 DETIK HABIS!</span>';
-            if (bDesc) bDesc.textContent = `Target terlalu cepat! Anda mengumpulkan ${currentStepHits}/${stepGoals[currentStep]} sasaran dalam 10 detik. Tekan Coba Lagi untuk mengulang Step ${currentStep}!`;
-            if (bBtn) {
-                bBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> COBA LAGI STEP ${currentStep}`;
-                bBtn.onclick = function() {
-                    if (overlay) overlay.classList.remove('active');
-                    setStage(currentStep);
-                };
+            const accVal = document.getElementById('hudAccVal') ? document.getElementById('hudAccVal').textContent : '100%';
+
+            if (currentStep < 3) {
+                if (bTitle) bTitle.innerHTML = `<span style="color:var(--color-lime);"><i class="fa-solid fa-stopwatch"></i> WAKTU STEP ${currentStep} SELESAI</span>`;
+                if (bDesc) bDesc.innerHTML = `Waktu 10 detik telah habis! Anda mengumpulkan <strong>${currentStepHits}/${stepGoals[currentStep]}</strong> sasaran.<br>Total Skor Saat Ini: <strong>${scoreCount} PTS</strong> (Akurasi: <strong>${accVal}</strong>).<br>Silakan lanjut ke level berikutnya atau ulangi step ini.`;
+                if (bBtn) {
+                    bBtn.innerHTML = `LANJUT KE STEP ${currentStep + 1} <i class="fa-solid fa-arrow-right"></i>`;
+                    bBtn.onclick = function() {
+                        if (overlay) overlay.classList.remove('active');
+                        setStage(currentStep + 1);
+                    };
+                }
+                if (bRetry) {
+                    bRetry.style.display = 'inline-flex';
+                    bRetry.innerHTML = `<i class="fa-solid fa-rotate-right"></i> ULANGI STEP ${currentStep}`;
+                    bRetry.onclick = function() {
+                        if (overlay) overlay.classList.remove('active');
+                        setStage(currentStep);
+                    };
+                }
+            } else {
+                // Step 3 Timeout -> Ringkasan Final Skor
+                if (bTitle) bTitle.innerHTML = `<span style="color:var(--color-lime);"><i class="fa-solid fa-award"></i> DRILL SELESAI (WAKTU HABIS)</span>`;
+                if (bDesc) bDesc.innerHTML = `Latihan CQB selesai! Target Step 3: <strong>${currentStepHits}/${stepGoals[3]}</strong> sasaran.<br>Total Skor Akhir: <strong>${scoreCount} PTS</strong> · Akurasi: <strong>${accVal}</strong> · Sandera: <strong>${penaltyCount}</strong>.`;
+                if (bBtn) {
+                    bBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> MAIN LAGI (DRILL BARU TERACAK)`;
+                    bBtn.onclick = function() {
+                        if (overlay) overlay.classList.remove('active');
+                        restartToStep1();
+                    };
+                }
+                if (bRetry) {
+                    bRetry.style.display = 'none';
+                }
             }
+
             if (overlay) overlay.classList.add('active');
         }
+
+        window.retryCurrentStep = function() {
+            const overlay = document.getElementById('stageBannerOverlay');
+            if (overlay) overlay.classList.remove('active');
+            setStage(currentStep);
+        };
 
         function showStageBanner(title, desc, btnText) {
             const overlay = document.getElementById('stageBannerOverlay');
             const bTitle = document.getElementById('bannerTitle');
             const bDesc = document.getElementById('bannerDesc');
             const bBtn = document.getElementById('btnBannerNext');
+            const bRetry = document.getElementById('btnBannerRetry');
 
             if (bTitle) bTitle.innerHTML = title;
-            if (bDesc) bDesc.textContent = desc;
+            if (bDesc) bDesc.innerHTML = desc;
+            if (bRetry) bRetry.style.display = 'none'; // Sembunyikan retry saat berhasil
             if (bBtn) {
                 bBtn.innerHTML = btnText;
                 bBtn.onclick = function() {
@@ -5934,33 +6120,33 @@
             const stageW = stageEl ? stageEl.clientWidth : 800;
             const maxBound = Math.max(120, (stageW / 2) - 60);
 
-            // Start fresh 10s timer for this step
-            startStepTimer();
+            // Mulai timer 10 detik saat step aktif
+            if (isGameActive) {
+                startStepTimer();
+            }
 
             if (step === 1) {
                 if (s1) s1.classList.add('active');
-                // Randomize Step 1 initial seed
                 popperX = (Math.random() - 0.5) * maxBound * 0.8;
                 popperVx = (Math.random() > 0.5 ? 1 : -1) * (2.8 + Math.random() * 2.2);
                 popperNextChangeTime = performance.now() + 400 + Math.random() * 800;
-                runStep1Physics();
+                if (isGameActive) runStep1Physics();
             } else if (step === 2) {
                 if (s2) s2.classList.add('active');
-                // Randomize Step 2 initial seed
                 bullseyeX = (Math.random() - 0.5) * maxBound * 0.8;
                 bullseyeVx = (Math.random() > 0.5 ? 1 : -1) * (4.2 + Math.random() * 3.0);
                 bullseyeDucked = false;
                 bullseyeNextDuckTime = performance.now() + 800 + Math.random() * 1400;
-                runStep2Physics();
+                if (isGameActive) runStep2Physics();
             } else if (step === 3) {
                 if (s3) s3.classList.add('active');
-                startStep3HardcorePop();
+                if (isGameActive) startStep3HardcorePop();
             }
         }
 
         // STEP 1 PHYSICS LOOP (Erratic Speed & Sudden Direction Inversion)
         function runStep1Physics() {
-            if (currentStep !== 1) return;
+            if (currentStep !== 1 || !isGameActive) return;
             const wrap = document.getElementById('targetPopperWrap');
             const stageEl = document.getElementById('rangeStage');
             const stageW = stageEl ? stageEl.clientWidth : 800;
@@ -5968,9 +6154,8 @@
 
             const now = performance.now();
             if (now > popperNextChangeTime) {
-                // Sudden erratic acceleration or reversal
                 const dir = Math.random() > 0.4 ? -Math.sign(popperVx) : Math.sign(popperVx);
-                const speed = 2.6 + Math.random() * 3.2; // Fast!
+                const speed = 2.6 + Math.random() * 3.2;
                 popperVx = dir * speed;
                 popperNextChangeTime = now + 350 + Math.random() * 900;
             }
@@ -5994,7 +6179,7 @@
 
         // STEP 2 PHYSICS LOOP (Super-Fast Sprint & Random Concealment Behind 5 Bunkers)
         function runStep2Physics() {
-            if (currentStep !== 2) return;
+            if (currentStep !== 2 || !isGameActive) return;
             const wrap = document.getElementById('targetBullseyeWrap');
             const stageEl = document.getElementById('rangeStage');
             const stageW = stageEl ? stageEl.clientWidth : 800;
@@ -6003,13 +6188,10 @@
             const now = performance.now();
 
             if (!bullseyeDucked && now > bullseyeNextDuckTime) {
-                // Duck into cover!
                 bullseyeDucked = true;
                 if (wrap) wrap.classList.add('ducked');
-                // Random duck duration: 350ms to 700ms
                 bullseyeDuckEndTime = now + 350 + Math.random() * 350;
             } else if (bullseyeDucked && now > bullseyeDuckEndTime) {
-                // Pop back up with surprise sprint direction!
                 bullseyeDucked = false;
                 if (wrap) wrap.classList.remove('ducked');
                 bullseyeVx = (Math.random() > 0.5 ? 1 : -1) * (4.5 + Math.random() * 3.2);
@@ -6036,7 +6218,7 @@
 
         // STEP 3 HARDCORE CQB ROUTINE (Ultra-Fast 0.7s Peek + Hostage Decoy)
         function startStep3HardcorePop() {
-            if (currentStep !== 3) return;
+            if (currentStep !== 3 || !isGameActive) return;
             const hWrap = document.getElementById('targetHostileWrap');
             const cWrap = document.getElementById('targetHostageWrap');
             const stageEl = document.getElementById('rangeStage');
@@ -6046,33 +6228,28 @@
             if (cWrap) cWrap.classList.add('ducked');
             isStep3Exposed = false;
 
-            // 5 randomized tactical bunker offsets
             const stepRatio = Math.max(45, (stageW / 2) - 40) / 2;
             const bunkerPositions = [-2 * stepRatio, -1 * stepRatio, 0, 1 * stepRatio, 2 * stepRatio];
             const chosenX = bunkerPositions[Math.floor(Math.random() * bunkerPositions.length)];
 
-            // 75% Hostile, 25% Hostage Decoy!
             const isHostage = Math.random() < 0.25;
             activeTargetType = isHostage ? 'hostage' : 'hostile';
             const targetEl = isHostage ? cWrap : hWrap;
 
-            // Short randomized cover pause (300ms to 600ms)
             step3Timer = setTimeout(() => {
-                if (currentStep !== 3) return;
+                if (currentStep !== 3 || !isGameActive) return;
                 if (targetEl) {
                     targetEl.style.transform = `translateX(${chosenX}px)`;
                     targetEl.classList.remove('ducked');
                     isStep3Exposed = true;
                 }
 
-                // VERY HARD: Exposed for only 650ms - 850ms!
                 const peekDuration = 650 + Math.random() * 200;
                 step3Timer = setTimeout(() => {
-                    if (currentStep !== 3) return;
+                    if (currentStep !== 3 || !isGameActive) return;
                     if (targetEl) targetEl.classList.add('ducked');
                     isStep3Exposed = false;
 
-                    // Repeat next pop
                     step3Timer = setTimeout(startStep3HardcorePop, 350 + Math.random() * 300);
                 }, peekDuration);
             }, 350 + Math.random() * 350);
@@ -6081,6 +6258,7 @@
         // --- HIT HANDLERS ---
         window.shootPopper = function(e) {
             e.stopPropagation();
+            if (!isGameActive) return;
             if (currentStep !== 1) return;
             if (isPopperDown) return;
             if (!consumeAmmo()) return;
@@ -6105,7 +6283,6 @@
                     popper.classList.remove('knocked-down');
                     popper.classList.add('knock-reset');
                     isPopperDown = false;
-                    // Jitter new position upon spring up
                     popperVx = (Math.random() > 0.5 ? 1 : -1) * (3.0 + Math.random() * 2.5);
                 }, 750);
             }
@@ -6118,7 +6295,7 @@
                 setTimeout(() => {
                     showStageBanner(
                         `STEP 1 CLEARED! (+100 PTS ${timeBonus > 0 ? '+ ' + timeBonus + ' BONUS WAKTU' : ''})`,
-                        `Bidikan baja Anda presisi! Selesai dengan sisa waktu ${stepTimeLeft} detik. Bersiap untuk STEP 2: Target Bullseye bergerak sprint dan bersembunyi di balik barikade!`,
+                        `Bidikan baja presisi! Selesai dalam sisa waktu ${stepTimeLeft} detik. Bersiap untuk STEP 2: Target Bullseye sprint cepat dan sembunyi di balik barikade!`,
                         'LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>'
                     );
                 }, 500);
@@ -6127,6 +6304,7 @@
 
         window.shootBullseye = function(e) {
             e.stopPropagation();
+            if (!isGameActive) return;
             if (currentStep !== 2) return;
             if (bullseyeDucked) return;
             if (!consumeAmmo()) return;
@@ -6179,7 +6357,6 @@
             void target.offsetWidth;
             target.classList.add('wobble-hit');
 
-            // Quick acceleration reaction upon being shot
             bullseyeVx = -Math.sign(bullseyeVx) * (4.8 + Math.random() * 2.5);
 
             if (currentStepHits >= stepGoals[2]) {
@@ -6190,7 +6367,7 @@
                 setTimeout(() => {
                     showStageBanner(
                         `STEP 2 CLEARED! (+200 PTS ${timeBonus > 0 ? '+ ' + timeBonus + ' BONUS WAKTU' : ''})`,
-                        `Hebat! Tuntas dengan sisa waktu ${stepTimeLeft} detik. Sekarang masuk ke STEP 3 (FINAL - ULTRA HARD): Musuh muncul mendadak dari 5 barikade hanya 0.7 detik! AWAS: Jangan tembak sandera sipil (❌)!`,
+                        `Hebat! Selesai dalam sisa waktu ${stepTimeLeft} detik. Sekarang masuk ke STEP 3 (FINAL - ULTRA HARD): Musuh muncul mendadak dari 5 barikade hanya 0.7 detik! AWAS: Jangan tembak sandera sipil (❌)!`,
                         'MASUK KE FINAL STEP 3 <i class="fa-solid fa-skull"></i>'
                     );
                 }, 500);
@@ -6198,6 +6375,7 @@
         };
 
         function hitSilhouetteCommon(e, pts, msg, isHead) {
+            if (!isGameActive) return;
             if (currentStep !== 3) return;
             if (!isStep3Exposed || activeTargetType !== 'hostile') return;
             if (!consumeAmmo()) return;
@@ -6231,7 +6409,7 @@
                 setTimeout(() => {
                     showStageBanner(
                         '🏆 DRILL SELESAI: CQB OPERATOR!',
-                        `Misi selesai dengan gemilang! Sisa Waktu: ${stepTimeLeft}s (+${timeBonus} PTS) | Total Skor: ${scoreCount} PTS | Akurasi: ${accVal} | Sandera Tertembak: ${penaltyCount}. Seluruh rintangan baru telah diacak ulang untuk permainan berikutnya!`,
+                        `Misi selesai dengan gemilang! Sisa Waktu: ${stepTimeLeft}s (+${timeBonus} PTS) | Total Skor: ${scoreCount} PTS | Akurasi: ${accVal} | Sandera Tertembak: ${penaltyCount}.`,
                         '<i class="fa-solid fa-rotate-right"></i> MAIN LAGI (DRILL BARU TERACAK)'
                     );
                 }, 500);
@@ -6253,6 +6431,7 @@
         // Hostage Decoy Penalty!
         window.shootHostagePenalty = function(e) {
             e.stopPropagation();
+            if (!isGameActive) return;
             if (currentStep !== 3) return;
             if (!isStep3Exposed || activeTargetType !== 'hostage') return;
             if (!consumeAmmo()) return;
@@ -6260,7 +6439,7 @@
             totalShots++;
             penaltyCount++;
             updateAccuracy();
-            updateScore(-50); // Penalty!
+            updateScore(-50);
 
             playBuzzerPenaltySound();
             triggerHaptic(50);
@@ -6277,6 +6456,7 @@
 
         // Click on dark area / bunkers / empty stage = MISS + VISUAL WALL IMPACT
         window.handleStageShot = function(e) {
+            if (!isGameActive) return;
             if (isZoomBlocked) return;
             if (!consumeAmmo()) return;
 
@@ -6289,14 +6469,11 @@
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
 
-            // Audio & Haptic for Wall Ricochet
             playWallMissSound();
             triggerHaptic(15);
 
-            // Floating MISS label
             spawnFloatingHit('MISS!', e.clientX, e.clientY, 'warn');
 
-            // Visual Bullet Spark and Crater on the dark surface
             const mark = document.createElement('div');
             mark.className = 'wall-impact-mark';
             mark.style.left = clickX + 'px';
@@ -6312,7 +6489,6 @@
             }, 460);
         };
 
-        // Backward compatibility
         window.shootStageMiss = window.handleStageShot;
 
         // Reload Magazine
@@ -6321,8 +6497,8 @@
             ammoCount = 15;
             updateAmmoHUD();
 
-            const cornerBtn = document.getElementById('stageCornerReloadBtn');
-            if (cornerBtn) cornerBtn.classList.remove('empty-alert');
+            const centerBtn = document.getElementById('stageCenterReloadBtn');
+            if (centerBtn) centerBtn.classList.remove('empty-alert');
 
             playReloadSound();
             triggerHaptic(30);
@@ -6348,12 +6524,13 @@
             updateAccuracy();
             updateAmmoHUD();
 
-            const cornerBtn = document.getElementById('stageCornerReloadBtn');
-            if (cornerBtn) cornerBtn.classList.remove('empty-alert');
+            const centerBtn = document.getElementById('stageCenterReloadBtn');
+            if (centerBtn) centerBtn.classList.remove('empty-alert');
 
             const holesLayer = document.getElementById('bulletHolesLayer');
             if (holesLayer) holesLayer.innerHTML = '';
 
+            isGameActive = true;
             spawnFloatingHit('DRILL BARU TERACAK: STEP 1', null, null, 'lime');
             setStage(1);
         };
@@ -6411,8 +6588,17 @@
             stage.addEventListener('gestureend', function(e) { e.preventDefault(); });
         }
 
-        // Initialize Step 1
-        setStage(1);
+        // INITIAL STATE: Game tidak langsung jalan pada saat baru refresh!
+        // Tunggu pemain menekan tombol "READY · MULAI GAME"
+        isGameActive = false;
+        currentStep = 1;
+        stepTimeLeft = 10;
+        updateGoalHUD();
+        updateTimerDisplay();
+        updateAmmoHUD();
+
+        const readyOverlay = document.getElementById('stageReadyOverlay');
+        if (readyOverlay) readyOverlay.classList.add('active');
 
         document.addEventListener('pointerdown', function initAudioOnce() {
             getAudioContext();
