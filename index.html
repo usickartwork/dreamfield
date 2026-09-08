@@ -5172,9 +5172,6 @@
                     <button type="button" class="hud-action-btn" id="btnRestartDrill" onclick="restartToStep1()" title="Ulangi dari Step 1">
                         <i class="fa-solid fa-backward-step"></i> RESTART
                     </button>
-                    <button type="button" class="hud-action-btn" id="btnSoundToggle" onclick="toggleSimSound()" title="Toggle Suara Firing FX">
-                        <i class="fa-solid fa-volume-high" id="soundIcon"></i> <span id="soundText">AUDIO ON</span>
-                    </button>
                 </div>
             </div>
 
@@ -5761,331 +5758,19 @@
     (function() {
         'use strict';
 
-        // --- Web Audio Synthesizer Engine (Mobile Safari & Desktop Hardened) ---
-        let audioCtx = null;
-        let masterGain = null;
-        let keepAliveNode = null;
-        let isSoundEnabled = true;
         let isZoomBlocked = false;
         let isGameActive = false; // TIDAK mulai timer sebelum tombol READY ditekan!
 
-        function getAudioContext() {
-            try {
-                if ('audioSession' in navigator) {
-                    try {
-                        navigator.audioSession.type = 'playback';
-                    } catch(e) {}
-                }
-                if (!audioCtx) {
-                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                    if (AudioContextClass) {
-                        audioCtx = new AudioContextClass();
-                        masterGain = audioCtx.createGain();
-                        masterGain.gain.value = isSoundEnabled ? 1.0 : 0.0;
-                        masterGain.connect(audioCtx.destination);
-                    }
-                }
-                if (audioCtx && audioCtx.state === 'suspended') {
-                    audioCtx.resume().catch(() => {});
-                }
-            } catch(e) {
-                console.warn('AudioContext init error:', e);
-            }
-            return audioCtx;
-        }
-
-        function ensureKeepAlive(ctx) {
-            if (!ctx || keepAliveNode) return;
-            try {
-                const osc = ctx.createOscillator();
-                const silentGain = ctx.createGain();
-                silentGain.gain.value = 0.00001; // Completely silent, keeps mobile audio DAC awake
-                osc.connect(silentGain);
-                silentGain.connect(ctx.destination);
-                osc.start();
-                keepAliveNode = osc;
-            } catch(e) {}
-        }
-
-        function unlockAudioEngine() {
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            if (ctx.state === 'suspended') {
-                ctx.resume().catch(() => {});
-            }
-            ensureKeepAlive(ctx);
-            // Play a 1-sample silent pulse to unlock iOS Safari hardware speaker pipeline
-            try {
-                const buffer = ctx.createBuffer(1, 1, ctx.sampleRate || 44100);
-                const source = ctx.createBufferSource();
-                source.buffer = buffer;
-                source.connect(ctx.destination);
-                source.start(0);
-            } catch(e) {}
-        }
-
-        // --- WEB AUDIO FX GENERATORS ---
-        // 1. Airsoft Shot (Pneumatic Piston Crack + Mechanical Pop)
-        function playAirsoftShotSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-
-                // Pneumatic Piston Compression Pop
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(360, t);
-                osc.frequency.exponentialRampToValueAtTime(50, t + 0.05);
-                gain.gain.setValueAtTime(0.75, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
-                osc.connect(gain);
-                gain.connect(dest);
-                osc.start(t);
-                osc.stop(t + 0.065);
-
-                // Sharp BB Muzzle Snap (Shaped 1400Hz Bandpass Noise)
-                const bufferSize = Math.floor(ctx.sampleRate * 0.04);
-                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
-                }
-                const noise = ctx.createBufferSource();
-                noise.buffer = buffer;
-
-                const filter = ctx.createBiquadFilter();
-                filter.type = 'bandpass';
-                filter.frequency.setValueAtTime(1400, t);
-                filter.Q.setValueAtTime(2.5, t);
-
-                const nGain = ctx.createGain();
-                nGain.gain.setValueAtTime(0.7, t);
-                nGain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
-
-                noise.connect(filter);
-                filter.connect(nGain);
-                nGain.connect(dest);
-                noise.start(t);
-                noise.stop(t + 0.045);
-            } catch(e) {
-                console.warn('Airsoft shot sound error:', e);
-            }
-        }
-
-        // 2. Steel Target Clang (Resonant IPSC Plate Ring)
-        function playSteelHitSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                [1850, 3250].forEach(freq => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, t);
-                    gain.gain.setValueAtTime(0.6, t);
-                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
-                    osc.connect(gain);
-                    gain.connect(dest);
-                    osc.start(t);
-                    osc.stop(t + 0.4);
-                });
-            } catch(e) {
-                console.warn('Steel hit sound error:', e);
-            }
-        }
-
-        // 3. Paper Bullseye Hit (Punch Sound)
-        function playPaperHitSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(520, t);
-                osc.frequency.exponentialRampToValueAtTime(110, t + 0.045);
-                gain.gain.setValueAtTime(0.55, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
-                osc.connect(gain);
-                gain.connect(dest);
-                osc.start(t);
-                osc.stop(t + 0.055);
-            } catch(e) {
-                console.warn('Paper hit sound error:', e);
-            }
-        }
-
-        // 4. Dry Fire Click (Empty Chamber)
-        function playDryClickSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1200, t);
-                osc.frequency.exponentialRampToValueAtTime(600, t + 0.025);
-                gain.gain.setValueAtTime(0.4, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
-                osc.connect(gain);
-                gain.connect(dest);
-                osc.start(t);
-                osc.stop(t + 0.03);
-            } catch(e) {
-                console.warn('Dry click sound error:', e);
-            }
-        }
-
-        // 5. Hostage Penalty / Timeout Buzzer Sound
-        function playBuzzerPenaltySound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(140, t);
-                gain.gain.setValueAtTime(0.65, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-                osc.connect(gain);
-                gain.connect(dest);
-                osc.start(t);
-                osc.stop(t + 0.3);
-            } catch(e) {
-                console.warn('Buzzer sound error:', e);
-            }
-        }
-
-        // 6. Wall Miss Impact Ricochet / Thud Sound
-        function playWallMissSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(280, t);
-                osc.frequency.exponentialRampToValueAtTime(60, t + 0.06);
-                gain.gain.setValueAtTime(0.45, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
-                osc.connect(gain);
-                gain.connect(dest);
-                osc.start(t);
-                osc.stop(t + 0.075);
-
-                const bufferSize = Math.floor(ctx.sampleRate * 0.03);
-                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.22));
-                }
-                const noise = ctx.createBufferSource();
-                noise.buffer = buffer;
-                const nGain = ctx.createGain();
-                nGain.gain.setValueAtTime(0.3, t);
-                nGain.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
-                noise.connect(nGain);
-                nGain.connect(dest);
-                noise.start(t);
-                noise.stop(t + 0.035);
-            } catch(e) {
-                console.warn('Wall miss sound error:', e);
-            }
-        }
-
-        // 7. Tactical Reload Mag Slap (Dual Click-Clack)
-        function playReloadSound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                const o1 = ctx.createOscillator();
-                const g1 = ctx.createGain();
-                o1.type = 'triangle';
-                o1.frequency.setValueAtTime(450, t);
-                g1.gain.setValueAtTime(0.4, t);
-                g1.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
-                o1.connect(g1);
-                g1.connect(dest);
-                o1.start(t);
-                o1.stop(t + 0.035);
-
-                const o2 = ctx.createOscillator();
-                const g2 = ctx.createGain();
-                o2.type = 'sine';
-                o2.frequency.setValueAtTime(850, t + 0.1);
-                g2.gain.setValueAtTime(0.6, t + 0.1);
-                g2.gain.exponentialRampToValueAtTime(0.001, t + 0.17);
-                o2.connect(g2);
-                g2.connect(dest);
-                o2.start(t + 0.1);
-                o2.stop(t + 0.18);
-            } catch(e) {
-                console.warn('Reload sound error:', e);
-            }
-        }
-
-        // 8. Victory Fanfare
-        function playVictorySound() {
-            if (!isSoundEnabled) return;
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            try {
-                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-                ensureKeepAlive(ctx);
-                const dest = masterGain || ctx.destination;
-                const t = ctx.currentTime + 0.002;
-                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, t + (i * 0.09));
-                    gain.gain.setValueAtTime(0.45, t + (i * 0.09));
-                    gain.gain.exponentialRampToValueAtTime(0.001, t + (i * 0.09) + 0.25);
-                    osc.connect(gain);
-                    gain.connect(dest);
-                    osc.start(t + (i * 0.09));
-                    osc.stop(t + (i * 0.09) + 0.28);
-                });
-            } catch(e) {
-                console.warn('Victory sound error:', e);
-            }
-        }
+        // Suara dinonaktifkan sesuai instruksi user (murni visual impact & haptic feedback)
+        function playAirsoftShotSound() {}
+        function playSteelHitSound() {}
+        function playPaperHitSound() {}
+        function playDryClickSound() {}
+        function playBuzzerPenaltySound() {}
+        function playWallMissSound() {}
+        function playReloadSound() {}
+        function playVictorySound() {}
+        function unlockAudioEngine() {}
 
         // --- HARDCORE 3-STEP RANDOM STATE ---
         let currentStep = 1;
@@ -6817,27 +6502,7 @@
             setStage(1);
         };
 
-        window.toggleSimSound = function() {
-            isSoundEnabled = !isSoundEnabled;
-            if (masterGain && audioCtx) {
-                try {
-                    masterGain.gain.setValueAtTime(isSoundEnabled ? 1.0 : 0.0, audioCtx.currentTime);
-                } catch(e) {}
-            }
-            const icon = document.getElementById('soundIcon');
-            const text = document.getElementById('soundText');
-            if (icon && text) {
-                if (isSoundEnabled) {
-                    icon.className = 'fa-solid fa-volume-high';
-                    text.textContent = 'AUDIO ON';
-                    unlockAudioEngine();
-                    playReloadSound();
-                } else {
-                    icon.className = 'fa-solid fa-volume-xmark';
-                    text.textContent = 'MUTED';
-                }
-            }
-        };
+        window.toggleSimSound = function() {};
 
         // Anti-Zoom
         function checkZoomLevel() {
@@ -6888,10 +6553,7 @@
         const readyOverlay = document.getElementById('stageReadyOverlay');
         if (readyOverlay) readyOverlay.classList.add('active');
 
-        // Multi-event audio unlocker (Chrome, Safari, iOS WebKit)
-        ['touchstart', 'touchend', 'click'].forEach(evt => {
-            document.addEventListener(evt, unlockAudioEngine, { passive: true, capture: true });
-        });
+
 
     })();
     </script>
