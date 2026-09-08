@@ -1,129 +1,180 @@
 /**
  * Vercel Serverless Function: /api/chat
  * Integrates Google Gemini API with Dreamfield Tactical Official Knowledge Base
- * Features Deep Knowledge Engine (No WhatsApp redirection unless explicitly requested).
+ * System Instruction fully aligned with Dreamfield AI Customer Service Persona & Guidelines.
  */
 
 const SYSTEM_INSTRUCTION = `
-Anda adalah Customer Service AI resmi dari Dreamfield Tactical Surabaya.
-Karakter Anda: Ramah, santun, solutif, berwawasan taktis militer/airsoft yang luas, dan sangat senang membantu pengunjung.
+# AI CUSTOMER SERVICE — DREAMFIELD TACTICAL
 
-ATURAN PALING PENTING (STRICT GUARDRAILS):
-1. JANGAN PERNAH MENYURUH ATAU MENGARAHKAN PENGUNJUNG KE WHATSAPP kecuali jika pengunjung SECARA EKSPLISIT menanyakan nomor kontak atau meminta nomor WhatsApp admin.
-2. Anda adalah CS mandiri. Jawab semua pertanyaan pengunjung secara lengkap, mendalam, dan tuntas langsung di dalam chat ini!
-3. Pengunjung ingin mendapatkan informasi langsung dari Anda di sini (lokasi, jam buka, harga, perbedaan arena, aturan perlengkapan, tips pemula, dll.).
-4. Gunakan Bahasa Indonesia yang luwes, santai tapi profesional. Boleh gunakan sapaan ramah seperti "Halo Operator!", "Siap!", dll.
-5. Jaga fokus hanya pada seputar Dreamfield Tactical, airsoft, rekreasi menembak, dan hal terkait.
+## PERAN UTAMA
+Kamu adalah Customer Service resmi Dreamfield Tactical Surabaya.
+Tugas utama kamu adalah membantu pelanggan melalui percakapan yang natural, ramah, relevan, dan terasa seperti berbicara dengan customer service manusia yang berpengalaman.
+Kamu bukan sekadar mesin tanya-jawab.
+Kamu harus memahami maksud pelanggan, mengingat konteks percakapan sebelumnya, memberikan respons yang nyambung, dan menentukan respons terbaik berdasarkan situasi percakapan.
 
-=== BASIS PENGETAHUAN RESMI DREAMFIELD TACTICAL ===
+---
 
-1. IDENTITAS BRAND & FASILITAS:
-- Nama: Dreamfield Tactical (Dreamfield Surabaya).
-- Jenis: Arena pertempuran airsoft & tactical shooting indoor di dalam mall.
-- Tagline: "Dominate the Field, Master the Game" — Premium Tactical Experience.
-- Luas & Suasana: 1.200 m², arena bertingkat (multi-level), ber-AC dingin, bebas panas/hujan, berdekorasi pertempuran kota taktis (CQB urban modular).
+## CARA BERPIKIR
+Sebelum menjawab setiap pesan:
+1. Pahami terlebih dahulu maksud dan tujuan pelanggan.
+2. Perhatikan konteks dari percakapan sebelumnya.
+3. Hubungkan pesan terbaru dengan informasi yang sudah dibicarakan.
+4. Tentukan apakah pelanggan sedang:
+   * bertanya
+   * meminta informasi
+   * ingin melakukan reservasi
+   * meminta rekomendasi
+   * menyampaikan keluhan
+   * bercanda
+   * menyapa
+   * melanjutkan pembicaraan sebelumnya
+   * atau membutuhkan bantuan lain.
+5. Jawab sesuai konteks, bukan hanya berdasarkan kata-kata terakhir pelanggan.
+6. Jika informasi yang dibutuhkan tersedia di Knowledge Base, gunakan informasi tersebut.
+7. Jika informasi tidak tersedia, jangan mengarang atau menebak.
+8. Jika diperlukan, ajukan pertanyaan lanjutan agar kebutuhan pelanggan menjadi jelas.
 
-2. ALAMAT & LOKASI DETAIL:
-- Alamat: Jl. Tidar No.350, Tembok Dukuh, Kec. Bubutan, Surabaya, Jawa Timur 60173.
-- Lokasi Spesifik: Lantai The Central Mall – Gunawangsa Tidar.
-- Patokan: Hanya sekitar 2,8 km dari Tunjungan Plaza (TP), dekat Marvell City Mall. Akses mudah dan parkir luas di dalam mall.
+---
 
-3. JAM OPERASIONAL:
-- Jam Buka: 12:00 – 21:00 WIB.
-- Hari Buka: Senin, Rabu, Kamis, Jumat, Sabtu, dan Minggu.
-- PENTING: Hari SELASA LIBUR / TUTUP untuk maintenance arena.
+## MEMAHAMI KONTEKS PERCAKAPAN
+Percakapan harus terasa seperti satu percakapan yang berkelanjutan.
+Contoh:
+Customer: "Min, buka jam berapa?"
+AI: "Dreamfield buka mulai pukul 12.00 sampai 21.00 WIB ya."
+Customer: "Kalau besok?"
+AI: (Harus paham bahwa "besok" masih merujuk pada jam operasional Dreamfield. Jangan tanya "Besok apa?").
 
-4. PILIHAN ARENA & MODE PERMAINAN:
-a. WAR GAME CQB (Close Quarters Battle):
-   - Arena bertingkat 1.200 m² dengan barikade, lorong, dan rute penyergapan taktis.
-   - Skenario seru: Team Deathmatch, Bomb Defusal / Anti-Teror, Rescue Mission.
-   - Cocok untuk mabar bareng teman, komunitas, maupun gathering kantor.
-b. TARGET RANGE (Shooting Range):
-   - Jalur tembak reaksi & akurasi presisi jarak 10 s/d 25 meter.
-   - Menggunakan target plat baja (steel plate yang berdenting/jatuh saat kena) dan target kertas skor.
-   - Sangat cocok untuk melatih fokus, refleks, dan akurasi menembak.
-c. COACHING CQB & UNIT DRILL:
-   - Privat masterclass teknik gerak taktis, breaching, pieing corners, reloading cepat.
-d. AAIPSC CLASS & EXECUTIVE RANGE:
-   - Pelatihan menembak praktis gaya IPSC bersertifikasi dan jalur VIP eksekutif.
+Contoh lain:
+Customer: "Kalau mau main 10 orang gimana?"
+AI: "Bisa banget! Untuk 10 orang arena War Game CQB kita pas banget karena muat sampai 50 orang per sesi."
+Customer: "Terus harganya?"
+AI: (Harus paham bahwa "harganya" merujuk pada permainan 10 orang yang sedang dibicarakan, bukan meminta pelanggan mengulang pertanyaannya).
 
-5. HARGA, DURASI & PERLENGKAPAN:
-- Kisaran harga: Mulai dari Rp50.000 hingga Rp225.000 per sesi tergantung arena dan paket senjata yang dipilih.
-- Durasi: Minimal 1 jam per sesi (tersedia opsi 1 jam dan 2 jam).
-- Seluruh paket sewa sudah termasuk perlengkapan keamanan (Safety Gear) lengkap: Unit replika, magazine, peluru BB, rompi taktis pelindung dada, helm taktis, dan goggle/masker pelindung wajah penuh.
+---
 
-6. KEAMANAN & TIPS PEMULA:
-- Apakah sakit? Peluru yang digunakan adalah BB plastik ringan olahraga airsoft. Karena seluruh pemain WAJIB mengenakan rompi pelindung tebal dan helm full-face, permainan ini sangat aman!
-- Chrono Test: Seluruh unit diuji batas kecepatan FPS-nya agar tidak membahayakan.
-- Pendampingan: Setiap sesi selalu dipandu oleh Game Marshal resmi dan Range Safety Officer yang mengajarkan cara memegang unit dan aturan kokang/tembak sejak awal. Pemula tanpa pengalaman sama sekali pun dijamin langsung bisa main dengan seru!
-- Pakaian yang disarankan: Celana panjang yang nyaman bergerak dan sepatu kets/sneakers bertali (hindari sandal/high heels).
+## GAYA KOMUNIKASI
+* Ramah, natural, santai, responsif, sopan.
+* Tidak terlalu formal, tidak kaku, dan tidak terdengar seperti robot.
+* Seperti CS manusia yang memang memahami arena dan bisnis Dreamfield.
+* Gunakan bahasa Indonesia sehari-hari yang luwes.
+* Hindari bahasa yang terlalu birokratis/kaku.
+  - Jangan: "Terima kasih atas pertanyaan yang telah Anda sampaikan." -> Gunakan: "Siap! Untuk itu..."
+  - Jangan: "Apabila Anda memiliki pertanyaan lebih lanjut, silakan menghubungi kami." -> Gunakan: "Kalau masih ada yang mau ditanyakan, boleh banget ya."
 
-7. CARA BOOKING:
-- Pengunjung bisa langsung booking melalui menu Booking di website ini (/booking.html).
-- Langkahnya: Pilih arena -> Pilih paket -> Pilih tanggal dan jam slot -> Masukkan nama/callsign & jumlah orang -> Reservasi langsung terdaftar!
+---
+
+## JAWABAN HARUS NYAMBUNG & SINGKAT
+* Jangan selalu mengulang nama bisnis atau pertanyaan yang baru saja diberikan.
+* Jika pelanggan sudah memberikan info tertentu (misal: "mau main Sabtu, 8 orang"), jangan tanya lagi "Berapa orang yang ingin bermain?".
+* Utamakan jawaban yang singkat dan mudah dibaca:
+  - Pertanyaan sederhana: 1–2 kalimat sudah cukup.
+  - Pertanyaan kompleks: Gunakan paragraf pendek atau bullet points ringkas.
+* JANGAN TERLALU BANYAK BERTANYA: Jangan buat pelanggan merasa sedang mengisi kuesioner/formulir.
+
+---
+
+## ATURAN KHUSUS (PENTING)
+* JANGAN PERNAH MENYURUH ATAU MEMBUANG PELANGGAN KE WHATSAPP kecuali jika pelanggan secara eksplisit meminta nomor kontak/WhatsApp admin, atau jika ada kendala sistem pembayaran khusus. Jawab dan bantu langsung di sini!
+* Emoji boleh digunakan secara terbatas dan natural jika sesuai konteks (jangan berlebihan di setiap kalimat).
+* JANGAN MENGAKU SEBAGAI MANUSIA jika ditanya secara langsung, kamu adalah CS AI Dreamfield. Namun tidak perlu terus-menerus mengatakan "Saya adalah AI".
+
+---
+
+## KNOWLEDGE BASE RESMI (SUMBER FAKTA TETAP)
+
+1. IDENTITAS & LOKASI:
+- Nama: Dreamfield Tactical Surabaya.
+- Jenis: Arena bermain airsoft & tactical shooting indoor di dalam mall.
+- Alamat: The Central Mall – Gunawangsa Tidar, Jl. Tidar No.350, Tembok Dukuh, Kec. Bubutan, Surabaya, Jawa Timur 60173 (sekitar 2,8 km dari Tunjungan Plaza).
+- Suasana: Indoor ber-AC dingin seluas 1.200 m², bebas cuaca hujan/panas.
+
+2. JAM OPERASIONAL:
+- Buka: 12.00 – 21.00 WIB.
+- Hari Buka: Senin, serta Rabu sampai Minggu.
+- PENTING: Hari SELASA LIBUR / TUTUP (untuk maintenance rutin arena & unit).
+
+3. ARENA & LAYANAN:
+- War Game CQB: Arena bertingkat 1.200 m² dengan lorong dan barikade modular untuk simulasi perang antartim (Team Deathmatch, Anti-Teror, Rescue).
+- Target Range: Jalur tembak presisi & reaksi 10–25 meter dengan target plat baja berdenting dan kertas skor.
+- Coaching CQB & Unit Drill: Latihan privat gerak taktis & penguasaan unit GBB / AEG.
+- Gathering: Paket Family & Corporate Gathering kapasitas hingga 50 orang per sesi.
+
+4. HARGA & DURASI:
+- Kisaran harga: Mulai Rp50.000 s/d Rp225.000 per sesi tergantung arena dan unit.
+- Durasi main: Minimal 1 jam per sesi (ada opsi 1 jam dan 2 jam).
+- Sudah termasuk safety gear: Unit replika, peluru BB, rompi pelindung tubuh, helm, dan kacamata/masker pelindung wajah.
+- Rincian paket lengkap bisa diakses di halaman /pricelist.html dan booking di /booking.html.
+
+5. KEAMANAN & PEMULA:
+- Unit yang digunakan: Replika olahraga airsoft berstandar resmi (AEG elektrik & GBB gas blowback), BUKAN senjata api sungguhan.
+- Peluru: BB plastik ringan standar olahraga.
+- Keamanan: Wajib rompi tebal dan helm pelindung wajah. Unit dites batas FPS (chrono test).
+- Pemula tanpa pengalaman dijamin aman dan didampingi Game Marshal resmi sejak briefing.
+- Pakaian disarankan: Celana panjang dan sepatu tertutup/sneakers bertali.
+
+6. CARA BOOKING:
+- Bisa langsung melalui menu Booking Online di website ini (/booking.html). Pilih arena, paket, tanggal, jam slot kedatangan, dan masukkan nama/callsign.
 `;
 
-// Deep Fallback Knowledge Engine (Answers directly and conversationally without deflecting to WhatsApp)
-function getDeepKnowledgeResponse(msg) {
-    const q = msg.toLowerCase();
+// Context-Aware Smart Fallback Engine
+function getSmartFallbackResponse(userMessage, history = []) {
+    const q = userMessage.toLowerCase().trim();
+    
+    // Get last bot and user context from history
+    const lastExchange = history.slice(-2);
+    const prevContext = lastExchange.map(m => m.text).join(' ').toLowerCase();
 
-    // 1. Jam buka & Jadwal
-    if (q.includes('jam') || q.includes('buka') || q.includes('tutup') || q.includes('jadwal') || q.includes('operasional') || q.includes('selasa') || q.includes('kapan')) {
-        return `Dreamfield Tactical buka setiap hari **Senin, serta Rabu sampai Minggu dari pukul 12:00 siang hingga 21:00 malam WIB**.\n\n⚠️ **Catatan penting:** Khusus hari **SELASA kami LIBUR** untuk pemeliharaan rutin arena dan unit.\n\nAnda ada rencana datang di hari apa dan jam berapa nih?`;
+    // Sapaan
+    if (['halo', 'hai', 'hi', 'pagi', 'siang', 'sore', 'malam', 'tes', 'test', 'halo min', 'min'].includes(q)) {
+        return "Halo! Ada yang bisa aku bantu seputar arena, jadwal, atau paket main di Dreamfield?";
     }
 
-    // 2. Lokasi & Alamat
-    if (q.includes('lokasi') || q.includes('alamat') || q.includes('di mana') || q.includes('dimana') || q.includes('mall') || q.includes('tidar') || q.includes('tempat') || q.includes('surabaya')) {
-        return `Lokasi kami berada di **The Central Mall – Gunawangsa Tidar**, Jl. Tidar No.350, Tembok Dukuh, Kec. Bubutan, Surabaya (sekitar 2,8 km dari Tunjungan Plaza).\n\nArenanya berada di dalam ruangan (indoor) ber-AC seluas 1.200 m², jadi suasana bermain sangat sejuk, nyaman, dan tidak perlu khawatir kepanasan atau kehujanan.`;
+    // Jam operasional & hari
+    if (q.includes('jam') || q.includes('buka') || q.includes('tutup') || q.includes('jadwal') || q.includes('operasional') || q.includes('selasa') || (prevContext.includes('jam') && (q.includes('besok') || q.includes('hari')))) {
+        if (q.includes('selasa')) {
+            return "Khusus hari Selasa Dreamfield libur ya untuk maintenance arena. Di hari lain (Senin, dan Rabu sampai Minggu) buka normal jam 12.00–21.00 WIB.";
+        }
+        return "Dreamfield buka jam 12.00 sampai 21.00 WIB ya, dari Senin dan Rabu sampai Minggu. Khusus hari Selasa kita libur.";
     }
 
-    // 3. Harga & Biaya
-    if (q.includes('harga') || q.includes('biaya') || q.includes('paket') || q.includes('bayar') || q.includes('tarif') || q.includes('berapa') || q.includes('pricelist')) {
-        return `Untuk biaya bermain di Dreamfield Tactical mulai dari **Rp50.000 hingga Rp225.000 per sesi**, tergantung jenis arena dan unit yang Anda pilih:\n\n* **Target Range (Shooting Range):** Mulai Rp50.000-an untuk latihan akurasi menembak target plat baja & kertas.\n* **War Game CQB (Pertempuran Tim):** Arena pertempuran taktis perkotaan 1.200 m² (durasi 1 jam / 2 jam) lengkap dengan sewa unit senjata, rompi taktis, helm, dan peluru BB.\n\nSemua rincian paket dan pilihan senjata bisa langsung Anda lihat dan pilih di menu [Pricelist](https://dreamfield.vercel.app/pricelist.html) atau [Booking Online](https://dreamfield.vercel.app/booking.html) kami!`;
+    // Lokasi & Alamat
+    if (q.includes('lokasi') || q.includes('alamat') || q.includes('di mana') || q.includes('dimana') || q.includes('tidar') || q.includes('mall') || q.includes('surabaya')) {
+        return "Lokasi kita ada di The Central Mall Gunawangsa Tidar lantai indoor, Jl. Tidar No.350 Surabaya (dekat Tunjungan Plaza). Arenanya full AC seluas 1.200 m², jadi nyaman dan sejuk.";
     }
 
-    // 4. Perbedaan War Game vs Target Range
-    if (q.includes('beda') || q.includes('perbedaan') || q.includes('wargame') || q.includes('target range') || q.includes('jenis game') || q.includes('mode')) {
-        return `Kami memiliki 2 pilihan utama arena bermain:\n\n1. **War Game CQB:** Pertempuran taktis antartim di dalam arena bertingkat seluas 1.200 m² dengan lorong-lorong dan barikade modular. Tujuannya menyelesaikan misi militer seperti lawan teroris atau eliminasi tim lawan.\n2. **Target Range:** Jalur tembak presisi 10–25 meter khusus untuk menguji akurasi, kecepatan reaksi, dan fokus dengan sasaran plat baja dan target kertas.\n\nKira-kira Anda lebih tertarik untuk duel taktis tim (War Game) atau melatih tembakan jitu (Target Range)?`;
+    // Harga & Biaya
+    if (q.includes('harga') || q.includes('biaya') || q.includes('paket') || q.includes('tarif') || q.includes('berapa') || q.includes('pricelist')) {
+        return "Untuk main di Dreamfield mulai dari Rp50.000 sampai Rp225.000 per sesi tergantung arena dan paket senjata yang dipilih. Semuanya sudah lengkap dipinjamkan safety gear (rompi, helm, pelindung wajah, dan peluru). Rincian paket lengkap bisa kamu cek di menu Pricelist web ini ya.";
     }
 
-    // 5. Apakah Aman / Sakit / Pemula
-    if (q.includes('aman') || q.includes('safety') || q.includes('sakit') || q.includes('pemula') || q.includes('pertama kali') || q.includes('takut') || q.includes('aturan')) {
-        return `Tenang saja, bermain di Dreamfield Tactical **sangat aman, bahkan untuk yang baru pertama kali main!**\n\nBerikut alasannya:\n* Unit yang digunakan adalah replika olahraga airsoft berstandar resmi (menggunakan peluru BB plastik ringan, bukan senjata api).\n* Semua unit telah melalui **Chrono Test** untuk memastikan batas kecepatan tembak (FPS) aman.\n* Seluruh pemain **wajib mengenakan rompi pelindung tubuh tebal (body vest), helm pelindung kepala, dan kacamata goggle/masker wajah penuh**.\n* Anda akan didampingi oleh **Game Marshal & Safety Officer** bersertifikasi yang akan memberikan briefing taktis dan memandu cara bermain step-by-step.\n\nJadi tidak perlu takut sakit, yang ada justru memacu adrenalin dan seru sekali!`;
+    // Perbedaan War Game vs Target Range
+    if (q.includes('beda') || q.includes('perbedaan') || q.includes('wargame') || q.includes('target range') || q.includes('mode')) {
+        return "Bedanya: War Game CQB itu pertempuran taktis tim lawan tim di arena bertingkat 1.200 m² buat selesaikan misi. Kalau Target Range itu jalur tembak presisi 10–25 meter untuk melatih akurasi ke plat baja dan target kertas.";
     }
 
-    // 6. Jenis Senjata / Unit / Peluru
-    if (q.includes('senjata') || q.includes('unit') || q.includes('aeg') || q.includes('gbb') || q.includes('peluru') || q.includes('fps') || q.includes('replika')) {
-        return `Di Dreamfield Tactical, kami menyediakan unit replika airsoft tipe **AEG (Automatic Electric Gun)** dan **GBB (Gas Blow Back)** berkualitas tinggi:\n\n* **AEG:** Menggunakan baterai elektrik dengan laju tembakan cepat dan stabil, sangat ramah untuk pemain pemula.\n* **GBB:** Menggunakan tenaga gas dengan sensasi hentakan (recoil) realistis seperti menembak sungguhan!\n* **Peluru:** Menggunakan BB plastik bulat standar olahraga 6mm yang aman dan teruji.\n\nSemua unit selalu dirawat berkala agar akurasi dan performanya tetap prima saat digunakan di arena.`;
+    // Keamanan / Pemula / Sakit
+    if (q.includes('aman') || q.includes('safety') || q.includes('sakit') || q.includes('pemula') || q.includes('pertama kali') || q.includes('takut')) {
+        return "Aman banget kok, pemula tanpa pengalaman pun bisa langsung main! Setiap pemain wajib pakai rompi tebal, helm pelindung wajah penuh, dan didampingi Game Marshal yang ngasih briefing taktis sebelum main. Pelurunya juga BB plastik standar olahraga.";
     }
 
-    // 7. Pakaian yang disarankan
-    if (q.includes('baju') || q.includes('pakaian') || q.includes('celana') || q.includes('sepatu') || q.includes('dresscode') || q.includes('kostum')) {
-        return `Untuk kenyamanan dan keselamatan saat bermain di arena, kami sangat menyarankan:\n\n* **Pakaian:** Celana panjang (jeans, kargo, atau training) dan kaus/baju lengan panjang yang nyaman menyerap keringat.\n* **Sepatu:** Wajib memakai sepatu tertutup bertali seperti sneakers atau sepatu olahraga (hindari sandal, selop, atau sepatu hak tinggi).\n\nUntuk rompi tempur, helm taktis, dan kacamata goggle sudah kami sediakan lengkap di lokasi!`;
+    // Pakaian yang disarankan
+    if (q.includes('baju') || q.includes('pakaian') || q.includes('celana') || q.includes('sepatu') || q.includes('kostum')) {
+        return "Disarankan pakai celana panjang yang nyaman bergerak dan sepatu tertutup bertali (sneakers). Hindari pakai sandal ya. Kalau rompi, helm, dan kacamata pelindung sudah kami sediakan lengkap.";
     }
 
-    // 8. Jumlah Orang / Bisa Sendiri?
-    if (q.includes('sendiri') || q.includes('minimal') || q.includes('berapa orang') || q.includes('kapasitas') || q.includes('rombongan') || q.includes('jumlah')) {
-        return `Untuk bermain di Dreamfield:\n\n* **Target Range:** Bisa dimainkan sendiri (individu) maupun berdua/kelompok.\n* **War Game CQB:** Paling seru jika dimainkan minimal 4–6 orang (bisa dibagi 2 tim). Kapasitas arena kami sangat besar, mampu menampung hingga **50 orang** per sesi untuk gathering kantor atau komunitas.\n\nJika Anda datang sendiri atau berdua untuk War Game, biasanya bisa digabungkan dengan pemain/tim lain yang sedang berada di sesi yang sama!`;
+    // Jumlah orang / Sendiri
+    if (q.includes('sendiri') || q.includes('minimal') || q.includes('berapa orang') || q.includes('rombongan') || q.includes('kapasitas')) {
+        return "Untuk Target Range bisa main sendiri atau berdua. Kalau War Game CQB paling seru minimal 4–6 orang. Kalau kamu datang sendiri atau berdua mau main War Game, nanti bisa digabung dengan sesi pemain lain yang lagi main kok.";
     }
 
-    // 9. Cara Booking
-    if (q.includes('booking') || q.includes('pesan') || q.includes('reservasi') || q.includes('daftar') || q.includes('jadwal main')) {
-        return `Cara reservasi di Dreamfield Tactical sangat praktis:\n\n1. Kunjungi menu [Formulir Booking Online](https://dreamfield.vercel.app/booking.html).\n2. Pilih arena yang ingin Anda mainkan (War Game CQB atau Target Range).\n3. Tentukan tanggal bermain dan jam kedatangan Anda (slot tersedia setiap 30 menit dari jam 12:00 s/d 21:00 WIB).\n4. Masukkan nama/callsign dan jumlah pemain yang akan hadir.\n5. Jadwal Anda akan langsung tercatat di sistem kami!\n\nApakah ada tanggal tertentu yang sedang Anda rencanakan untuk main?`;
+    // Booking
+    if (q.includes('booking') || q.includes('pesan') || q.includes('reservasi') || q.includes('daftar') || q.includes('cara main')) {
+        return "Kamu bisa langsung reservasi lewat menu Booking Online di website ini. Tinggal pilih arena, paket, tentukan tanggal serta jam slotnya, dan isi nama pemain.";
     }
 
-    // 10. Usia & Anak-anak
-    if (q.includes('anak') || q.includes('umur') || q.includes('usia') || q.includes('bocah') || q.includes('keluarga')) {
-        return `Permainan airsoft di Dreamfield Tactical ramah untuk remaja hingga dewasa. Untuk anak-anak dan remaja diperbolehkan bermain selama mampu mengenakan perlengkapan pelindung kepala & rompi dengan pas serta didampingi oleh orang tua/wali.\n\nBagi anak-anak yang ingin merasakan sensasi menembak aman, arena **Target Range** adalah pilihan paling tepat karena menembak ke sasaran diam dengan panduan instruktur profesional.`;
-    }
-
-    // 11. Sapaan Ramah
-    if (q === 'halo' || q === 'hai' || q === 'hi' || q === 'pagi' || q === 'siang' || q === 'sore' || q === 'malam' || q === 'tes' || q === 'test' || q === 'halo min') {
-        return `Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya CS AI resmi siap membantu Anda. Silakan tanyakan apa saja seputar arena, misalnya:\n* 📍 **Lokasi & Jam Operasional**\n* 💰 **Harga Tiket & Pilihan Paket**\n* 🛡️ **Apakah Aman untuk Pemula?**\n* 🎯 **Pilihan Mode Game & Senjata**\n* 📅 **Cara Melakukan Reservasi**\n\nAda yang ingin Anda ketahui lebih dulu?`;
-    }
-
-    // 12. Default Jawaban Cerdas & Edukatif (Tidak mengarahkan ke WhatsApp!)
-    return `Siap Operator! Dreamfield Tactical Surabaya adalah arena indoor airsoft & tactical shooting ber-AC seluas 1.200 m² yang berlokasi di The Central Mall Gunawangsa Tidar Surabaya.\n\nKami menyediakan arena pertempuran taktis **War Game CQB** untuk perang tim yang seru, serta **Target Range** untuk latihan tembak akurasi jarak 10–25 meter (harga mulai Rp50k–225k).\n\nAda detail khusus yang ingin Anda tanyakan lebih lanjut, misalnya tentang harga paket, jadwal buka, jenis senjata replika, atau panduan untuk pemula?`;
+    // Default conversational response (Helpful, no deflection)
+    return "Siap! Untuk info di Dreamfield, kita ada arena pertempuran War Game CQB indoor 1.200 m² dan Target Range latihan tembak presisi. Ada hal tertentu yang mau kamu tanyakan seputar harga, jadwal, atau aturan mainnya?";
 }
 
 module.exports = async function handler(req, res) {
@@ -161,32 +212,48 @@ module.exports = async function handler(req, res) {
 
         const apiKey = process.env.GEMINI_API_KEY;
 
-        // If Gemini API Key is not set yet, use the Deep Knowledge Engine (No WhatsApp redirection!)
+        // When API key is not yet provided, use the natural context-aware fallback engine
         if (!apiKey) {
-            const dynamicReply = getDeepKnowledgeResponse(userMessage);
+            const reply = getSmartFallbackResponse(userMessage, history);
             return res.status(200).json({
-                reply: dynamicReply,
+                reply: reply,
                 source: 'knowledge_engine'
             });
         }
 
-        // Gemini AI Generative mode when API key is provided
+        // Prepare properly alternating contents for Gemini API
         const formattedContents = [];
-        const recentHistory = history.slice(-10);
+        const recentHistory = history.slice(-8);
+
+        let lastRole = null;
         for (const item of recentHistory) {
             if (item && item.role && item.text) {
-                const role = item.role === 'user' ? 'user' : 'model';
+                let role = item.role === 'user' ? 'user' : 'model';
+                // Gemini requires conversation to start with 'user'
+                if (formattedContents.length === 0 && role !== 'user') {
+                    continue;
+                }
+                // Gemini requires alternating roles
+                if (role === lastRole) {
+                    continue;
+                }
                 formattedContents.push({
                     role: role,
                     parts: [{ text: item.text }]
                 });
+                lastRole = role;
             }
         }
 
-        formattedContents.push({
-            role: 'user',
-            parts: [{ text: userMessage }]
-        });
+        // Ensure user message is added
+        if (lastRole === 'user' && formattedContents.length > 0) {
+            formattedContents[formattedContents.length - 1].parts[0].text += `\n${userMessage}`;
+        } else {
+            formattedContents.push({
+                role: 'user',
+                parts: [{ text: userMessage }]
+            });
+        }
 
         const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
@@ -196,8 +263,8 @@ module.exports = async function handler(req, res) {
             },
             contents: formattedContents,
             generationConfig: {
-                temperature: 0.5,
-                maxOutputTokens: 800,
+                temperature: 0.6,
+                maxOutputTokens: 600,
                 topP: 0.95
             }
         };
@@ -209,10 +276,11 @@ module.exports = async function handler(req, res) {
         });
 
         if (!response.ok) {
-            const dynamicReply = getDeepKnowledgeResponse(userMessage);
+            console.error('Gemini error status:', response.status);
+            const reply = getSmartFallbackResponse(userMessage, history);
             return res.status(200).json({
-                reply: dynamicReply,
-                source: 'knowledge_engine_fallback'
+                reply: reply,
+                source: 'fallback'
             });
         }
 
@@ -220,23 +288,18 @@ module.exports = async function handler(req, res) {
         const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!replyText) {
-            const dynamicReply = getDeepKnowledgeResponse(userMessage);
-            return res.status(200).json({
-                reply: dynamicReply
-            });
+            const reply = getSmartFallbackResponse(userMessage, history);
+            return res.status(200).json({ reply });
         }
 
         return res.status(200).json({
-            reply: replyText,
+            reply: replyText.trim(),
             source: 'gemini_ai'
         });
 
     } catch (err) {
-        console.error('Serverless function error:', err);
-        const fallbackAnswer = getDeepKnowledgeResponse(req.body?.message || '');
-        return res.status(200).json({
-            reply: fallbackAnswer,
-            source: 'knowledge_engine_error'
-        });
+        console.error('Serverless error:', err);
+        const reply = getSmartFallbackResponse(req.body?.message || '', req.body?.history || []);
+        return res.status(200).json({ reply });
     }
 };
