@@ -1,6 +1,6 @@
 /**
  * Vercel Serverless Function: /api/chat
- * Powered by Groq Ultra-Fast LPU Inference (OpenAI-compatible)
+ * Multi-Provider High Availability: Groq (Primary, Ultra-Fast) + Google Gemini (Auto-Fallback Backup)
  */
 
 const SYSTEM_INSTRUCTION = `
@@ -43,6 +43,125 @@ CLOSING & BOOKING CTA:
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODELS = ['qwen/qwen3.8-27b', 'qwen/qwen3.6-27b'];
+const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash'];
+
+function getEnvKey(keyName) {
+    let key = process.env[keyName];
+    if (!key) {
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            const envPath = path.join(process.cwd(), '.env');
+            if (fs.existsSync(envPath)) {
+                const envContent = fs.readFileSync(envPath, 'utf8');
+                const match = envContent.match(new RegExp(`${keyName}\\s*=\\s*(.+)`));
+                if (match) key = match[1].trim();
+            }
+        } catch (e) {}
+    }
+    return key;
+}
+
+// 1. Primary Engine: Groq (Ultra-Fast)
+async function callGroq(userMessage, history, apiKey) {
+    const messages = [{ role: 'system', content: SYSTEM_INSTRUCTION }];
+    for (const item of history.slice(-6)) {
+        if (!item?.role || !item?.text) continue;
+        const role = item.role === 'user' ? 'user' : 'assistant';
+        messages.push({ role, content: item.text });
+    }
+    messages.push({ role: 'user', content: userMessage });
+
+    const payload = {
+        messages,
+        max_tokens: 650,
+        temperature: 0.7,
+        top_p: 0.9
+    };
+
+    for (const model of GROQ_MODELS) {
+        try {
+            const response = await fetch(GROQ_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({ ...payload, model })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                let text = data?.choices?.[0]?.message?.content;
+                if (text) {
+                    text = text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+                    return { reply: text, model, provider: 'groq' };
+                }
+            } else {
+                const errBody = await response.text();
+                console.warn(`[Groq:${model}] status ${response.status}: ${errBody}`);
+            }
+        } catch (err) {
+            console.warn(`[Groq:${model}] fetch error:`, err.message);
+        }
+    }
+    return null;
+}
+
+// 2. Backup Engine: Google Gemini
+async function callGemini(userMessage, history, apiKey) {
+    const contents = [];
+    let lastRole = null;
+    for (const item of history.slice(-6)) {
+        if (!item?.role || !item?.text) continue;
+        const role = item.role === 'user' ? 'user' : 'model';
+        if (contents.length === 0 && role !== 'user') continue;
+        if (role === lastRole) continue;
+        contents.push({ role, parts: [{ text: item.text }] });
+        lastRole = role;
+    }
+
+    if (lastRole === 'user' && contents.length > 0) {
+        contents[contents.length - 1].parts[0].text += `\n${userMessage}`;
+    } else {
+        contents.push({ role: 'user', parts: [{ text: userMessage }] });
+    }
+
+    const payload = {
+        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+        contents,
+        generationConfig: {
+            temperature: 0.75,
+            maxOutputTokens: 800,
+            topP: 0.9
+        }
+    };
+
+    for (const model of GEMINI_MODELS) {
+        try {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) {
+                    return { reply: text.trim(), model, provider: 'gemini' };
+                }
+            } else {
+                const errBody = await response.text();
+                console.warn(`[Gemini:${model}] status ${response.status}: ${errBody}`);
+            }
+        } catch (err) {
+            console.warn(`[Gemini:${model}] fetch error:`, err.message);
+        }
+    }
+    return null;
+}
 
 module.exports = async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -62,78 +181,44 @@ module.exports = async function handler(req, res) {
 
         if (!userMessage) return res.status(400).json({ error: 'Pesan tidak boleh kosong.' });
 
-        let apiKey = process.env.GROQ_API_KEY;
-        if (!apiKey) {
-            try {
-                const fs = require('fs');
-                const path = require('path');
-                const envPath = path.join(process.cwd(), '.env');
-                if (fs.existsSync(envPath)) {
-                    const envContent = fs.readFileSync(envPath, 'utf8');
-                    const match = envContent.match(/GROQ_API_KEY\s*=\s*(.+)/);
-                    if (match) apiKey = match[1].trim();
-                }
-            } catch (e) {}
-        }
+        const groqKey = getEnvKey('GROQ_API_KEY');
+        const geminiKey = getEnvKey('GEMINI_API_KEY');
 
-        if (!apiKey) {
+        if (!groqKey && !geminiKey) {
             return res.status(200).json({
                 reply: 'AI sedang tidak tersedia saat ini. Silakan coba beberapa saat lagi.',
                 source: 'error'
             });
         }
 
-        // Build messages array (OpenAI-compatible format)
-        const messages = [{ role: 'system', content: SYSTEM_INSTRUCTION }];
-
-        // Add recent conversation history (last 6 turns)
-        for (const item of history.slice(-6)) {
-            if (!item?.role || !item?.text) continue;
-            const role = item.role === 'user' ? 'user' : 'assistant';
-            messages.push({ role, content: item.text });
+        // --- STEP 1: Coba Groq Terlebih Dahulu (Prioritas Utama: Kecepatan Super) ---
+        if (groqKey) {
+            const groqResult = await callGroq(userMessage, history, groqKey);
+            if (groqResult && groqResult.reply) {
+                return res.status(200).json({
+                    reply: groqResult.reply,
+                    source: 'groq_ai',
+                    model: groqResult.model
+                });
+            }
+            console.warn('Groq gagal atau limit tercapai, otomatis mengalihkan ke backup Google Gemini...');
         }
 
-        // Add current user message
-        messages.push({ role: 'user', content: userMessage });
-
-        const payload = {
-            messages,
-            max_tokens: 600,
-            temperature: 0.7,
-            top_p: 0.9
-        };
-
-        // Try each model in order
-        for (const model of GROQ_MODELS) {
-            try {
-                const response = await fetch(GROQ_API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({ ...payload, model })
+        // --- STEP 2: Cadangan Otomatis: Google Gemini (Jika Groq Limit / Error) ---
+        if (geminiKey) {
+            const geminiResult = await callGemini(userMessage, history, geminiKey);
+            if (geminiResult && geminiResult.reply) {
+                return res.status(200).json({
+                    reply: geminiResult.reply,
+                    source: 'gemini_ai',
+                    model: geminiResult.model,
+                    fallback: true
                 });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    let text = data?.choices?.[0]?.message?.content;
-                    if (text) {
-                        // Strip any internal reasoning tags if model includes them
-                        text = text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
-                        return res.status(200).json({ reply: text, source: 'groq_ai', model });
-                    }
-                } else {
-                    const err = await response.text();
-                    console.error(`[Groq:${model}] ${response.status}:`, err);
-                }
-            } catch (e) {
-                console.error(`[Groq:${model}] fetch error:`, e.message);
             }
         }
 
         return res.status(200).json({
-            reply: 'Maaf, lagi ada gangguan koneksi sebentar. Coba kirim pesanmu lagi ya!',
+            reply: 'Maaf, sistem AI sedang mengalami gangguan koneksi. Coba kirim pesanmu lagi ya!',
             source: 'error'
         });
 
