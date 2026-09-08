@@ -257,12 +257,19 @@
 
     function scrollToBottom() {
         const container = document.getElementById('dfCsMessages');
-        if (container) {
-            container.scrollTop = container.scrollHeight;
+        if (container) container.scrollTop = container.scrollHeight;
+    }
+
+    function scrollToFirstNew() {
+        const container = document.getElementById('dfCsMessages');
+        if (!container) return;
+        const newMsg = container.querySelector('.df-cs-msg-new');
+        if (newMsg) {
+            newMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
-    function renderMessages() {
+    function renderMessages(firstNewIndex) {
         const container = document.getElementById('dfCsMessages');
         if (!container) return;
 
@@ -270,10 +277,11 @@
         for (let i = 0; i < messages.length; i++) {
             const m = messages[i];
             const isBot = m.role === 'model';
+            const isNew = firstNewIndex !== undefined && i >= firstNewIndex;
             const hasCTA = isBot && m.text.includes('[BOOKING_CTA]');
             const cleanText = m.text.replace('[BOOKING_CTA]', '').trim();
             html += `
-                <div class="df-cs-msg ${isBot ? 'bot' : 'user'}">
+                <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
                     <div class="df-cs-msg-avatar">
                         <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
                     </div>
@@ -309,14 +317,17 @@
         chips.forEach(chip => {
             chip.addEventListener('click', () => {
                 const query = chip.getAttribute('data-query');
-                if (query && !isSending) {
-                    sendMessage(query);
-                }
+                if (query && !isSending) sendMessage(query);
             });
         });
 
-        scrollToBottom();
+        if (firstNewIndex !== undefined) {
+            scrollToFirstNew();
+        } else {
+            scrollToBottom();
+        }
     }
+
 
     function showTypingIndicator() {
         const container = document.getElementById('dfCsMessages');
@@ -353,11 +364,11 @@
         renderMessages();
         playTacticalSfx('send');
 
-        // Show typing
+        // Show typing indicator
         showTypingIndicator();
 
         try {
-            // Prepare history payload for API
+            // Build history payload (exclude current user message at end)
             const historyPayload = messages.slice(0, -1).map(m => ({
                 role: m.role,
                 text: m.text
@@ -366,34 +377,43 @@
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: text,
-                    history: historyPayload
-                })
+                body: JSON.stringify({ message: text, history: historyPayload })
             });
 
             removeTypingIndicator();
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const data = await response.json();
-            const botReply = data?.reply || 'Siap Operator! Ada kendala penerimaan sinyal. Silakan chat WhatsApp Admin kami di 0851-9656-1811.';
+            const botReply = data?.reply || 'Maaf, ada kendala. Coba lagi ya!';
 
-            messages.push({ role: 'model', text: botReply });
+            // Split into multiple bubbles by double newline
+            const hasCTA = botReply.includes('[BOOKING_CTA]');
+            const cleanReply = botReply.replace('[BOOKING_CTA]', '').trim();
+            const bubbles = cleanReply
+                .split(/\n\n+/)
+                .map(b => b.trim())
+                .filter(b => b.length > 0);
+
+            const firstNewIndex = messages.length;
+
+            // Push each bubble as a separate message; attach CTA only to last
+            bubbles.forEach((bubble, idx) => {
+                const isLast = idx === bubbles.length - 1;
+                messages.push({ role: 'model', text: bubble + (isLast && hasCTA ? ' [BOOKING_CTA]' : '') });
+            });
+
             saveMessages();
-            renderMessages();
+            renderMessages(firstNewIndex);
             playTacticalSfx('receive');
 
         } catch (err) {
             console.error('Chat error:', err);
             removeTypingIndicator();
-
-            const fallbackMsg = 'Maaf Operator, koneksi sedang mengalami gangguan sinyal. Anda dapat langsung mengontak Admin WhatsApp Dreamfield di **0851-9656-1811** (https://wa.me/6285196561811).';
-            messages.push({ role: 'model', text: fallbackMsg });
+            const firstNewIndex = messages.length;
+            messages.push({ role: 'model', text: 'Maaf, koneksi sedang gangguan. Coba kirim pesanmu lagi ya!' });
             saveMessages();
-            renderMessages();
+            renderMessages(firstNewIndex);
             playTacticalSfx('receive');
         } finally {
             isSending = false;
@@ -402,6 +422,7 @@
             if (input) input.focus();
         }
     }
+
 
     // Auto-initialize when DOM is ready
     if (document.readyState === 'loading') {
