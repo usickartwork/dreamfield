@@ -111,13 +111,13 @@
         container.id = 'df-cs-container';
         container.innerHTML = `
             <!-- Floating Launcher -->
-            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Buka Chat CS Dreamfield" title="Chat CS AI Dreamfield">
+            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya Mindream" title="Tanya Mindream">
                 <div class="df-cs-launcher-avatar">
-                    <i class="fa-solid fa-headset"></i>
+                    <img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />
                     <span class="df-cs-pulse-dot"></span>
                 </div>
                 <div class="df-cs-launcher-text">
-                    <span class="df-cs-launcher-title">TANYA CS AI</span>
+                    <span class="df-cs-launcher-title">Tanya Mindream</span>
                     <span class="df-cs-launcher-sub"><i class="fa-solid fa-circle" style="font-size:7px;"></i> Online 24/7</span>
                 </div>
             </button>
@@ -128,11 +128,11 @@
                 <div class="df-cs-header">
                     <div class="df-cs-header-info">
                         <div class="df-cs-header-avatar">
-                            <i class="fa-solid fa-robot"></i>
+                            <img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />
                         </div>
                         <div class="df-cs-header-titles">
-                            <span class="df-cs-header-name" id="dfCsHeaderTitle">Dreamfield Support AI</span>
-                            <span class="df-cs-header-status">Tactical Assistant • Active</span>
+                            <span class="df-cs-header-name" id="dfCsHeaderTitle">Mindream</span>
+                            <span class="df-cs-header-status">Tactical Assistant • Online</span>
                         </div>
                     </div>
                     <div class="df-cs-header-actions">
@@ -184,7 +184,7 @@
         messages = [
             {
                 role: 'model',
-                text: 'Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya CS AI resmi siap membantu Anda seputar **lokasi arena, jadwal operasional, harga paket, aturan keamanan, hingga cara booking**. Ada yang bisa saya bantu?'
+                text: 'Halo Operator! Selamat datang di **Dreamfield Tactical Surabaya**.\n\nSaya **Mindream**, asisten resmi yang siap membantu seputar **lokasi arena, jadwal operasional, harga paket, aturan safety, hingga booking online**. Ada yang bisa saya bantu?'
             }
         ];
         saveMessages();
@@ -290,7 +290,7 @@
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
                     <div class="df-cs-msg-avatar">
-                        <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
+                        ${isBot ? '<img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />' : '<i class="fa-solid fa-user"></i>'}
                     </div>
                     <div class="df-cs-msg-content">
                         <div class="df-cs-msg-bubble">
@@ -344,7 +344,7 @@
         typingEl.id = 'dfCsTyping';
         typingEl.className = 'df-cs-msg bot';
         typingEl.innerHTML = `
-            <div class="df-cs-msg-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="df-cs-msg-avatar"><img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" /></div>
             <div class="df-cs-typing">
                 <span></span><span></span><span></span>
             </div>
