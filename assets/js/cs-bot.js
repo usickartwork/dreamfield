@@ -11,7 +11,6 @@
     let isSending = false;
     let soundEnabled = true;
     let messages = [];
-    let waTimerTriggered = false;
 
     const STORAGE_KEY = 'df_cs_chat_history_v1';
     const SOUND_STORAGE_KEY = 'df_cs_sound_enabled';
@@ -111,16 +110,10 @@
         const container = document.createElement('div');
         container.id = 'df-cs-container';
         container.innerHTML = `
-            <!-- Floating Launcher -->
+            <!-- Floating Circular Launcher -->
             <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya Mindream" title="Tanya Mindream">
-                <div class="df-cs-launcher-avatar">
-                    <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
-                    <span class="df-cs-pulse-dot"></span>
-                </div>
-                <div class="df-cs-launcher-text">
-                    <span class="df-cs-launcher-title">Tanya Mindream</span>
-                    <span class="df-cs-launcher-sub"><i class="fa-solid fa-circle" style="font-size:7px;"></i> Online 24/7</span>
-                </div>
+                <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
+                <span class="df-cs-pulse-dot"></span>
             </button>
 
             <!-- Chat Window -->
@@ -137,6 +130,9 @@
                         </div>
                     </div>
                     <div class="df-cs-header-actions">
+                        <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="df-cs-btn-icon df-cs-btn-wa" title="Chat Admin WhatsApp" aria-label="Chat Admin WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
                         <button class="df-cs-btn-icon active-sound" id="dfCsSoundToggle" title="Matikan/Nyalakan Suara" aria-label="Toggle Suara">
                             <i class="fa-solid fa-volume-high"></i>
                         </button>
@@ -151,12 +147,6 @@
 
                 <!-- Input Footer -->
                 <div class="df-cs-footer">
-                    <div class="df-cs-wa-bar hidden" id="dfCsWaBar">
-                        <span class="df-cs-wa-text">💬 Butuh bantuan khusus admin?</span>
-                        <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="df-cs-wa-btn">
-                            <i class="fa-brands fa-whatsapp"></i> Chat Admin WA
-                        </a>
-                    </div>
                     <form class="df-cs-input-wrap" id="dfCsForm">
                         <input 
                             type="text" 
@@ -222,23 +212,6 @@
             input.value = '';
             sendMessage(text);
         });
-
-        // Timer otomatis: jika user sudah berada di chat ~2 menit (120 detik), tampilkan tombol WhatsApp
-        setTimeout(() => {
-            waTimerTriggered = true;
-            checkWaOptionVisibility();
-        }, 120000);
-    }
-
-    function checkWaOptionVisibility() {
-        const waBar = document.getElementById('dfCsWaBar');
-        if (!waBar) return;
-        // Muncul setelah beberapa bubble (>= 5 pesan) ATAU sudah lewat 2 menit
-        if (messages.length >= 5 || waTimerTriggered) {
-            waBar.classList.remove('hidden');
-        } else {
-            waBar.classList.add('hidden');
-        }
     }
 
     function updateSoundButton() {
@@ -357,8 +330,6 @@
         } else {
             scrollToBottom();
         }
-
-        checkWaOptionVisibility();
     }
 
 
