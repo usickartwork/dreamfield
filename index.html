@@ -152,18 +152,25 @@
         .contact-grid .contact-info-card:nth-child(2) { transition-delay: 80ms; }
         .contact-grid .contact-info-card:nth-child(3) { transition-delay: 160ms; }
 
-        /* --- Navbar --- */
+        /* --- Navbar (Transparent at Top, Glassmorphism on Scroll) --- */
         header {
-            background-color: rgba(18, 18, 18, 0.98);
-            border-bottom: 2px solid var(--color-olive);
+            background-color: transparent;
+            border-bottom: 1px solid transparent;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 750ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms ease, background-color 200ms var(--ease-out), border-color 200ms var(--ease-out), padding 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: none;
+            transition: transform 750ms cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 650ms ease, 
+                        background-color 300ms var(--ease-out), 
+                        border-color 300ms var(--ease-out), 
+                        padding 300ms var(--ease-out), 
+                        box-shadow 300ms var(--ease-out),
+                        backdrop-filter 300ms var(--ease-out);
             transform: translateY(-100%);
             opacity: 0;
             will-change: transform, opacity;
@@ -176,9 +183,11 @@
 
         header.scrolled {
             padding: 5px 0;
-            background-color: rgba(18, 18, 18, 0.98);
-            border-bottom-color: var(--color-lime);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+            background-color: rgba(18, 18, 18, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(221, 229, 209, 0.12);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
         }
 
         .nav-container {
