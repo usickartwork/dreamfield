@@ -110,9 +110,14 @@
         const container = document.createElement('div');
         container.id = 'df-cs-container';
         container.innerHTML = `
-            <!-- Floating Circular Launcher -->
-            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya Mindream" title="Tanya Mindream">
-                <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
+            <!-- Floating Circular Launcher with 24/7 CS Indicator -->
+            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya CS Online 24/7" title="Tanya CS Online 24/7">
+                <span class="df-cs-badge-top"><i class="fa-solid fa-headset"></i> CS 24/7</span>
+                <span class="df-cs-teaser-pill">
+                    <span class="df-cs-pill-glow"></span>
+                    Tanya CS 24/7
+                </span>
+                <img src="/assets/img/mindream-avatar.jpg?v=2" alt="CS Mindream" class="df-cs-avatar-img" />
                 <span class="df-cs-pulse-dot"></span>
             </button>
 
