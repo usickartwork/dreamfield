@@ -148,14 +148,6 @@
                 <!-- Messages Body -->
                 <div class="df-cs-messages" id="dfCsMessages"></div>
 
-                <!-- WhatsApp Direct Banner -->
-                <div class="df-cs-wa-banner">
-                    <span>Butuh respons admin langsung?</span>
-                    <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer">
-                        <i class="fa-brands fa-whatsapp"></i> WhatsApp Admin
-                    </a>
-                </div>
-
                 <!-- Input Footer -->
                 <div class="df-cs-footer">
                     <form class="df-cs-input-wrap" id="dfCsForm">
@@ -418,3 +410,4 @@
         init();
     }
 })();
+
