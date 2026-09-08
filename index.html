@@ -3284,7 +3284,7 @@
 
     
         /* ============================================================
-           MINI SHOOTING RANGE (3-STEP PROGRESSIVE TARGET CHALLENGE)
+           MINI SHOOTING RANGE (HARDCORE CQB RANDOMIZED TARGET DRILL)
            ============================================================ */
         .tactical-experience-section {
             padding: 56px 20px;
@@ -3446,7 +3446,7 @@
         /* Range Stage (Hardened Touch Action & Crosshair) */
         .range-stage {
             position: relative;
-            height: 380px;
+            height: 390px;
             background: radial-gradient(circle at center, rgba(35, 35, 35, 0.9) 0%, #0d0d0d 100%);
             overflow: hidden;
             display: flex;
@@ -3469,7 +3469,7 @@
             pointer-events: none;
         }
 
-        /* CQB Barricades Layer */
+        /* CQB 5-Bunkers Layer (Barricades for Cover) */
         .cqb-bunkers-layer {
             position: absolute;
             bottom: 30px;
@@ -3477,40 +3477,45 @@
             right: 0;
             display: flex;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 10px;
             pointer-events: none;
             z-index: 10;
         }
 
         .cqb-bunker {
-            background: linear-gradient(to top, #101010 0%, #1e1e1e 100%);
-            border: 1px solid rgba(221, 229, 209, 0.2);
+            background: linear-gradient(to top, #0e0e0e 0%, #1c1c1c 100%);
+            border: 1px solid rgba(221, 229, 209, 0.18);
             border-bottom: none;
-            border-radius: 6px 6px 0 0;
+            border-radius: 5px 5px 0 0;
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            padding-bottom: 6px;
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.7);
+            padding-bottom: 5px;
+            box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.8);
         }
 
-        .bunker-left, .bunker-right {
-            width: 85px;
-            height: 105px;
+        .bunker-p1, .bunker-p5 {
+            width: 65px;
+            height: 95px;
+        }
+
+        .bunker-p2, .bunker-p4 {
+            width: 75px;
+            height: 108px;
         }
 
         .bunker-center {
-            width: 125px;
-            height: 120px;
+            width: 105px;
+            height: 122px;
             border-color: rgba(183, 255, 0, 0.35);
         }
 
         .bunker-lbl {
             font-family: 'Outfit', sans-serif;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 800;
-            color: rgba(221, 229, 209, 0.45);
-            letter-spacing: 0.8px;
+            color: rgba(221, 229, 209, 0.4);
+            letter-spacing: 0.6px;
         }
 
         /* Targets Zone & Step Wrappers */
@@ -3550,42 +3555,42 @@
             align-items: center;
             cursor: crosshair;
             touch-action: none;
+            will-change: transform;
         }
 
         .target-distance-tag {
             font-family: 'Outfit', sans-serif;
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: var(--color-moss);
-            margin-top: 12px;
+            margin-top: 10px;
             background: rgba(0, 0, 0, 0.6);
-            padding: 2px 8px;
+            padding: 2px 7px;
             border-radius: 3px;
             border: 1px solid rgba(221, 229, 209, 0.1);
             pointer-events: none;
         }
 
-        /* STEP 1: Steel Popper (Smooth Dynamic Lateral Sway) */
-        .step-1-wrap .target-popper-wrap {
-            perspective: 600px;
-            animation: popperStep1Sway 3.2s ease-in-out infinite alternate;
+        .target-distance-tag.hostage-tag {
+            color: #38bdf8;
+            border-color: rgba(56, 189, 248, 0.4);
+            background: rgba(14, 165, 233, 0.12);
         }
 
-        @keyframes popperStep1Sway {
-            0% { transform: translateX(-40px) rotate(-1.5deg); }
-            50% { transform: translateX(0px) rotate(0deg); }
-            100% { transform: translateX(40px) rotate(1.5deg); }
+        /* STEP 1: Steel Popper */
+        .target-popper-wrap {
+            perspective: 600px;
         }
 
         .target-popper {
-            width: 72px;
-            height: 150px;
+            width: 66px;
+            height: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transform-origin: bottom center;
-            transition: transform 180ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 200ms;
+            transition: transform 140ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 160ms;
         }
 
         .target-popper.knocked-down {
@@ -3595,7 +3600,7 @@
         }
 
         .target-popper.knock-reset {
-            animation: springPopUp 400ms cubic-bezier(0.175, 0.885, 0.32, 1.35) forwards;
+            animation: springPopUp 360ms cubic-bezier(0.175, 0.885, 0.32, 1.35) forwards;
         }
 
         @keyframes springPopUp {
@@ -3606,8 +3611,8 @@
         }
 
         .popper-head {
-            width: 62px;
-            height: 62px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             background: linear-gradient(135deg, #404040 0%, #202020 100%);
             border: 2px solid #5a5a5a;
@@ -3618,16 +3623,16 @@
         }
 
         .popper-killzone {
-            width: 28px;
-            height: 28px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             background: var(--color-lime);
             box-shadow: 0 0 10px rgba(183, 255, 0, 0.4);
         }
 
         .popper-body {
-            width: 26px;
-            height: 80px;
+            width: 24px;
+            height: 75px;
             background: linear-gradient(to bottom, #303030, #1a1a1a);
             border-left: 2px solid #444;
             border-right: 2px solid #222;
@@ -3647,31 +3652,27 @@
         }
 
         .popper-base {
-            width: 76px;
+            width: 70px;
             height: 10px;
             background: #252525;
             border-top: 2px solid #4a4a4a;
             border-radius: 2px;
         }
 
-        /* STEP 2: Moving Bullseye with Peek-a-boo (Hilang Muncul di balik barikade) */
-        .step-2-wrap .target-bullseye-wrap {
-            animation: bullseyePeekTraverse 4.5s ease-in-out infinite;
+        /* STEP 2: Moving Bullseye */
+        .target-bullseye-wrap {
+            transition: opacity 160ms, transform 80ms linear;
         }
 
-        @keyframes bullseyePeekTraverse {
-            0% { transform: translateX(-120px) translateY(0); opacity: 1; pointer-events: auto; }
-            28% { transform: translateX(-20px) translateY(0); opacity: 1; pointer-events: auto; }
-            38% { transform: translateX(-5px) translateY(75px); opacity: 0.15; pointer-events: none; } /* Ducks behind center bunker */
-            55% { transform: translateX(10px) translateY(75px); opacity: 0.15; pointer-events: none; }
-            65% { transform: translateX(25px) translateY(0); opacity: 1; pointer-events: auto; } /* Pops up! */
-            90% { transform: translateX(120px) translateY(0); opacity: 1; pointer-events: auto; }
-            100% { transform: translateX(-120px) translateY(0); opacity: 1; pointer-events: auto; }
+        .target-bullseye-wrap.ducked {
+            transform: translateY(85px) !important;
+            opacity: 0.12 !important;
+            pointer-events: none !important;
         }
 
         .target-bullseye {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: #e8e2d4;
             position: relative;
@@ -3713,8 +3714,8 @@
         }
 
         .ring-center {
-            width: 38%;
-            height: 38%;
+            width: 36%;
+            height: 36%;
             border-radius: 50%;
             background: var(--color-lime);
             display: flex;
@@ -3748,20 +3749,21 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* STEP 3: CQB Silhouette (Fast Pop-up from Bunkers) */
-        .step-3-wrap .target-silhouette-wrap {
-            transition: transform 160ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 160ms;
+        /* STEP 3: CQB Silhouette (Hostile) & Hostage Decoy */
+        .target-silhouette-wrap {
+            transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 150ms;
         }
 
-        .target-silhouette-wrap.ducked {
+        .target-silhouette-wrap.ducked,
+        .target-hostage-wrap.ducked {
             transform: translateY(90px) !important;
-            opacity: 0.1 !important;
+            opacity: 0.08 !important;
             pointer-events: none !important;
         }
 
         .target-silhouette {
-            width: 100px;
-            height: 150px;
+            width: 95px;
+            height: 145px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -3769,8 +3771,8 @@
         }
 
         .silhouette-head {
-            width: 42px;
-            height: 46px;
+            width: 40px;
+            height: 44px;
             border-radius: 8px 8px 4px 4px;
             background: #282828;
             border: 2px solid #4a4a4a;
@@ -3794,8 +3796,8 @@
         }
 
         .silhouette-chest {
-            width: 90px;
-            height: 94px;
+            width: 86px;
+            height: 90px;
             border-radius: 6px 6px 0 0;
             background: #202020;
             border: 2px solid #404040;
@@ -3826,15 +3828,69 @@
             color: var(--color-sage);
         }
 
+        /* Hostage Decoy (NO SHOOT / CIVILIAN) */
+        .target-hostage-wrap {
+            transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 150ms;
+        }
+
+        .target-hostage-body {
+            width: 90px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: crosshair;
+        }
+
+        .hostage-head {
+            width: 38px;
+            height: 42px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 2px solid #38bdf8;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .hostage-torso {
+            width: 80px;
+            height: 86px;
+            border-radius: 6px 6px 0 0;
+            background: #e2e8f0;
+            border: 2px solid #38bdf8;
+            margin-top: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #0369a1;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        .hostage-lbl {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .hostage-sub {
+            font-size: 9px;
+            opacity: 0.8;
+        }
+
         /* Wobble Hit Animation */
         .wobble-hit {
-            animation: wobbleAnim 200ms ease-out;
+            animation: wobbleAnim 180ms ease-out;
         }
 
         @keyframes wobbleAnim {
             0% { transform: scale(1); }
-            30% { transform: scale(0.94) translateY(2px); }
-            70% { transform: scale(1.03) translateY(-1px); }
+            30% { transform: scale(0.92) translateY(3px); }
+            70% { transform: scale(1.04) translateY(-2px); }
             100% { transform: scale(1); }
         }
 
@@ -3866,6 +3922,12 @@
 
         .hit-float-text.warn {
             color: #ff4757;
+        }
+
+        .hit-float-text.penalty {
+            color: #ff3838;
+            font-size: 17px;
+            text-shadow: 0 0 10px rgba(255, 56, 56, 0.8);
         }
 
         @keyframes floatUpFade {
@@ -3950,7 +4012,7 @@
         .stage-banner-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(10, 10, 10, 0.85);
+            background: rgba(10, 10, 10, 0.88);
             backdrop-filter: blur(6px);
             z-index: 40;
             display: none;
@@ -3975,7 +4037,7 @@
             border: 2px solid var(--color-lime);
             border-radius: 8px;
             padding: 24px 20px;
-            max-width: 360px;
+            max-width: 380px;
             box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 16px rgba(183, 255, 0, 0.2);
             display: flex;
             flex-direction: column;
@@ -4085,15 +4147,19 @@
             }
             .cqb-bunkers-layer {
                 bottom: 24px;
-                padding: 0 10px;
+                padding: 0 6px;
             }
-            .bunker-left, .bunker-right {
-                width: 68px;
-                height: 85px;
+            .bunker-p1, .bunker-p5 {
+                width: 52px;
+                height: 80px;
+            }
+            .bunker-p2, .bunker-p4 {
+                width: 60px;
+                height: 90px;
             }
             .bunker-center {
-                width: 95px;
-                height: 98px;
+                width: 82px;
+                height: 102px;
             }
             .target-popper {
                 width: 54px;
@@ -4112,20 +4178,23 @@
                 height: 60px;
             }
             .target-bullseye {
-                width: 100px;
-                height: 100px;
+                width: 95px;
+                height: 95px;
             }
-            .target-silhouette {
-                width: 80px;
-                height: 120px;
+            .target-silhouette,
+            .target-hostage-body {
+                width: 78px;
+                height: 118px;
             }
-            .silhouette-head {
-                width: 34px;
-                height: 38px;
+            .silhouette-head,
+            .hostage-head {
+                width: 32px;
+                height: 36px;
             }
-            .silhouette-chest {
-                width: 72px;
-                height: 76px;
+            .silhouette-chest,
+            .hostage-torso {
+                width: 70px;
+                height: 74px;
             }
             .target-distance-tag {
                 font-size: 8.5px;
@@ -4143,6 +4212,46 @@
             .range-stage {
                 height: 285px;
             }
+            .bunker-p1, .bunker-p5 {
+                width: 44px;
+                height: 70px;
+            }
+            .bunker-p2, .bunker-p4 {
+                width: 52px;
+                height: 78px;
+            }
+            .bunker-center {
+                width: 72px;
+                height: 90px;
+            }
+            .target-popper {
+                width: 44px;
+                height: 95px;
+            }
+            .popper-head {
+                width: 36px;
+                height: 36px;
+            }
+            .target-bullseye {
+                width: 82px;
+                height: 82px;
+            }
+            .target-silhouette,
+            .target-hostage-body {
+                width: 66px;
+                height: 100px;
+            }
+            .silhouette-head,
+            .hostage-head {
+                width: 28px;
+                height: 30px;
+            }
+            .silhouette-chest,
+            .hostage-torso {
+                width: 58px;
+                height: 64px;
+            }
+        }
             .bunker-left, .bunker-right {
                 width: 55px;
                 height: 75px;
@@ -4608,24 +4717,21 @@
                 </div>
 
                 <!-- CQB Barricades (Cover layer for peek-a-boo mechanics) -->
+                <!-- CQB Barricades (Cover layer for peek-a-boo mechanics) -->
                 <div class="cqb-bunkers-layer">
-                    <div class="cqb-bunker bunker-left" id="bunkerLeft">
-                        <span class="bunker-lbl">COVER A-01</span>
-                    </div>
-                    <div class="cqb-bunker bunker-center" id="bunkerCenter">
-                        <span class="bunker-lbl">BARIKADE B-02</span>
-                    </div>
-                    <div class="cqb-bunker bunker-right" id="bunkerRight">
-                        <span class="bunker-lbl">COVER C-03</span>
-                    </div>
+                    <div class="cqb-bunker bunker-p1" id="bunkerP1"><span class="bunker-lbl">COVER 01</span></div>
+                    <div class="cqb-bunker bunker-p2" id="bunkerP2"><span class="bunker-lbl">WALL 02</span></div>
+                    <div class="cqb-bunker bunker-center" id="bunkerCenter"><span class="bunker-lbl">MAIN BUNKER 03</span></div>
+                    <div class="cqb-bunker bunker-p4" id="bunkerP4"><span class="bunker-lbl">WALL 04</span></div>
+                    <div class="cqb-bunker bunker-p5" id="bunkerP5"><span class="bunker-lbl">COVER 05</span></div>
                 </div>
 
                 <!-- Floating Hit Notification Container -->
                 <div class="hit-float-container" id="hitFloatContainer"></div>
 
                 <!-- Targets Zone (Progressive: 1 Target Active per Step) -->
-                <div class="range-targets-container">
-                    <!-- STEP 1 TARGET: IPSC Steel Popper (Swaying & Sliding) -->
+                <div class="range-targets-container" id="targetsContainer">
+                    <!-- STEP 1 TARGET: IPSC Steel Popper (Erratic Lateral Movement & Jitter) -->
                     <div class="target-step-wrap step-1-wrap active" id="step1Wrap">
                         <div class="target-item target-popper-wrap" id="targetPopperWrap" onclick="shootPopper(event)">
                             <div class="target-popper" id="targetPopper">
@@ -4633,11 +4739,11 @@
                                 <div class="popper-body"><span class="popper-label">IPSC STEEL</span></div>
                                 <div class="popper-base"></div>
                             </div>
-                            <span class="target-distance-tag">STEP 1 · 10M STEEL POPPER</span>
+                            <span class="target-distance-tag">STEP 1 · 10M ERRATIC STEEL</span>
                         </div>
                     </div>
 
-                    <!-- STEP 2 TARGET: Moving Bullseye (Traverse & Peek Behind Center Barricade) -->
+                    <!-- STEP 2 TARGET: Moving Bullseye (High-Speed Feint & Behind-Cover Concealment) -->
                     <div class="target-step-wrap step-2-wrap" id="step2Wrap">
                         <div class="target-item target-bullseye-wrap" id="targetBullseyeWrap" onclick="shootBullseye(event)">
                             <div class="target-bullseye" id="targetBullseye">
@@ -4648,6 +4754,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="bullet-holes-layer" id="bulletHolesLayer"></div>
+                            </div>
+                            <span class="target-distance-tag">STEP 2 · 15M SPRINT BULLSEYE</span>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 TARGET: CQB Reflex Pop-Up (Hostile vs Civilian Hostage!) -->
+                    <div class="target-step-wrap step-3-wrap" id="step3Wrap">
+                        <!-- Hostile Target -->
+                        <div class="target-item target-silhouette-wrap hostile-type" id="targetHostileWrap">
+                            <div class="target-silhouette" id="targetSilhouette">
+                                <div class="silhouette-head" onclick="shootSilhouetteHead(event)" title="Headshot (+50 PTS)">
+                                    <span class="head-tag">+50</span>
+                                </div>
+                                <div class="silhouette-chest" onclick="shootSilhouetteChest(event)" title="Center Mass (+25 PTS)">
+                                    <div class="chest-center"><i class="fa-solid fa-crosshairs"></i></div>
+                                    <span class="chest-tag">+25</span>
+                                </div>
+                            </div>
+                            <span class="target-distance-tag hostile-tag" id="hostileDistTag">HOSTILE TACTICAL</span>
+                        </div>
+
+                        <!-- Civilian / Hostage Decoy (NO SHOOT!) -->
+                        <div class="target-item target-hostage-wrap hostage-type ducked" id="targetHostageWrap" onclick="shootHostagePenalty(event)">
+                            <div class="target-hostage-body">
+                                <div class="hostage-head">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </div>
+                                <div class="hostage-torso">
+                                    <span class="hostage-lbl">NO SHOOT</span>
+                                    <span class="hostage-sub">CIVILIAN</span>
+                                </div>
+                            </div>
+                            <span class="target-distance-tag hostage-tag">⚠️ SANDERA (JANGAN TEMBAK)</span>
+                        </div>
+                    </div>
+                </div>
                                 <div class="bullet-holes-layer" id="bulletHolesLayer"></div>
                             </div>
                             <span class="target-distance-tag">STEP 2 · 15M MOVING BULLSEYE</span>
@@ -5128,7 +5271,7 @@
     </script>
 
     <!-- ============================================================
-         MINI SHOOTING RANGE: 3-STEP PROGRESSIVE ENGINE & SCROLL FIX
+         MINI SHOOTING RANGE: HARDCORE CQB RANDOMIZED TARGET ENGINE
          ============================================================ -->
     <script>
     // --- 1. Prevent Browser Jump on Refresh & Smooth Scroll Helper ---
@@ -5162,9 +5305,8 @@
         }
     };
 
-    // --- 2. Progressive 3-Step Shooting Range Simulator ---
+    // --- 2. Hardcore 3-Step Random Target Simulator ---
     (function() {
-        // Web Audio Synthesizer
         let audioCtx = null;
         let isSoundEnabled = true;
         let isZoomBlocked = false;
@@ -5287,7 +5429,25 @@
             osc.stop(t + 0.025);
         }
 
-        // 5. Reload Mag Slap
+        // 5. Hostage Penalty Buzzer Sound
+        function playBuzzerPenaltySound() {
+            if (!isSoundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            const t = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(140, t);
+            gain.gain.setValueAtTime(0.6, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.3);
+        }
+
+        // 6. Reload Mag Slap
         function playReloadSound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
@@ -5316,7 +5476,7 @@
             o2.stop(t + 0.19);
         }
 
-        // 6. Stage Cleared Victory Fanfare
+        // 7. Victory Fanfare
         function playVictorySound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
@@ -5336,19 +5496,36 @@
             });
         }
 
-        // --- Progressive 3-Step Game State ---
-        let currentStep = 1; // 1, 2, or 3
-        const stepGoals = { 1: 3, 2: 4, 3: 5 };
+        // --- HARDCORE 3-STEP RANDOM STATE ---
+        let currentStep = 1;
+        const stepGoals = { 1: 4, 2: 5, 3: 6 };
         let currentStepHits = 0;
 
         let ammoCount = 15;
         let scoreCount = 0;
         let totalShots = 0;
         let totalHits = 0;
+        let penaltyCount = 0;
 
         let isPopperDown = false;
-        let silhouetteTimer = null;
-        let isSilhouetteExposed = false;
+        let animFrameId = null;
+
+        // Step 1 Popper Random Physics
+        let popperX = 0;
+        let popperVx = 2.4;
+        let popperNextChangeTime = 0;
+
+        // Step 2 Bullseye Random Physics
+        let bullseyeX = 0;
+        let bullseyeVx = 4.2;
+        let bullseyeDucked = false;
+        let bullseyeNextDuckTime = 0;
+        let bullseyeDuckEndTime = 0;
+
+        // Step 3 Hostile vs Hostage Random State
+        let step3Timer = null;
+        let activeTargetType = null; // 'hostile' or 'hostage'
+        let isStep3Exposed = false;
 
         function triggerHaptic(duration) {
             if (window.navigator && window.navigator.vibrate) {
@@ -5362,20 +5539,20 @@
             if (totalShots === 0) {
                 accEl.textContent = '100%';
             } else {
-                const pct = Math.round((totalHits / totalShots) * 100);
+                const pct = Math.max(0, Math.round((totalHits / totalShots) * 100));
                 accEl.textContent = pct + '%';
             }
         }
 
         function updateScore(pts) {
-            scoreCount += pts;
+            scoreCount = Math.max(0, scoreCount + pts);
             const scoreEl = document.getElementById('hudScoreVal');
             if (scoreEl) {
                 scoreEl.textContent = String(scoreCount).padStart(4, '0');
             }
         }
 
-        function spawnFloatingHit(text, clientX, clientY, isWarn) {
+        function spawnFloatingHit(text, clientX, clientY, type) {
             const container = document.getElementById('hitFloatContainer');
             if (!container) return;
             const rect = container.getBoundingClientRect();
@@ -5383,7 +5560,7 @@
             const y = clientY ? (clientY - rect.top) : (rect.height / 2);
 
             const el = document.createElement('div');
-            el.className = 'hit-float-text ' + (isWarn ? 'warn' : 'lime');
+            el.className = 'hit-float-text ' + (type === 'penalty' ? 'penalty' : (type === 'warn' ? 'warn' : 'lime'));
             el.textContent = text;
             el.style.left = Math.max(30, Math.min(rect.width - 30, x)) + 'px';
             el.style.top = Math.max(30, Math.min(rect.height - 30, y)) + 'px';
@@ -5395,13 +5572,13 @@
 
         function consumeAmmo() {
             if (isZoomBlocked) {
-                spawnFloatingHit('ZOOM TERDETEKSI! KEMBALIKAN KE 100%', null, null, true);
+                spawnFloatingHit('ZOOM TERDETEKSI! KEMBALIKAN KE 100%', null, null, 'warn');
                 return false;
             }
             if (ammoCount <= 0) {
                 playDryClickSound();
                 triggerHaptic(30);
-                spawnFloatingHit('MAG KOSONG! TEKAN RELOAD', null, null, true);
+                spawnFloatingHit('MAG KOSONG! TEKAN RELOAD', null, null, 'warn');
                 return false;
             }
             ammoCount--;
@@ -5422,23 +5599,22 @@
             if (goalTot) goalTot.textContent = stepGoals[currentStep];
 
             if (stagePill) {
-                if (currentStep === 1) stagePill.textContent = 'STEP 1 / 3 · STEEL POPPER';
-                else if (currentStep === 2) stagePill.textContent = 'STEP 2 / 3 · MOVING BULLSEYE';
-                else if (currentStep === 3) stagePill.textContent = 'STEP 3 / 3 · CQB POP-UP DUCK';
+                if (currentStep === 1) stagePill.textContent = 'STEP 1 / 3 · ERRATIC STEEL';
+                else if (currentStep === 2) stagePill.textContent = 'STEP 2 / 3 · SPRINT BULLSEYE';
+                else if (currentStep === 3) stagePill.textContent = 'STEP 3 / 3 · REFLEX & HOSTAGES';
             }
 
             if (hintText) {
                 if (currentStep === 1) {
-                    hintText.innerHTML = '<i class="fa-solid fa-crosshairs"></i> <strong>STEP 1:</strong> Kenai pelat baja bergerak 3 kali untuk membuka Step 2. Peluru meleset menurunkan <strong>akurasi (ACC)</strong>.';
+                    hintText.innerHTML = '<i class="fa-solid fa-bolt"></i> <strong>STEP 1 (SULIT):</strong> Sasaran baja melesat acak & berganti arah tanpa pola. Kenai 4 kali!';
                 } else if (currentStep === 2) {
-                    hintText.innerHTML = '<i class="fa-solid fa-crosshairs"></i> <strong>STEP 2:</strong> Target melintas dan bersembunyi di balik barikade B-02. Tembak 4 kali saat terlihat!';
+                    hintText.innerHTML = '<i class="fa-solid fa-ghost"></i> <strong>STEP 2 (SANGAT SULIT):</strong> Bullseye berlari kencang & tiba-tiba bersembunyi di balik barikade. Kenai 5 kali!';
                 } else if (currentStep === 3) {
-                    hintText.innerHTML = '<i class="fa-solid fa-crosshairs"></i> <strong>STEP 3 (FINAL):</strong> Siluet musuh muncul mendadak dari 3 barikade selama 1.2 detik! Habisi 5 target!';
+                    hintText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>STEP 3 (EKSTREM):</strong> Target muncul 0.8s! <strong>Awas:</strong> Jangan tembak sandera sipil (❌), penalti -50 poin!';
                 }
             }
         }
 
-        // Show Stage Banner Modal
         function showStageBanner(title, desc, btnText) {
             const overlay = document.getElementById('stageBannerOverlay');
             const bTitle = document.getElementById('bannerTitle');
@@ -5465,7 +5641,20 @@
             }
         };
 
+        // --- STAGE PHYSICS & RANDOM ENGINE ---
+        function cancelAllLoops() {
+            if (animFrameId) {
+                cancelAnimationFrame(animFrameId);
+                animFrameId = null;
+            }
+            if (step3Timer) {
+                clearTimeout(step3Timer);
+                step3Timer = null;
+            }
+        }
+
         function setStage(step) {
+            cancelAllLoops();
             currentStep = step;
             currentStepHits = 0;
             updateGoalHUD();
@@ -5478,57 +5667,149 @@
             if (s2) s2.classList.remove('active');
             if (s3) s3.classList.remove('active');
 
-            if (silhouetteTimer) {
-                clearTimeout(silhouetteTimer);
-                silhouetteTimer = null;
-            }
+            const stageEl = document.getElementById('rangeStage');
+            const stageW = stageEl ? stageEl.clientWidth : 800;
+            const maxBound = Math.max(120, (stageW / 2) - 60);
 
             if (step === 1) {
                 if (s1) s1.classList.add('active');
+                // Randomize Step 1 initial seed
+                popperX = (Math.random() - 0.5) * maxBound * 0.8;
+                popperVx = (Math.random() > 0.5 ? 1 : -1) * (2.8 + Math.random() * 2.2);
+                popperNextChangeTime = performance.now() + 400 + Math.random() * 800;
+                runStep1Physics();
             } else if (step === 2) {
                 if (s2) s2.classList.add('active');
+                // Randomize Step 2 initial seed
+                bullseyeX = (Math.random() - 0.5) * maxBound * 0.8;
+                bullseyeVx = (Math.random() > 0.5 ? 1 : -1) * (4.2 + Math.random() * 3.0);
+                bullseyeDucked = false;
+                bullseyeNextDuckTime = performance.now() + 800 + Math.random() * 1400;
+                runStep2Physics();
             } else if (step === 3) {
                 if (s3) s3.classList.add('active');
-                startSilhouettePopRoutine();
+                startStep3HardcorePop();
             }
         }
 
-        // Step 3 Silhouette Peek-a-boo Routine
-        function startSilhouettePopRoutine() {
-            const silWrap = document.getElementById('targetSilhouetteWrap');
-            if (!silWrap || currentStep !== 3) return;
+        // STEP 1 PHYSICS LOOP (Erratic Speed & Sudden Direction Inversion)
+        function runStep1Physics() {
+            if (currentStep !== 1) return;
+            const wrap = document.getElementById('targetPopperWrap');
+            const stageEl = document.getElementById('rangeStage');
+            const stageW = stageEl ? stageEl.clientWidth : 800;
+            const maxBound = Math.max(100, (stageW / 2) - 50);
 
-            // Pick 1 of 3 bunker positions
-            const positions = [
-                { x: -140, tag: 'BUNKER A-01 · 18M' },
-                { x: 0, tag: 'BARIKADE B-02 · 20M' },
-                { x: 140, tag: 'BUNKER C-03 · 22M' }
-            ];
-            const chosen = positions[Math.floor(Math.random() * positions.length)];
-            const distTag = document.getElementById('silhouetteDistTag');
-            if (distTag) distTag.textContent = chosen.tag;
+            const now = performance.now();
+            if (now > popperNextChangeTime) {
+                // Sudden erratic acceleration or reversal
+                const dir = Math.random() > 0.4 ? -Math.sign(popperVx) : Math.sign(popperVx);
+                const speed = 2.6 + Math.random() * 3.2; // Fast!
+                popperVx = dir * speed;
+                popperNextChangeTime = now + 350 + Math.random() * 900;
+            }
 
-            // Duck in
-            silWrap.classList.add('ducked');
-            isSilhouetteExposed = false;
+            popperX += popperVx;
+            if (popperX > maxBound) {
+                popperX = maxBound;
+                popperVx = -Math.abs(popperVx);
+            } else if (popperX < -maxBound) {
+                popperX = -maxBound;
+                popperVx = Math.abs(popperVx);
+            }
 
-            // Wait 0.5s then pop up at chosen location
-            silhouetteTimer = setTimeout(() => {
+            if (wrap && !isPopperDown) {
+                const tilt = popperVx * 1.4;
+                wrap.style.transform = `translateX(${popperX}px) rotate(${tilt}deg)`;
+            }
+
+            animFrameId = requestAnimationFrame(runStep1Physics);
+        }
+
+        // STEP 2 PHYSICS LOOP (Super-Fast Sprint & Random Concealment Behind 5 Bunkers)
+        function runStep2Physics() {
+            if (currentStep !== 2) return;
+            const wrap = document.getElementById('targetBullseyeWrap');
+            const stageEl = document.getElementById('rangeStage');
+            const stageW = stageEl ? stageEl.clientWidth : 800;
+            const maxBound = Math.max(100, (stageW / 2) - 55);
+
+            const now = performance.now();
+
+            if (!bullseyeDucked && now > bullseyeNextDuckTime) {
+                // Duck into cover!
+                bullseyeDucked = true;
+                if (wrap) wrap.classList.add('ducked');
+                // Random duck duration: 350ms to 700ms
+                bullseyeDuckEndTime = now + 350 + Math.random() * 350;
+            } else if (bullseyeDucked && now > bullseyeDuckEndTime) {
+                // Pop back up with surprise sprint direction!
+                bullseyeDucked = false;
+                if (wrap) wrap.classList.remove('ducked');
+                bullseyeVx = (Math.random() > 0.5 ? 1 : -1) * (4.5 + Math.random() * 3.2);
+                bullseyeNextDuckTime = now + 900 + Math.random() * 1500;
+            }
+
+            if (!bullseyeDucked) {
+                bullseyeX += bullseyeVx;
+                if (bullseyeX > maxBound) {
+                    bullseyeX = maxBound;
+                    bullseyeVx = -Math.abs(bullseyeVx);
+                } else if (bullseyeX < -maxBound) {
+                    bullseyeX = -maxBound;
+                    bullseyeVx = Math.abs(bullseyeVx);
+                }
+            }
+
+            if (wrap) {
+                wrap.style.transform = `translateX(${bullseyeX}px)`;
+            }
+
+            animFrameId = requestAnimationFrame(runStep2Physics);
+        }
+
+        // STEP 3 HARDCORE CQB ROUTINE (Ultra-Fast 0.75s Peek + Hostage Decoy)
+        function startStep3HardcorePop() {
+            if (currentStep !== 3) return;
+            const hWrap = document.getElementById('targetHostileWrap');
+            const cWrap = document.getElementById('targetHostageWrap');
+            const stageEl = document.getElementById('rangeStage');
+            const stageW = stageEl ? stageEl.clientWidth : 800;
+
+            if (hWrap) hWrap.classList.add('ducked');
+            if (cWrap) cWrap.classList.add('ducked');
+            isStep3Exposed = false;
+
+            // 5 randomized tactical bunker offsets
+            const stepRatio = Math.max(45, (stageW / 2) - 40) / 2;
+            const bunkerPositions = [-2 * stepRatio, -1 * stepRatio, 0, 1 * stepRatio, 2 * stepRatio];
+            const chosenX = bunkerPositions[Math.floor(Math.random() * bunkerPositions.length)];
+
+            // 75% Hostile, 25% Hostage Decoy!
+            const isHostage = Math.random() < 0.25;
+            activeTargetType = isHostage ? 'hostage' : 'hostile';
+            const targetEl = isHostage ? cWrap : hWrap;
+
+            // Short randomized cover pause (300ms to 600ms)
+            step3Timer = setTimeout(() => {
                 if (currentStep !== 3) return;
-                silWrap.style.transform = `translateX(${chosen.x}px)`;
-                silWrap.classList.remove('ducked');
-                isSilhouetteExposed = true;
+                if (targetEl) {
+                    targetEl.style.transform = `translateX(${chosenX}px)`;
+                    targetEl.classList.remove('ducked');
+                    isStep3Exposed = true;
+                }
 
-                // Stays exposed for only 1.25s then ducks
-                silhouetteTimer = setTimeout(() => {
+                // VERY HARD: Exposed for only 700ms - 900ms!
+                const peekDuration = 650 + Math.random() * 250;
+                step3Timer = setTimeout(() => {
                     if (currentStep !== 3) return;
-                    silWrap.classList.add('ducked');
-                    isSilhouetteExposed = false;
+                    if (targetEl) targetEl.classList.add('ducked');
+                    isStep3Exposed = false;
 
                     // Repeat next pop
-                    silhouetteTimer = setTimeout(startSilhouettePopRoutine, 600);
-                }, 1250);
-            }, 500);
+                    step3Timer = setTimeout(startStep3HardcorePop, 350 + Math.random() * 300);
+                }, peekDuration);
+            }, 350 + Math.random() * 350);
         }
 
         // Hit Handlers
@@ -5547,7 +5828,7 @@
             isPopperDown = true;
             playSteelHitSound();
             triggerHaptic(35);
-            spawnFloatingHit('+20 STEEL HIT!', e.clientX, e.clientY);
+            spawnFloatingHit('+20 STEEL HIT!', e.clientX, e.clientY, 'lime');
             updateGoalHUD();
 
             const popper = document.getElementById('targetPopper');
@@ -5558,24 +5839,28 @@
                     popper.classList.remove('knocked-down');
                     popper.classList.add('knock-reset');
                     isPopperDown = false;
-                }, 1100);
+                    // Jitter new position upon spring up
+                    popperVx = (Math.random() > 0.5 ? 1 : -1) * (3.0 + Math.random() * 2.5);
+                }, 750);
             }
 
             if (currentStepHits >= stepGoals[1]) {
-                updateScore(100); // bonus
+                updateScore(100);
+                cancelAllLoops();
                 setTimeout(() => {
                     showStageBanner(
                         'STEP 1 CLEARED! (+100 PTS)',
-                        'Sasaran baja berhasil ditaklukkan! Bersiap untuk Step 2: Target bergerak melintasi lorong dan menghilang di balik barikade B-02.',
+                        'Bidikan baja Anda presisi! Bersiap untuk STEP 2: Target kertas Bullseye bergerak sprint dan menghilang di balik barikade!',
                         'LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>'
                     );
-                }, 600);
+                }, 500);
             }
         };
 
         window.shootBullseye = function(e) {
             e.stopPropagation();
             if (currentStep !== 2) return;
+            if (bullseyeDucked) return;
             if (!consumeAmmo()) return;
 
             totalShots++;
@@ -5608,7 +5893,7 @@
             playPaperHitSound();
             triggerHaptic(25);
             updateScore(pts);
-            spawnFloatingHit(msg, e.clientX, e.clientY);
+            spawnFloatingHit(msg, e.clientX, e.clientY, 'lime');
             updateGoalHUD();
 
             if (holesLayer) {
@@ -5617,7 +5902,7 @@
                 hole.style.left = clickX + 'px';
                 hole.style.top = clickY + 'px';
                 holesLayer.appendChild(hole);
-                if (holesLayer.children.length > 8) {
+                if (holesLayer.children.length > 10) {
                     holesLayer.removeChild(holesLayer.children[0]);
                 }
             }
@@ -5626,21 +5911,25 @@
             void target.offsetWidth;
             target.classList.add('wobble-hit');
 
+            // Quick acceleration reaction upon being shot
+            bullseyeVx = -Math.sign(bullseyeVx) * (4.8 + Math.random() * 2.5);
+
             if (currentStepHits >= stepGoals[2]) {
-                updateScore(200); // bonus
+                updateScore(200);
+                cancelAllLoops();
                 setTimeout(() => {
                     showStageBanner(
                         'STEP 2 CLEARED! (+200 PTS)',
-                        'Akurasi mantap! Sekarang hadapi STEP 3 (FINAL): Siluet musuh taktis muncul mendadak dari balik 3 barikade hanya selama 1.2 detik!',
+                        'Hebat! Sekarang masuk ke STEP 3 (FINAL - ULTRA HARD): Musuh muncul mendadak dari 5 barikade hanya 0.8 detik! AWAS: Jangan tembak sandera sipil (❌)!',
                         'MASUK KE FINAL STEP 3 <i class="fa-solid fa-skull"></i>'
                     );
-                }, 600);
+                }, 500);
             }
         };
 
         function hitSilhouetteCommon(e, pts, msg, isHead) {
             if (currentStep !== 3) return;
-            if (!isSilhouetteExposed) return;
+            if (!isStep3Exposed || activeTargetType !== 'hostile') return;
             if (!consumeAmmo()) return;
 
             totalShots++;
@@ -5653,35 +5942,35 @@
 
             triggerHaptic(35);
             updateScore(pts);
-            spawnFloatingHit(msg, e.clientX, e.clientY);
+            spawnFloatingHit(msg, e.clientX, e.clientY, 'lime');
             updateGoalHUD();
 
-            // Duck immediately upon being hit
-            const silWrap = document.getElementById('targetSilhouetteWrap');
-            if (silWrap) {
-                silWrap.classList.add('ducked');
-                isSilhouetteExposed = false;
+            const hWrap = document.getElementById('targetHostileWrap');
+            if (hWrap) {
+                hWrap.classList.add('ducked');
+                isStep3Exposed = false;
             }
-
-            if (silhouetteTimer) clearTimeout(silhouetteTimer);
+            if (step3Timer) clearTimeout(step3Timer);
 
             if (currentStepHits >= stepGoals[3]) {
-                updateScore(300); // mega bonus
+                updateScore(300);
+                cancelAllLoops();
+                const accVal = document.getElementById('hudAccVal').textContent;
                 setTimeout(() => {
                     showStageBanner(
-                        '🏆 ALL 3 STEPS COMPLETED!',
-                        `Luar biasa! Seluruh sasaran taktis berhasil Anda eliminasi. Skor Akhir: ${scoreCount} PTS | Akurasi: ${document.getElementById('hudAccVal').textContent}. Siap bertempur nyata di arena Dreamfield?`,
-                        '<i class="fa-solid fa-rotate-left"></i> MAIN LAGI DARI STEP 1'
+                        '🏆 DRILL SELESAI: CQB OPERATOR!',
+                        `Misi latihan selesai! Total Skor: ${scoreCount} PTS | Akurasi: ${accVal} | Sandera Tertembak: ${penaltyCount}. Seluruh rintangan baru telah diacak ulang untuk permainan berikutnya!`,
+                        '<i class="fa-solid fa-rotate-right"></i> MAIN LAGI (DRILL BARU TERACAK)'
                     );
-                }, 600);
+                }, 500);
             } else {
-                silhouetteTimer = setTimeout(startSilhouettePopRoutine, 500);
+                step3Timer = setTimeout(startStep3HardcorePop, 350 + Math.random() * 250);
             }
         }
 
         window.shootSilhouetteHead = function(e) {
             e.stopPropagation();
-            hitSilhouetteCommon(e, 50, '⚡ +50 HEADSHOT!', true);
+            hitSilhouetteCommon(e, 50, '⚡ +50 CRITICAL HEADSHOT!', true);
         };
 
         window.shootSilhouetteChest = function(e) {
@@ -5689,15 +5978,39 @@
             hitSilhouetteCommon(e, 25, '+25 CENTER MASS!', false);
         };
 
+        // Hostage Decoy Penalty!
+        window.shootHostagePenalty = function(e) {
+            e.stopPropagation();
+            if (currentStep !== 3) return;
+            if (!isStep3Exposed || activeTargetType !== 'hostage') return;
+            if (!consumeAmmo()) return;
+
+            totalShots++;
+            penaltyCount++;
+            updateAccuracy();
+            updateScore(-50); // Penalty!
+
+            playBuzzerPenaltySound();
+            triggerHaptic(50);
+            spawnFloatingHit('⚠️ -50 PENALTY! JANGAN TEMBAK SANDERA!', e.clientX, e.clientY, 'penalty');
+
+            const cWrap = document.getElementById('targetHostageWrap');
+            if (cWrap) {
+                cWrap.classList.add('ducked');
+                isStep3Exposed = false;
+            }
+            if (step3Timer) clearTimeout(step3Timer);
+            step3Timer = setTimeout(startStep3HardcorePop, 400);
+        };
+
         window.shootStageMiss = function(e) {
-            // Check if clicking the background stage area
             if (e.target.id === 'rangeStage' || e.target.classList.contains('range-backdrop-grid') || e.target.classList.contains('range-targets-container') || e.target.classList.contains('cqb-bunker') || e.target.classList.contains('cqb-bunkers-layer')) {
                 if (isZoomBlocked) return;
                 if (!consumeAmmo()) return;
 
                 totalShots++;
                 updateAccuracy();
-                spawnFloatingHit('MISS!', e.clientX, e.clientY, true);
+                spawnFloatingHit('MISS!', e.clientX, e.clientY, 'warn');
 
                 const stage = document.getElementById('rangeStage');
                 if (stage) {
@@ -5718,24 +6031,33 @@
             if (ammoEl) ammoEl.textContent = ammoCount;
             playReloadSound();
             triggerHaptic(30);
-            spawnFloatingHit('RELOADED 15 BBS!', null, null, false);
+            spawnFloatingHit('RELOADED 15 BBS!', null, null, 'lime');
 
             const holesLayer = document.getElementById('bulletHolesLayer');
             if (holesLayer) holesLayer.innerHTML = '';
         };
 
+        // Full Re-randomization on "MAIN LAGI" / Restart
         window.restartToStep1 = function() {
-            setStage(1);
+            cancelAllLoops();
+            const overlay = document.getElementById('stageBannerOverlay');
+            if (overlay) overlay.classList.remove('active');
+
             scoreCount = 0;
             totalShots = 0;
             totalHits = 0;
+            penaltyCount = 0;
             ammoCount = 15;
+
             updateScore(0);
             updateAccuracy();
             document.getElementById('hudAmmoVal').textContent = ammoCount;
+
             const holesLayer = document.getElementById('bulletHolesLayer');
             if (holesLayer) holesLayer.innerHTML = '';
-            spawnFloatingHit('DRILL DI-RESET: STEP 1', null, null, false);
+
+            spawnFloatingHit('DRILL BARU TERACAK: STEP 1', null, null, 'lime');
+            setStage(1);
         };
 
         window.toggleSimSound = function() {
@@ -5754,7 +6076,7 @@
             }
         };
 
-        // --- Anti-Zoom Detection & Prevention ---
+        // Anti-Zoom
         function checkZoomLevel() {
             const overlay = document.getElementById('antiZoomOverlay');
             if (!overlay) return;
@@ -5779,7 +6101,6 @@
         }
         window.addEventListener('resize', checkZoomLevel);
 
-        // Block pinch zoom inside stage
         const stage = document.getElementById('rangeStage');
         if (stage) {
             stage.addEventListener('touchmove', function(e) {
@@ -5795,7 +6116,6 @@
         // Initialize Step 1
         setStage(1);
 
-        // Preload audio unlock on first user click
         document.addEventListener('pointerdown', function initAudioOnce() {
             getAudioContext();
             document.removeEventListener('pointerdown', initAudioOnce);
