@@ -173,6 +173,11 @@
     }
 
     function init() {
+        // Jangan aktifkan CS Bot di halaman booking
+        if (window.location.pathname.includes('booking') || window.location.href.includes('booking.html')) {
+            return;
+        }
+
         injectUI();
 
         // Restore sound settings
@@ -336,7 +341,7 @@
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
                     <div class="df-cs-msg-avatar">
-                        <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
+                        ${isBot ? '<img src="/assets/img/mindream-avatar.jpg?v=3" alt="Mindream" class="df-cs-avatar-img" />' : '<i class="fa-solid fa-user"></i>'}
                     </div>
                     <div class="df-cs-msg-content">
                         <div class="df-cs-msg-bubble">
@@ -390,7 +395,7 @@
         typingEl.id = 'dfCsTyping';
         typingEl.className = 'df-cs-msg bot';
         typingEl.innerHTML = `
-            <div class="df-cs-msg-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="df-cs-msg-avatar"><img src="/assets/img/mindream-avatar.jpg?v=3" alt="Mindream" class="df-cs-avatar-img" /></div>
             <div class="df-cs-typing">
                 <span></span><span></span><span></span>
             </div>
