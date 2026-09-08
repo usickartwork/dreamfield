@@ -191,12 +191,14 @@
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 12px 24px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 14px clamp(24px, 4vw, 56px);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box;
         }
 
         .logo {
