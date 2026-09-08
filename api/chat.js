@@ -37,9 +37,11 @@ Aturan penting:
 - Kalau diajak ngobrol santai, bercanda, atau tanya hal di luar Dreamfield — tetap jawab dengan luwes dan menyenangkan.
 
 CLOSING & ATURAN TOMBOL BOOKING:
-- Tahap 1 (Tanya / Tawarkan Dulu): Saat pelanggan bertanya tentang arena, harga, jadwal, atau tertarik bermain, jawab dengan ramah dan tanyakan di akhir pesan apakah mereka ingin sekalian dibantu booking slot (contoh: "Kira-kira mau main hari apa nih, mau sekalian dibantu amankan slot bookingnya?" atau "Mau langsung booking sekarang untuk main bareng temen-temen?").
+- Tahap 1 (Tanya Info Umum): Saat pelanggan sekadar bertanya tentang arena, harga, jadwal, fasilitas, atau sekadar mengobrol, jawab dengan ramah dan tanyakan di akhir pesan apakah mereka ingin sekalian dibantu booking slot (contoh: "Kira-kira mau main hari apa nih, mau sekalian dibantu amankan slot bookingnya?").
   PADA TAHAP INI: JANGAN menyertakan marker [BOOKING_CTA] sama sekali! Tombol booking TIDAK BOLEH muncul dulu sebelum pelanggan setuju.
-- Tahap 2 (Munculkan Tombol Saat Pelanggan Bilang Mau): KETIKA DAN HANYA KETIKA pelanggan sudah menjawab mengonfirmasi ingin booking (contoh: "iya mau booking", "boleh mau pesan", "mau booking dong", "oke booking sekarang", "tolong pesankan slot untuk Sabtu", dsb.) — barulah kamu merespon dengan antusias dan MENYERTAKAN marker [BOOKING_CTA] di akhir pesanmu. Sistem akan otomatis memunculkan tombol "Booking Sekarang" menuju halaman reservasi.
+- Tahap 2 (Pelanggan Bilang Mau Booking / Minta Form): KETIKA pelanggan menyatakan ingin booking (contoh: "aku mau booking", "mau booking", "bisa booking sekarang?", "booking dong", "gimana cara booking", "pesan slot dong", "iya mau", "boleh pesan slot", dsb.):
+  -> Kamu WAJIB LANGSUNG merespon dengan antusias dan MENYERTAKAN marker [BOOKING_CTA] di baris paling akhir pesanmu!
+  -> PENTING: JANGAN menunda atau menanyakan 4 pertanyaan berbelit-belit tanpa tombol; sampaikan bahwa pilihan tanggal, jam, dan paket main bisa langsung dipilih di halaman formulir reservasi online kami, lalu letakkan [BOOKING_CTA] di baris terakhir.
 `;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -192,12 +194,26 @@ module.exports = async function handler(req, res) {
             });
         }
 
+        function processReplyCTA(reply) {
+            if (!reply) return reply;
+            if (reply.includes('[BOOKING_CTA]')) return reply;
+
+            // Jika user menyatakan ingin booking, pastikan tombol CTA selalu ada
+            const bookingIntentRegex = /(mau|ingin|pengen|bisa|tolong|minta|cara|link|buka|jadwal|siap|oke|ikut)\s*(booking|pesan|reservasi|order|main)/i;
+            const directKeywords = /^(booking|reservasi|booking sekarang|mau booking|mau pesan|mau main|cara booking|pesan slot)$/i;
+
+            if (bookingIntentRegex.test(userMessage) || directKeywords.test(userMessage.trim())) {
+                return reply + '\n\nKamu bisa langsung pilih tanggal, jam, dan paket main lewat tombol reservasi online di bawah ini ya:\n[BOOKING_CTA]';
+            }
+            return reply;
+        }
+
         // --- STEP 1: Coba Groq Terlebih Dahulu (Prioritas Utama: Kecepatan Super) ---
         if (groqKey) {
             const groqResult = await callGroq(userMessage, history, groqKey);
             if (groqResult && groqResult.reply) {
                 return res.status(200).json({
-                    reply: groqResult.reply,
+                    reply: processReplyCTA(groqResult.reply),
                     source: 'groq_ai',
                     model: groqResult.model
                 });
@@ -210,7 +226,7 @@ module.exports = async function handler(req, res) {
             const geminiResult = await callGemini(userMessage, history, geminiKey);
             if (geminiResult && geminiResult.reply) {
                 return res.status(200).json({
-                    reply: geminiResult.reply,
+                    reply: processReplyCTA(geminiResult.reply),
                     source: 'gemini_ai',
                     model: geminiResult.model,
                     fallback: true

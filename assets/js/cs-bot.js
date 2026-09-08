@@ -327,16 +327,18 @@
         }
     }
 
-    function renderMessages(firstNewIndex) {
+    function renderMessages(firstNewIndex, forceBottom = false) {
         const container = document.getElementById('dfCsMessages');
         if (!container) return;
 
         let html = '';
+        let hasAnyCTA = false;
         for (let i = 0; i < messages.length; i++) {
             const m = messages[i];
             const isBot = m.role === 'model';
             const isNew = firstNewIndex !== undefined && i >= firstNewIndex;
             const hasCTA = isBot && m.text.includes('[BOOKING_CTA]');
+            if (hasCTA) hasAnyCTA = true;
             const cleanText = m.text.replace('[BOOKING_CTA]', '').trim();
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
@@ -379,7 +381,9 @@
             });
         });
 
-        if (firstNewIndex !== undefined) {
+        if (forceBottom || hasAnyCTA) {
+            scrollToBottom();
+        } else if (firstNewIndex !== undefined) {
             scrollToFirstNew();
         } else {
             scrollToBottom();
@@ -421,7 +425,7 @@
         // Append user message
         messages.push({ role: 'user', text: text });
         saveMessages();
-        renderMessages();
+        renderMessages(undefined, true);
         playTacticalSfx('send');
 
         // 1. Jeda sesaat setelah user kirim sebelum mulai mengetik (natural pause)
@@ -460,8 +464,12 @@
             const data = await response.json();
             const botReply = data?.reply || 'Maaf, ada kendala koneksi. Coba lagi ya!';
 
+            // Deteksi booking intent di sisi client sebagai pengaman cadangan
+            const bookingKeywords = /(mau|ingin|pengen|bisa|tolong|minta|cara|link|buka|jadwal|siap|oke|ikut)\s*(booking|pesan|reservasi|order|main)/i;
+            const directKeywords = /^(booking|reservasi|booking sekarang|mau booking|mau pesan|mau main|cara booking|pesan slot)$/i;
+            const hasCTA = botReply.includes('[BOOKING_CTA]') || bookingKeywords.test(text) || directKeywords.test(text.trim());
+
             // Split into multiple bubbles by double newline
-            const hasCTA = botReply.includes('[BOOKING_CTA]');
             const cleanReply = botReply.replace('[BOOKING_CTA]', '').trim();
             const rawBubbles = cleanReply
                 .split(/\n\n+/)
@@ -478,7 +486,7 @@
                 text: bubbles[0] + (isSingle && hasCTA ? ' [BOOKING_CTA]' : '')
             });
             saveMessages();
-            renderMessages(firstNewIndex);
+            renderMessages(firstNewIndex, hasCTA);
             playTacticalSfx('receive');
 
             // Jika ada bubble berikutnya, kirim satu per satu dengan jeda mengetik
@@ -497,8 +505,13 @@
                     text: bubbles[i] + (isLast && hasCTA ? ' [BOOKING_CTA]' : '')
                 });
                 saveMessages();
-                renderMessages(firstNewIndex);
+                renderMessages(firstNewIndex, hasCTA && isLast);
                 playTacticalSfx('receive');
+            }
+
+            if (hasCTA) {
+                setTimeout(scrollToBottom, 60);
+                setTimeout(scrollToBottom, 250);
             }
 
         } catch (err) {
