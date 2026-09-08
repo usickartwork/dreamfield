@@ -113,7 +113,7 @@
             <!-- Floating Launcher -->
             <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya Mindream" title="Tanya Mindream">
                 <div class="df-cs-launcher-avatar">
-                    <img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />
+                    <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
                     <span class="df-cs-pulse-dot"></span>
                 </div>
                 <div class="df-cs-launcher-text">
@@ -128,7 +128,7 @@
                 <div class="df-cs-header">
                     <div class="df-cs-header-info">
                         <div class="df-cs-header-avatar">
-                            <img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />
+                            <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
                         </div>
                         <div class="df-cs-header-titles">
                             <span class="df-cs-header-name" id="dfCsHeaderTitle">Mindream</span>
@@ -290,7 +290,7 @@
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
                     <div class="df-cs-msg-avatar">
-                        ${isBot ? '<img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" />' : '<i class="fa-solid fa-user"></i>'}
+                        ${isBot ? '<img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />' : '<i class="fa-solid fa-user"></i>'}
                     </div>
                     <div class="df-cs-msg-content">
                         <div class="df-cs-msg-bubble">
@@ -344,7 +344,7 @@
         typingEl.id = 'dfCsTyping';
         typingEl.className = 'df-cs-msg bot';
         typingEl.innerHTML = `
-            <div class="df-cs-msg-avatar"><img src="/assets/img/mindream-avatar.jpg" alt="Mindream" class="df-cs-avatar-img" /></div>
+            <div class="df-cs-msg-avatar"><img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" /></div>
             <div class="df-cs-typing">
                 <span></span><span></span><span></span>
             </div>
