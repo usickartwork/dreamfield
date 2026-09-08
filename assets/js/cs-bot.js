@@ -110,15 +110,16 @@
         const container = document.createElement('div');
         container.id = 'df-cs-container';
         container.innerHTML = `
-            <!-- Floating Circular Launcher with 24/7 CS Indicator -->
-            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya CS Online 24/7" title="Tanya CS Online 24/7">
-                <span class="df-cs-badge-top"><i class="fa-solid fa-headset"></i> CS 24/7</span>
-                <span class="df-cs-teaser-pill">
-                    <span class="df-cs-pill-glow"></span>
-                    Tanya CS 24/7
-                </span>
-                <img src="/assets/img/mindream-avatar.jpg?v=2" alt="CS Mindream" class="df-cs-avatar-img" />
-                <span class="df-cs-pulse-dot"></span>
+            <!-- Floating Capsule Launcher -->
+            <button class="df-cs-launcher" id="dfCsLauncher" aria-label="Tanya Mindream" title="Tanya Mindream">
+                <div class="df-cs-launcher-avatar">
+                    <img src="/assets/img/mindream-avatar.jpg?v=3" alt="Mindream" class="df-cs-avatar-img" />
+                    <span class="df-cs-pulse-dot"></span>
+                </div>
+                <div class="df-cs-launcher-text">
+                    <span class="df-cs-launcher-title">Tanya Mindream</span>
+                    <span class="df-cs-launcher-sub"><i class="fa-solid fa-circle" style="font-size:7px;"></i> Online 24/7</span>
+                </div>
             </button>
 
             <!-- Chat Window -->
@@ -127,7 +128,7 @@
                 <div class="df-cs-header">
                     <div class="df-cs-header-info">
                         <div class="df-cs-header-avatar">
-                            <img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />
+                            <img src="/assets/img/mindream-avatar.jpg?v=3" alt="Mindream" class="df-cs-avatar-img" />
                         </div>
                         <div class="df-cs-header-titles">
                             <span class="df-cs-header-name" id="dfCsHeaderTitle">Mindream</span>
@@ -217,6 +218,37 @@
             input.value = '';
             sendMessage(text);
         });
+
+        // Intercept horizontal gestures inside chat window to prevent browser history edge navigation (e.g. accidental swipe to booking page)
+        const windowBox = document.getElementById('dfCsWindow');
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        windowBox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        windowBox.addEventListener('touchmove', (e) => {
+            if (!e.touches || e.touches.length !== 1) return;
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            // If movement is horizontal, block native browser history back/forward navigation
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+                if (e.cancelable) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+
+        // Handle mobile back button / swipe back gesture so it closes chat instead of navigating away
+        window.addEventListener('popstate', () => {
+            if (isOpen) {
+                toggleChat(true);
+            }
+        });
     }
 
     function updateSoundButton() {
@@ -231,7 +263,7 @@
         }
     }
 
-    function toggleChat() {
+    function toggleChat(fromPopState = false) {
         isOpen = !isOpen;
         const launcher = document.getElementById('dfCsLauncher');
         const windowBox = document.getElementById('dfCsWindow');
@@ -241,15 +273,27 @@
             launcher.classList.add('hidden');
             windowBox.classList.add('active');
             document.body.classList.add('df-cs-open');
+            document.documentElement.classList.add('df-cs-open');
             scrollToBottom();
             setTimeout(() => {
                 input.focus();
             }, 250);
             playTacticalSfx('send');
+
+            try {
+                history.pushState({ dfCsOpen: true }, '');
+            } catch (e) {}
         } else {
             windowBox.classList.remove('active');
             launcher.classList.remove('hidden');
             document.body.classList.remove('df-cs-open');
+            document.documentElement.classList.remove('df-cs-open');
+
+            if (!fromPopState && window.history.state && window.history.state.dfCsOpen) {
+                try {
+                    window.history.back();
+                } catch (e) {}
+            }
         }
     }
 
@@ -292,7 +336,7 @@
             html += `
                 <div class="df-cs-msg ${isBot ? 'bot' : 'user'}${isNew ? ' df-cs-msg-new' : ''}">
                     <div class="df-cs-msg-avatar">
-                        ${isBot ? '<img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" />' : '<i class="fa-solid fa-user"></i>'}
+                        <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
                     </div>
                     <div class="df-cs-msg-content">
                         <div class="df-cs-msg-bubble">
@@ -346,7 +390,7 @@
         typingEl.id = 'dfCsTyping';
         typingEl.className = 'df-cs-msg bot';
         typingEl.innerHTML = `
-            <div class="df-cs-msg-avatar"><img src="/assets/img/mindream-avatar.jpg?v=2" alt="Mindream" class="df-cs-avatar-img" /></div>
+            <div class="df-cs-msg-avatar"><i class="fa-solid fa-robot"></i></div>
             <div class="df-cs-typing">
                 <span></span><span></span><span></span>
             </div>
