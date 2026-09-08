@@ -74,10 +74,10 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // Build alternating conversation history for Gemini
+        // Build alternating conversation history for Gemini (last 6 turns only)
         const contents = [];
         let lastRole = null;
-        for (const item of history.slice(-10)) {
+        for (const item of history.slice(-6)) {
             if (!item?.role || !item?.text) continue;
             const role = item.role === 'user' ? 'user' : 'model';
             if (contents.length === 0 && role !== 'user') continue;
@@ -97,14 +97,14 @@ module.exports = async function handler(req, res) {
             systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
             contents,
             generationConfig: {
-                temperature: 0.8,
-                maxOutputTokens: 1000,
-                topP: 0.95
+                temperature: 0.75,
+                maxOutputTokens: 500,
+                topP: 0.9
             }
         };
 
-        // Try models in order: gemini-3.6-flash → gemini-3.5-flash
-        for (const model of ['gemini-3.6-flash', 'gemini-3.5-flash']) {
+        // gemini-3.5-flash is faster, use as primary. 3.6 as backup.
+        for (const model of ['gemini-3.5-flash', 'gemini-3.6-flash']) {
             try {
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                 const response = await fetch(url, {
