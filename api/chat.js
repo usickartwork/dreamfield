@@ -161,9 +161,21 @@ module.exports = async function handler(req, res) {
             return res.status(400).json({ error: 'Pesan tidak boleh kosong.' });
         }
 
-        const apiKey = process.env.GEMINI_API_KEY;
+        let apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            try {
+                const fs = require('fs');
+                const path = require('path');
+                const envPath = path.join(process.cwd(), '.env');
+                if (fs.existsSync(envPath)) {
+                    const envContent = fs.readFileSync(envPath, 'utf8');
+                    const match = envContent.match(/GEMINI_API_KEY\s*=\s*(.+)/);
+                    if (match) apiKey = match[1].trim();
+                }
+            } catch (e) {}
+        }
 
-        // When API key is not yet provided, use the natural context-aware fallback engine
+        // When API key is not available at all, use the natural context-aware fallback engine
         if (!apiKey) {
             const reply = getSmartFallbackResponse(userMessage, history);
             return res.status(200).json({
@@ -206,8 +218,6 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
         const payload = {
             systemInstruction: {
                 parts: [{ text: SYSTEM_INSTRUCTION }]
@@ -215,33 +225,42 @@ module.exports = async function handler(req, res) {
             contents: formattedContents,
             generationConfig: {
                 temperature: 0.75,
-                maxOutputTokens: 800,
+                maxOutputTokens: 1000,
                 topP: 0.95
             }
         };
 
-        const response = await fetch(geminiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+        // Try primary model (gemini-3.6-flash), then fallback to gemini-3.5-flash
+        const modelsToTry = ['gemini-3.6-flash', 'gemini-3.5-flash'];
+        let replyText = null;
 
-        if (!response.ok) {
-            const errBody = await response.text();
-            console.error('Gemini error status:', response.status, errBody);
-            const reply = getSmartFallbackResponse(userMessage, history);
-            return res.status(200).json({
-                reply: reply,
-                source: 'fallback'
-            });
+        for (const model of modelsToTry) {
+            try {
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                const response = await fetch(geminiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (replyText) {
+                        break;
+                    }
+                } else {
+                    const errBody = await response.text();
+                    console.error(`Gemini (${model}) error status:`, response.status, errBody);
+                }
+            } catch (callErr) {
+                console.error(`Error calling ${model}:`, callErr);
+            }
         }
-
-        const data = await response.json();
-        const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!replyText) {
             const reply = getSmartFallbackResponse(userMessage, history);
-            return res.status(200).json({ reply });
+            return res.status(200).json({ reply, source: 'fallback' });
         }
 
         return res.status(200).json({
