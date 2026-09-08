@@ -83,30 +83,45 @@
         // Plain URLs
         escaped = escaped.replace(/(^|[^"])((https?:\/\/)(wa\.me|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})[^\s<]*)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>');
 
-        // Line breaks & bullet lists
+        // Line breaks & bullet / numbered lists
         const lines = escaped.split('\n');
-        let inList = false;
+        let listType = null;
         let html = '';
 
         for (let line of lines) {
             line = line.trim();
-            if (line.startsWith('* ') || line.startsWith('- ')) {
-                if (!inList) {
+            const isBullet = line.startsWith('* ') || line.startsWith('- ') || line.startsWith('• ') || line.startsWith('⁃ ');
+            const isNumbered = /^\d+[\.\)]\s+/.test(line);
+
+            if (isBullet) {
+                if (listType !== 'ul') {
+                    if (listType === 'ol') html += '</ol>';
                     html += '<ul>';
-                    inList = true;
+                    listType = 'ul';
                 }
-                html += `<li>${line.substring(2)}</li>`;
+                const bulletContent = line.replace(/^(\*|-|•|⁃)\s*/, '');
+                html += `<li>${bulletContent}</li>`;
+            } else if (isNumbered) {
+                if (listType !== 'ol') {
+                    if (listType === 'ul') html += '</ul>';
+                    html += '<ol>';
+                    listType = 'ol';
+                }
+                const numContent = line.replace(/^\d+[\.\)]\s*/, '');
+                html += `<li>${numContent}</li>`;
             } else {
-                if (inList) {
-                    html += '</ul>';
-                    inList = false;
+                if (listType) {
+                    html += listType === 'ol' ? '</ol>' : '</ul>';
+                    listType = null;
                 }
                 if (line) {
                     html += `<p>${line}</p>`;
                 }
             }
         }
-        if (inList) html += '</ul>';
+        if (listType) {
+            html += listType === 'ol' ? '</ol>' : '</ul>';
+        }
 
         return html || `<p>${escaped}</p>`;
     }
@@ -158,6 +173,12 @@
 
                 <!-- Messages Body -->
                 <div class="df-cs-messages" id="dfCsMessages"></div>
+
+                <!-- Floating Scroll Down Indicator -->
+                <button type="button" class="df-cs-scroll-down-btn" id="dfCsScrollDownBtn" title="Lihat pesan baru di bawah" aria-label="Lihat pesan baru di bawah">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <span>Pesan baru di bawah</span>
+                </button>
 
                 <!-- Input Footer -->
                 <div class="df-cs-footer">
@@ -213,9 +234,27 @@
         const soundToggle = document.getElementById('dfCsSoundToggle');
         const form = document.getElementById('dfCsForm');
         const input = document.getElementById('dfCsInput');
+        const messagesContainer = document.getElementById('dfCsMessages');
+        const scrollDownBtn = document.getElementById('dfCsScrollDownBtn');
 
         launcher.addEventListener('click', toggleChat);
         closeBtn.addEventListener('click', toggleChat);
+
+        if (messagesContainer) {
+            messagesContainer.addEventListener('scroll', updateScrollDownBtn, { passive: true });
+        }
+
+        if (scrollDownBtn) {
+            scrollDownBtn.addEventListener('click', () => {
+                if (messagesContainer) {
+                    messagesContainer.scrollTo({
+                        top: messagesContainer.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+                scrollDownBtn.classList.remove('visible');
+            });
+        }
 
         soundToggle.addEventListener('click', () => {
             soundEnabled = !soundEnabled;
@@ -335,9 +374,23 @@
         }
     }
 
-    function renderMessages(firstNewIndex, forceBottom = false) {
+    function updateScrollDownBtn() {
+        const container = document.getElementById('dfCsMessages');
+        const btn = document.getElementById('dfCsScrollDownBtn');
+        if (!container || !btn) return;
+        const remainingScroll = container.scrollHeight - container.scrollTop - container.clientHeight;
+        if (remainingScroll > 45) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }
+
+    function renderMessages(firstNewIndex, forceBottom = false, isFirstBubble = false) {
         const container = document.getElementById('dfCsMessages');
         if (!container) return;
+
+        const prevScrollTop = container.scrollTop;
 
         let html = '';
         let hasAnyCTA = false;
@@ -389,17 +442,22 @@
             });
         });
 
-        if (forceBottom || hasAnyCTA) {
+        if (forceBottom) {
             scrollToBottom();
-        } else if (firstNewIndex !== undefined) {
+        } else if (isFirstBubble && firstNewIndex !== undefined) {
             scrollToFirstNew();
+        } else if (firstNewIndex !== undefined) {
+            // Tetap stay di posisi bubble 1 (jangan loncat/scroll ke bawah)
+            container.scrollTop = prevScrollTop;
         } else {
             scrollToBottom();
         }
+
+        setTimeout(updateScrollDownBtn, 80);
     }
 
 
-    function showTypingIndicator() {
+    function showTypingIndicator(forceScroll = true) {
         const container = document.getElementById('dfCsMessages');
         if (!container || document.getElementById('dfCsTyping')) return;
 
@@ -413,7 +471,11 @@
             </div>
         `;
         container.appendChild(typingEl);
-        scrollToBottom();
+        if (forceScroll) {
+            scrollToBottom();
+        } else {
+            updateScrollDownBtn();
+        }
     }
 
     function removeTypingIndicator() {
@@ -436,11 +498,11 @@
         renderMessages(undefined, true);
         playTacticalSfx('send');
 
-        // 1. Jeda sesaat setelah user kirim sebelum mulai mengetik (natural pause)
-        await sleep(450);
+        // 1. Jeda sesaat setelah user kirim sebelum admin mulai mengetik (natural pause)
+        await sleep(650);
 
         // 2. Mulai animasi mengetik
-        showTypingIndicator();
+        showTypingIndicator(true);
         const typingStart = Date.now();
 
         try {
@@ -458,15 +520,6 @@
             });
 
             const response = await responsePromise;
-
-            // Pastikan animasi mengetik terlihat minimal 1.3 detik agar terasa natural
-            const elapsed = Date.now() - typingStart;
-            if (elapsed < 1300) {
-                await sleep(1300 - elapsed);
-            }
-
-            removeTypingIndicator();
-
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const data = await response.json();
@@ -487,23 +540,33 @@
             const bubbles = rawBubbles.length > 0 ? rawBubbles : [cleanReply];
             const firstNewIndex = messages.length;
 
-            // Render bubble pertama
+            // Durasi mengetik bubble 1: minimal 2.0s - 3.2s agar natural seperti admin manusia mengetik
+            const firstBubbleTypingTime = Math.min(3200, Math.max(2000, bubbles[0].length * 18));
+            const elapsed = Date.now() - typingStart;
+            if (elapsed < firstBubbleTypingTime) {
+                await sleep(firstBubbleTypingTime - elapsed);
+            }
+
+            removeTypingIndicator();
+
+            // Render bubble pertama (anchor view ke Bubble 1)
             const isSingle = bubbles.length === 1;
             messages.push({
                 role: 'model',
                 text: bubbles[0] + (isSingle && hasCTA ? ' [BOOKING_CTA]' : '')
             });
             saveMessages();
-            renderMessages(firstNewIndex, hasCTA);
+            renderMessages(firstNewIndex, false, true);
             playTacticalSfx('receive');
 
-            // Jika ada bubble berikutnya, kirim satu per satu dengan jeda mengetik
+            // Jika ada bubble berikutnya, kirim satu per satu dengan jeda mengetik dan tetap STAY di bubble 1
             for (let i = 1; i < bubbles.length; i++) {
-                await sleep(400);
-                showTypingIndicator();
+                // Jeda membaca sebelum admin mulai mengetik bubble berikutnya
+                await sleep(750);
+                showTypingIndicator(false);
 
-                // Durasi mengetik proporsional dengan panjang teks (800ms - 1300ms)
-                const bubbleTypingTime = Math.min(1300, Math.max(800, bubbles[i].length * 10));
+                // Durasi mengetik proporsional dengan panjang teks (1.5s - 2.8s)
+                const bubbleTypingTime = Math.min(2800, Math.max(1500, bubbles[i].length * 16));
                 await sleep(bubbleTypingTime);
                 removeTypingIndicator();
 
@@ -513,14 +576,11 @@
                     text: bubbles[i] + (isLast && hasCTA ? ' [BOOKING_CTA]' : '')
                 });
                 saveMessages();
-                renderMessages(firstNewIndex, hasCTA && isLast);
+                renderMessages(firstNewIndex, false, false);
                 playTacticalSfx('receive');
             }
 
-            if (hasCTA) {
-                setTimeout(scrollToBottom, 60);
-                setTimeout(scrollToBottom, 250);
-            }
+            updateScrollDownBtn();
 
         } catch (err) {
             console.error('Chat error:', err);
@@ -528,7 +588,7 @@
             const firstNewIndex = messages.length;
             messages.push({ role: 'model', text: 'Maaf, koneksi sedang gangguan. Coba kirim pesanmu lagi ya!' });
             saveMessages();
-            renderMessages(firstNewIndex);
+            renderMessages(firstNewIndex, false, true);
             playTacticalSfx('receive');
         } finally {
             isSending = false;

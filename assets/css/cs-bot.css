@@ -379,12 +379,31 @@
 }
 
 .df-cs-msg-bubble ul, .df-cs-msg-bubble ol {
-    margin: 6px 0 8px 18px;
+    margin: 8px 0 8px 18px;
     padding: 0;
 }
 
+.df-cs-msg-bubble ul {
+    list-style-type: disc;
+}
+
+.df-cs-msg-bubble ol {
+    list-style-type: decimal;
+}
+
 .df-cs-msg-bubble li {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    padding-left: 2px;
+    line-height: 1.5;
+}
+
+.df-cs-msg.bot .df-cs-msg-bubble li::marker {
+    color: var(--cs-lime);
+    font-size: 1.1em;
+}
+
+.df-cs-msg.user .df-cs-msg-bubble li::marker {
+    color: #ffffff;
 }
 
 .df-cs-msg-bubble a {
@@ -570,6 +589,68 @@
     transform: none;
 }
 
+/* Floating Scroll-Down Indicator Button */
+.df-cs-scroll-down-btn {
+    position: absolute;
+    bottom: 74px;
+    left: 50%;
+    transform: translateX(-50%) translateY(14px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(18, 22, 30, 0.95);
+    border: 1px solid var(--cs-lime);
+    color: var(--cs-lime);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-radius: 9999px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(183, 255, 0, 0.35);
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.df-cs-scroll-down-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    animation: csScrollHintBounce 2s infinite ease-in-out;
+}
+
+.df-cs-scroll-down-btn:hover {
+    background: var(--cs-lime);
+    color: #12141a;
+    box-shadow: 0 6px 24px rgba(183, 255, 0, 0.6);
+}
+
+.df-cs-scroll-down-btn i {
+    font-size: 11px;
+    transition: transform 0.15s ease;
+}
+
+.df-cs-scroll-down-btn:hover i {
+    transform: translateY(2px);
+}
+
+@keyframes csScrollHintBounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
 /* Prevent background page scroll on mobile when chat is open */
 html.df-cs-open,
 body.df-cs-open {
@@ -677,6 +758,12 @@ body.df-cs-open {
 
     .df-cs-input::placeholder {
         font-size: 15px !important;
+    }
+
+    .df-cs-scroll-down-btn {
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        font-size: 12.5px;
+        padding: 9px 18px;
     }
 }
 
