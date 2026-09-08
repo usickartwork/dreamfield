@@ -5767,16 +5767,43 @@
         let isGameActive = false; // TIDAK mulai timer sebelum tombol READY ditekan!
 
         function getAudioContext() {
-            if (!audioCtx) {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                if (AudioContextClass) {
-                    audioCtx = new AudioContextClass();
+            try {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContextClass) {
+                        audioCtx = new AudioContextClass();
+                    }
                 }
-            }
-            if (audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume().catch(() => {});
+                }
+            } catch(e) {
+                console.warn('AudioContext init error:', e);
             }
             return audioCtx;
+        }
+
+        function unlockAudioEngine() {
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            if (ctx.state === 'suspended') {
+                ctx.resume().then(() => {
+                    ['pointerdown', 'touchstart', 'touchend', 'click'].forEach(evt => {
+                        document.removeEventListener(evt, unlockAudioEngine);
+                    });
+                }).catch(() => {});
+            } else if (ctx.state === 'running') {
+                ['pointerdown', 'touchstart', 'touchend', 'click'].forEach(evt => {
+                    document.removeEventListener(evt, unlockAudioEngine);
+                });
+            }
+            try {
+                const buffer = ctx.createBuffer(1, 1, 22050);
+                const source = ctx.createBufferSource();
+                source.buffer = buffer;
+                source.connect(ctx.destination);
+                source.start(0);
+            } catch(e) {}
         }
 
         // --- WEB AUDIO FX GENERATORS ---
@@ -5785,21 +5812,22 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(420, t);
-            osc.frequency.exponentialRampToValueAtTime(60, t + 0.05);
-            gain.gain.setValueAtTime(0.7, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.065);
-
             try {
-                const bufferSize = ctx.sampleRate * 0.04;
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(420, t);
+                osc.frequency.exponentialRampToValueAtTime(60, t + 0.05);
+                gain.gain.setValueAtTime(0.7, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.065);
+
+                const bufferSize = Math.floor(ctx.sampleRate * 0.04);
                 const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) {
@@ -5814,7 +5842,9 @@
                 nGain.connect(ctx.destination);
                 noise.start(t);
                 noise.stop(t + 0.045);
-            } catch(e) {}
+            } catch(e) {
+                console.warn('Airsoft shot sound error:', e);
+            }
         }
 
         // 2. Steel Target Clang
@@ -5822,19 +5852,24 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            [1850, 3250].forEach(freq => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, t);
-                gain.gain.setValueAtTime(0.5, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start(t);
-                osc.stop(t + 0.36);
-            });
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                [1850, 3250].forEach(freq => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, t);
+                    gain.gain.setValueAtTime(0.5, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.36);
+                });
+            } catch(e) {
+                console.warn('Steel hit sound error:', e);
+            }
         }
 
         // 3. Paper Bullseye Hit
@@ -5842,18 +5877,23 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(500, t);
-            osc.frequency.exponentialRampToValueAtTime(120, t + 0.04);
-            gain.gain.setValueAtTime(0.4, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.045);
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500, t);
+                osc.frequency.exponentialRampToValueAtTime(120, t + 0.04);
+                gain.gain.setValueAtTime(0.4, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.045);
+            } catch(e) {
+                console.warn('Paper hit sound error:', e);
+            }
         }
 
         // 4. Dry Fire Click
@@ -5861,18 +5901,23 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(1200, t);
-            osc.frequency.exponentialRampToValueAtTime(600, t + 0.02);
-            gain.gain.setValueAtTime(0.3, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.025);
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1200, t);
+                osc.frequency.exponentialRampToValueAtTime(600, t + 0.02);
+                gain.gain.setValueAtTime(0.3, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.025);
+            } catch(e) {
+                console.warn('Dry click sound error:', e);
+            }
         }
 
         // 5. Hostage Penalty / Timeout Buzzer Sound
@@ -5880,17 +5925,22 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(140, t);
-            gain.gain.setValueAtTime(0.6, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.3);
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, t);
+                gain.gain.setValueAtTime(0.6, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.3);
+            } catch(e) {
+                console.warn('Buzzer sound error:', e);
+            }
         }
 
         // 6. Wall Miss Impact Ricochet / Thud Sound
@@ -5898,21 +5948,22 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(280, t);
-            osc.frequency.exponentialRampToValueAtTime(65, t + 0.06);
-            gain.gain.setValueAtTime(0.4, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(t);
-            osc.stop(t + 0.075);
-
             try {
-                const bufferSize = ctx.sampleRate * 0.03;
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(280, t);
+                osc.frequency.exponentialRampToValueAtTime(65, t + 0.06);
+                gain.gain.setValueAtTime(0.4, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.075);
+
+                const bufferSize = Math.floor(ctx.sampleRate * 0.03);
                 const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) {
@@ -5927,7 +5978,9 @@
                 nGain.connect(ctx.destination);
                 noise.start(t);
                 noise.stop(t + 0.035);
-            } catch(e) {}
+            } catch(e) {
+                console.warn('Wall miss sound error:', e);
+            }
         }
 
         // 7. Reload Mag Slap
@@ -5935,28 +5988,33 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            const o1 = ctx.createOscillator();
-            const g1 = ctx.createGain();
-            o1.type = 'triangle';
-            o1.frequency.setValueAtTime(450, t);
-            g1.gain.setValueAtTime(0.3, t);
-            g1.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
-            o1.connect(g1);
-            g1.connect(ctx.destination);
-            o1.start(t);
-            o1.stop(t + 0.035);
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                const o1 = ctx.createOscillator();
+                const g1 = ctx.createGain();
+                o1.type = 'triangle';
+                o1.frequency.setValueAtTime(450, t);
+                g1.gain.setValueAtTime(0.3, t);
+                g1.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+                o1.connect(g1);
+                g1.connect(ctx.destination);
+                o1.start(t);
+                o1.stop(t + 0.035);
 
-            const o2 = ctx.createOscillator();
-            const g2 = ctx.createGain();
-            o2.type = 'sine';
-            o2.frequency.setValueAtTime(850, t + 0.12);
-            g2.gain.setValueAtTime(0.5, t + 0.12);
-            g2.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-            o2.connect(g2);
-            g2.connect(ctx.destination);
-            o2.start(t + 0.12);
-            o2.stop(t + 0.19);
+                const o2 = ctx.createOscillator();
+                const g2 = ctx.createGain();
+                o2.type = 'sine';
+                o2.frequency.setValueAtTime(850, t + 0.12);
+                g2.gain.setValueAtTime(0.5, t + 0.12);
+                g2.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+                o2.connect(g2);
+                g2.connect(ctx.destination);
+                o2.start(t + 0.12);
+                o2.stop(t + 0.19);
+            } catch(e) {
+                console.warn('Reload sound error:', e);
+            }
         }
 
         // 8. Victory Fanfare
@@ -5964,19 +6022,24 @@
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
-            const t = ctx.currentTime;
-            [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, t + (i * 0.1));
-                gain.gain.setValueAtTime(0.4, t + (i * 0.1));
-                gain.gain.exponentialRampToValueAtTime(0.001, t + (i * 0.1) + 0.25);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start(t + (i * 0.1));
-                osc.stop(t + (i * 0.1) + 0.28);
-            });
+            try {
+                if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+                const t = Math.max(ctx.currentTime || 0, 0.001) + 0.005;
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, t + (i * 0.1));
+                    gain.gain.setValueAtTime(0.4, t + (i * 0.1));
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + (i * 0.1) + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(t + (i * 0.1));
+                    osc.stop(t + (i * 0.1) + 0.28);
+                });
+            } catch(e) {
+                console.warn('Victory sound error:', e);
+            }
         }
 
         // --- HARDCORE 3-STEP RANDOM STATE ---
@@ -6126,7 +6189,7 @@
             const readyOverlay = document.getElementById('stageReadyOverlay');
             if (readyOverlay) readyOverlay.classList.remove('active');
 
-            getAudioContext();
+            unlockAudioEngine();
             playReloadSound();
             triggerHaptic(30);
 
@@ -6716,7 +6779,8 @@
                 if (isSoundEnabled) {
                     icon.className = 'fa-solid fa-volume-high';
                     text.textContent = 'AUDIO ON';
-                    getAudioContext();
+                    unlockAudioEngine();
+                    playReloadSound();
                 } else {
                     icon.className = 'fa-solid fa-volume-xmark';
                     text.textContent = 'MUTED';
@@ -6773,10 +6837,10 @@
         const readyOverlay = document.getElementById('stageReadyOverlay');
         if (readyOverlay) readyOverlay.classList.add('active');
 
-        document.addEventListener('pointerdown', function initAudioOnce() {
-            getAudioContext();
-            document.removeEventListener('pointerdown', initAudioOnce);
-        }, { once: true });
+        // Multi-event audio unlocker (Chrome, Safari, iOS WebKit)
+        ['pointerdown', 'touchstart', 'touchend', 'click'].forEach(evt => {
+            document.addEventListener(evt, unlockAudioEngine, { passive: true });
+        });
 
     })();
     </script>
