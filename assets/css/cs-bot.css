@@ -455,29 +455,62 @@
     40% { transform: scale(1); opacity: 1; }
 }
 
-/* Bottom Escalation Bar to WhatsApp */
-.df-cs-wa-banner {
-    background: rgba(14, 16, 22, 0.7);
-    border-top: 1px solid rgba(221, 229, 209, 0.08);
-    padding: 6px 14px;
+/* Compact WhatsApp Escalation Bar (Appears after several bubbles or 2 mins) */
+.df-cs-wa-bar {
+    background: rgba(37, 211, 102, 0.09);
+    border: 1px solid rgba(37, 211, 102, 0.25);
+    border-radius: 12px;
+    padding: 7px 12px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 11px;
-    color: var(--cs-moss);
+    gap: 8px;
+    animation: dfCsFadeIn 0.3s ease;
 }
 
-.df-cs-wa-banner a {
-    color: #25D366;
-    font-weight: 700;
-    text-decoration: none;
+.df-cs-wa-bar.hidden {
+    display: none !important;
+}
+
+.df-cs-wa-text {
+    font-size: 11px;
+    color: rgba(221, 229, 209, 0.75);
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.df-cs-wa-btn {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
+    padding: 4px 10px;
+    background: #25D366;
+    color: #0b1410;
+    font-size: 11.5px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
 }
 
-.df-cs-wa-banner a:hover {
-    text-decoration: underline;
+.df-cs-wa-btn:hover {
+    background: #2ee672;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    color: #0b1410;
+    text-decoration: none;
+}
+
+.df-cs-wa-btn i {
+    font-size: 13px;
+}
+
+@keyframes dfCsFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Footer / Input Bar */

@@ -36,9 +36,10 @@ Aturan penting:
 - Jangan pernah suruh pelanggan pindah ke WhatsApp kecuali mereka yang duluan meminta nomor kontak/admin.
 - Kalau diajak ngobrol santai, bercanda, atau tanya hal di luar Dreamfield — tetap jawab dengan luwes dan menyenangkan.
 
-CLOSING & BOOKING CTA:
-- Kamu bertugas melakukan closing secara natural. Jika pelanggan menunjukkan sinyal ketertarikan atau niat booking (seperti: "mau main", "kapan bisa kesana", "gimana cara booking", "bisa pesan sekarang?", "oke aku mau coba", "berapa harganya", "mau bawa temen", dsb.) — dorong mereka untuk langsung booking dengan kalimat yang hangat dan antusias.
-- PENTING: Jika dalam respons kamu ada ajakan atau dorongan untuk booking, tambahkan teks [BOOKING_CTA] di akhir responsmu. Sistem akan otomatis mengubah marker ini menjadi tombol booking di chat. Gunakan [BOOKING_CTA] hanya saat relevan.
+CLOSING & ATURAN TOMBOL BOOKING:
+- Tahap 1 (Tanya / Tawarkan Dulu): Saat pelanggan bertanya tentang arena, harga, jadwal, atau tertarik bermain, jawab dengan ramah dan tanyakan di akhir pesan apakah mereka ingin sekalian dibantu booking slot (contoh: "Kira-kira mau main hari apa nih, mau sekalian dibantu amankan slot bookingnya?" atau "Mau langsung booking sekarang untuk main bareng temen-temen?").
+  PADA TAHAP INI: JANGAN menyertakan marker [BOOKING_CTA] sama sekali! Tombol booking TIDAK BOLEH muncul dulu sebelum pelanggan setuju.
+- Tahap 2 (Munculkan Tombol Saat Pelanggan Bilang Mau): KETIKA DAN HANYA KETIKA pelanggan sudah menjawab mengonfirmasi ingin booking (contoh: "iya mau booking", "boleh mau pesan", "mau booking dong", "oke booking sekarang", "tolong pesankan slot untuk Sabtu", dsb.) — barulah kamu merespon dengan antusias dan MENYERTAKAN marker [BOOKING_CTA] di akhir pesanmu. Sistem akan otomatis memunculkan tombol "Booking Sekarang" menuju halaman reservasi.
 `;
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';

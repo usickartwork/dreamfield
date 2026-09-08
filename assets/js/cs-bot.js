@@ -11,6 +11,7 @@
     let isSending = false;
     let soundEnabled = true;
     let messages = [];
+    let waTimerTriggered = false;
 
     const STORAGE_KEY = 'df_cs_chat_history_v1';
     const SOUND_STORAGE_KEY = 'df_cs_sound_enabled';
@@ -150,6 +151,12 @@
 
                 <!-- Input Footer -->
                 <div class="df-cs-footer">
+                    <div class="df-cs-wa-bar hidden" id="dfCsWaBar">
+                        <span class="df-cs-wa-text">💬 Butuh bantuan khusus admin?</span>
+                        <a href="https://wa.me/6285196561811" target="_blank" rel="noopener noreferrer" class="df-cs-wa-btn">
+                            <i class="fa-brands fa-whatsapp"></i> Chat Admin WA
+                        </a>
+                    </div>
                     <form class="df-cs-input-wrap" id="dfCsForm">
                         <input 
                             type="text" 
@@ -215,6 +222,23 @@
             input.value = '';
             sendMessage(text);
         });
+
+        // Timer otomatis: jika user sudah berada di chat ~2 menit (120 detik), tampilkan tombol WhatsApp
+        setTimeout(() => {
+            waTimerTriggered = true;
+            checkWaOptionVisibility();
+        }, 120000);
+    }
+
+    function checkWaOptionVisibility() {
+        const waBar = document.getElementById('dfCsWaBar');
+        if (!waBar) return;
+        // Muncul setelah beberapa bubble (>= 5 pesan) ATAU sudah lewat 2 menit
+        if (messages.length >= 5 || waTimerTriggered) {
+            waBar.classList.remove('hidden');
+        } else {
+            waBar.classList.add('hidden');
+        }
     }
 
     function updateSoundButton() {
@@ -333,6 +357,8 @@
         } else {
             scrollToBottom();
         }
+
+        checkWaOptionVisibility();
     }
 
 
