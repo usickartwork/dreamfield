@@ -238,6 +238,7 @@
         if (isOpen) {
             launcher.classList.add('hidden');
             windowBox.classList.add('active');
+            document.body.classList.add('df-cs-open');
             scrollToBottom();
             setTimeout(() => {
                 input.focus();
@@ -246,6 +247,7 @@
         } else {
             windowBox.classList.remove('active');
             launcher.classList.remove('hidden');
+            document.body.classList.remove('df-cs-open');
         }
     }
 
@@ -265,7 +267,12 @@
         if (!container) return;
         const newMsg = container.querySelector('.df-cs-msg-new');
         if (newMsg) {
-            newMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const containerTop = container.getBoundingClientRect().top;
+            const msgTop = newMsg.getBoundingClientRect().top;
+            container.scrollTo({
+                top: container.scrollTop + (msgTop - containerTop) - 8,
+                behavior: 'smooth'
+            });
         }
     }
 
@@ -351,6 +358,8 @@
         if (typingEl) typingEl.remove();
     }
 
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     async function sendMessage(text) {
         if (!text || isSending) return;
         isSending = true;
@@ -364,8 +373,12 @@
         renderMessages();
         playTacticalSfx('send');
 
-        // Show typing indicator
+        // 1. Jeda sesaat setelah user kirim sebelum mulai mengetik (natural pause)
+        await sleep(450);
+
+        // 2. Mulai animasi mengetik
         showTypingIndicator();
+        const typingStart = Date.now();
 
         try {
             // Build history payload (exclude current user message at end)
@@ -374,38 +387,68 @@
                 text: m.text
             }));
 
-            const response = await fetch('/api/chat', {
+            // Fetch jawaban AI dari backend
+            const responsePromise = fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text, history: historyPayload })
             });
+
+            const response = await responsePromise;
+
+            // Pastikan animasi mengetik terlihat minimal 1.3 detik agar terasa natural
+            const elapsed = Date.now() - typingStart;
+            if (elapsed < 1300) {
+                await sleep(1300 - elapsed);
+            }
 
             removeTypingIndicator();
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const data = await response.json();
-            const botReply = data?.reply || 'Maaf, ada kendala. Coba lagi ya!';
+            const botReply = data?.reply || 'Maaf, ada kendala koneksi. Coba lagi ya!';
 
             // Split into multiple bubbles by double newline
             const hasCTA = botReply.includes('[BOOKING_CTA]');
             const cleanReply = botReply.replace('[BOOKING_CTA]', '').trim();
-            const bubbles = cleanReply
+            const rawBubbles = cleanReply
                 .split(/\n\n+/)
                 .map(b => b.trim())
                 .filter(b => b.length > 0);
 
+            const bubbles = rawBubbles.length > 0 ? rawBubbles : [cleanReply];
             const firstNewIndex = messages.length;
 
-            // Push each bubble as a separate message; attach CTA only to last
-            bubbles.forEach((bubble, idx) => {
-                const isLast = idx === bubbles.length - 1;
-                messages.push({ role: 'model', text: bubble + (isLast && hasCTA ? ' [BOOKING_CTA]' : '') });
+            // Render bubble pertama
+            const isSingle = bubbles.length === 1;
+            messages.push({
+                role: 'model',
+                text: bubbles[0] + (isSingle && hasCTA ? ' [BOOKING_CTA]' : '')
             });
-
             saveMessages();
             renderMessages(firstNewIndex);
             playTacticalSfx('receive');
+
+            // Jika ada bubble berikutnya, kirim satu per satu dengan jeda mengetik
+            for (let i = 1; i < bubbles.length; i++) {
+                await sleep(400);
+                showTypingIndicator();
+
+                // Durasi mengetik proporsional dengan panjang teks (800ms - 1300ms)
+                const bubbleTypingTime = Math.min(1300, Math.max(800, bubbles[i].length * 10));
+                await sleep(bubbleTypingTime);
+                removeTypingIndicator();
+
+                const isLast = i === bubbles.length - 1;
+                messages.push({
+                    role: 'model',
+                    text: bubbles[i] + (isLast && hasCTA ? ' [BOOKING_CTA]' : '')
+                });
+                saveMessages();
+                renderMessages(firstNewIndex);
+                playTacticalSfx('receive');
+            }
 
         } catch (err) {
             console.error('Chat error:', err);
@@ -422,6 +465,7 @@
             if (input) input.focus();
         }
     }
+
 
 
     // Auto-initialize when DOM is ready
