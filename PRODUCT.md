@@ -27,7 +27,10 @@ Tempat hiburan dan rekreasi olahraga menembak taktis CQB indoor yang aman, ramah
 
 ## Brand Commitments
 - **Nama Brand**: DREAMFIELD TACTICAL (Airsoft Sports & CQB Tactical Arena).
-- **Karakter Visual**: Taktikal militer modern, maskulin, tangguh, rapi, dan mudah diakses.
+- **Karakter Visual**: Modern sporty, clean, energik, ramah pemula, dan seru tanpa kesan kaku atau terlalu serius.
+- **Tipografi Resmi**:
+  - **Headings / Brand / Buttons**: **`Outfit`** (Weights: 600, 700, 800, 900) — Geometris, dinamis, sporty, dan modern.
+  - **Body / Subtitles / Inputs**: **`Plus Jakarta Sans`** (Weights: 400, 500, 600, 700) — Sangat rapi, nyaman dibaca, dan bersih.
 - **Palet Warna Taktikal Resmi**:
   - **LIME (`#B7FF00`)**: Aksen menyala, tombol CTA utama, status aktif, highlight harga.
   - **CHARCOAL (`#1A1A1A` / `#121212` / `#22251E`)**: Background permukaan gelap taktikal.
