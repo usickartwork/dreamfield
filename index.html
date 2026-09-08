@@ -3394,6 +3394,152 @@
             font-weight: 700;
         }
 
+                .hud-timer-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(183, 255, 0, 0.15);
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            padding: 2.5px 8px;
+            border-radius: 4px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            transition: all 200ms ease;
+        }
+
+        .hud-timer-pill.danger {
+            background: rgba(255, 71, 87, 0.28);
+            border-color: #ff4757;
+            color: #ff4757;
+            animation: timerPulse 0.5s infinite alternate;
+        }
+
+        @keyframes timerPulse {
+            from { transform: scale(1); box-shadow: 0 0 0 rgba(255, 71, 87, 0); }
+            to { transform: scale(1.06); box-shadow: 0 0 10px rgba(255, 71, 87, 0.7); }
+        }
+
+        /* Dedicated Corner Reload Button (Pojok Kanan Bawah) */
+        .stage-corner-reload-btn {
+            position: absolute;
+            bottom: 38px;
+            right: 14px;
+            z-index: 35;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--color-lime);
+            color: #111111;
+            border: 2px solid #ffffff;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12.5px;
+            font-weight: 900;
+            letter-spacing: 0.6px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 14px rgba(183, 255, 0, 0.4);
+            transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .stage-corner-reload-btn:hover {
+            background: #d4ff33;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 20px rgba(183, 255, 0, 0.6);
+        }
+
+        .stage-corner-reload-btn:active {
+            transform: translateY(1px) scale(0.96);
+        }
+
+        .stage-corner-reload-btn.empty-alert {
+            background: #ff4757;
+            color: #ffffff;
+            border-color: #ffffff;
+            animation: cornerReloadAlert 0.45s infinite alternate;
+        }
+
+        @keyframes cornerReloadAlert {
+            from { transform: scale(1); box-shadow: 0 0 8px rgba(255, 71, 87, 0.5); }
+            to { transform: scale(1.08); box-shadow: 0 0 20px rgba(255, 71, 87, 0.9); }
+        }
+
+        .corner-ammo-counter {
+            background: #111111;
+            color: var(--color-lime);
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(183, 255, 0, 0.3);
+        }
+
+        .stage-corner-reload-btn.empty-alert .corner-ammo-counter {
+            background: #ffffff;
+            color: #ff4757;
+            border-color: #ffffff;
+        }
+
+        /* Wall Impact Crater & Spark Effect */
+        .wall-impact-mark {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
+        .wall-impact-spark {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 10%, var(--color-lime) 45%, transparent 75%);
+            box-shadow: 0 0 12px var(--color-lime), 0 0 20px rgba(183, 255, 0, 0.6);
+            animation: sparkFlash 180ms ease-out forwards;
+        }
+
+        .wall-impact-crater {
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: #111111;
+            border: 1px solid rgba(221, 229, 209, 0.45);
+            box-shadow: inset 0 0 4px #000000;
+            animation: craterStay 450ms ease-out forwards;
+        }
+
+        .wall-impact-dust {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(221, 229, 209, 0.35) 0%, transparent 70%);
+            animation: dustExpand 320ms ease-out forwards;
+        }
+
+        @keyframes sparkFlash {
+            0% { transform: scale(0.4); opacity: 1; }
+            50% { transform: scale(1.6); opacity: 1; }
+            100% { transform: scale(0.2); opacity: 0; }
+        }
+
+        @keyframes craterStay {
+            0% { opacity: 1; transform: scale(1); }
+            80% { opacity: 0.9; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.85); }
+        }
+
+        @keyframes dustExpand {
+            0% { opacity: 0.8; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(2.2); }
+        }
+
         .hud-score-val {
             font-family: 'Outfit', sans-serif;
             font-size: 20px;
@@ -4126,6 +4272,21 @@
                 font-size: 10px;
                 padding: 2px 7px;
             }
+            .hud-timer-pill {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+            .stage-corner-reload-btn {
+                bottom: 34px;
+                right: 8px;
+                padding: 6px 11px;
+                font-size: 11px;
+                gap: 5px;
+            }
+            .corner-ammo-counter {
+                font-size: 9.5px;
+                padding: 1px 4px;
+            }
             .hud-objective-pill {
                 font-size: 11px;
                 padding: 2px 6px;
@@ -4653,20 +4814,21 @@
     
 
     
-    <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
+        <!-- Mini Shooting Range Section (3-Step Progressive Challenge) -->
     <section id="tactical-range" class="tactical-experience-section">
         <div class="section-header slide-reveal slide-up">
-            <span class="section-subtitle"><i class="fa-solid fa-crosshairs"></i> CQB TARGET DRILL · 3 STEPS</span>
+            <span class="section-subtitle"><i class="fa-solid fa-crosshairs"></i> CQB TARGET DRILL · 3 STEPS · 10S TIMER</span>
             <h2 class="section-title">Mini <span>Shooting Range</span></h2>
-            <p class="section-lead-desc">Taklukkan 3 level sasaran taktis bertahap: pelat baja dinamis, target kertas bergerak di balik barikade, dan siluet musuh taktis yang muncul secara mendadak.</p>
+            <p class="section-lead-desc">Taklukkan 3 level sasaran taktis bertahap dalam batas waktu 10 detik per step: pelat baja berkecepatan dinamis, target bullseye gesit di balik barikade, dan duel refleks siluet musuh taktis.</p>
         </div>
 
         <div class="range-sim-box slide-reveal slide-scale">
             <!-- Range HUD Bar -->
             <div class="range-hud">
                 <div class="hud-left">
-                    <span class="hud-stage-pill" id="hudStagePill">STEP 1 / 3 · STEEL POPPER</span>
-                    <span class="hud-objective-pill"><i class="fa-solid fa-bullseye"></i> GOAL: <strong id="hudGoalProgress">0</strong>/<span id="hudGoalTotal">3</span></span>
+                    <span class="hud-stage-pill" id="hudStagePill">STEP 1 / 3 · ERRATIC STEEL</span>
+                    <span class="hud-timer-pill" id="hudTimerPill"><i class="fa-solid fa-stopwatch"></i> WAKTU: <strong id="hudStepTimerVal">10s</strong></span>
+                    <span class="hud-objective-pill"><i class="fa-solid fa-bullseye"></i> GOAL: <strong id="hudGoalProgress">0</strong>/<span id="hudGoalTotal">4</span></span>
                     <span class="hud-ammo-wrap">
                         <i class="fa-solid fa-layer-group"></i> MAG: <strong id="hudAmmoVal">15</strong>/15
                     </span>
@@ -4685,14 +4847,14 @@
                     <button type="button" class="hud-action-btn" id="btnSoundToggle" onclick="toggleSimSound()" title="Toggle Suara Firing FX">
                         <i class="fa-solid fa-volume-high" id="soundIcon"></i> <span id="soundText">AUDIO ON</span>
                     </button>
-                    <button type="button" class="hud-reload-btn" id="btnReloadMag" onclick="reloadMagazine()" title="Reload Magasin BB">
+                    <button type="button" class="hud-reload-btn" id="btnReloadMag" onclick="reloadMagazine(event)" title="Reload Magasin BB">
                         <i class="fa-solid fa-rotate-right"></i> RELOAD
                     </button>
                 </div>
             </div>
 
-            <!-- Range Interactive Stage Area -->
-            <div class="range-stage" id="rangeStage" onclick="shootStageMiss(event)">
+            <!-- Range Interactive Stage Area (Click anywhere registers wall miss impact) -->
+            <div class="range-stage" id="rangeStage" onclick="handleStageShot(event)">
                 <div class="range-backdrop-grid"></div>
 
                 <!-- Anti-Zoom Cheating Warning Overlay -->
@@ -4716,7 +4878,6 @@
                     </div>
                 </div>
 
-                <!-- CQB Barricades (Cover layer for peek-a-boo mechanics) -->
                 <!-- CQB Barricades (Cover layer for peek-a-boo mechanics) -->
                 <div class="cqb-bunkers-layer">
                     <div class="cqb-bunker bunker-p1" id="bunkerP1"><span class="bunker-lbl">COVER 01</span></div>
@@ -4791,32 +4952,17 @@
                         </div>
                     </div>
                 </div>
-                                <div class="bullet-holes-layer" id="bulletHolesLayer"></div>
-                            </div>
-                            <span class="target-distance-tag">STEP 2 · 15M MOVING BULLSEYE</span>
-                        </div>
-                    </div>
 
-                    <!-- STEP 3 TARGET: CQB Silhouette (Pops up from 3 Bunkers randomly) -->
-                    <div class="target-step-wrap step-3-wrap" id="step3Wrap">
-                        <div class="target-item target-silhouette-wrap" id="targetSilhouetteWrap">
-                            <div class="target-silhouette" id="targetSilhouette">
-                                <div class="silhouette-head" onclick="shootSilhouetteHead(event)" title="Headshot (+50 PTS)">
-                                    <span class="head-tag">+50</span>
-                                </div>
-                                <div class="silhouette-chest" onclick="shootSilhouetteChest(event)" title="Center Mass (+25 PTS)">
-                                    <div class="chest-center"><i class="fa-solid fa-crosshairs"></i></div>
-                                    <span class="chest-tag">+25</span>
-                                </div>
-                            </div>
-                            <span class="target-distance-tag" id="silhouetteDistTag">STEP 3 · 20M CQB POP-UP</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Dedicated Corner Reload Button (Pojok Kanan Bawah Sesuai Request) -->
+                <button type="button" class="stage-corner-reload-btn" id="stageCornerReloadBtn" onclick="reloadMagazine(event)" title="Isi Ulang Magasin BB (Pojok Kanan Bawah)">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span class="corner-reload-text">RELOAD</span>
+                    <span class="corner-ammo-counter" id="cornerAmmoCounter">15</span>
+                </button>
 
                 <!-- Range Bottom Hint -->
                 <div class="range-hint-bar">
-                    <span id="rangeHintText"><i class="fa-solid fa-crosshairs"></i> <strong>STEP 1:</strong> Kenai pelat baja 3 kali untuk membuka Step 2. Peluru meleset menurunkan <strong>akurasi (ACC)</strong>.</span>
+                    <span id="rangeHintText"><i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Kenai sasaran baja 4 kali sebelum waktu habis! Menembak hitam-hitam dihitung meleset (MISS).</span>
                 </div>
             </div>
         </div>
@@ -5305,8 +5451,10 @@
         }
     };
 
-    // --- 2. Hardcore 3-Step Random Target Simulator ---
+    // --- 2. Hardcore 3-Step Random Target Simulator (10s Timer per Step, Corner Reload, Wall Miss Impact) ---
     (function() {
+        'use strict';
+
         let audioCtx = null;
         let isSoundEnabled = true;
         let isZoomBlocked = false;
@@ -5324,47 +5472,38 @@
             return audioCtx;
         }
 
-        // 1. Airsoft Shot Sound
+        // --- WEB AUDIO FX GENERATORS ---
+        // 1. Airsoft Shot (Pneumatic Piston Crack + Mechanical Pop)
         function playAirsoftShotSound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
             if (!ctx) return;
             const t = ctx.currentTime;
-            
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(320, t);
-            osc.frequency.exponentialRampToValueAtTime(45, t + 0.05);
-
+            osc.frequency.setValueAtTime(420, t);
+            osc.frequency.exponentialRampToValueAtTime(60, t + 0.05);
             gain.gain.setValueAtTime(0.7, t);
-            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
-
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
             osc.connect(gain);
             gain.connect(ctx.destination);
             osc.start(t);
-            osc.stop(t + 0.055);
+            osc.stop(t + 0.065);
 
             try {
                 const bufferSize = ctx.sampleRate * 0.04;
                 const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
                 }
                 const noise = ctx.createBufferSource();
                 noise.buffer = buffer;
-                const filter = ctx.createBiquadFilter();
-                filter.type = 'bandpass';
-                filter.frequency.value = 1400;
-                filter.Q.value = 2.5;
-
                 const nGain = ctx.createGain();
-                nGain.gain.setValueAtTime(0.6, t);
+                nGain.gain.setValueAtTime(0.5, t);
                 nGain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
-
-                noise.connect(filter);
-                filter.connect(nGain);
+                noise.connect(nGain);
                 nGain.connect(ctx.destination);
                 noise.start(t);
                 noise.stop(t + 0.045);
@@ -5429,7 +5568,7 @@
             osc.stop(t + 0.025);
         }
 
-        // 5. Hostage Penalty Buzzer Sound
+        // 5. Hostage Penalty / Timeout Buzzer Sound
         function playBuzzerPenaltySound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
@@ -5447,7 +5586,44 @@
             osc.stop(t + 0.3);
         }
 
-        // 6. Reload Mag Slap
+        // 6. Wall Miss Impact Ricochet / Thud Sound
+        function playWallMissSound() {
+            if (!isSoundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            const t = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(280, t);
+            osc.frequency.exponentialRampToValueAtTime(65, t + 0.06);
+            gain.gain.setValueAtTime(0.4, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.075);
+
+            try {
+                const bufferSize = ctx.sampleRate * 0.03;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.22));
+                }
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+                const nGain = ctx.createGain();
+                nGain.gain.setValueAtTime(0.25, t);
+                nGain.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+                noise.connect(nGain);
+                nGain.connect(ctx.destination);
+                noise.start(t);
+                noise.stop(t + 0.035);
+            } catch(e) {}
+        }
+
+        // 7. Reload Mag Slap
         function playReloadSound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
@@ -5476,7 +5652,7 @@
             o2.stop(t + 0.19);
         }
 
-        // 7. Victory Fanfare
+        // 8. Victory Fanfare
         function playVictorySound() {
             if (!isSoundEnabled) return;
             const ctx = getAudioContext();
@@ -5509,6 +5685,11 @@
 
         let isPopperDown = false;
         let animFrameId = null;
+
+        // 10-Second Step Timer State
+        const STEP_TIME_LIMIT = 10;
+        let stepTimeLeft = STEP_TIME_LIMIT;
+        let stepTimerInterval = null;
 
         // Step 1 Popper Random Physics
         let popperX = 0;
@@ -5579,14 +5760,29 @@
                 playDryClickSound();
                 triggerHaptic(30);
                 spawnFloatingHit('MAG KOSONG! TEKAN RELOAD', null, null, 'warn');
+
+                // Corner reload button attention pulse
+                const cornerBtn = document.getElementById('stageCornerReloadBtn');
+                if (cornerBtn) cornerBtn.classList.add('empty-alert');
                 return false;
             }
             ammoCount--;
-            const ammoEl = document.getElementById('hudAmmoVal');
-            if (ammoEl) ammoEl.textContent = ammoCount;
+            updateAmmoHUD();
             playAirsoftShotSound();
             triggerHaptic(15);
+
+            if (ammoCount <= 0) {
+                const cornerBtn = document.getElementById('stageCornerReloadBtn');
+                if (cornerBtn) cornerBtn.classList.add('empty-alert');
+            }
             return true;
+        }
+
+        function updateAmmoHUD() {
+            const ammoEl = document.getElementById('hudAmmoVal');
+            if (ammoEl) ammoEl.textContent = ammoCount;
+            const cornerCounter = document.getElementById('cornerAmmoCounter');
+            if (cornerCounter) cornerCounter.textContent = ammoCount;
         }
 
         function updateGoalHUD() {
@@ -5606,13 +5802,74 @@
 
             if (hintText) {
                 if (currentStep === 1) {
-                    hintText.innerHTML = '<i class="fa-solid fa-bolt"></i> <strong>STEP 1 (SULIT):</strong> Sasaran baja melesat acak & berganti arah tanpa pola. Kenai 4 kali!';
+                    hintText.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 1 (10 DETIK):</strong> Sasaran baja melesat cepat & berubah arah. Kenai 4 kali sebelum 10 detik!';
                 } else if (currentStep === 2) {
-                    hintText.innerHTML = '<i class="fa-solid fa-ghost"></i> <strong>STEP 2 (SANGAT SULIT):</strong> Bullseye berlari kencang & tiba-tiba bersembunyi di balik barikade. Kenai 5 kali!';
+                    hintText.innerHTML = '<i class="fa-solid fa-stopwatch"></i> <strong>STEP 2 (10 DETIK):</strong> Bullseye berlari kencang & bersembunyi di balik barikade. Kenai 5 kali!';
                 } else if (currentStep === 3) {
-                    hintText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>STEP 3 (EKSTREM):</strong> Target muncul 0.8s! <strong>Awas:</strong> Jangan tembak sandera sipil (❌), penalti -50 poin!';
+                    hintText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>STEP 3 (10 DETIK):</strong> Target muncul 0.7s! Kenai 6 kali. <strong>Awas:</strong> Sandera sipil (❌) penalti -50!';
                 }
             }
+        }
+
+        // --- 10-SECOND STEP TIMER SYSTEM ---
+        function startStepTimer() {
+            stopStepTimer();
+            stepTimeLeft = STEP_TIME_LIMIT;
+            updateTimerDisplay();
+
+            stepTimerInterval = setInterval(() => {
+                stepTimeLeft--;
+                updateTimerDisplay();
+
+                if (stepTimeLeft <= 0) {
+                    handleStepTimeout();
+                }
+            }, 1000);
+        }
+
+        function stopStepTimer() {
+            if (stepTimerInterval) {
+                clearInterval(stepTimerInterval);
+                stepTimerInterval = null;
+            }
+            const timerPill = document.getElementById('hudTimerPill');
+            if (timerPill) timerPill.classList.remove('danger');
+        }
+
+        function updateTimerDisplay() {
+            const timerVal = document.getElementById('hudStepTimerVal');
+            const timerPill = document.getElementById('hudTimerPill');
+            if (timerVal) timerVal.textContent = stepTimeLeft + 's';
+            if (timerPill) {
+                if (stepTimeLeft <= 4 && stepTimeLeft > 0) {
+                    timerPill.classList.add('danger');
+                } else {
+                    timerPill.classList.remove('danger');
+                }
+            }
+        }
+
+        function handleStepTimeout() {
+            stopStepTimer();
+            cancelAllLoops();
+            playBuzzerPenaltySound();
+            triggerHaptic(60);
+
+            const overlay = document.getElementById('stageBannerOverlay');
+            const bTitle = document.getElementById('bannerTitle');
+            const bDesc = document.getElementById('bannerDesc');
+            const bBtn = document.getElementById('btnBannerNext');
+
+            if (bTitle) bTitle.innerHTML = '<span style="color:#ff4757;"><i class="fa-solid fa-hourglass-end"></i> WAKTU 10 DETIK HABIS!</span>';
+            if (bDesc) bDesc.textContent = `Target terlalu cepat! Anda mengumpulkan ${currentStepHits}/${stepGoals[currentStep]} sasaran dalam 10 detik. Tekan Coba Lagi untuk mengulang Step ${currentStep}!`;
+            if (bBtn) {
+                bBtn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> COBA LAGI STEP ${currentStep}`;
+                bBtn.onclick = function() {
+                    if (overlay) overlay.classList.remove('active');
+                    setStage(currentStep);
+                };
+            }
+            if (overlay) overlay.classList.add('active');
         }
 
         function showStageBanner(title, desc, btnText) {
@@ -5621,9 +5878,14 @@
             const bDesc = document.getElementById('bannerDesc');
             const bBtn = document.getElementById('btnBannerNext');
 
-            if (bTitle) bTitle.textContent = title;
+            if (bTitle) bTitle.innerHTML = title;
             if (bDesc) bDesc.textContent = desc;
-            if (bBtn) bBtn.innerHTML = btnText;
+            if (bBtn) {
+                bBtn.innerHTML = btnText;
+                bBtn.onclick = function() {
+                    dismissBannerAndProceed();
+                };
+            }
             if (overlay) overlay.classList.add('active');
 
             playVictorySound();
@@ -5643,6 +5905,7 @@
 
         // --- STAGE PHYSICS & RANDOM ENGINE ---
         function cancelAllLoops() {
+            stopStepTimer();
             if (animFrameId) {
                 cancelAnimationFrame(animFrameId);
                 animFrameId = null;
@@ -5670,6 +5933,9 @@
             const stageEl = document.getElementById('rangeStage');
             const stageW = stageEl ? stageEl.clientWidth : 800;
             const maxBound = Math.max(120, (stageW / 2) - 60);
+
+            // Start fresh 10s timer for this step
+            startStepTimer();
 
             if (step === 1) {
                 if (s1) s1.classList.add('active');
@@ -5768,7 +6034,7 @@
             animFrameId = requestAnimationFrame(runStep2Physics);
         }
 
-        // STEP 3 HARDCORE CQB ROUTINE (Ultra-Fast 0.75s Peek + Hostage Decoy)
+        // STEP 3 HARDCORE CQB ROUTINE (Ultra-Fast 0.7s Peek + Hostage Decoy)
         function startStep3HardcorePop() {
             if (currentStep !== 3) return;
             const hWrap = document.getElementById('targetHostileWrap');
@@ -5799,8 +6065,8 @@
                     isStep3Exposed = true;
                 }
 
-                // VERY HARD: Exposed for only 700ms - 900ms!
-                const peekDuration = 650 + Math.random() * 250;
+                // VERY HARD: Exposed for only 650ms - 850ms!
+                const peekDuration = 650 + Math.random() * 200;
                 step3Timer = setTimeout(() => {
                     if (currentStep !== 3) return;
                     if (targetEl) targetEl.classList.add('ducked');
@@ -5812,7 +6078,7 @@
             }, 350 + Math.random() * 350);
         }
 
-        // Hit Handlers
+        // --- HIT HANDLERS ---
         window.shootPopper = function(e) {
             e.stopPropagation();
             if (currentStep !== 1) return;
@@ -5845,12 +6111,14 @@
             }
 
             if (currentStepHits >= stepGoals[1]) {
-                updateScore(100);
+                stopStepTimer();
+                const timeBonus = Math.max(0, stepTimeLeft * 15);
+                updateScore(100 + timeBonus);
                 cancelAllLoops();
                 setTimeout(() => {
                     showStageBanner(
-                        'STEP 1 CLEARED! (+100 PTS)',
-                        'Bidikan baja Anda presisi! Bersiap untuk STEP 2: Target kertas Bullseye bergerak sprint dan menghilang di balik barikade!',
+                        `STEP 1 CLEARED! (+100 PTS ${timeBonus > 0 ? '+ ' + timeBonus + ' BONUS WAKTU' : ''})`,
+                        `Bidikan baja Anda presisi! Selesai dengan sisa waktu ${stepTimeLeft} detik. Bersiap untuk STEP 2: Target Bullseye bergerak sprint dan bersembunyi di balik barikade!`,
                         'LANJUT KE STEP 2 <i class="fa-solid fa-arrow-right"></i>'
                     );
                 }, 500);
@@ -5915,12 +6183,14 @@
             bullseyeVx = -Math.sign(bullseyeVx) * (4.8 + Math.random() * 2.5);
 
             if (currentStepHits >= stepGoals[2]) {
-                updateScore(200);
+                stopStepTimer();
+                const timeBonus = Math.max(0, stepTimeLeft * 15);
+                updateScore(200 + timeBonus);
                 cancelAllLoops();
                 setTimeout(() => {
                     showStageBanner(
-                        'STEP 2 CLEARED! (+200 PTS)',
-                        'Hebat! Sekarang masuk ke STEP 3 (FINAL - ULTRA HARD): Musuh muncul mendadak dari 5 barikade hanya 0.8 detik! AWAS: Jangan tembak sandera sipil (❌)!',
+                        `STEP 2 CLEARED! (+200 PTS ${timeBonus > 0 ? '+ ' + timeBonus + ' BONUS WAKTU' : ''})`,
+                        `Hebat! Tuntas dengan sisa waktu ${stepTimeLeft} detik. Sekarang masuk ke STEP 3 (FINAL - ULTRA HARD): Musuh muncul mendadak dari 5 barikade hanya 0.7 detik! AWAS: Jangan tembak sandera sipil (❌)!`,
                         'MASUK KE FINAL STEP 3 <i class="fa-solid fa-skull"></i>'
                     );
                 }, 500);
@@ -5953,13 +6223,15 @@
             if (step3Timer) clearTimeout(step3Timer);
 
             if (currentStepHits >= stepGoals[3]) {
-                updateScore(300);
+                stopStepTimer();
+                const timeBonus = Math.max(0, stepTimeLeft * 15);
+                updateScore(300 + timeBonus);
                 cancelAllLoops();
                 const accVal = document.getElementById('hudAccVal').textContent;
                 setTimeout(() => {
                     showStageBanner(
                         '🏆 DRILL SELESAI: CQB OPERATOR!',
-                        `Misi latihan selesai! Total Skor: ${scoreCount} PTS | Akurasi: ${accVal} | Sandera Tertembak: ${penaltyCount}. Seluruh rintangan baru telah diacak ulang untuk permainan berikutnya!`,
+                        `Misi selesai dengan gemilang! Sisa Waktu: ${stepTimeLeft}s (+${timeBonus} PTS) | Total Skor: ${scoreCount} PTS | Akurasi: ${accVal} | Sandera Tertembak: ${penaltyCount}. Seluruh rintangan baru telah diacak ulang untuk permainan berikutnya!`,
                         '<i class="fa-solid fa-rotate-right"></i> MAIN LAGI (DRILL BARU TERACAK)'
                     );
                 }, 500);
@@ -6003,32 +6275,55 @@
             step3Timer = setTimeout(startStep3HardcorePop, 400);
         };
 
-        window.shootStageMiss = function(e) {
-            if (e.target.id === 'rangeStage' || e.target.classList.contains('range-backdrop-grid') || e.target.classList.contains('range-targets-container') || e.target.classList.contains('cqb-bunker') || e.target.classList.contains('cqb-bunkers-layer')) {
-                if (isZoomBlocked) return;
-                if (!consumeAmmo()) return;
+        // Click on dark area / bunkers / empty stage = MISS + VISUAL WALL IMPACT
+        window.handleStageShot = function(e) {
+            if (isZoomBlocked) return;
+            if (!consumeAmmo()) return;
 
-                totalShots++;
-                updateAccuracy();
-                spawnFloatingHit('MISS!', e.clientX, e.clientY, 'warn');
+            totalShots++;
+            updateAccuracy();
 
-                const stage = document.getElementById('rangeStage');
-                if (stage) {
-                    const rect = stage.getBoundingClientRect();
-                    const puff = document.createElement('div');
-                    puff.className = 'miss-puff';
-                    puff.style.left = (e.clientX - rect.left) + 'px';
-                    puff.style.top = (e.clientY - rect.top) + 'px';
-                    stage.appendChild(puff);
-                    setTimeout(() => { if (puff.parentNode) puff.parentNode.removeChild(puff); }, 320);
-                }
-            }
+            const stage = document.getElementById('rangeStage');
+            if (!stage) return;
+            const rect = stage.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            // Audio & Haptic for Wall Ricochet
+            playWallMissSound();
+            triggerHaptic(15);
+
+            // Floating MISS label
+            spawnFloatingHit('MISS!', e.clientX, e.clientY, 'warn');
+
+            // Visual Bullet Spark and Crater on the dark surface
+            const mark = document.createElement('div');
+            mark.className = 'wall-impact-mark';
+            mark.style.left = clickX + 'px';
+            mark.style.top = clickY + 'px';
+            mark.innerHTML = `
+                <div class="wall-impact-spark"></div>
+                <div class="wall-impact-crater"></div>
+                <div class="wall-impact-dust"></div>
+            `;
+            stage.appendChild(mark);
+            setTimeout(() => {
+                if (mark.parentNode) mark.parentNode.removeChild(mark);
+            }, 460);
         };
 
-        window.reloadMagazine = function() {
+        // Backward compatibility
+        window.shootStageMiss = window.handleStageShot;
+
+        // Reload Magazine
+        window.reloadMagazine = function(e) {
+            if (e && e.stopPropagation) e.stopPropagation();
             ammoCount = 15;
-            const ammoEl = document.getElementById('hudAmmoVal');
-            if (ammoEl) ammoEl.textContent = ammoCount;
+            updateAmmoHUD();
+
+            const cornerBtn = document.getElementById('stageCornerReloadBtn');
+            if (cornerBtn) cornerBtn.classList.remove('empty-alert');
+
             playReloadSound();
             triggerHaptic(30);
             spawnFloatingHit('RELOADED 15 BBS!', null, null, 'lime');
@@ -6051,7 +6346,10 @@
 
             updateScore(0);
             updateAccuracy();
-            document.getElementById('hudAmmoVal').textContent = ammoCount;
+            updateAmmoHUD();
+
+            const cornerBtn = document.getElementById('stageCornerReloadBtn');
+            if (cornerBtn) cornerBtn.classList.remove('empty-alert');
 
             const holesLayer = document.getElementById('bulletHolesLayer');
             if (holesLayer) holesLayer.innerHTML = '';
