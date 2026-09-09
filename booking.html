@@ -4270,21 +4270,29 @@
             const timeDisplay = `${time} WIB`;
 
             // Format Ringkasan Lengkap Siap Kirim ke CS Admin WhatsApp
-            const message = 
-`🎯 *RESERVASI ARENA CQB - DREAMFIELD TACTICAL*
-==========================================
-👤 *Nama Pemesan:* ${name}
-📱 *No. WhatsApp:* ${phone}
-🎯 *Kategori Arena:* ${catName}
-📦 *Paket:* ${pkgName}
-💰 *Tarif:* ${pkgPrice}
-📅 *Tanggal Main:* ${formattedDate}
-⏰ *Jam Kedatangan:* ${timeDisplay}
-👥 *Jumlah Personel:* ${players} Orang
-📝 *Catatan Khusus:* ${notes}
-==========================================
-Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan arena untuk reservasi di atas. Terima kasih!`;
+            const lines = [
+                "*FORMULIR RESERVASI ARENA*",
+                "*DREAMFIELD TACTICAL SURABAYA*",
+                "────────────────────────────",
+                "",
+                "*DATA PEMESAN*",
+                `• Nama: *${name}*`,
+                `• No. WhatsApp: *${phone}*`,
+                "",
+                "*DETAIL RESERVASI*",
+                `• Arena: *${catName}*`,
+                `• Paket: *${pkgName}*`,
+                `• Tarif: *${pkgPrice}*`,
+                `• Tanggal: *${formattedDate}*`,
+                `• Jam Sesi: *${timeDisplay}*`,
+                `• Jumlah Personel: *${players} Orang*`,
+                `• Catatan Khusus: ${notes && notes.trim() !== '' ? notes.trim() : '-'}`,
+                "",
+                "────────────────────────────",
+                "Halo CS Admin Dreamfield Tactical, saya ingin konfirmasi ketersediaan slot reservasi di atas. Terima kasih!"
+            ];
 
+            const message = lines.join('\n');
             const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(message)}`;
 
             // Isi Data ke Modal Ringkasan Handoff
