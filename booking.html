@@ -3242,7 +3242,7 @@
         };
 
         // State Global
-        const ADMIN_WA_NUMBER = "6282233139118";
+        let ADMIN_WA_NUMBER = "6282233139118";
         let currentCategory = null; // Awal: belum ada arena dipilih
         let currentSelectedPackage = null; // Awal: belum ada paket dipilih
         let selectedDate = "";
@@ -4404,6 +4404,59 @@
                 observer.observe(summaryCard);
             }
         }
+    </script>
+
+    <!-- Dreamfield CMS Client (Supabase Live Synchronization) -->
+    <script src="assets/js/cms-client.js"></script>
+    <script>
+        async function syncCmsData() {
+            if (!window.DreamfieldCMS) return;
+            try {
+                const [packages, content] = await Promise.all([
+                    window.DreamfieldCMS.getActivePackages(),
+                    window.DreamfieldCMS.getSiteContent()
+                ]);
+
+                if (content && content.contact && content.contact.wa_number_intl) {
+                    ADMIN_WA_NUMBER = content.contact.wa_number_intl.replace(/[^0-9]/g, '');
+                }
+
+                if (Array.isArray(packages) && packages.length > 0) {
+                    packages.forEach(pkg => {
+                        const cat = pkg.category;
+                        if (!packageCatalog[cat]) return;
+
+                        const existingIndex = packageCatalog[cat].items.findIndex(it => it.id === pkg.id);
+                        const priceFormatted = 'Rp ' + Number(pkg.price_amount || 0).toLocaleString('id-ID');
+                        const featuresArr = Array.isArray(pkg.features) ? pkg.features : [];
+
+                        const itemData = {
+                            id: pkg.id,
+                            name: pkg.name,
+                            platform: pkg.platform,
+                            price: priceFormatted,
+                            unit: pkg.price_unit,
+                            desc: pkg.description || '',
+                            badge: pkg.badge || null,
+                            features: featuresArr
+                        };
+
+                        if (existingIndex >= 0) {
+                            packageCatalog[cat].items[existingIndex] = itemData;
+                        } else {
+                            packageCatalog[cat].items.push(itemData);
+                        }
+                    });
+
+                    if (currentCategory && typeof renderPackages === 'function') {
+                        renderPackages();
+                    }
+                }
+            } catch (e) {
+                console.warn('[CMS Sync] Fallback to local default packageCatalog:', e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', syncCmsData);
     </script>
 </body>
 </html>

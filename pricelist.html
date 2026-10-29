@@ -928,5 +928,63 @@
 
     <!-- Dreamfield Tactical CS AI Widget Controller -->
     <script src="assets/js/cs-bot.js" defer></script>
+    <!-- Dreamfield CMS Client (Supabase Live Synchronization) -->
+    <script src="assets/js/cms-client.js"></script>
+    <script>
+        async function syncPricelistCms() {
+            if (!window.DreamfieldCMS) return;
+            try {
+                const [packages, content] = await Promise.all([
+                    window.DreamfieldCMS.getActivePackages(),
+                    window.DreamfieldCMS.getSiteContent()
+                ]);
+
+                if (content && content.contact) {
+                    const waIntl = content.contact.wa_number_intl ? content.contact.wa_number_intl.replace(/[^0-9]/g, '') : '6282233139118';
+                    const waBtn = document.querySelector('.btn-cta-wa');
+                    if (waBtn) {
+                        waBtn.href = `https://wa.me/${waIntl}?text=Halo%20Dreamfield%20Tactical%2C%20saya%20ingin%20tanya%20seputar%20official%20arena%20pricelist`;
+                    }
+                }
+
+                if (Array.isArray(packages) && packages.length > 0) {
+                    const minPrices = {};
+                    packages.forEach(p => {
+                        if (!minPrices[p.category] || p.price_amount < minPrices[p.category]) {
+                            minPrices[p.category] = p.price_amount;
+                        }
+                    });
+
+                    const targetSub = document.querySelector('#arena-target .arena-bar-subtitle');
+                    if (targetSub && minPrices.target) {
+                        targetSub.textContent = `Target silhouette presisi & plat baja reaktif · 3 Pilihan Paket Mulai Rp ${Number(minPrices.target).toLocaleString('id-ID')}`;
+                    }
+
+                    const wargameSub = document.querySelector('#arena-wargame .arena-bar-subtitle');
+                    if (wargameSub && minPrices.wargame) {
+                        wargameSub.textContent = `Simulasi kontak senjata taktis & skirmish tim · 8 Paket Pilihan Mulai Rp ${Number(minPrices.wargame).toLocaleString('id-ID')}`;
+                    }
+
+                    const coachingSub = document.querySelector('#arena-coaching .arena-bar-subtitle');
+                    if (coachingSub && minPrices.coaching) {
+                        coachingSub.textContent = `Bimbingan teknik CQB privat instruktur bersertifikat · 2 Paket Mulai Rp ${Number(minPrices.coaching).toLocaleString('id-ID')}`;
+                    }
+
+                    const unitSub = document.querySelector('#arena-unit .arena-bar-subtitle');
+                    if (unitSub && minPrices.unit) {
+                        unitSub.textContent = `Mastering mekanika unit, handling, & reload drills · 2 Paket Mulai Rp ${Number(minPrices.unit).toLocaleString('id-ID')}`;
+                    }
+
+                    const gearSub = document.querySelector('#arena-gear .arena-bar-subtitle');
+                    if (gearSub && minPrices.gear) {
+                        gearSub.textContent = `Plate carrier vest, helm ops, goggle anti-fog & gloves · 1 Set Lengkap Rp ${Number(minPrices.gear).toLocaleString('id-ID')}`;
+                    }
+                }
+            } catch (err) {
+                console.warn('[Pricelist CMS Sync] Fallback to static defaults:', err);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', syncPricelistCms);
+    </script>
 </body>
 </html>

@@ -49,6 +49,54 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODELS = ['qwen/qwen3.8-27b', 'qwen/qwen3.6-27b'];
 const GEMINI_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash'];
 
+let dynamicKnowledgeCache = {
+    timestamp: 0,
+    text: ''
+};
+
+async function getDynamicKnowledge() {
+    const now = Date.now();
+    if (now - dynamicKnowledgeCache.timestamp < 60000 && dynamicKnowledgeCache.text) {
+        return dynamicKnowledgeCache.text;
+    }
+
+    try {
+        const supabaseUrl = 'https://rskxeeahhyzqoxofdfms.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJza3hlZWFoaHl6cW94b2ZkZm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc4NzMsImV4cCI6MjEwODgzMzg3M30.u9gh-CPu_HRbDj3u4sgF9XGHSHXSArPb0IEPIvE1LjE';
+
+        const [faqRes, pkgRes] = await Promise.all([
+            fetch(`${supabaseUrl}/rest/v1/site_faqs?is_active=eq.true&order=sort_order.asc`, {
+                headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
+            }),
+            fetch(`${supabaseUrl}/rest/v1/site_packages?is_active=eq.true&order=sort_order.asc`, {
+                headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
+            })
+        ]);
+
+        let knowledgeAdditions = [];
+
+        if (faqRes.ok) {
+            const faqs = await faqRes.json();
+            if (Array.isArray(faqs) && faqs.length > 0) {
+                knowledgeAdditions.push('\nKNOWLEDGE BASE RESMI DARI FAQ CMS:\n' + faqs.map(f => `Q: ${f.question}\nA: ${f.answer}`).join('\n'));
+            }
+        }
+
+        if (pkgRes.ok) {
+            const pkgs = await pkgRes.json();
+            if (Array.isArray(pkgs) && pkgs.length > 0) {
+                knowledgeAdditions.push('\nDAFTAR HARGA & PAKET AKTIF CMS:\n' + pkgs.map(p => `• ${p.name} (${p.platform}): Rp ${Number(p.price_amount).toLocaleString('id-ID')} ${p.price_unit} - ${p.description || ''}`).join('\n'));
+            }
+        }
+
+        dynamicKnowledgeCache.text = knowledgeAdditions.join('\n');
+        dynamicKnowledgeCache.timestamp = now;
+        return dynamicKnowledgeCache.text;
+    } catch (err) {
+        return '';
+    }
+}
+
 function getEnvKey(keyName) {
     let key = process.env[keyName];
     if (!key) {
@@ -67,8 +115,9 @@ function getEnvKey(keyName) {
 }
 
 // 1. Primary Engine: Groq (Ultra-Fast)
-async function callGroq(userMessage, history, apiKey) {
-    const messages = [{ role: 'system', content: SYSTEM_INSTRUCTION }];
+async function callGroq(userMessage, history, apiKey, dynamicKnowledge = '') {
+    const systemPrompt = SYSTEM_INSTRUCTION + (dynamicKnowledge ? ('\n\n' + dynamicKnowledge) : '');
+    const messages = [{ role: 'system', content: systemPrompt }];
     for (const item of history.slice(-6)) {
         if (!item?.role || !item?.text) continue;
         const role = item.role === 'user' ? 'user' : 'assistant';
@@ -113,7 +162,7 @@ async function callGroq(userMessage, history, apiKey) {
 }
 
 // 2. Backup Engine: Google Gemini
-async function callGemini(userMessage, history, apiKey) {
+async function callGemini(userMessage, history, apiKey, dynamicKnowledge = '') {
     const contents = [];
     let lastRole = null;
     for (const item of history.slice(-6)) {
@@ -131,8 +180,9 @@ async function callGemini(userMessage, history, apiKey) {
         contents.push({ role: 'user', parts: [{ text: userMessage }] });
     }
 
+    const systemPrompt = SYSTEM_INSTRUCTION + (dynamicKnowledge ? ('\n\n' + dynamicKnowledge) : '');
     const payload = {
-        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+        systemInstruction: { parts: [{ text: systemPrompt }] },
         contents,
         generationConfig: {
             temperature: 0.75,
@@ -209,9 +259,12 @@ module.exports = async function handler(req, res) {
             return reply;
         }
 
+        // Fetch dynamic FAQs and Package prices from Supabase CMS (with 60s cache and silent fallback)
+        const dynamicKnowledge = await getDynamicKnowledge();
+
         // --- STEP 1: Coba Groq Terlebih Dahulu (Prioritas Utama: Kecepatan Super) ---
         if (groqKey) {
-            const groqResult = await callGroq(userMessage, history, groqKey);
+            const groqResult = await callGroq(userMessage, history, groqKey, dynamicKnowledge);
             if (groqResult && groqResult.reply) {
                 return res.status(200).json({
                     reply: processReplyCTA(groqResult.reply),
@@ -224,7 +277,7 @@ module.exports = async function handler(req, res) {
 
         // --- STEP 2: Cadangan Otomatis: Google Gemini (Jika Groq Limit / Error) ---
         if (geminiKey) {
-            const geminiResult = await callGemini(userMessage, history, geminiKey);
+            const geminiResult = await callGemini(userMessage, history, geminiKey, dynamicKnowledge);
             if (geminiResult && geminiResult.reply) {
                 return res.status(200).json({
                     reply: processReplyCTA(geminiResult.reply),

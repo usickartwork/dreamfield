@@ -6560,5 +6560,53 @@
 
     <!-- Dreamfield Tactical CS AI Widget Controller -->
     <script src="assets/js/cs-bot.js" defer></script>
+    <!-- Dreamfield CMS Client (Supabase Live Synchronization) -->
+    <script src="assets/js/cms-client.js"></script>
+    <script>
+        async function syncIndexCms() {
+            if (!window.DreamfieldCMS) return;
+            try {
+                const [content, media] = await Promise.all([
+                    window.DreamfieldCMS.getSiteContent(),
+                    window.DreamfieldCMS.getSiteMedia()
+                ]);
+
+                if (content) {
+                    if (content.hero) {
+                        const hBadge = document.querySelector('.hero-badge');
+                        if (hBadge && content.hero.badge) hBadge.innerHTML = `<i class="fa-solid fa-shield-halved"></i> ${content.hero.badge}`;
+
+                        const hLine1 = document.querySelector('.hero-title-line.line-1');
+                        if (hLine1 && content.hero.title_line_1) hLine1.textContent = content.hero.title_line_1;
+
+                        const hLine2 = document.querySelector('.hero-title-line.line-2');
+                        if (hLine2 && content.hero.title_line_2) hLine2.textContent = content.hero.title_line_2;
+
+                        const hDesc = document.querySelector('.hero-description');
+                        if (hDesc && content.hero.description) hDesc.textContent = content.hero.description;
+                    }
+
+                    if (content.contact) {
+                        const waIntl = content.contact.wa_number_intl ? content.contact.wa_number_intl.replace(/[^0-9]/g, '') : '6282233139118';
+                        const waLinks = document.querySelectorAll('a[href*="wa.me"]');
+                        waLinks.forEach(a => {
+                            a.href = `https://wa.me/${waIntl}`;
+                        });
+                    }
+
+                    if (content.cta) {
+                        const ctaH3 = document.querySelector('.cta-banner-card h3');
+                        if (ctaH3 && content.cta.heading) ctaH3.textContent = content.cta.heading;
+
+                        const ctaP = document.querySelector('.cta-banner-card p');
+                        if (ctaP && content.cta.description) ctaP.textContent = content.cta.description;
+                    }
+                }
+            } catch (err) {
+                console.warn('[Index CMS Sync] Fallback to static defaults:', err);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', syncIndexCms);
+    </script>
 </body>
 </html>

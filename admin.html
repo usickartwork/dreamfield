@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin CMS Dashboard — DREAMFIELD TACTICAL</title>
+    <!-- Favicon / Badge -->
+    <link rel="icon" type="image/jpeg" href="assets/img/dreamfield-lime-badge.jpg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CMS Stylesheet -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+    <!-- ------------------------------------------------------------------------
+         1. LOGIN VIEW
+         ------------------------------------------------------------------------ -->
+    <div class="login-wrapper" id="loginWrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <div class="login-logo-pill">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    TACTICAL CONTROL HUB
+                </div>
+                <h1 class="login-title">DREAMFIELD <span>CMS</span></h1>
+                <p class="login-subtitle">Masuk untuk mengelola paket, harga, teks, dan media website.</p>
+            </div>
+
+            <!-- Login Alert -->
+            <div class="login-alert" id="loginAlert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="loginAlertMsg">Email atau password salah.</span>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">Email Admin</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="admin@dreamfield.id" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Kata Sandi</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnLoginSubmit" style="margin-top: 10px;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    Masuk ke Dashboard
+                </button>
+            </form>
+
+            <div style="margin-top: 24px; text-align: center; border-top: 1px solid var(--color-card-border); padding-top: 16px;">
+                <a href="index.html" class="btn-secondary" style="display: inline-flex; border: none; font-size: 12px; color: var(--color-text-muted);">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Website Publik
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         2. DASHBOARD SHELL
+         ------------------------------------------------------------------------ -->
+    <div class="dashboard-app" id="dashboardApp">
+        <!-- Top Navbar HUD -->
+        <header class="cms-navbar">
+            <div class="navbar-left">
+                <div class="navbar-logo">
+                    <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                    DREAMFIELD <span>TACTICAL CMS</span>
+                </div>
+                <div class="navbar-system-pill">
+                    <span class="dot"></span>
+                    SUPABASE CONNECTED
+                </div>
+            </div>
+
+            <div class="navbar-right">
+                <a href="index.html" target="_blank" class="btn-secondary" style="padding: 7px 14px; font-size: 12px;">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Website
+                </a>
+
+                <div class="admin-profile-badge">
+                    <div class="admin-avatar" id="adminAvatarInitial">A</div>
+                    <span class="admin-email-text" id="adminEmailDisplay">admin@dreamfield.id</span>
+                    <span class="admin-role-tag" id="adminRoleTag">SUPERADMIN</span>
+                </div>
+
+                <button type="button" class="btn-secondary" id="btnLogout" style="padding: 7px 12px; font-size: 12px; color: var(--color-danger);" title="Logout">
+                    <i class="fa-solid fa-power-off"></i> Keluar
+                </button>
+            </div>
+        </header>
+
+        <!-- Main CMS Content -->
+        <main class="cms-container">
+            <!-- Tabs Bar -->
+            <nav class="cms-tabs-bar">
+                <button type="button" class="tab-btn active" data-tab="packages">
+                    <i class="fa-solid fa-tags"></i> Paket & Harga (16)
+                </button>
+                <button type="button" class="tab-btn" data-tab="editorial">
+                    <i class="fa-solid fa-pen-nib"></i> Teks & Kontak
+                </button>
+                <button type="button" class="tab-btn" data-tab="media">
+                    <i class="fa-solid fa-photo-film"></i> Galeri & Media
+                </button>
+                <button type="button" class="tab-btn" data-tab="faqs">
+                    <i class="fa-solid fa-comments"></i> FAQ & Chatbot AI
+                </button>
+                <button type="button" class="tab-btn" data-tab="admins">
+                    <i class="fa-solid fa-user-shield"></i> Admin Users
+                </button>
+            </nav>
+
+            <!-- ----------------------------------------------------------------
+                 TAB 1: PACKAGES & PRICING
+                 ---------------------------------------------------------------- -->
+            <section class="tab-panel active" id="panel-packages">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <h2>Manajemen Paket & Tarif Permainan</h2>
+                        <p>Ubah tarif, nama paket, fasilitas, dan status aktif. Perubahan langsung sinkron ke formulir booking & katalog.</p>
+                    </div>
+                    <button type="button" class="btn-primary" style="width: auto;" onclick="window.openNewPackageModal()">
+                        <i class="fa-solid fa-plus"></i> Tambah Paket Baru
+                    </button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filter-bar">
+                    <button type="button" class="filter-chip active" data-category="all">Semua Paket</button>
+                    <button type="button" class="filter-chip" data-category="wargame">War Game CQB (8)</button>
+                    <button type="button" class="filter-chip" data-category="target">Shooting Target (3)</button>
+                    <button type="button" class="filter-chip" data-category="coaching">Tactical Coaching (2)</button>
+                    <button type="button" class="filter-chip" data-category="unit">Unit Drill (2)</button>
+                    <button type="button" class="filter-chip" data-category="gear">Gear Rental (1)</button>
+                </div>
+
+                <!-- Packages Grid -->
+                <div class="packages-grid" id="packagesGrid"></div>
+            </section>
+
+            <!-- ----------------------------------------------------------------
+                 TAB 2: EDITORIAL CONTENT & CONTACT
+                 ---------------------------------------------------------------- -->
+            <section class="tab-panel" id="panel-editorial">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <h2>Teks Konten, Alamat & Hotline WhatsApp</h2>
+                        <p>Kelola teks sambutan hero, jam operasional, link media sosial, dan nomor kontak customer service.</p>
+                    </div>
+                </div>
+
+                <form id="editorialForm">
+                    <div class="editorial-sections-grid">
+                        <!-- Hero Section Card -->
+                        <div class="editorial-card">
+                            <div class="editorial-card-header">
+                                <i class="fa-solid fa-bullhorn" style="color: var(--color-lime);"></i>
+                                <h3>Hero Section (Halaman Utama)</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hero Badge</label>
+                                <input type="text" class="form-input" id="content_hero_badge" data-section="hero" data-content-key="badge">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Judul Utama Baris 1</label>
+                                <input type="text" class="form-input" id="content_hero_title_line_1" data-section="hero" data-content-key="title_line_1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Judul Utama Baris 2</label>
+                                <input type="text" class="form-input" id="content_hero_title_line_2" data-section="hero" data-content-key="title_line_2">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Sambutan Hero</label>
+                                <textarea class="form-textarea" rows="3" id="content_hero_description" data-section="hero" data-content-key="description"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Contact & WhatsApp Card -->
+                        <div class="editorial-card">
+                            <div class="editorial-card-header">
+                                <i class="fa-brands fa-whatsapp" style="color: var(--color-lime);"></i>
+                                <h3>Kontak WhatsApp & Lokasi Arena</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nomor WhatsApp Admin (Format 08...)</label>
+                                <input type="text" class="form-input" id="content_contact_wa_number" data-section="contact" data-content-key="wa_number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nomor WhatsApp Internasional (Format 62...)</label>
+                                <input type="text" class="form-input" id="content_contact_wa_number_intl" data-section="contact" data-content-key="wa_number_intl">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Label Teks WhatsApp Display</label>
+                                <input type="text" class="form-input" id="content_contact_wa_display" data-section="contact" data-content-key="wa_display">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Alamat Lengkap Arena</label>
+                                <input type="text" class="form-input" id="content_contact_location_name" data-section="contact" data-content-key="location_name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Link Google Maps</label>
+                                <input type="url" class="form-input" id="content_contact_maps_url" data-section="contact" data-content-key="maps_url">
+                            </div>
+                        </div>
+
+                        <!-- Operational Hours & Social Card -->
+                        <div class="editorial-card">
+                            <div class="editorial-card-header">
+                                <i class="fa-solid fa-clock" style="color: var(--color-lime);"></i>
+                                <h3>Jam Operasional & Media Sosial</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Jam Operasional</label>
+                                <input type="text" class="form-input" id="content_contact_operational_hours" data-section="contact" data-content-key="operational_hours">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Keterangan Hari Libur</label>
+                                <input type="text" class="form-input" id="content_contact_closed_days" data-section="contact" data-content-key="closed_days">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Link Instagram Resmi</label>
+                                <input type="url" class="form-input" id="content_social_instagram_url" data-section="social" data-content-key="instagram_url">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Link TikTok Resmi</label>
+                                <input type="url" class="form-input" id="content_social_tiktok_url" data-section="social" data-content-key="tiktok_url">
+                            </div>
+                        </div>
+
+                        <!-- CTA Banner Card -->
+                        <div class="editorial-card">
+                            <div class="editorial-card-header">
+                                <i class="fa-solid fa-crosshairs" style="color: var(--color-lime);"></i>
+                                <h3>Call to Action (CTA Banner)</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Judul Banner CTA</label>
+                                <input type="text" class="form-input" id="content_cta_heading" data-section="cta" data-content-key="heading">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Banner CTA</label>
+                                <textarea class="form-textarea" rows="3" id="content_cta_description" data-section="cta" data-content-key="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px; text-align: right;">
+                        <button type="submit" class="btn-primary" id="btnSaveEditorial" style="width: auto; padding: 14px 32px;">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Semua Perubahan Teks
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- ----------------------------------------------------------------
+                 TAB 3: MEDIA & STORAGE
+                 ---------------------------------------------------------------- -->
+            <section class="tab-panel" id="panel-media">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <h2>Galeri Foto & Supabase Storage</h2>
+                        <p>Kelola foto slider arena, preview photobooth, dan unggah foto baru langsung ke bucket <code>dreamfield-assets</code>.</p>
+                    </div>
+                    <button type="button" class="btn-primary" style="width: auto;" onclick="window.openUploadModal()">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Unggah Gambar Baru
+                    </button>
+                </div>
+
+                <div class="media-grid" id="mediaGrid"></div>
+            </section>
+
+            <!-- ----------------------------------------------------------------
+                 TAB 4: FAQS & CHATBOT AI
+                 ---------------------------------------------------------------- -->
+            <section class="tab-panel" id="panel-faqs">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <h2>Knowledge Base: FAQ & Chatbot Mindream</h2>
+                        <p>Daftar tanya-jawab ini digunakan sebagai acuan informasi resmi bagi pengunjung dan asisten AI Mindream.</p>
+                    </div>
+                    <button type="button" class="btn-primary" style="width: auto;" onclick="window.openNewFaqModal()">
+                        <i class="fa-solid fa-plus"></i> Tambah FAQ Baru
+                    </button>
+                </div>
+
+                <div class="faq-list" id="faqList"></div>
+            </section>
+
+            <!-- ----------------------------------------------------------------
+                 TAB 5: ADMIN MANAGEMENT
+                 ---------------------------------------------------------------- -->
+            <section class="tab-panel" id="panel-admins">
+                <div class="panel-header">
+                    <div class="panel-title-wrap">
+                        <h2>Manajemen Hak Akses Admin</h2>
+                        <p>Daftar pengguna yang memiliki izin login dan mengelola konten di CMS Dreamfield Tactical.</p>
+                    </div>
+                </div>
+
+                <div style="background-color: var(--color-card-bg); border: 1px solid var(--color-card-border); border-radius: 10px; overflow: hidden; margin-bottom: 24px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                        <thead style="background-color: #121417; border-bottom: 1px solid var(--color-card-border);">
+                            <tr>
+                                <th style="padding: 12px 16px; color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Nama Admin</th>
+                                <th style="padding: 12px 16px; color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Email Terdaftar</th>
+                                <th style="padding: 12px 16px; color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Role</th>
+                                <th style="padding: 12px 16px; color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Status</th>
+                                <th style="padding: 12px 16px; color: var(--color-text-muted); text-transform: uppercase; font-size: 11px;">Terdaftar Pada</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Info Box for bootstrapping admins -->
+                <div style="background-color: rgba(183, 255, 0, 0.05); border: 1px solid var(--color-lime-glow); border-radius: 8px; padding: 20px;">
+                    <h4 style="color: var(--color-lime); font-family: var(--font-heading); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-shield-halved"></i> Prosedur Penambahan Admin Baru
+                    </h4>
+                    <p style="font-size: 13px; color: #abb3bf; line-height: 1.6;">
+                        Untuk alasan keamanan tingkat tinggi, registrasi umum ditutup. Setiap admin baru harus dibuat terlebih dahulu di menu <strong>Supabase Dashboard > Authentication > Users > Add User</strong>. Setelah akun dibuat, tambahkan UID-nya ke tabel <code>public.admin_users</code> melalui SQL Editor.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         MODAL 1: EDIT / TAMBAH PAKET
+         ------------------------------------------------------------------------ -->
+    <div class="modal-overlay" id="packageModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="packageModalTitle">Edit Paket</h3>
+                <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <form id="packageForm">
+                <div class="modal-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="pkgId">ID Paket (Unik)</label>
+                            <input type="text" id="pkgId" class="form-input" placeholder="contoh: wg-aeg-1h" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkgCategory">Kategori Arena</label>
+                            <select id="pkgCategory" class="form-select" required>
+                                <option value="wargame">War Game CQB</option>
+                                <option value="target">Shooting Target</option>
+                                <option value="coaching">Tactical Coaching</option>
+                                <option value="unit">Unit Drill</option>
+                                <option value="gear">Gear Rental</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkgName">Nama Paket</label>
+                        <input type="text" id="pkgName" class="form-input" placeholder="contoh: Lapangan + AEG (1 Jam)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkgPlatform">Platform / Senjata</label>
+                        <input type="text" id="pkgPlatform" class="form-input" placeholder="contoh: Airsoft AEG M4 CQB" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="pkgPrice">Nominal Harga (Angka murni)</label>
+                            <input type="number" id="pkgPrice" class="form-input" placeholder="150000" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkgUnit">Satuan Tarif</label>
+                            <input type="text" id="pkgUnit" class="form-input" placeholder="/ Orang / Jam" required>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label class="form-label" for="pkgBadge">Badge Promosi (Opsional)</label>
+                            <input type="text" id="pkgBadge" class="form-input" placeholder="TERPOPULER / BEST VALUE">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkgDuration">Durasi (Menit)</label>
+                            <input type="number" id="pkgDuration" class="form-input" placeholder="60">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkgDesc">Deskripsi Ringkas Paket</label>
+                        <textarea id="pkgDesc" class="form-textarea" rows="2" placeholder="Jelaskan pengalaman yang didapatkan..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkgFeatures">Daftar Fasilitas (Pisahkan tiap poin dengan Baris Baru/Enter)</label>
+                        <textarea id="pkgFeatures" class="form-textarea" rows="4" placeholder="Akses arena CQB 60 menit&#10;Rental Unit Airsoft AEG M4&#10;Rompi taktis & kacamata goggle"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="status-toggle">
+                            <input type="checkbox" id="pkgIsActive" checked>
+                            <span>Paket ini Aktif dan Ditampilkan ke Pengunjung</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-close-modal>Batal</button>
+                    <button type="submit" class="btn-primary" id="btnSavePackage" style="width: auto;">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan Paket
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         MODAL 2: UPLOAD GAMBAR BARU KE STORAGE
+         ------------------------------------------------------------------------ -->
+    <div class="modal-overlay" id="mediaModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Unggah Gambar ke Supabase Storage</h3>
+                <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <form id="mediaUploadForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="mediaFileInput">Pilih File Gambar (JPEG, PNG, WebP, max 5MB)</label>
+                        <input type="file" id="mediaFileInput" class="form-input" accept="image/jpeg,image/png,image/webp" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="mediaCategorySelect">Kategori Gambar</label>
+                        <select id="mediaCategorySelect" class="form-select" required>
+                            <option value="gallery">Galeri Slider Arena</option>
+                            <option value="arena">Preview Arena & Armory</option>
+                            <option value="branding">Logo & Branding</option>
+                            <option value="hero">Hero Background</option>
+                            <option value="other">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="mediaTitleInput">Judul Gambar</label>
+                        <input type="text" id="mediaTitleInput" class="form-input" placeholder="contoh: Turnamen CQB Komunitas">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="mediaAltInput">Teks Alternatif (Alt Text SEO)</label>
+                        <input type="text" id="mediaAltInput" class="form-input" placeholder="contoh: Pemain airsoft bersiap di safe zone">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-close-modal>Batal</button>
+                    <button type="submit" class="btn-primary" id="btnSubmitUpload" style="width: auto;">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Unggah Gambar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------
+         MODAL 3: EDIT / TAMBAH FAQ
+         ------------------------------------------------------------------------ -->
+    <div class="modal-overlay" id="faqModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="faqModalTitle">Tambah FAQ Baru</h3>
+                <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+            </div>
+            <form id="faqForm">
+                <div class="modal-body">
+                    <input type="hidden" id="faqId">
+                    <div class="form-group">
+                        <label class="form-label" for="faqCategory">Kategori</label>
+                        <select id="faqCategory" class="form-select" required>
+                            <option value="general">Umum</option>
+                            <option value="location">Lokasi & Jam</option>
+                            <option value="rules">Aturan & Keamanan</option>
+                            <option value="booking">Booking & Pembayaran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="faqQuestion">Pertanyaan (Question)</label>
+                        <input type="text" id="faqQuestion" class="form-input" placeholder="contoh: Apakah pemula boleh ikut main?" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="faqAnswer">Jawaban Resmi (Answer)</label>
+                        <textarea id="faqAnswer" class="form-textarea" rows="4" placeholder="Jelaskan jawaban secara ringkas dan informatif..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" data-close-modal>Batal</button>
+                    <button type="submit" class="btn-primary" id="btnSaveFaq" style="width: auto;">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan FAQ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Supabase JS Library (v2) from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- CMS App JS -->
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
